@@ -7,6 +7,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme, Theme, createStyles } from "@material-ui/core/styles";
+import { NavigationList } from "./NavigationList";
 
 const drawerWidth = 240;
 
@@ -51,23 +52,6 @@ interface ResponsiveDrawerProps {
     title?: string;
 }
 
-const navStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: { display: "flex", justifyContent: "space-between", width: "275px" }
-    })
-);
-const NavigationMenu: React.FC = () => {
-    const classes = navStyles();
-
-    return (
-        <div className={classes.root}>
-            <div>Word analysis</div>
-            <div>About</div>
-            <div>Contact us</div>
-        </div>
-    );
-};
-
 export const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = (props: ResponsiveDrawerProps) => {
     const { title = "Macroscope" } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -97,7 +81,7 @@ export const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = (props: Respons
                             {title}
                         </Typography>
                         <Hidden xsDown implementation="css">
-                            <NavigationMenu />
+                            <NavigationList />
                         </Hidden>
                     </div>
                 </Toolbar>
@@ -117,7 +101,7 @@ export const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = (props: Respons
                             keepMounted: true // Better open performance on mobile.
                         }}
                     >
-                        <NavigationMenu />
+                        <NavigationList />
                     </Drawer>
                 </nav>
             </Hidden>
