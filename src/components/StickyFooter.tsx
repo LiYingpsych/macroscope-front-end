@@ -12,6 +12,7 @@ content: {
 flex: "1",
 }
 }));
+
 interface IStickyFooterProps extends React.HTMLAttributes<HTMLDivElement> {
 content: ReactNode;
 footer:  ReactNode;
