@@ -1,15 +1,19 @@
 import React from "react";
-import { StickyFooter } from "./components/StickyFooter";
+import { ResponsiveDrawer } from "./components/ResponsiveDrawer";
+import { RouteComponentProps } from "react-router";
 
-export const HomePage: React.FC = () => {
+interface IProps extends RouteComponentProps<{}> {}
+
+export const HomePage: React.FC<IProps> = (props: IProps) => {
     return (
-        <StickyFooter footer={<Footer />} content={<Content />}/>
+        <ResponsiveDrawer {...props} />
+        // <StickyFooter footer={<Footer />} content={<Content />}/>
     );
 };
 
-const Footer: React.FC = () => {
-    return <div>footer</div>
-}
-const Content: React.FC = () => {
-    return <div>content</div>
-}
+// const Footer: React.FC = () => {
+//     return <div>footer</div>
+// }
+// const Content: React.FC = () => {
+//     return <div>content</div>
+// }
