@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
+// https://github.com/CharlesStover/use-react-router
 interface IProps extends RouteComponentProps<{}> {
     title?: string;
     mainDrawerContent?: ReactNode;
@@ -61,10 +62,6 @@ interface IProps extends RouteComponentProps<{}> {
     footer?: ReactNode;
     backButton?: boolean;
 }
-
-// interface IState {
-//     mobileOpen: boolean;
-// }
 
 export const ResponsiveDrawer: React.FC<IProps> = (props: IProps) => {
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
