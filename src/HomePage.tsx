@@ -1,8 +1,15 @@
 import React from "react";
-import { Container } from "@material-ui/core";
+import { StickyFooter } from "./components/StickyFooter";
 
 export const HomePage: React.FC = () => {
     return (
-        <Container>HomePage</Container>
+        <StickyFooter footer={<Footer />} content={<Content />}/>
     );
 };
+
+const Footer: React.FC = () => {
+    return <div>footer</div>
+}
+const Content: React.FC = () => {
+    return <div>content</div>
+}
