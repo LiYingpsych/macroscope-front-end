@@ -1,15 +1,19 @@
 import React from "react";
 import { ResponsiveDrawer } from "./components/ResponsiveDrawer";
-import SimpleTabs from "./components/SimpleTabs";
+import SimpleTabs, { ITabItem } from "./components/SimpleTabs";
 // import { RouteComponentProps } from "react-router";
 // import { Typography } from "@material-ui/core";
 
 // interface IProps extends RouteComponentProps<{}> {}
 
 export const HomePage: React.FC = () => {
+    const mainNavTabs: ITabItem[] = [
+        { label: "Tab 1", content: "Content 1" },
+        { label: "Tab 2", content: "Content 2" }
+    ];
     return (
         <ResponsiveDrawer>
-            <SimpleTabs />
+            <SimpleTabs tabItems={mainNavTabs} />
 
             {/* <Typography paragraph>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor

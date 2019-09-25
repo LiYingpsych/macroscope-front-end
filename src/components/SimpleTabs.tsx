@@ -6,6 +6,11 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
+export interface ITabItem {
+    label: string;
+    content: any;
+}
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: any;
@@ -43,9 +48,28 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }));
 
-export default function SimpleTabs() {
+interface IProps {
+    tabItems: ITabItem[];
+}
+
+export default function SimpleTabs(props: IProps) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
+
+    const { tabItems } = props;
+
+    const tabs = tabItems.map((tab, index) => {
+        return <Tab label={tab.label} {...a11yProps(index)} />;
+    });
+
+    const tabPanels = (_value: number) =>
+        tabItems.map((tab, index) => {
+            return (
+                <TabPanel value={_value} index={index}>
+                    {tab.content}
+                </TabPanel>
+            );
+        });
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
@@ -55,20 +79,10 @@ export default function SimpleTabs() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                    <Tab label="Item One" {...a11yProps(0)} />
-                    <Tab label="Item Two" {...a11yProps(1)} />
-                    <Tab label="Item Three" {...a11yProps(2)} />
+                    {tabs}
                 </Tabs>
             </AppBar>
-            <TabPanel value={value} index={0}>
-                Item One
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                Item Two
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                Item Three
-            </TabPanel>
+            {tabPanels(value)}
         </div>
     );
 }
