@@ -1,14 +1,17 @@
 import React from "react";
 import { ResponsiveDrawer } from "./components/ResponsiveDrawer";
-import { Typography } from "@material-ui/core";
+import SimpleTabs from "./components/SimpleTabs";
 // import { RouteComponentProps } from "react-router";
+// import { Typography } from "@material-ui/core";
 
 // interface IProps extends RouteComponentProps<{}> {}
 
 export const HomePage: React.FC = () => {
     return (
         <ResponsiveDrawer>
-            <Typography paragraph>
+            <SimpleTabs />
+
+            {/* <Typography paragraph>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent
                 elementum facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in
@@ -32,7 +35,7 @@ export const HomePage: React.FC = () => {
                 Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean euismod
                 elementum nisi quis eleifend. Commodo viverra maecenas accumsan lacus vel facilisis.
                 Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-            </Typography>
+            </Typography> */}
         </ResponsiveDrawer>
         // <StickyFooter footer={<Footer />} content={<Content />}/>
     );
