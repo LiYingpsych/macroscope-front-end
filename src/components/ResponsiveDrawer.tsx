@@ -13,6 +13,8 @@ import { Tabs, Tab } from "@material-ui/core";
 
 import "./ResponsiveDrawer.css";
 import { NavigationList } from "./NavigationList";
+import { StickyFooter } from "./StickyFooter";
+import { Footer } from "./Footer";
 
 const drawerWidth = 240;
 
@@ -176,11 +178,15 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
                     </Drawer>
                 </nav>
             </Hidden>
-
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                {tabPanels(tabIndex)}
-            </main>
+            <StickyFooter
+                content={
+                    <main className={classes.content}>
+                        <div className={classes.toolbar} />
+                        {tabPanels(tabIndex)}
+                    </main>
+                }
+                footer={<Footer />}
+            />
         </div>
     );
 }
