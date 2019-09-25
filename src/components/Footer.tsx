@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Divider } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+import Divider from "@material-ui/core/Divider";
 
 export const Footer: React.FC = () => {
     return (

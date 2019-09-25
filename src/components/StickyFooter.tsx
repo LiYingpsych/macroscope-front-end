@@ -5,11 +5,13 @@ import { makeStyles } from "@material-ui/styles";
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         display: "flex",
+        flex: 1,
         flexDirection: "column",
         minHeight: "100vh"
     },
     content: {
-        flex: "1"
+        backgroundColor: "#f5f5f5",
+        flex: 1
     }
 }));
 

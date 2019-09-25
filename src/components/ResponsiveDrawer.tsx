@@ -186,10 +186,10 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
             </Hidden>
             <StickyFooter
                 content={
-                    <main className={classes.content}>
+                    <div className={classes.content}>
                         <div className={classes.toolbar} />
                         {tabPanels(tabIndex)}
-                    </main>
+                    </div>
                 }
                 footer={<Footer />}
             />

@@ -1,6 +1,6 @@
 import React from "react";
 import ResponsiveDrawer, { ITabItem } from "./components/ResponsiveDrawer";
-import { WordAnalysis } from "./wordAnalysis/WordAnalysis";
+import WordAnalysis from "./wordAnalysis/WordAnalysis";
 
 export const HomePage: React.FC = () => {
     const mainNavTabs: ITabItem[] = [
