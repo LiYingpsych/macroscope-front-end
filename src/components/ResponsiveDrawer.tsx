@@ -1,5 +1,6 @@
 import React from "react";
 import classnames from "classnames";
+
 import AppBar from "@material-ui/core/AppBar";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
@@ -8,10 +9,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme, Theme, createStyles } from "@material-ui/core/styles";
-import { NavigationList } from "./NavigationList";
 import { Tabs, Tab } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
+
 import "./ResponsiveDrawer.css";
+import { NavigationList } from "./NavigationList";
 
 const drawerWidth = 240;
 
@@ -52,6 +53,11 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
+export interface ITabItem {
+    label: string;
+    content: any;
+}
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -70,18 +76,18 @@ function TabPanel(props: TabPanelProps) {
             aria-labelledby={`simple-tab-${index}`}
             {...other}
         >
-            <Box p={3}>{children}</Box>
+            {children}
         </Typography>
     );
 }
 
 interface ResponsiveDrawerProps {
+    tabItems: ITabItem[];
     title?: string;
-    children?: any;
 }
 
-export const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = (props: ResponsiveDrawerProps) => {
-    const { title = "Macroscope" } = props;
+export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
+    const { title = "Macroscope", tabItems } = props;
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [tabIndex, setTabIndex] = React.useState(0);
@@ -89,19 +95,33 @@ export const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = (props: Respons
     const classes = useStyles();
     const theme = useTheme();
 
+    const tabProps = (index: number) => {
+        return {
+            id: `simple-tab-${index}`,
+            "aria-controls": `simple-tabpanel-${index}`
+        };
+    };
+
+    const tabs = tabItems.map((tab, index) => {
+        return <Tab label={tab.label} {...tabProps(index)} />;
+    });
+
+    const tabPanels = (value: number) => {
+        return tabItems.map((tab, index) => {
+            return (
+                <TabPanel value={value} index={index}>
+                    {tab.content}
+                </TabPanel>
+            );
+        });
+    };
+
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
     const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setTabIndex(newValue);
-    };
-
-    const tabProps = (index: number) => {
-        return {
-            id: `simple-tab-${index}`,
-            "aria-controls": `simple-tabpanel-${index}`
-        };
     };
 
     return (
@@ -130,9 +150,7 @@ export const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = (props: Respons
                                     aria-label="Navigation tabs"
                                     classes={{ flexContainer: "main-app-bar-height" }}
                                 >
-                                    <Tab label="Word Analysis" {...tabProps(0)} />
-                                    <Tab label="About" {...tabProps(1)} />
-                                    <Tab label="Contact Us" {...tabProps(2)} />
+                                    {tabs}
                                 </Tabs>
                             </Hidden>
                         </div>
@@ -161,17 +179,8 @@ export const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = (props: Respons
 
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                {/* <TabPanel value={tabIndex} index={0}>
-                    Word analysis
-                </TabPanel>
-                <TabPanel value={tabIndex} index={1}>
-                    About
-                </TabPanel>
-                <TabPanel value={tabIndex} index={2}>
-                    Contact us
-                </TabPanel> */}
-                {props.children}
+                {tabPanels(tabIndex)}
             </main>
         </div>
     );
-};
+}
