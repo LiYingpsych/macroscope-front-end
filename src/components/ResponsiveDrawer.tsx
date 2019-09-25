@@ -12,7 +12,6 @@ import { makeStyles, useTheme, Theme, createStyles } from "@material-ui/core/sty
 import { Tabs, Tab } from "@material-ui/core";
 
 import "./ResponsiveDrawer.css";
-import { NavigationList } from "./NavigationList";
 import { StickyFooter } from "./StickyFooter";
 import { Footer } from "./Footer";
 
@@ -105,13 +104,13 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
     };
 
     const tabs = tabItems.map((tab, index) => {
-        return <Tab label={tab.label} {...tabProps(index)} />;
+        return <Tab label={tab.label} {...tabProps(index)} key={`tab-${index}`} />;
     });
 
     const tabPanels = (value: number) => {
         return tabItems.map((tab, index) => {
             return (
-                <TabPanel value={value} index={index}>
+                <TabPanel value={value} index={index} key={`tabPanel-${index}`}>
                     {tab.content}
                 </TabPanel>
             );
@@ -174,7 +173,14 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
                             keepMounted: true // Better open performance on mobile.
                         }}
                     >
-                        <NavigationList />
+                        <Tabs
+                            value={tabIndex}
+                            onChange={handleTabChange}
+                            aria-label="Side bar navigation tabs"
+                            orientation="vertical"
+                        >
+                            {tabs}
+                        </Tabs>
                     </Drawer>
                 </nav>
             </Hidden>
