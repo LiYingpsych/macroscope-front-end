@@ -3,11 +3,6 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Switch from "@material-ui/core/Switch";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/styles";
 import { Theme, createStyles } from "@material-ui/core";
 
@@ -21,9 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
         formControl: {
             margin: theme.spacing(1),
             minWidth: 120
-        },
-        selectEmpty: {
-            marginTop: theme.spacing(2)
         }
     })
 );
@@ -34,8 +26,6 @@ export default function SynonymListSettings() {
     const [settings, setSettings] = React.useState({
         year: 1990
     });
-
-    const [isOpen, setIsOpen] = React.useState(false);
 
     const inputLabel = React.useRef<HTMLLabelElement>(null);
     const [labelWidth, setLabelWidth] = React.useState(0);
@@ -51,20 +41,8 @@ export default function SynonymListSettings() {
         }));
     };
 
-    const toggleSwitch = () => {
-        setIsOpen(!isOpen);
-    };
-
     return (
         <div className={classes.root}>
-            <List dense={true}>
-                <ListItem button onClick={toggleSwitch}>
-                    <ListItemText primary="Synonym list" />
-                    <Switch checked={isOpen} />
-                </ListItem>
-                <Divider />
-            </List>
-
             <form autoComplete="off">
                 <FormControl variant="outlined" className={classes.formControl}>
                     <InputLabel ref={inputLabel} htmlFor="year-select">
