@@ -64,28 +64,28 @@ export interface ITabItem {
     content: any;
 }
 
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
+// interface TabPanelProps {
+//     children?: React.ReactNode;
+//     index: number;
+//     value: number;
+// }
 
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
+// function TabPanel(props: TabPanelProps) {
+//     const { children, value, index, ...other } = props;
 
-    return (
-        <Typography
-            component="div"
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {children}
-        </Typography>
-    );
-}
+//     return (
+//         <Typography
+//             component="div"
+//             role="tabpanel"
+//             hidden={value !== index}
+//             id={`simple-tabpanel-${index}`}
+//             aria-labelledby={`simple-tab-${index}`}
+//             {...other}
+//         >
+//             {children}
+//         </Typography>
+//     );
+// }
 
 interface ResponsiveDrawerProps {
     tabItems: ITabItem[];
@@ -95,34 +95,16 @@ interface ResponsiveDrawerProps {
 export default function PageLayout(props: ResponsiveDrawerProps) {
     const { title = "Macroscope", tabItems } = props;
 
+    const [mobileOpen, setMobileOpen] = React.useState(false);
+
     const classes = useStyles();
     const theme = useTheme();
     const { location } = useReactRouter();
 
-    const getTabIndex = (route: string): number => {
-        for (let index = 0; index < tabItems.length; index++) {
-            const tab = tabItems[index];
-
-            if (route.toLowerCase() === tab.route.toLowerCase()) {
-                return index;
-            }
-        }
-
-        return 0;
-    };
-
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [tabIndex, setTabIndex] = React.useState(getTabIndex(location.pathname));
-
-    const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setTabIndex(newValue);
-    };
-
     const tabs = (orientation: "horizontal" | "vertical" = "horizontal") => {
         return (
             <Tabs
-                value={tabIndex}
-                onChange={handleTabChange}
+                value={location.pathname}
                 classes={{ flexContainer: "main-app-bar-height" }}
                 orientation={orientation}
             >
@@ -130,6 +112,7 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                     return (
                         <Tab
                             label={tab.label}
+                            value={tab.route}
                             component={Link}
                             to={tab.route}
                             key={`tab-${index}`}
@@ -140,15 +123,19 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
         );
     };
 
-    const tabPanels = (value: number) => {
-        return tabItems.map((tab, index) => {
-            return (
-                <TabPanel value={value} index={index} key={`tabPanel-${index}`}>
-                    {tab.content}
-                </TabPanel>
-            );
-        });
-    };
+    // const tabPanels = (value: number) => {
+    //     return tabItems.map((tab, index) => {
+    //         return (
+    //             <TabPanel value={value} index={index} key={`tabPanel-${index}`}>
+    //                 {tab.content}
+    //             </TabPanel>
+    //         );
+    //     });
+    // };
+
+    const pageRoutes = tabItems.map((tab, index) => {
+        return <Route path={tab.route} render={() => tab.content} key={`route-${index}`} />;
+    });
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -174,7 +161,12 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                         </Typography>
                         <div>
                             <Hidden xsDown implementation="css">
+                                {/* <Tabs
+                                    value={location.pathname}
+                                    classes={{ flexContainer: "main-app-bar-height" }}
+                                > */}
                                 {tabs()}
+                                {/* </Tabs> */}
                             </Hidden>
                         </div>
                     </div>
@@ -195,7 +187,14 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                             keepMounted: true // Better open performance on mobile.
                         }}
                     >
+                        {/* <Tabs
+                            value={tabIndex}
+                            onChange={handleTabChange}
+                            aria-label="Side bar navigation tabs"
+                            orientation="vertical"
+                        > */}
                         {tabs("vertical")}
+                        {/* </Tabs> */}
                     </Drawer>
                 </nav>
             </Hidden>
@@ -203,7 +202,11 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                 content={
                     <div className={classes.content}>
                         <div className={classes.toolbar} />
-                        {tabPanels(tabIndex)}
+                        {/* {tabPanels(tabIndex)} */}
+                        <Switch>
+                            {pageRoutes}
+                            {/* <Route component={NotFoundPage} /> */}
+                        </Switch>
                     </div>
                 }
                 footer={<Footer />}

@@ -15,7 +15,6 @@ const App: React.FC = () => {
             <BrowserRouter>
                 <Switch>
                     <Route path="/" component={HomePage} />
-                    {/* <Route component={NotFoundPage} /> */}
                 </Switch>
             </BrowserRouter>
         </MuiThemeProvider>
