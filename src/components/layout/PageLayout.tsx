@@ -1,6 +1,9 @@
 import React from "react";
 import classnames from "classnames";
 
+import useReactRouter from "use-react-router";
+import { Link, Route, Switch } from "react-router-dom";
+
 import { makeStyles, useTheme, Theme, createStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Drawer from "@material-ui/core/Drawer";
@@ -56,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export interface ITabItem {
+    route: string;
     label: string;
     content: any;
 }
@@ -91,22 +95,50 @@ interface ResponsiveDrawerProps {
 export default function PageLayout(props: ResponsiveDrawerProps) {
     const { title = "Macroscope", tabItems } = props;
 
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [tabIndex, setTabIndex] = React.useState(0);
-
     const classes = useStyles();
     const theme = useTheme();
+    const { location } = useReactRouter();
 
-    const tabProps = (index: number) => {
-        return {
-            id: `simple-tab-${index}`,
-            "aria-controls": `simple-tabpanel-${index}`
-        };
+    const getTabIndex = (route: string): number => {
+        for (let index = 0; index < tabItems.length; index++) {
+            const tab = tabItems[index];
+
+            if (route.toLowerCase() === tab.route.toLowerCase()) {
+                return index;
+            }
+        }
+
+        return 0;
     };
 
-    const tabs = tabItems.map((tab, index) => {
-        return <Tab label={tab.label} {...tabProps(index)} key={`tab-${index}`} />;
-    });
+    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [tabIndex, setTabIndex] = React.useState(getTabIndex(location.pathname));
+
+    const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+        setTabIndex(newValue);
+    };
+
+    const tabs = (orientation: "horizontal" | "vertical" = "horizontal") => {
+        return (
+            <Tabs
+                value={tabIndex}
+                onChange={handleTabChange}
+                classes={{ flexContainer: "main-app-bar-height" }}
+                orientation={orientation}
+            >
+                {tabItems.map((tab, index) => {
+                    return (
+                        <Tab
+                            label={tab.label}
+                            component={Link}
+                            to={tab.route}
+                            key={`tab-${index}`}
+                        />
+                    );
+                })}
+            </Tabs>
+        );
+    };
 
     const tabPanels = (value: number) => {
         return tabItems.map((tab, index) => {
@@ -120,10 +152,6 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
-    };
-
-    const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setTabIndex(newValue);
     };
 
     return (
@@ -146,14 +174,7 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                         </Typography>
                         <div>
                             <Hidden xsDown implementation="css">
-                                <Tabs
-                                    value={tabIndex}
-                                    onChange={handleTabChange}
-                                    aria-label="Navigation tabs"
-                                    classes={{ flexContainer: "main-app-bar-height" }}
-                                >
-                                    {tabs}
-                                </Tabs>
+                                {tabs()}
                             </Hidden>
                         </div>
                     </div>
@@ -174,14 +195,7 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                             keepMounted: true // Better open performance on mobile.
                         }}
                     >
-                        <Tabs
-                            value={tabIndex}
-                            onChange={handleTabChange}
-                            aria-label="Side bar navigation tabs"
-                            orientation="vertical"
-                        >
-                            {tabs}
-                        </Tabs>
+                        {tabs("vertical")}
                     </Drawer>
                 </nav>
             </Hidden>

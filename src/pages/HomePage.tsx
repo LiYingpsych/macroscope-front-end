@@ -4,9 +4,9 @@ import PageLayout, { ITabItem } from "../components/layout/PageLayout";
 
 export default function HomePage() {
     const mainNavTabs: ITabItem[] = [
-        { label: "Word analysis", content: <WordAnalysisPage /> },
-        { label: "Manual", content: "Manual!" },
-        { label: "Contact us", content: "Contact us!" }
+        { route: "/", label: "Word analysis", content: <WordAnalysisPage /> },
+        { route: "/manual", label: "Manual", content: "Manual!" },
+        { route: "/contactus", label: "Contact us", content: "Contact us!" }
     ];
     return <PageLayout tabItems={mainNavTabs} />;
 }

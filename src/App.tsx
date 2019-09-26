@@ -14,8 +14,8 @@ const App: React.FC = () => {
         <MuiThemeProvider theme={theme}>
             <BrowserRouter>
                 <Switch>
-                    <Route exact={true} path="/" component={HomePage} />
-                    <Route component={NotFoundPage} />
+                    <Route path="/" component={HomePage} />
+                    {/* <Route component={NotFoundPage} /> */}
                 </Switch>
             </BrowserRouter>
         </MuiThemeProvider>
