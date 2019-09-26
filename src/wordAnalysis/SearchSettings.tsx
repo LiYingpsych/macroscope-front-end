@@ -23,7 +23,12 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: "column"
         },
         expansionPanelSummary: {
+            backgroundColor: theme.palette.secondary.light,
+            color: theme.palette.secondary.contrastText,
             boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 1px 10px 0px rgba(0,0,0,0.1)"
+        },
+        expandIcon: {
+            color: theme.palette.secondary.contrastText
         }
     })
 );
@@ -35,10 +40,10 @@ export default function SearchSettings() {
         <div className={classes.root}>
             <ExpansionPanel>
                 <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<ExpandMoreIcon className={classes.expandIcon} />}
                     className={classes.expansionPanelSummary}
                 >
-                    <SettingsIcon color="action" />
+                    <SettingsIcon />
                     <Typography className={classes.heading}>Search Settings</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.content}>

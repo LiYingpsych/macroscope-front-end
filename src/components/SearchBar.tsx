@@ -11,8 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: "flex",
-            alignItems: "center",
-            width: 400
+            alignItems: "center"
         },
         iconButton: {
             padding: 10
