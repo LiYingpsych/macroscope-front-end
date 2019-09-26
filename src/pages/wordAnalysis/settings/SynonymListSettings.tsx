@@ -1,10 +1,11 @@
 import React from "react";
+
+import { makeStyles, createStyles } from "@material-ui/styles";
+import { Theme } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { makeStyles } from "@material-ui/styles";
-import { Theme, createStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

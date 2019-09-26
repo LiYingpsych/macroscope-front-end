@@ -1,8 +1,7 @@
 import React, { ReactNode } from "react";
-import { Theme } from "@material-ui/core/styles";
 import { makeStyles, createStyles } from "@material-ui/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         root: {
             backgroundColor: "#f5f5f5",

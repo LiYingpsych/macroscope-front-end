@@ -1,6 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 
+import { makeStyles, useTheme, Theme, createStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
@@ -8,12 +9,12 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, useTheme, Theme, createStyles } from "@material-ui/core/styles";
-import { Tabs, Tab } from "@material-ui/core";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 
-import "./ResponsiveDrawer.css";
+import "./PageLayout.css";
 import { StickyFooter } from "./StickyFooter";
-import { Footer } from "./Footer";
+import { Footer } from "../Footer";
 
 const drawerWidth = 240;
 
@@ -87,7 +88,7 @@ interface ResponsiveDrawerProps {
     title?: string;
 }
 
-export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
+export default function PageLayout(props: ResponsiveDrawerProps) {
     const { title = "Macroscope", tabItems } = props;
 
     const [mobileOpen, setMobileOpen] = React.useState(false);

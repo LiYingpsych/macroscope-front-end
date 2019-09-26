@@ -1,8 +1,10 @@
 import React from "react";
-import SearchBar from "../components/SearchBar";
-import SearchSettings from "./SearchSettings";
-import Grid from "@material-ui/core/Grid";
+
 import { makeStyles, createStyles } from "@material-ui/styles";
+import Grid from "@material-ui/core/Grid";
+
+import SearchSettings from "./SearchSettings";
+import SearchBar from "../../components/SearchBar";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -12,7 +14,7 @@ const useStyles = makeStyles(() =>
     })
 );
 
-export default function WordAnalysis() {
+export default function WordAnalysisPage() {
     const classes = useStyles();
 
     return (

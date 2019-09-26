@@ -1,13 +1,16 @@
 import React from "react";
+
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import SettingsIcon from "../customIcons/SettingsIcon";
+import SettingsIcon from "../../icons/SettingsIcon";
+
 import SynonymListSettings from "./settings/SynonymListSettings";
-import { Typography } from "@material-ui/core";
-import SwitchExpansionPanel from "../components/SwitchExpansionPanel";
+import SwitchExpansionPanel from "../../components/SwitchExpansionPanel";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
