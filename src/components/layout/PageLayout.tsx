@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 
 import useReactRouter from "use-react-router";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, Redirect } from "react-router-dom";
 
 import { makeStyles, useTheme, Theme, createStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -16,8 +16,9 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
 import "./PageLayout.css";
-import { StickyFooter } from "./StickyFooter";
-import { Footer } from "../Footer";
+import NotFoundPage from "../../pages/NotFoundPage";
+import StickyFooter from "./StickyFooter";
+import Footer from "../Footer";
 
 const drawerWidth = 240;
 
@@ -64,29 +65,6 @@ export interface ITabItem {
     content: any;
 }
 
-// interface TabPanelProps {
-//     children?: React.ReactNode;
-//     index: number;
-//     value: number;
-// }
-
-// function TabPanel(props: TabPanelProps) {
-//     const { children, value, index, ...other } = props;
-
-//     return (
-//         <Typography
-//             component="div"
-//             role="tabpanel"
-//             hidden={value !== index}
-//             id={`simple-tabpanel-${index}`}
-//             aria-labelledby={`simple-tab-${index}`}
-//             {...other}
-//         >
-//             {children}
-//         </Typography>
-//     );
-// }
-
 interface ResponsiveDrawerProps {
     tabItems: ITabItem[];
     title?: string;
@@ -123,18 +101,8 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
         );
     };
 
-    // const tabPanels = (value: number) => {
-    //     return tabItems.map((tab, index) => {
-    //         return (
-    //             <TabPanel value={value} index={index} key={`tabPanel-${index}`}>
-    //                 {tab.content}
-    //             </TabPanel>
-    //         );
-    //     });
-    // };
-
     const pageRoutes = tabItems.map((tab, index) => {
-        return <Route path={tab.route} render={() => tab.content} key={`route-${index}`} />;
+        return <Route exact path={tab.route} render={() => tab.content} key={`route-${index}`} />;
     });
 
     const handleDrawerToggle = () => {
@@ -161,12 +129,7 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                         </Typography>
                         <div>
                             <Hidden xsDown implementation="css">
-                                {/* <Tabs
-                                    value={location.pathname}
-                                    classes={{ flexContainer: "main-app-bar-height" }}
-                                > */}
                                 {tabs()}
-                                {/* </Tabs> */}
                             </Hidden>
                         </div>
                     </div>
@@ -187,14 +150,7 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                             keepMounted: true // Better open performance on mobile.
                         }}
                     >
-                        {/* <Tabs
-                            value={tabIndex}
-                            onChange={handleTabChange}
-                            aria-label="Side bar navigation tabs"
-                            orientation="vertical"
-                        > */}
                         {tabs("vertical")}
-                        {/* </Tabs> */}
                     </Drawer>
                 </nav>
             </Hidden>
@@ -202,10 +158,14 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                 content={
                     <div className={classes.content}>
                         <div className={classes.toolbar} />
-                        {/* {tabPanels(tabIndex)} */}
                         <Switch>
+                            <Route
+                                exact
+                                path="/"
+                                render={() => <Redirect to={tabItems[0].route} />}
+                            />
                             {pageRoutes}
-                            {/* <Route component={NotFoundPage} /> */}
+                            <Route component={NotFoundPage} />
                         </Switch>
                     </div>
                 }

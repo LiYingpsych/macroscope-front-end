@@ -27,7 +27,7 @@ interface IStickyFooterProps extends React.HTMLAttributes<HTMLDivElement> {
     footer: ReactNode;
 }
 
-export const StickyFooter: React.FC<IStickyFooterProps> = (props: IStickyFooterProps) => {
+export default function StickyFooter(props: IStickyFooterProps) {
     const classes = useStyles();
 
     return (
@@ -38,4 +38,4 @@ export const StickyFooter: React.FC<IStickyFooterProps> = (props: IStickyFooterP
             {props.footer}
         </main>
     );
-};
+}

@@ -7,7 +7,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./App.css";
 import HomePage from "./pages/HomePage";
-import NotFoundPage from "./pages/NotFoundPage";
 
 const App: React.FC = () => {
     return (
