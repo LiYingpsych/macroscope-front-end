@@ -3,9 +3,10 @@ import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SettingsIcon from "../customIcons/SettingsIcon";
+import SynonymListSettings from "./settings/SynonymListSettings";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -16,6 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingLeft: "10px",
             fontSize: theme.typography.pxToRem(15),
             fontWeight: theme.typography.fontWeightRegular
+        },
+        content: {
+            flexDirection: "column"
         }
     })
 );
@@ -30,11 +34,8 @@ export default function SearchSettings() {
                     <SettingsIcon color="action" />
                     <Typography className={classes.heading}>Search Settings</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                    </Typography>
+                <ExpansionPanelDetails className={classes.content}>
+                    <SynonymListSettings />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>
