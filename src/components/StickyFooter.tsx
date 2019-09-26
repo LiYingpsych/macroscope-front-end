@@ -1,19 +1,27 @@
 import React, { ReactNode } from "react";
 import { Theme } from "@material-ui/core/styles";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles, createStyles } from "@material-ui/styles";
 
-const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-        display: "flex",
-        flex: 1,
-        flexDirection: "column",
-        minHeight: "100vh"
-    },
-    content: {
-        backgroundColor: "#f5f5f5",
-        flex: 1
-    }
-}));
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            backgroundColor: "#f5f5f5",
+            display: "flex",
+            flex: 1,
+            flexDirection: "column",
+            minHeight: "100vh"
+        },
+        content: {
+            flex: 1,
+            display: "flex",
+            justifyContent: "center"
+        },
+        contentWrapper: {
+            flex: 1,
+            maxWidth: "1200px"
+        }
+    })
+);
 
 interface IStickyFooterProps extends React.HTMLAttributes<HTMLDivElement> {
     content: ReactNode;
@@ -25,7 +33,9 @@ export const StickyFooter: React.FC<IStickyFooterProps> = (props: IStickyFooterP
 
     return (
         <main className={classes.root}>
-            <div className={classes.content}>{props.content}</div>
+            <div className={classes.content}>
+                <div className={classes.contentWrapper}>{props.content}</div>
+            </div>
             {props.footer}
         </main>
     );
