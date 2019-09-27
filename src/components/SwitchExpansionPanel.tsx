@@ -5,7 +5,7 @@ import Switch from "@material-ui/core/Switch";
 import ListItemText from "@material-ui/core/ListItemText";
 import Container from "@material-ui/core/Container";
 import Collapse from "@material-ui/core/Collapse";
-import { makeStyles, createStyles, Theme } from "@material-ui/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

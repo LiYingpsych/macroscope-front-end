@@ -1,6 +1,6 @@
 import React from "react";
 
-import { makeStyles, createStyles } from "@material-ui/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import SearchSettings from "./SearchSettings";
