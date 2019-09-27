@@ -1,25 +1,12 @@
 import React from "react";
 
-import { makeStyles, createStyles } from "@material-ui/styles";
-import { Theme } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import { closestMaxYear, closestMinYear } from "../../../globals";
 import YearInput from "../../../components/inputs/YearInput";
+
+import { closestMaxYear, closestMinYear } from "../../../globals";
 import range from "../../../utils/range";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            display: "flex",
-            flexDirection: "column",
-            flexWrap: "wrap"
-        }
-    })
-);
-
 export default function SynonymListSettings() {
-    const classes = useStyles();
-
     const years: number[] = range(closestMinYear, closestMaxYear, 10);
     const defaultYear = years[years.length - 1];
 
@@ -28,7 +15,7 @@ export default function SynonymListSettings() {
     // checkSelectionDefault(years, defaultYear)
 
     return (
-        <form className={classes.root} autoComplete="off">
+        <form autoComplete="off">
             <Grid container direction="column">
                 <Grid container item>
                     <YearInput
