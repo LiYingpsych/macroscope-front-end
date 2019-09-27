@@ -44,7 +44,6 @@ export default function SynonymListSettings() {
     };
 
     return (
-        // <div className={classes.root}>
         <form className={classes.root} autoComplete="off">
             <Grid container direction="column">
                 <Grid container item>
@@ -69,6 +68,5 @@ export default function SynonymListSettings() {
                 </Grid>
             </Grid>
         </form>
-        // </div>
     );
 }
