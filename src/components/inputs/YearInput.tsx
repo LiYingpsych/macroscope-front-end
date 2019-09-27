@@ -1,5 +1,5 @@
 import React from "react";
-import SelectionInput, { SelectionOption } from "./SelectionInput";
+import SelectionInput, { ISelectionOption } from "./SelectionInput";
 
 interface IProps {
     years: number[];
@@ -10,11 +10,11 @@ interface IProps {
 export default function YearInput(props: IProps) {
     const { years, defaultYear, onChange } = props;
 
-    const options: SelectionOption<number>[] = years.map((year: number) => {
+    const options: ISelectionOption<number>[] = years.map((year: number) => {
         return { value: year, label: year.toString() };
     });
 
-    const defaultOption: SelectionOption<number> = {
+    const defaultOption: ISelectionOption<number> = {
         value: defaultYear,
         label: defaultYear.toString()
     };

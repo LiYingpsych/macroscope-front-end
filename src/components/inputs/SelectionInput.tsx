@@ -19,25 +19,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type OptionValue = string | number;
 
-export type SelectionOption<T extends OptionValue> = {
+export interface ISelectionOption<T extends OptionValue> {
     value: T;
     label: string;
-};
+}
 
-type Props<T extends OptionValue> = {
+interface IProps<T extends OptionValue> {
     label: string;
-    options: SelectionOption<T>[];
-    defaultOption: SelectionOption<T>;
+    options: ISelectionOption<T>[];
+    defaultOption: ISelectionOption<T>;
     onChange: (value: T) => void;
-};
+}
 
-// interface IProps {
-//     label: string;
-//     options: IOption[];
-//     defaultOption: IOption;
-// }
-
-export default function SelectionInput<T extends OptionValue>(props: Props<T>) {
+export default function SelectionInput<T extends OptionValue>(props: IProps<T>) {
     const classes = useStyles();
 
     const { label, options, onChange } = props;
@@ -50,14 +44,7 @@ export default function SelectionInput<T extends OptionValue>(props: Props<T>) {
 
     const [value, setValue] = React.useState(props.defaultOption.value);
 
-    // const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-    //     setYear(event.target.value as number);
-    //     onChange(event.target.value as number);
-    // };
-
     function handleOnChange(event: React.ChangeEvent<{ name?: string; value: unknown }>) {
-        // const { selectedIndex } = event.currentTarget;
-        // const selectedOption = props.options[selectedIndex];
         const selectedValue: T = event.target.value as T;
         setValue(selectedValue);
         onChange(selectedValue);
@@ -77,7 +64,7 @@ export default function SelectionInput<T extends OptionValue>(props: Props<T>) {
                     id: `${label}-select`
                 }}
             >
-                {options.map((option: SelectionOption<T>) => {
+                {options.map((option: ISelectionOption<T>) => {
                     return (
                         <MenuItem value={option.value} key={`${label}-menu-item-${option.value}`}>
                             {option.label}
