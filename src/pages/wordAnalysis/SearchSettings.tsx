@@ -9,8 +9,9 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SettingsIcon from "../../icons/SettingsIcon";
 
-import SynonymListSettings from "./settings/SynonymListSettings";
 import SwitchExpansionPanel from "../../components/SwitchExpansionPanel";
+import SynonymListSettings from "./settings/SynonymListSettings";
+import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SearchSettings() {
     const classes = useStyles();
 
+    // TDOD: have a global year?
     return (
         <div className={classes.root}>
             <ExpansionPanel>
@@ -55,8 +57,8 @@ export default function SearchSettings() {
                         <SynonymListSettings />
                     </SwitchExpansionPanel>
 
-                    <SwitchExpansionPanel label="Semantic network">
-                        <Typography>Semantic network settings</Typography>
+                    <SwitchExpansionPanel label="Synonym network">
+                        <SynonymNetworkSettings />
                     </SwitchExpansionPanel>
 
                     <SwitchExpansionPanel label="Context network">
