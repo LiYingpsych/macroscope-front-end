@@ -39,8 +39,13 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
 
     const inputLabel = React.useRef<HTMLLabelElement>(null);
     const [labelWidth, setLabelWidth] = React.useState(0);
+
+    const nativeInputLabel = React.useRef<HTMLLabelElement>(null);
+    const [nativeLabelWidth, setNativeLabelWidth] = React.useState(0);
+
     React.useEffect(() => {
         setLabelWidth(inputLabel.current!.offsetWidth);
+        setNativeLabelWidth(nativeInputLabel.current!.offsetWidth);
     }, []);
 
     const [value, setValue] = React.useState(props.defaultOption.value);
@@ -51,19 +56,15 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
         onChange(selectedValue);
     }
 
-    const inputLabelComponent = (
-        <InputLabel ref={inputLabel} htmlFor={`${label}-select`}>
-            {label}
-        </InputLabel>
-    );
-
     const selectComponent = (native: boolean) => {
+        const _labelWidth = nativeLabelWidth > labelWidth ? nativeLabelWidth : labelWidth;
+
         return (
             <Select
                 native={native}
                 value={value}
                 onChange={handleOnChange}
-                labelWidth={labelWidth}
+                labelWidth={_labelWidth}
                 inputProps={{
                     name: label,
                     id: `${label}-select`
@@ -88,14 +89,18 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
         <>
             <Hidden xsDown implementation="css">
                 <FormControl variant="outlined" className={classes.formControl}>
-                    {inputLabelComponent}
+                    <InputLabel ref={inputLabel} htmlFor={`${label}-select`}>
+                        {label}
+                    </InputLabel>
                     {selectComponent(false)}
                 </FormControl>
             </Hidden>
 
             <Hidden smUp implementation="css">
                 <FormControl variant="outlined" className={classes.formControl}>
-                    {inputLabelComponent}
+                    <InputLabel ref={nativeInputLabel} htmlFor={`native-${label}-select`}>
+                        {label}
+                    </InputLabel>
                     {selectComponent(true)}
                 </FormControl>
             </Hidden>
