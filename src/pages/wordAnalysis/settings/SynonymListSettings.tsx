@@ -5,6 +5,7 @@ import { Theme } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { closestMaxYear, closestMinYear } from "../../../globals";
 import YearInput from "../../../components/inputs/YearInput";
+import range from "../../../utils/range";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -15,18 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     })
 );
-
-function range(intervalStart: number, intervalEnd: number, step: number) {
-    let i: number = intervalStart;
-    let rangeArray: number[] = [];
-
-    while (i <= intervalEnd) {
-        rangeArray.push(i);
-        i += step;
-    }
-
-    return rangeArray;
-}
 
 export default function SynonymListSettings() {
     const classes = useStyles();
