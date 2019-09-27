@@ -2,6 +2,8 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
+// TODO: finish this file - or remove it?
+
 // export type NumberInputError = 'none' | 'invalidSymbol' | 'incompleteNumber' | 'singleMinus'
 //     | 'singleFloatingPoint' | 'singleZero'| 'min' | 'max' | 'required' | 'clean';
 
@@ -29,8 +31,7 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         textField: {
-            marginLeft: theme.spacing(1),
-            marginRight: theme.spacing(1)
+            margin: theme.spacing(1)
         }
     })
 );
