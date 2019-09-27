@@ -1,7 +1,6 @@
 import React from "react";
 
-import { makeStyles, createStyles } from "@material-ui/styles";
-import { Theme } from "@material-ui/core";
+import { makeStyles, createStyles, Theme } from "@material-ui/styles";
 
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
