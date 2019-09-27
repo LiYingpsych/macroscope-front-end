@@ -32,6 +32,11 @@ export default function SynonymListSettings() {
     const classes = useStyles();
 
     const years: number[] = range(closestMinYear, closestMaxYear, 10);
+    const defaultYear = years[years.length - 1];
+
+    // TODO: add check to see if default is contained in year
+    // Also add error highlighting if selected default is not an option (will be necessary when search is done by url)
+    // checkSelectionDefault(years, defaultYear)
 
     return (
         <form className={classes.root} autoComplete="off">
@@ -39,7 +44,7 @@ export default function SynonymListSettings() {
                 <Grid container item>
                     <YearInput
                         years={years}
-                        defaultYear={years[years.length - 1]}
+                        defaultYear={defaultYear}
                         onChange={(selectedYear: number) => {
                             console.log(selectedYear);
                         }}
