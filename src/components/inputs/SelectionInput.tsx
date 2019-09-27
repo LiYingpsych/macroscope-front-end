@@ -59,45 +59,45 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
 
     const selectComponent = (native: boolean) => {
         return (
-            <FormControl variant="outlined" className={classes.formControl}>
-                {inputLabelComponent}
-                <Select
-                    native={native}
-                    value={value}
-                    onChange={handleOnChange}
-                    labelWidth={labelWidth}
-                    inputProps={{
-                        name: label,
-                        id: `${label}-select`
-                    }}
-                >
-                    {options.map((option: ISelectionOption<T>) => {
-                        return native ? (
-                            <option value={option.value} key={`${label}-menu-item-${option.value}`}>
-                                {option.label}
-                            </option>
-                        ) : (
-                            <MenuItem
-                                value={option.value}
-                                key={`${label}-menu-item-${option.value}`}
-                            >
-                                {option.label}
-                            </MenuItem>
-                        );
-                    })}
-                </Select>
-            </FormControl>
+            <Select
+                native={native}
+                value={value}
+                onChange={handleOnChange}
+                labelWidth={labelWidth}
+                inputProps={{
+                    name: label,
+                    id: `${label}-select`
+                }}
+            >
+                {options.map((option: ISelectionOption<T>) => {
+                    return native ? (
+                        <option value={option.value} key={`${label}-menu-item-${option.value}`}>
+                            {option.label}
+                        </option>
+                    ) : (
+                        <MenuItem value={option.value} key={`${label}-menu-item-${option.value}`}>
+                            {option.label}
+                        </MenuItem>
+                    );
+                })}
+            </Select>
         );
     };
 
     return (
         <>
             <Hidden xsDown implementation="css">
-                {selectComponent(false)}
+                <FormControl variant="outlined" className={classes.formControl}>
+                    {inputLabelComponent}
+                    {selectComponent(false)}
+                </FormControl>
             </Hidden>
 
             <Hidden smUp implementation="css">
-                {selectComponent(true)}
+                <FormControl variant="outlined" className={classes.formControl}>
+                    {inputLabelComponent}
+                    {selectComponent(true)}
+                </FormControl>
             </Hidden>
         </>
     );
