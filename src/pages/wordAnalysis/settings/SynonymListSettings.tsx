@@ -7,6 +7,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";
+import { closestMaxYear, closestMinYear } from "../../../globals";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -22,11 +23,25 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
+function range(intervalStart: number, intervalEnd: number, step: number) {
+    let i: number = intervalStart;
+    let rangeArray: number[] = [];
+
+    while (i <= intervalEnd) {
+        rangeArray.push(i);
+        i += step;
+    }
+
+    return rangeArray;
+}
+
 export default function SynonymListSettings() {
     const classes = useStyles();
 
+    const years: number[] = range(closestMinYear, closestMaxYear, 10);
+
     const [settings, setSettings] = React.useState({
-        year: 1990
+        year: years[years.length - 1]
     });
 
     const inputLabel = React.useRef<HTMLLabelElement>(null);
@@ -60,9 +75,13 @@ export default function SynonymListSettings() {
                                 id: "year-select"
                             }}
                         >
-                            <MenuItem value={1980}>1980</MenuItem>
-                            <MenuItem value={1990}>1990</MenuItem>
-                            <MenuItem value={2000}>2000</MenuItem>
+                            {years.map((year: number) => {
+                                return (
+                                    <MenuItem value={year} key={`menu-item-${year}`}>
+                                        {year}
+                                    </MenuItem>
+                                );
+                            })}
                         </Select>
                     </FormControl>
                 </Grid>
