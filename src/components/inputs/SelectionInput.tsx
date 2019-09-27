@@ -7,6 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -50,58 +51,54 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
         onChange(selectedValue);
     }
 
+    const inputLabelComponent = (
+        <InputLabel ref={inputLabel} htmlFor={`${label}-select`}>
+            {label}
+        </InputLabel>
+    );
+
+    const selectComponent = (native: boolean) => {
+        return (
+            <FormControl variant="outlined" className={classes.formControl}>
+                {inputLabelComponent}
+                <Select
+                    native={native}
+                    value={value}
+                    onChange={handleOnChange}
+                    labelWidth={labelWidth}
+                    inputProps={{
+                        name: label,
+                        id: `${label}-select`
+                    }}
+                >
+                    {options.map((option: ISelectionOption<T>) => {
+                        return native ? (
+                            <option value={option.value} key={`${label}-menu-item-${option.value}`}>
+                                {option.label}
+                            </option>
+                        ) : (
+                            <MenuItem
+                                value={option.value}
+                                key={`${label}-menu-item-${option.value}`}
+                            >
+                                {option.label}
+                            </MenuItem>
+                        );
+                    })}
+                </Select>
+            </FormControl>
+        );
+    };
+
     return (
-        <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel ref={inputLabel} htmlFor={`${label}-select`}>
-                {label}
-            </InputLabel>
-            <Select
-                value={value}
-                onChange={handleOnChange}
-                labelWidth={labelWidth}
-                inputProps={{
-                    name: label,
-                    id: `${label}-select`
-                }}
-            >
-                {options.map((option: ISelectionOption<T>) => {
-                    return (
-                        <MenuItem value={option.value} key={`${label}-menu-item-${option.value}`}>
-                            {option.label}
-                        </MenuItem>
-                    );
-                })}
-            </Select>
-        </FormControl>
+        <>
+            <Hidden xsDown implementation="css">
+                {selectComponent(false)}
+            </Hidden>
+
+            <Hidden smUp implementation="css">
+                {selectComponent(true)}
+            </Hidden>
+        </>
     );
 }
-
-// <Fragment>
-// {/* <Hidden xsDown> */}
-// {/* </Hidden> */}
-// {/* <Hidden smUp>
-//     <FormControl variant="outlined" className={classes.formControl}>
-//         <InputLabel ref={inputLabel} htmlFor="year-select">
-//             Year
-//         </InputLabel>
-//         <Select
-//             native
-//             value={settings.year}
-//             onChange={handleSelectChange}
-//             labelWidth={labelWidth}
-//             inputProps={{
-//                 name: "year",
-//                 id: "year-select"
-//             }}
-//         >
-//             {years.map((year: number) => {
-//                 return (
-//                     <option value={year} key={`menu-item-${year}`}>
-//                         {year}
-//                     </option>
-//                 );
-//             })}
-//         </Select>
-//     </FormControl>
-// </Hidden> */}
-// </Fragment>
