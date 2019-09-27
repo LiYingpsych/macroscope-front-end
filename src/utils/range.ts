@@ -1,4 +1,4 @@
-export default function range(intervalStart: number, intervalEnd: number, step: number) {
+export default function range(intervalStart: number, intervalEnd: number, step: number = 1) {
     let i: number = intervalStart;
     let rangeArray: number[] = [];
 
