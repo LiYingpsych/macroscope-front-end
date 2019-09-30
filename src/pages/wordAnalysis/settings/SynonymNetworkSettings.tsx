@@ -1,7 +1,6 @@
 import React from "react";
 
 import Grid from "@material-ui/core/Grid";
-import YearInput from "../../../components/inputs/YearInput";
 import NumberSelectionInput from "../../../components/inputs/NumberSelectionInput";
 
 import range from "../../../utils/range";
@@ -25,9 +24,10 @@ export default function SynonymNetworkSettings() {
         <form autoComplete="off">
             <Grid container direction="column">
                 <Grid container item>
-                    <YearInput
-                        years={years}
-                        defaultYear={defaultYear}
+                    <NumberSelectionInput
+                        label="Year"
+                        numbers={years}
+                        defaultNumber={defaultYear}
                         onChange={(selectedYear: number) => {
                             console.log(selectedYear);
                         }}

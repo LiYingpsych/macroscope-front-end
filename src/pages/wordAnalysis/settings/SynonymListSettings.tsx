@@ -1,7 +1,6 @@
 import React from "react";
 
 import Grid from "@material-ui/core/Grid";
-import YearInput from "../../../components/inputs/YearInput";
 import NumberSelectionInput from "../../../components/inputs/NumberSelectionInput";
 
 import { closestMaxYear, closestMinYear } from "../../../globals";
@@ -9,7 +8,8 @@ import range from "../../../utils/range";
 
 export default function SynonymListSettings() {
     const years: number[] = range(closestMinYear, closestMaxYear, 10);
-    const defaultYear = years[years.length - 1];
+    // const defaultYear = years[years.length - 1];
+    const defaultYear = 1700;
 
     const numberOfSynonyms: number[] = range(1, 100);
     const defaultNumberOfSynonyms = 5;
@@ -22,9 +22,10 @@ export default function SynonymListSettings() {
         <form autoComplete="off">
             <Grid container direction="column">
                 <Grid container item>
-                    <YearInput
-                        years={years}
-                        defaultYear={defaultYear}
+                    <NumberSelectionInput
+                        label="Year"
+                        numbers={years}
+                        defaultNumber={defaultYear}
                         onChange={(selectedYear: number) => {
                             console.log(selectedYear);
                         }}

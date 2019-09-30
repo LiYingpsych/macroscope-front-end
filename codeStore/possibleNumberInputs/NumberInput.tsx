@@ -1,6 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { NumericLiteral } from "@babel/types";
 
 // TODO: finish this file - or remove it?
 
@@ -40,6 +41,7 @@ interface IProps {
     label: string;
     min: number;
     max: number;
+    step: number;
     defaultValue: number;
     onChange: (selectedNumber: number) => void;
 }
