@@ -8,8 +8,7 @@ import range from "../../../utils/range";
 
 export default function SynonymListSettings() {
     const years: number[] = range(closestMinYear, closestMaxYear, 10);
-    // const defaultYear = years[years.length - 1];
-    const defaultYear = 1700;
+    const defaultYear = years[years.length - 1];
 
     const numberOfSynonyms: number[] = range(1, 100);
     const defaultNumberOfSynonyms = 5;
