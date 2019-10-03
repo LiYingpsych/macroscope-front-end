@@ -1,0 +1,785 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <!-- Title -->
+        <title>Macroscope | Analyses of langauge made simple</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta charset="UTF-8">
+        <meta name="description" content="Analyse word meaning over the history in an instant." />
+        <meta name="keywords" content="words,semantics,analysis,app" />
+        <meta name="author" content="TomasEngelthaler" />
+        
+        <!-- Styles -->
+        <link type="text/css" rel="stylesheet" href="assets/plugins/materialize/css/materialize.min.css"/>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="assets/plugins/material-preloader/css/materialPreloader.min.css" rel="stylesheet">        
+
+        	
+        <!-- Theme Styles -->
+        <link href="assets/css/alpha1.css" rel="stylesheet" type="text/css"/>        
+        <link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
+	<link rel="icon" type="image/png" href="http://www.macroscope.tech/assets/icons/fav_macroscope.png"/>
+        <link href="assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>  
+
+        
+        
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="http://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        
+    </head>
+    <body class="quick-results-off">
+<div ng-app="wordApp" ng-controller="mainController">
+        <div class="loader-bg"></div>
+        <div class="loader">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-spinner-teal lighten-1">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mn-content">
+            <header class="mn-header navbar-fixed">
+                <nav class="blue-grey darken-3">
+                    <div class="nav-wrapper row" style="margin-bottom: 0px;">
+                        <div class="header-title col s3"> 
+                            <span class="chapter-title">Macroscope</span>
+                        </div>
+                        <form class="left search col s6 hide-on-small-and-down" ng-submit="getWords()" ng-show="searchsize == 0">
+                            <div class="input-field">
+                                <input id="wordsearch" type="search" placeholder="Search" ng-model="formData.searchText">
+                                <label for="wordsearch"><i class="material-icons search-icon">search</i></label>
+                            </div>
+                        </form>
+			<div class = "left search col s6 hide-on-small-and-down" ng-show="searchstep == 4">
+				<button type="submit" class="waves-effect waves-teal btn-flat" ng-click="reloadApp()">New Search</button>			</div>
+                        <ul class="right col s9 m3 nav-right-menu">
+                            <li><a href="javascript:void(0)" data-activates="chat-sidebar" class="chat-button show-on-large"><i class="material-icons">more_vert</i></a></li>
+                            <li class="hide-on-med-and-up"><a href="javascript:void(0)" class="search-toggle"><i class="material-icons">search</i></a></li>
+                        </ul>
+                    </div>
+
+                        <div class="row" style="margin-right: -16px; margin-left: -16px;">
+                                <ul class="tabs tab-demo z-depth-1" style="width: 100%;">
+                                    <li class="tab col s3"><a href ng-click="webFocusResults = false; webFocusTeam = false; webFocusManual = true" class="active">MANUAL</a></li>
+                                    <li class="tab col s3"><a href ng-click="webFocusManual = false; webFocusTeam = false; webFocusResults = true">RESULTS</a></li>
+                                    <li class="tab col s3"><a href ng-click="webFocusManual = false; webFocusResults = false; webFocusTeam = true">OUR TEAM</a></li>
+                                </ul>
+                        </div>
+                </nav>
+            </header>
+
+            <div class="search-results">
+                <div class="container search-container">
+                </div>
+            </div>
+            <aside id="chat-sidebar" class="side-nav white fixed">
+                <div class="side-nav-wrapper">
+                    <div class="col s12">
+                        <ul class="tabs tab-demo" style="width: 100%;">
+                            <li class="tab col s3"><a href="#sidebar-more-tab" class="active">settings</a></li>
+                        </ul>
+                    </div>
+                    <div id="sidebar-more-tab" class="col s12 sidebar-more right-sidebar-panel">
+			<!--
+                        <p class="right-sidebar-heading">BASIC ANALYSES</p>
+			-->
+                        <div class="settings-list">
+                            <div class="setting-item">
+                                <div class="setting-text"><u>1. Synonym List</u></div>
+                                <div class="setting-set">
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" ng-model="setting_closest">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            	<div ng-if="setting_closest == true">
+                                <div class="setting-text">Year</div>
+                                    <p class="range-field">
+					<input class="active" id="closestYear" type="range" min="1800" max="1990" step="10" ng-model="settingsData.closestYear">
+                                    </p>
+                            	</div>
+	
+			    </div>
+
+                            <div class="setting-item">
+                                <div class="setting-text"><u>2. Semantic Network</u></div>
+                                <div class="setting-set">
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" ng-model="setting_synonymnetwork">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            <div ng-if="setting_synonymnetwork == true">
+                                <div class="setting-text">Additional Target Words</div>
+                                <input id="synonymnetworktargets" type="text" placeholder="word1 word2 word3" ng-model="settingsData.synonymtargets">
+                            </div>
+                            <div ng-if="setting_synonymnetwork == true">
+                                <div class="setting-text">Year</div>
+                                    <p class="range-field">
+					<input class="active" id="synonymnetworkYear" type="range" min="1800" max="1990" step="10" ng-model="settingsData.synonymnetworkYear">
+                                    </p>
+                            </div>
+                            <div ng-if="setting_synonymnetwork == true">
+                                <div class="setting-text">Synonyms per Target</div>
+                                    <p class="range-field">
+					<input class="active" id="synonymnetworkk" type="range" min="3" max="10" step="1" ng-model="settingsData.synonymnetworkk">
+                                    </p>
+                            </div>
+                            <div ng-if="setting_synonymnetwork == true">
+                                <div class="setting-text">Similarity Threshold</div>
+                                    <p class="range-field">
+					<input class="active" id="synonymnetworkminSim" type="range" min="0.5" max="1" step="0.01" ng-model="settingsData.synonymnetworkminSim">
+                                    </p>
+                            </div>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-text"><u>3. Context Network</u></div>
+                                <div class="setting-set">
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" ng-model="setting_network">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            <div ng-if="setting_network == true">
+				<br><br>
+                                <div class="setting-text">Year</div>
+                                    <p class="range-field">
+					<input class="active" id="networkYear" type="range" min="1800" max="2000" step="10" ng-model="settingsData.networkYear">
+                                    </p>
+                            </div>
+                            <div ng-if="setting_network == true">
+                                <div class="setting-text">Maximum Nodes</div>
+				<a ng-click="displayTooltip('maximumnodes')"></a>
+                                    <p class="range-field">
+					<input class="active" id="networkNodes" type="range" min="10" max="400" step="10" ng-model="settingsData.networkNodes">
+                                    </p>
+                            </div>
+                            <div ng-if="setting_network == true">
+                                <div class="setting-text">Context Relevance</div>
+				<a ng-click="displayTooltip('contextrelevance')"></a>
+                                    <p class="range-field">
+					<input class="active" id="networkwPMI" type="range" min="0.1" max="1" step="0.05" ng-model="settingsData.networkwPMI">
+                                    </p>
+                            </div>
+                            <div ng-if="setting_network == true">
+                                <div class="setting-text">Context Cohesiveness</div>
+				<a ng-click="displayTooltip('contextcohesiveness')"></a>
+                                    <p class="range-field">
+					<input class="active" id="networkePMI" type="range" min="0.1" max="1" step="0.05" ng-model="settingsData.networkePMI">
+                                    </p>
+                            </div>
+                            <div ng-if="setting_network == true">
+                                <div class="setting-text">Individual Word Relevance</div>
+				<a ng-click="displayTooltip('wordrelevance')"></a>
+                                    <p class="range-field">
+					<input class="active" id="networkPMIthresh" type="range" min="2" max="4" step="0.1" ng-model="settingsData.networkPMIthresh">
+                                    </p>
+                            </div>
+                            <div ng-if="setting_network == true">
+                                <div class="setting-text">Minumum Edges</div>
+				<a ng-click="displayTooltip('minimumedges')"></a>
+                                    <p class="range-field">
+					<input class="active" id="networknD" type="range" min="4" max="6" step="1" ng-model="settingsData.networkD">
+                                    </p>
+                            </div>
+                            <div ng-if="setting_network == true">
+                                <div class="setting-text">Display Nodes</div>
+				<a ng-click="displayTooltip('displaynodes')"></a>
+                                    <p class="range-field">
+					<input class="active" id="networkcap" type="range" min="20" max="200" step="5" ng-model="settingsData.networkcap">
+                                    </p>
+                            </div>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-text"><u>4. Semantic Drift</u></div>
+                                <div class="setting-set">
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" ng-model="setting_drift">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-text"><u>5. Co-occurrence</u></div>
+                                <div class="setting-set">
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" ng-model="setting_cooccurrence">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            <div ng-if="setting_cooccurrence == true">
+				<br><br>
+                                <div class="setting-text">Context Words</div>
+                                <input id="cooccurrencecontext" type="text" placeholder="word1 word2 word3" ng-model="settingsData.contextwords">
+                            </div>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-text"><u>6. Context Change</u></div>
+                                <div class="setting-set">
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" ng-model="setting_contextchange">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            <div ng-if="setting_contextchange == true">
+				<br><br><br>
+                                <div class="setting-text">Year Range Start</div>
+                                    <p class="range-field">
+					<input class="active" id="rangeA" type="range" min="1800" max="2000" step="10" ng-model="settingsData.contextrangeA">
+                                    </p>
+                            </div>
+                            <div ng-if="setting_contextchange == true">
+                                <div class="setting-text">Year Range End</div>
+                                    <p class="range-field">
+					<input class="active" id="rangeB" type="range" min="1800" max="2000" step="10" ng-model="settingsData.contextrangeB">
+                                    </p>
+                            </div>
+			    </div>
+                            <div class="setting-item">
+                                <div class="setting-text"><u>7. Sentiment</u></div>
+                                <div class="setting-set">
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" ng-model="setting_emotion">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            <div ng-if="setting_emotion == true">
+                                <div class="row">
+                                    <form class="col s12">
+                                        <p class="p-v-xs">
+                                            <input name="group1" type="radio" id="test1" ng-model="settingsData.emotiontype" value="v">
+                                            <label for="test1">Valence</label>
+                                        </p>
+                                        <p class="p-v-xs">
+                                            <input name="group1" type="radio" id="test2" ng-model="settingsData.emotiontype" value="a">
+                                            <label for="test2">Arousal</label>
+                                        </p>
+                                        <p class="p-v-xs">
+                                            <input name="group1" type="radio" id="test3" ng-model="settingsData.emotiontype" value="c">
+                                            <label for="test3">Concreteness</label>
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-text"><u>8. Frequency</u></div>
+                                <div class="setting-set">
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" ng-model="setting_frequency">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <main class="mn-inner container">
+		<div class="progress" ng-if="searchsize > 0">
+    			<div class="indeterminate"></div>
+		</div>
+		<div class="card" ng-if="searchsize > 0">
+    			<center>Our team of expert hamsters is processing your results. This may take up to a few minutes, depending on your settings.</center>
+		</div>
+
+                <div class="row" ng-show="webFocusResults">
+			<div class="card stats-card" ng-show="python.closest">
+				<div class="card-content">
+                                	<span class="card-title">Identified Synonyms<span class="secondary-title">{{requestyearClosest}}<br><a class="tiny material-icons tooltipped" data-position="right" data-delay="50" data-tooltip="words used in similar contexts">info</a></span></span>
+                                    <div class="card-options">
+                                        <ul>
+                                            <li><a href="/tempFiles/{{pythonclosest}}" class="card-refresh"><i class="material-icons">save_alt</i></a></li>
+                                        </ul>
+                                    </div>
+				<section>
+				<span ng-repeat="f in closestwords">{{f}}<span ng-if="!$last"><br></span></span>
+				</section>
+				</div>
+			</div>
+
+			<div class="card stats-card" ng-show="python.synonymnetwork">
+				<div class="card-content">
+                                	<span class="card-title">Semantic Network<span class="secondary-title">{{requestyearSynonymNetwork}}</span></span>
+                                    <div class="card-options">
+                                        <ul>
+                                            <li><a href="/tempFiles/{{pythonsynonymnetwork}}" class="card-refresh"><i class="material-icons">save_alt</i></a></li>
+                                        </ul>
+                                    </div>
+				<section>
+				<synonymnetwork-chart chart-data="pythonsynonymnetwork" target-word="targetword"></synonymnetwork-chart>
+				</section>
+				</div>
+			</div>
+			<div class="card stats-card" ng-show="python.network">
+				<div class="card-content">
+                                	<span class="card-title">Contextual Network<span class="secondary-title">{{requestyearNetwork}}</span></span>
+                                    <div class="card-options">
+                                        <ul>
+                                            <li><a href="/tempFiles/{{pythonnetwork}}" class="card-refresh"><i class="material-icons">save_alt</i></a></li>
+                                        </ul>
+                                    </div>
+					<div>
+					<p class="range-field">
+					<input class="active" id="gravitySetting" type="range" min="50" max="800" step="10" ng-model="gravitysetting">
+                                    	</p>
+					</div>
+				<section>
+				<network-chart chart-data="pythonnetwork" target-word="targetword" gravity-setting="gravitysetting"></network-chart>
+				</section>
+				</div>
+			</div>
+			<div class="card stats-card" ng-show="python.drift">
+				<div class="card-content">
+                                	<span class="card-title">Semantic Drift</span>
+                                    <div class="card-options">
+                                        <ul>
+                                            <li><a href="/tempFiles/{{pythondrift}}" class="card-refresh"><i class="material-icons">save_alt</i></a></li>
+                                        </ul>
+                                    </div>
+				
+				<section>
+				<drift-chart chart-data="pythondrift" target-word="targetword"></bars-chart>
+				</section>
+				</div>
+			</div>
+			<div class="card stats-card" ng-show="python.cooccurrence">
+                                <div class="card-content">
+                                	<span class="card-title">Co-occurrence</span>
+                                    <div class="card-options">
+                                        <ul>
+                                            <li><a href="/tempFiles/{{pythoncooccurrence}}" class="card-refresh"><i class="material-icons">save_alt</i></a></li>                                        
+					</ul>
+                                    </div>
+				<section>
+				<cooccurrence-chart chart-data="pythoncooccurrence" target-word="targetword" width="960" height="500"></cooccurrence-chart>
+				</section>
+				</div>
+			</div>
+			<div class="card stats-card" ng-show="python.contextchange">
+				<div class="card-content">
+                                	<span class="card-title">Change of Context<span class="secondary-title">{{requestyearContext}}</span></span>
+                                    <div class="card-options">
+                                        <ul>
+                                            <li><a href="/tempFiles/{{pythoncontextchange}}" class="card-refresh"><i class="material-icons">save_alt</i></a></li>
+                                        </ul>
+                                    </div>
+					<section>
+					<contextchange-chart chart-data="pythoncontextchange" target-word="targetword"></contextchange-chart>
+					</section>
+				</div>
+			</div>
+			<div class="card stats-card" ng-show="python.emotion">
+                                <div class="card-content">
+                                	<span class="card-title">Sentiment - {{label.emotion}}</span>
+                                    <div class="card-options">
+                                        <ul>
+                                            <li><a href="/tempFiles/{{pythonemotion}}" class="card-refresh"><i class="material-icons">save_alt</i></a></li>
+                                        </ul>
+                                    </div>
+				<section>
+				<emotion-chart chart-data="pythonemotion" target-word="targetword"></emotion-chart>
+				</section>
+				</div>
+			</div>
+			<div class="card stats-card freqstyle" ng-show="python.frequency">
+				<div class="card-content">
+                                	<span class="card-title">Frequency</span>
+                                    <div class="card-options">
+                                        <ul>
+                                            <li><a href="/tempFiles/{{pythonfrequency}}" class="card-refresh"><i class="material-icons">save_alt</i></a></li>
+                                        </ul>
+                                    </div>
+				<section>
+				<frequency-chart chart-data="pythonfrequency" target-word="targetword"></frequency-chart>
+				</section>
+				</div>
+			</div>
+                </div>
+
+                <div class="row" ng-show="webFocusManual">
+		<center>
+		<img src="assets/images/logo_512_blue.png" class="responsive-img" alt="">
+		<h1 style="font-weight:300">The Macroscope</h2>	
+		</center>
+		<p style="">The Macroscope is a powerful tool built to interpret historical structure of language. It is designed to provide comprehensive analyses of historical meaning with the click of a button. This enables quick insights for a curious explorer, requiring little to no knowledge of linguistics. At the same time, the function to download the raw data of any figure caters to researchers, content creators or specialists who don't want to design their own solutions from scratch.</p>
+		<p style="">We offer a suite of eight analytical packages, each explaining a different piece of the puzzle. The analyses comes with predefined settings to work out of the box. Where possible, the cogs are exposed to the user allowing for the finetuning of parameters.</p>		
+		<br><br><br><br>		
+		<h4 style="font-weight:300">Quick-Start Guide</h4>
+		<p style="">It is recommended to try analysing a few words with the default settings. Go over your results and then tweak the settings where necessary. Many of the settings (e.g. the similarity thresholds of networks) will have optimal values on a case by case basis. A setting that works for the word <i>risk</i> may not be ideal for a less frequent word like <i>bitter</i>. In this case, try adjusting the parameters to get the insights you are looking for.</p>
+		<p><ol>
+  			<li>Open the settings panel, using the button in the top right. Enable the analyses you are interested in. <i>It is advised to start with only a few analyses at first. Enabling everything at one is possible, but will increase your processing time.</i></li><br>
+  			<li>Switch to the results panel. Input a word into the search bar and fire up the Macroscope.</li><br>
+  			<li>Your request will travel to our server cluster, where our team of trained hamsters processes your analyses one by one. Your website will start displaying the results as soon as they come in.</li><br>
+			<li>Once all the processing is done, the search bar will appear again. Adjust your settings or search a new word.</li>
+		</ol></p> 
+		<br>	
+		<h3 style="font-weight:300">Conceptual Framework</h2>
+		<p>The Macroscope provides researchers with the ability to examine two distinct but related aspects of linguistic change in individual words over historical time as shown in the conceptual framework above. First, diachronic word embeddings computed from the co-occurrence matrix enable us to discover words that are semantically similar to a given word for a given year (i.e., the semantic or synonym structure surrounding a word). These semantically related words are referred to as synonyms (top half of Figure 2). Second, the co-occurrence matrix provides information regarding the context of a given word at a given year. Words that co-occur with the target word are referred to as context words (bottom half of Figure 2).</p>
+ 		<p>On top of being able to "focus" the Macroscope on the semantics and contextual structure of an individual word in a particular year, the true power of the Macroscope is harnessed when the researcher "zooms" out to obtain a bird's eye view of changes in the semantic and contextual structure of words over historical time. The Macroscope can be used to examine the semantic (synonym) and contextual (co-occurrence) structure of individual words for a specific year (i.e., zooming in) and over historical time (i.e., zooming out).</p>
+		<img src="assets/images/manual/fig1.png" class="responsive-img" alt="">	
+			<div class="row">
+                    		<div class="col s12">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content center-align white-text">
+							<h4>1.  Identify Synonyms</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="row">
+                    		<div class="col s12 m6">
+                        		<div class="card">
+                            			<div class="card-content center-align">
+							<img src="assets/images/manual/fig3.png" class="responsive-img" alt="">
+						</div>
+					</div>
+				</div>
+                    		<div class="col s12 m6">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content left-align white-text">
+							<p><b>Method:</b></p>
+							<p>We constructed the Google Ngram Corpus into a large co-occurrence matrix. That means each word is represented by a long vector that contains co-occurrence information with all other words in the vocabulary list of 50,000 words. By transforming count-based co-occurrence to pointwise mutual information (PMI) and regularizing data using singular value decomposition, we constructed diachronic word vectors across 200 years.</p><br>
+							<p>We defined synonyms as words used in similar context. By computing cosine similarity between two word vectors (essentially comparing contexts of two words), we can quantify semantic similarity on the scale from 0 (not similar at all) to 1 (identical). Identifying synonyms of a target word is simply finding out words whose vectors are most similar to the vector representation of the target word.</p><br>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+                    		<div class="col s12">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content center-align white-text">
+							<h4>2.  Semantic Structure</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+                    		<div class="col s12 m6">
+                        		<div class="card">
+                            			<div class="card-content center-align">
+							<img src="assets/images/manual/fig4.png" class="responsive-img" alt="">
+						</div>
+					</div>
+				</div>
+                    		<div class="col s12 m6">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content left-align white-text">
+							<p>This analysis helps you to understand to what extent two words are semantically similar to each other.</p><br>
+							<p>Figure on the left (a) shows semantic structure of happy and sad. Each nodes represents happy and sad and their top-4 synonyms. Link suggests similarity between two words exceed certain threshold (default value is set equal to 0.6).
+								Despite being antonyms, happy and sad are conceptually associated and therefore often appears in similar context. Therefore, the semantic similarity inferred from contextual structure would suggest they are semantically similar. But, as network suggests, their synonyms are not linked with each other and therefore happy and sad are strongly associated but not semantically similar.</p><br>
+							<p>One example of two words that are truly semantically similar to each other is gay and lesbian, also show in the figure on the left (b).</p><br>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="row">
+                    		<div class="col s12">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content center-align white-text">
+							<h4>3.  Contextual  Structure </h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+                    		<div class="col s12 m6">
+                        		<div class="card">
+                            			<div class="card-content center-align">
+							<img src="assets/images/manual/fig2.png" class="responsive-img" alt="">
+						</div>
+					</div>
+				</div>
+                    		<div class="col s12 m6">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content left-align white-text">
+							<p>You  can  visualize  contextual  structure  of  a  word  in  a  given  year.  Contextual  structure  reveals  both  number  of  sense  and  contextual  diversity.  These  two  concepts  partially  overlap  but  are  not  identical.  For  example,  the  network  on  the  right  shows  although  the  word  gay  was  used  in  the  sense  of  homosexuality  consistently  across  contexts  in  year  2000,it  appeared  in  a  number  of  distinctive  contexts,  including  homosexuality,  political  movement  on  gender  equality,  association  with  HIV,  and  academic  interests  in  gender  study.  Try  to  set  year  1850to  see  how  contextual  structure  ofgay  change  dramatically.</p><br>
+							<p><b>Edges  (links):</b>  A  link  between  two  nodes  suggests  the  pointwise  mutual  information  (PMI)  value  between  the  two  words  isgreater  than  the  selected  threshold  (we  set  the  default  value  equal  to  3).</p><br>
+							<p><b>Color:</b>  The  colors  represent  the  community  structure  of  nodes  in  the  network  and  each  community  is  represented  with  a  different  color.  Communities  are  sub-groupings  of  nodes  that  are  more  likely  to  be  connected  to  each  other  than  to  other  nodes  within  the  network.</p><br>
+							<p><b>Size:</b>  The  size  of  nodes  maps  tothe  co-occurrence  frequency  between  that  word  and  the  target  word    (in  this  example,  gay).The  size  of  the  target  word  is  manually  set  tobe  large  enough  tobe  visible.</p><br>    
+							<p style="font-weight:200">Note:  Community  structures  of  the  network  are  detected  using  an  algorithm  introduced  by  Blondel  et  al  (2008)  based  on  modularity  optimization  that  uses  an  iterative  process  which  defines  each  node  as  a  community  at  the  first  step  and  merges  them  until  modularity  (a  measure  of  the  strength  of  the  communities)  is  optimized.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+                    		<div class="col s12">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content center-align white-text">
+							<h4>4.  Drift in Semantic Space</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+                    		<div class="col s12 m6">
+                        		<div class="card">
+                            			<div class="card-content center-align">
+							<img src="assets/images/manual/fig5.png" class="responsive-img" alt="">
+						</div>
+					</div>
+				</div>
+                    		<div class="col s12 m6">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content left-align white-text">
+							<p>You can visualize semantic drift of a word over a specified historical period. The example on the left shows how the word gay changed its meaning from 1850 to 2000. The semantic space of gay is defined by its top-k (k=15 by default) synonyms in 1850 and 2000. The longer the path indicates greater semantic change.</p><br>
+							<p style="font-weight:200">Tip: In case the annotations overlap with one and another, you can drag to separate them.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+                    		<div class="col s12">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content center-align white-text">
+							<h4>5a.  Change of Contextual Structures</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+                    		<div class="col s12 m6">
+                        		<div class="card">
+                            			<div class="card-content center-align">
+							<img src="assets/images/manual/fig7.png" class="responsive-img" alt="">
+						</div>
+					</div>
+				</div>
+                    		<div class="col s12 m6">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content left-align white-text">
+							<p>You can visualize how a selection of words co-occurs with the target word over the past 200 years separately. Alternatively, you can also aggregate co-occurrence frequencies with the target word across a selection of words. Simply click the aggregate button to switch between two modes of co-occurrence frequency.</p><br>
+							<p>This function can be used in conjunction with the contextual structure analysis . Contextual structure analysis provides a list of words that defines (one of) meanings of the target word. Tracking aggregated co-occurrence  between those context words and the target word provides insights on when and to what extent does meaning changed in history. </p><br>
+							<p>Figure on the left  show historical aggregated co-occurrence between gay and its context words of year 1850 and year 2000 separately.</p><br>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+                    		<div class="col s12">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content center-align white-text">
+							<h4>5b.  Change of Contextual Structures</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+                    		<div class="col s12 m6">
+                        		<div class="card">
+                            			<div class="card-content center-align">
+							<img src="assets/images/manual/fig6.png" class="responsive-img" alt="">
+						</div>
+					</div>
+				</div>
+                    		<div class="col s12 m6">
+                        		<div class="card blue-grey darken-3">
+                            			<div class="card-content left-align white-text">
+							<p>Another way to think about change of word meaning is by looking at which of its context words have been losing/gaining association between two time points.  Figure on the left shows the the 10 context words whose co-occurrence with gay increased (in blue bars) or decreased (in red bars) the most between year 1940 and 2000. Please note that the axes on the increase domain and decrease domain are scaled independently so that two domains occupy the same amount of space in canvas.</p><br>
+							<p style="font-weight:200">Try another word and different time frame to find out which context words changed the most.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+                <div class="row" ng-show="webFocusTeam">
+                    <div class="col s12 m6 l3">
+                        <div class="card">
+                            <div class="card-content center-align">
+                                <img src="assets/images/li.png" class="responsive-img circle" width="128px" alt="">
+                                <p class="m-t-lg flow-text">Li Ying</p>
+				<a class="btn-floating btn-large waves-effect waves-light light-blue" ng-click="personInfo('li')"><i class="material-icons">contacts</i></a>
+                            </div>
+                        </div>
+		    </div>
+                    <div class="col s12 m6 l3">
+                        <div class="card">
+                            <div class="card-content center-align">
+                                <img src="assets/images/tomas.png" class="responsive-img circle" width="128px" alt="">
+                                <p class="m-t-lg flow-text">Tomas Engelthaler</p>
+				<a class="btn-floating btn-large waves-effect waves-light light-blue" ng-click="personInfo('tomas')"><i class="material-icons">contacts</i></a>
+                            </div>
+                        </div>
+		    </div>
+                    <div class="col s12 m6 l3">
+                        <div class="card">
+                            <div class="card-content center-align">
+                                <img src="assets/images/cynthia.png" class="responsive-img circle" width="128px" alt="">
+                                <p class="m-t-lg flow-text">Cynthia Siew</p>
+				<a class="btn-floating btn-large waves-effect waves-light light-blue" ng-click="personInfo('cynthia')"><i class="material-icons">contacts</i></a>
+                            </div>
+                        </div>
+		    </div>
+                    <div class="col s12 m6 l3">
+                        <div class="card">
+                            <div class="card-content center-align">
+                                <img src="assets/images/thomas.png" class="responsive-img circle" width="128px" alt="">
+                                <p class="m-t-lg flow-text">Thomas Hills</p>
+				<a class="btn-floating btn-large waves-effect waves-light light-blue" ng-click="personInfo('thomas')"><i class="material-icons">contacts</i></a>
+                            </div>
+                        </div>
+		    </div>
+
+                    <div class="col s12" ng-if="tagPanel == 'li'">
+                        <div class="card">
+                            <div class="card-content left-align">
+                                <p class=""><h3>Li Ying</h3></p>
+                    			<p class="">
+					Here are my interests.
+					</p>
+					<br>
+					<a class="waves-effect waves-light btn indigo" href="mailto:ying.li@warwick.ac.uk"><i class="material-icons right">email</i>ying.li@warwick.ac.uk</a>
+					<a ng-click="personInfo('li')">Click me</a>
+                           </div>
+                        </div>
+		    </div>
+                    <div class="col s12" ng-if="tagPanel == 'tomas'">
+                        <div class="card">
+                            <div class="card-content left-align">
+                                <p class=""><h3>Tomas Engelthaler</h3></p>
+                    			<p class="">
+					A cognitive psychologist with a passion for software development. 
+
+					I create data solutions to answer specific questions about human psychology. These range from improving pilot communication, to designing new GDP metrics or describing historical language use patterns. My recent publication (Humor norms for 4,997 English words) has been picked up by over 50 news outlets world wide.
+					</p>
+					<br>
+					<a class="waves-effect waves-light btn indigo" href="https://uk.linkedin.com/in/tomas-engelthaler-882b50b7" target="_blank"><i class="material-icons right">person</i>website</a>
+					<a class="waves-effect waves-light btn indigo" href="mailto:t.engelthaler@warwick.ac.uk"><i class="material-icons right">email</i>t.engelthaler@warwick.ac.uk</a>
+					<a ng-click="personInfo('tomas')">Click me</a>
+                           </div>
+                        </div>
+		    </div>
+                    <div class="col s12" ng-if="tagPanel == 'cynthia'">
+                        <div class="card">
+                            <div class="card-content left-align">
+                                <p class=""><h3>Cynthia Siew</h3></p>
+                    			<p class="">
+					My research broadly involves using behavioral and computational methods to investigate the cognitive processes and mechanisms that support lexical processing. In particular I apply the suite of tools offered by network science to study the structure of the mental lexicon and see how that affects the way we produce speech, understand language and learn new words. I am also interested in applying network science approaches to understand other areas of the psychological and cognitive sciences.
+					</p>
+					<br>
+					<a class="waves-effect waves-light btn indigo" href="https://warwick.ac.uk/fac/sci/psych/people/csiew" target="_blank"><i class="material-icons right">person</i>website</a>
+					<a class="waves-effect waves-light btn indigo" href="mailto:C.Siew@warwick.ac.uk"><i class="material-icons right">email</i>C.Siew@warwick.ac.uk</a>
+                           </div>
+                        </div>
+		    </div>
+                    <div class="col s12" ng-if="tagPanel == 'thomas'">
+                        <div class="card">
+                            <div class="card-content left-align">
+                                <p class=""><h3>Thomas Hills</h3></p>
+                    			<p class="">
+					I am interested in quantitative approaches to language, wellbeing, memory, and decision making.
+
+					My work involves using 'big data' to understand psychological change over cultural time; understanding language learning using network analysis; computational modelling of memory representations and age-related cognitive decline; and information search in decision making.
+					</p>
+					<br>
+					<a class="waves-effect waves-light btn indigo" href="https://warwick.ac.uk/fac/sci/psych/people/thills/" target="_blank"><i class="material-icons right">person</i>website</a>
+					<a class="waves-effect waves-light btn indigo" href="mailto:T.T.Hills@warwick.ac.uk"><i class="material-icons right">email</i>T.T.Hills@warwick.ac.uk</a>
+                           </div>
+                        </div>
+		    </div>
+                </div>
+		<center><a href="mailto:T.T.Hills@warwick.ac.uk">Contact us.</a></center>
+            </main>
+            <div class="page-footer">
+                <div class="footer-grid container">
+                </div>
+            </div>
+        </div>
+        <div class="left-sidebar-hover"></div>
+      
+</div>
+  
+        <!-- Javascripts -->
+        <script src="assets/plugins/jquery/jquery-2.2.0.min.js"></script>
+        <script src="assets/plugins/materialize/js/materialize.min.js"></script>
+        <script src="assets/plugins/material-preloader/js/materialPreloader.min.js"></script>
+        <script src="assets/plugins/jquery-blockui/jquery.blockui.js"></script>
+	<script src="assets/js/alpha.js"></script>         
+
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"> 
+
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="http://d3js.org/d3.v4.min.js"></script>
+	<script src="d3-annotate.js"></script>
+	<script src="bboxCollide.js"></script>
+	<script src="https://cdn.rawgit.com/susielu/d3-annotation/master/d3-annotation.js"></script>
+
+	<script src="d3contextchange.js"></script>
+	<script src="d3cooccurrence.js"></script>
+	<script src="d3drift.js"></script>
+	<script src="d3synonymnetwork.js"></script>
+	<script src="d3network.js"></script>
+	<script src="d3frequency.js"></script>
+	<script src="d3emotion.js"></script>
+	<script src="core.js"></script>
+
+        <script src="assets/plugins/sweetalert/sweetalert.min.js"></script>
+
+    </body>
+</html>
