@@ -12,6 +12,7 @@ import SettingsIcon from "../../icons/SettingsIcon";
 import SwitchExpansionPanel from "../../components/SwitchExpansionPanel";
 import SynonymListSettings from "./settings/SynonymListSettings";
 import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
+import ContextNetworkSettings from "./settings/ContextNetworkSettings";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -62,7 +63,7 @@ export default function SearchSettings() {
                     </SwitchExpansionPanel>
 
                     <SwitchExpansionPanel label="Context network">
-                        <Typography>Context network settings</Typography>
+                        <ContextNetworkSettings />
                     </SwitchExpansionPanel>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
