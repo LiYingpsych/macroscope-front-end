@@ -13,6 +13,7 @@ import SwitchExpansionPanel from "../../components/SwitchExpansionPanel";
 import SynonymListSettings from "./settings/SynonymListSettings";
 import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
 import ContextNetworkSettings from "./settings/ContextNetworkSettings";
+import ContextChangeSettings from "./settings/ContextChangeSettings";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -64,6 +65,12 @@ export default function SearchSettings() {
 
                     <SwitchExpansionPanel label="Context network">
                         <ContextNetworkSettings />
+                    </SwitchExpansionPanel>
+
+                    <SwitchExpansionPanel label="Semantic drift"></SwitchExpansionPanel>
+
+                    <SwitchExpansionPanel label="Context change">
+                        <ContextChangeSettings />
                     </SwitchExpansionPanel>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
