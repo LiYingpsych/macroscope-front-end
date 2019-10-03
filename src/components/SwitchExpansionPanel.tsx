@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Switch from "@material-ui/core/Switch";
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
     label: string;
-    children?: any;
+    children?: ReactNode;
 }
 
 export default function SwitchExpansionPanel(props: IProps) {
@@ -44,9 +44,11 @@ export default function SwitchExpansionPanel(props: IProps) {
                     <Switch checked={isOpen} />
                 </ListItem>
             </List>
-            <Collapse in={isOpen}>
-                <Container>{children}</Container>
-            </Collapse>
+            {children ? (
+                <Collapse in={isOpen}>
+                    <Container>{children}</Container>
+                </Collapse>
+            ) : null}
         </div>
     );
 }
