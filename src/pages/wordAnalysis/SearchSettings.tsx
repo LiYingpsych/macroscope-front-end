@@ -14,6 +14,7 @@ import SynonymListSettings from "./settings/SynonymListSettings";
 import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
 import ContextNetworkSettings from "./settings/ContextNetworkSettings";
 import ContextChangeSettings from "./settings/ContextChangeSettings";
+import SentimentSettings from "./settings/SentimentSettings";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SearchSettings() {
     const classes = useStyles();
 
-    // TDOD: have a global year?
+    // TODO: consider having a global year?
     return (
         <div className={classes.root}>
             <ExpansionPanel>
@@ -72,6 +73,12 @@ export default function SearchSettings() {
                     <SwitchExpansionPanel label="Context change">
                         <ContextChangeSettings />
                     </SwitchExpansionPanel>
+
+                    <SwitchExpansionPanel label="Sentiment">
+                        <SentimentSettings />
+                    </SwitchExpansionPanel>
+
+                    <SwitchExpansionPanel label="Frequeny"></SwitchExpansionPanel>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>

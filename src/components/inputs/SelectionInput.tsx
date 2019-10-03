@@ -27,14 +27,14 @@ export interface ISelectionOption<T extends OptionValue> {
 interface IProps<T extends OptionValue> {
     label: string;
     options: ISelectionOption<T>[];
-    defaultOption: ISelectionOption<T>;
+    defaultOption: ISelectionOption<T>; // TODO: make nullable - default to first item
     onChange: (value: T) => void;
 }
 
 export default function SelectionInput<T extends OptionValue>(props: IProps<T>) {
     const classes = useStyles();
 
-    const { label, options, onChange } = props;
+    const { label, options, onChange, defaultOption } = props;
 
     const inputLabel = React.useRef<HTMLLabelElement>(null);
     const [labelWidth, setLabelWidth] = React.useState(0);
@@ -47,7 +47,7 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
         setNativeLabelWidth(nativeInputLabel.current!.offsetWidth);
     }, []);
 
-    const [value, setValue] = React.useState(props.defaultOption.value);
+    const [value, setValue] = React.useState(defaultOption.value);
 
     function handleOnChange(event: React.ChangeEvent<{ name?: string; value: unknown }>) {
         const selectedValue: T = event.target.value as T;
