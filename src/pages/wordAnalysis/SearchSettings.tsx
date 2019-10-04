@@ -10,7 +10,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SettingsIcon from "../../icons/SettingsIcon";
 
 import SwitchExpansionPanel from "../../components/SwitchExpansionPanel";
-import SynonymListSettings from "./settings/SynonymListSettings";
+import SynonymListSettings, { ISynonymListSettings } from "./settings/SynonymListSettings";
 import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
 import ContextNetworkSettings from "./settings/ContextNetworkSettings";
 import ContextChangeSettings from "./settings/ContextChangeSettings";
@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SearchSettings() {
     const classes = useStyles();
 
+    // const defaultSettings = {}
+    // const [settings, setSettings] = useState(defaultSettings);
+
     // TODO: consider having a global year?
     return (
         <div className={classes.root}>
@@ -57,7 +60,11 @@ export default function SearchSettings() {
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.content}>
                     <SwitchExpansionPanel label="Synonym list">
-                        <SynonymListSettings />
+                        <SynonymListSettings
+                            onChange={(_settings: ISynonymListSettings) => {
+                                console.log(_settings);
+                            }}
+                        />
                     </SwitchExpansionPanel>
 
                     <SwitchExpansionPanel label="Synonym network">
