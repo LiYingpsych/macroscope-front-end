@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -15,6 +15,7 @@ import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
 import ContextNetworkSettings from "./settings/ContextNetworkSettings";
 import ContextChangeSettings from "./settings/ContextChangeSettings";
 import SentimentSettings from "./settings/SentimentSettings";
+import Button from "@material-ui/core/Button";
 import { closestMaxYear } from "../../globals";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -63,14 +64,14 @@ export default function SearchSettings() {
             }
         }
     };
-    // const [settings, setSettings] = useState(defaultSettings);
 
-    // type HandleSettingsFunction = (oldSettings: ISynonymListSettings) => ISynonymListSettings;
-    // const handleSettingsChange = (handleSettingsFunction: HandleSettingsFunction) => {
-    //     const newSettings = handleSettingsFunction(settings);
-    //     setSettings(newSettings);
-    //     onChange(newSettings);
-    // };
+    const [settings, setSettings] = useState(defaultSettings);
+
+    type HandleSettingsFunction = (oldSettings: ISearchSettings) => ISearchSettings;
+    const handleSettingsChange = (handleSettingsFunction: HandleSettingsFunction) => {
+        const newSettings = handleSettingsFunction(settings);
+        setSettings(newSettings);
+    };
 
     // TODO: consider having a global year?
     return (
@@ -88,13 +89,19 @@ export default function SearchSettings() {
                         label="Synonym list"
                         isOpenDefault={defaultSettings.synonymListSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
-                            console.log(isOpen);
+                            handleSettingsChange((oldSettings: ISearchSettings) => {
+                                oldSettings.synonymListSettingsPanel.isOpen = isOpen;
+                                return oldSettings;
+                            });
                         }}
                     >
                         <SynonymListSettings
                             defaultSettings={defaultSettings.synonymListSettingsPanel.settings}
-                            onChange={(_settings: ISynonymListSettings) => {
-                                console.log(_settings);
+                            onChange={(synonymListSettings: ISynonymListSettings) => {
+                                handleSettingsChange((oldSettings: ISearchSettings) => {
+                                    oldSettings.synonymListSettingsPanel.settings = synonymListSettings;
+                                    return oldSettings;
+                                });
                             }}
                         />
                     </SwitchExpansionPanel>
@@ -118,6 +125,16 @@ export default function SearchSettings() {
                     </SwitchExpansionPanel>
 
                     <SwitchExpansionPanel label="Frequeny"></SwitchExpansionPanel>
+
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => {
+                            console.log(settings);
+                        }}
+                    >
+                        Update
+                    </Button>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         </div>
