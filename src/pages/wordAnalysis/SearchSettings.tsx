@@ -15,6 +15,7 @@ import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
 import ContextNetworkSettings from "./settings/ContextNetworkSettings";
 import ContextChangeSettings from "./settings/ContextChangeSettings";
 import SentimentSettings from "./settings/SentimentSettings";
+import { closestMaxYear } from "../../globals";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,10 +42,27 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
+interface ISettingPanel<T> {
+    isOpen: boolean;
+    settings: T;
+}
+
+interface ISearchSettings {
+    synonymListSettingsPanel: ISettingPanel<ISynonymListSettings>;
+}
+
 export default function SearchSettings() {
     const classes = useStyles();
 
-    // const defaultSettings = {}
+    const defaultSettings: ISearchSettings = {
+        synonymListSettingsPanel: {
+            isOpen: false,
+            settings: {
+                year: closestMaxYear,
+                numberOfSynonyms: 5
+            }
+        }
+    };
     // const [settings, setSettings] = useState(defaultSettings);
 
     // TODO: consider having a global year?
@@ -59,8 +77,12 @@ export default function SearchSettings() {
                     <Typography className={classes.heading}>Settings</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.content}>
-                    <SwitchExpansionPanel label="Synonym list">
+                    <SwitchExpansionPanel
+                        label="Synonym list"
+                        // onChange={}
+                    >
                         <SynonymListSettings
+                            defaultSettings={defaultSettings.synonymListSettingsPanel.settings}
                             onChange={(_settings: ISynonymListSettings) => {
                                 console.log(_settings);
                             }}
