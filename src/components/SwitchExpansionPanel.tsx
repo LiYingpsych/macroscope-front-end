@@ -23,17 +23,21 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
     label: string;
+    isOpenDefault?: boolean;
     children?: ReactNode;
+    onChange?: (isOpen: boolean) => void;
 }
 
 export default function SwitchExpansionPanel(props: IProps) {
     const classes = useStyles();
 
-    const { label, children } = props;
+    const { label, isOpenDefault = false, children, onChange = (isOpen: boolean) => {} } = props;
 
-    const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = React.useState(isOpenDefault);
     const toggleSwitch = () => {
-        setIsOpen(!isOpen);
+        const newValue = !isOpen;
+        setIsOpen(newValue);
+        onChange(newValue);
     };
 
     return (

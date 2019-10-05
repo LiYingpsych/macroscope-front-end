@@ -36,6 +36,7 @@ export default function SynonymListSettings(props: IProps) {
         setSettings(newSettings);
         onChange(newSettings);
     };
+
     return (
         <form autoComplete="off">
             <Grid container direction="column">

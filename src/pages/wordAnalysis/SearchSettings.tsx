@@ -65,6 +65,13 @@ export default function SearchSettings() {
     };
     // const [settings, setSettings] = useState(defaultSettings);
 
+    // type HandleSettingsFunction = (oldSettings: ISynonymListSettings) => ISynonymListSettings;
+    // const handleSettingsChange = (handleSettingsFunction: HandleSettingsFunction) => {
+    //     const newSettings = handleSettingsFunction(settings);
+    //     setSettings(newSettings);
+    //     onChange(newSettings);
+    // };
+
     // TODO: consider having a global year?
     return (
         <div className={classes.root}>
@@ -79,7 +86,10 @@ export default function SearchSettings() {
                 <ExpansionPanelDetails className={classes.content}>
                     <SwitchExpansionPanel
                         label="Synonym list"
-                        // onChange={}
+                        isOpenDefault={defaultSettings.synonymListSettingsPanel.isOpen}
+                        onChange={(isOpen: boolean) => {
+                            console.log(isOpen);
+                        }}
                     >
                         <SynonymListSettings
                             defaultSettings={defaultSettings.synonymListSettingsPanel.settings}
