@@ -1,17 +1,18 @@
 import { useState } from "react";
 
+type HandleModificationFunction<T> = (oldObject: T) => T;
+
 export default function useModifyableObject<T>(
     defaultObject: T,
     onChange: (oldObject: T) => void = (oldObject: T) => {}
-) {
+): [T, (handleModificationFunction: HandleModificationFunction<T>) => void] {
     const [object, setObject] = useState(defaultObject);
 
-    type HandleModificationFunction = (oldObject: T) => T;
-    const handleSettingsChange = (handleModificationFunction: HandleModificationFunction) => {
+    const handleSettingsChange = (handleModificationFunction: HandleModificationFunction<T>) => {
         const modifiedObject = handleModificationFunction(object);
         setObject(modifiedObject);
         onChange(modifiedObject);
     };
 
-    return handleSettingsChange;
+    return [object, handleSettingsChange];
 }

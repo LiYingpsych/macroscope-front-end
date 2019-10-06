@@ -28,7 +28,7 @@ export default function SynonymListSettings(props: IProps) {
     // Also add error highlighting if selected default is not an option (will be necessary when search is done by url)
     // checkSelectionDefault(years, defaultYear)
 
-    const handleSettingsChange = useModifyableObject(defaultSettings, onChange);
+    const [, handleSettingsChange] = useModifyableObject(defaultSettings, onChange);
 
     return (
         <form autoComplete="off">

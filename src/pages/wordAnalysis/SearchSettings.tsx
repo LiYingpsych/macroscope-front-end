@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -17,6 +17,7 @@ import ContextChangeSettings from "./settings/ContextChangeSettings";
 import SentimentSettings from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
 import { closestMaxYear } from "../../globals";
+import useModifyableObject from "../../customHooks/useModifyableObject";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -65,13 +66,7 @@ export default function SearchSettings() {
         }
     };
 
-    const [settings, setSettings] = useState(defaultSettings);
-
-    type HandleSettingsFunction = (oldSettings: ISearchSettings) => ISearchSettings;
-    const handleSettingsChange = (handleSettingsFunction: HandleSettingsFunction) => {
-        const newSettings = handleSettingsFunction(settings);
-        setSettings(newSettings);
-    };
+    const [settings, handleSettingsChange] = useModifyableObject(defaultSettings);
 
     // TODO: consider having a global year?
     return (
