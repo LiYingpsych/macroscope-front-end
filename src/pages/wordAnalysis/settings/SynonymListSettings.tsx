@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 import NumberSelectionInput from "../../../components/inputs/NumberSelectionInput";
 
 import { closestMaxYear, closestMinYear } from "../../../globals";
 import range from "../../../utils/range";
+import useModifyableObject from "../../../customHooks/useModifyableObject";
 
 export interface ISynonymListSettings {
     year: number;
@@ -23,19 +24,11 @@ export default function SynonymListSettings(props: IProps) {
     const numberOfSynonyms: number[] = range(1, 100);
 
     // TODO: check defaultSettings are valid
-    const [settings, setSettings] = useState(defaultSettings);
-
     // TODO: add check to see if default is contained in year
     // Also add error highlighting if selected default is not an option (will be necessary when search is done by url)
     // checkSelectionDefault(years, defaultYear)
 
-    // TODO: extract into higher order function
-    type HandleSettingsFunction = (oldSettings: ISynonymListSettings) => ISynonymListSettings;
-    const handleSettingsChange = (handleSettingsFunction: HandleSettingsFunction) => {
-        const newSettings = handleSettingsFunction(settings);
-        setSettings(newSettings);
-        onChange(newSettings);
-    };
+    const handleSettingsChange = useModifyableObject(defaultSettings, onChange);
 
     return (
         <form autoComplete="off">
@@ -57,10 +50,10 @@ export default function SynonymListSettings(props: IProps) {
                         numbers={numberOfSynonyms}
                         defaultNumber={defaultSettings.numberOfSynonyms}
                         onChange={(selectedNumber: number) => {
-                            let tempSettings = settings;
-                            tempSettings.numberOfSynonyms = selectedNumber;
-                            setSettings(tempSettings);
-                            onChange(tempSettings);
+                            handleSettingsChange((oldSettings: ISynonymListSettings) => {
+                                oldSettings.numberOfSynonyms = selectedNumber;
+                                return oldSettings;
+                            });
                         }}
                     />
                 </Grid>
