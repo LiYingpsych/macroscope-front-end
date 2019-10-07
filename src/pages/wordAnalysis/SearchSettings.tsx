@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -11,10 +11,10 @@ import SettingsIcon from "../../icons/SettingsIcon";
 
 import SwitchExpansionPanel from "../../components/SwitchExpansionPanel";
 import SynonymListSettings, { ISynonymListSettings } from "./settings/SynonymListSettings";
-import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
-import ContextNetworkSettings from "./settings/ContextNetworkSettings";
-import ContextChangeSettings from "./settings/ContextChangeSettings";
-import SentimentSettings from "./settings/SentimentSettings";
+// import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
+// import ContextNetworkSettings from "./settings/ContextNetworkSettings";
+// import ContextChangeSettings from "./settings/ContextChangeSettings";
+// import SentimentSettings from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
 import { closestMaxYear } from "../../globals";
 import useModifyableObject from "../../customHooks/useModifyableObject";
@@ -66,12 +66,14 @@ export default function SearchSettings() {
             isOpen: false,
             settings: {
                 year: closestMaxYear,
-                numberOfSynonyms: 5
+                numberOfSynonyms: 105
             }
         }
     };
 
     const [settings, handleSettingsChange] = useModifyableObject(defaultSettings);
+
+    const [synonymListError, setSynonymListError] = useState(false);
 
     // TODO: consider having a global year?
     return (
@@ -94,14 +96,16 @@ export default function SearchSettings() {
                                 return oldSettings;
                             });
                         }}
+                        error={synonymListError}
                     >
                         <SynonymListSettings
                             defaultSettings={defaultSettings.synonymListSettingsPanel.settings}
                             onInvalidSettings={() => {
-                                console.log("Invalid settings");
+                                setSynonymListError(true);
                             }}
                             onChange={(synonymListSettings: ISynonymListSettings) => {
                                 handleSettingsChange((oldSettings: ISearchSettings) => {
+                                    setSynonymListError(false);
                                     oldSettings.synonymListSettingsPanel.settings = synonymListSettings;
                                     return oldSettings;
                                 });
@@ -109,7 +113,7 @@ export default function SearchSettings() {
                         />
                     </SwitchExpansionPanel>
 
-                    <SwitchExpansionPanel label="Synonym network">
+                    {/* <SwitchExpansionPanel label="Synonym network">
                         <SynonymNetworkSettings />
                     </SwitchExpansionPanel>
 
@@ -127,7 +131,7 @@ export default function SearchSettings() {
                         <SentimentSettings />
                     </SwitchExpansionPanel>
 
-                    <SwitchExpansionPanel label="Frequeny"></SwitchExpansionPanel>
+                    <SwitchExpansionPanel label="Frequeny"></SwitchExpansionPanel> */}
 
                     <Button
                         variant="contained"

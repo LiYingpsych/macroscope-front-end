@@ -47,6 +47,12 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
 
     const [errorHelperText, setErrorHelperText] = useState("");
 
+    const clearError = () => {
+        setErrorHelperText("");
+    };
+
+    const [value, setValue] = useState(defaultOption.value);
+
     useEffect(() => {
         const defaultIsInArray: boolean = contains(
             options,
@@ -56,13 +62,14 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
             }
         );
 
-        if (!defaultIsInArray) {
-            setErrorHelperText(`${defaultOption.value} is not a possible option`);
+        if (value === defaultOption.value && !defaultIsInArray) {
+            const validationErrorMessage = `${defaultOption.value} is not a possible option`;
+            setErrorHelperText(validationErrorMessage);
             onValidationError();
         } else {
-            setErrorHelperText("");
+            clearError();
         }
-    }, [options, defaultOption, onValidationError]);
+    }, [options, defaultOption, onValidationError, value]);
 
     const inputLabel = useRef<HTMLLabelElement>(null);
     const [labelWidth, setLabelWidth] = useState(0);
@@ -75,10 +82,9 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
         setNativeLabelWidth(nativeInputLabel.current!.offsetWidth);
     }, []);
 
-    const [value, setValue] = useState(defaultOption.value);
-
     function handleOnChange(event: React.ChangeEvent<{ name?: string; value: unknown }>) {
         const selectedValue: T = event.target.value as T;
+        clearError();
         setValue(selectedValue);
         onChange(selectedValue);
     }
