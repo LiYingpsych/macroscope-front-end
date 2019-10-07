@@ -15,10 +15,11 @@ export interface ISynonymListSettings {
 interface IProps {
     onChange: (settings: ISynonymListSettings) => void;
     defaultSettings: ISynonymListSettings;
+    onInvalidSettings?: () => void;
 }
 
 export default function SynonymListSettings(props: IProps) {
-    const { onChange, defaultSettings } = props;
+    const { onChange, defaultSettings, onInvalidSettings = () => {} } = props;
 
     const years: number[] = range(closestMinYear, closestMaxYear, 10);
     const numberOfSynonyms: number[] = range(1, 100);
@@ -38,6 +39,7 @@ export default function SynonymListSettings(props: IProps) {
                         label="Year"
                         numbers={years}
                         defaultNumber={defaultSettings.year}
+                        onValidationError={onInvalidSettings}
                         onChange={(selectedYear: number) => {
                             handleSettingsChange((oldSettings: ISynonymListSettings) => {
                                 oldSettings.year = selectedYear;
@@ -49,6 +51,7 @@ export default function SynonymListSettings(props: IProps) {
                         label="Number of synonyms"
                         numbers={numberOfSynonyms}
                         defaultNumber={defaultSettings.numberOfSynonyms}
+                        onValidationError={onInvalidSettings}
                         onChange={(selectedNumber: number) => {
                             handleSettingsChange((oldSettings: ISynonymListSettings) => {
                                 oldSettings.numberOfSynonyms = selectedNumber;

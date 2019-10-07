@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -7,6 +7,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Hidden from "@material-ui/core/Hidden";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import { contains } from "../../utils/arrayContains";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,27 +29,53 @@ export interface ISelectionOption<T extends OptionValue> {
 interface IProps<T extends OptionValue> {
     label: string;
     options: ISelectionOption<T>[];
-    defaultOption: ISelectionOption<T>; // TODO: make nullable - default to first item
     onChange: (value: T) => void;
+    defaultOption?: ISelectionOption<T>; // TODO: make nullable - default to first item
+    onValidationError?: () => void;
 }
 
 export default function SelectionInput<T extends OptionValue>(props: IProps<T>) {
     const classes = useStyles();
 
-    const { label, options, onChange, defaultOption } = props;
+    const {
+        label,
+        options,
+        onChange,
+        defaultOption = options[0],
+        onValidationError = () => {}
+    } = props;
 
-    const inputLabel = React.useRef<HTMLLabelElement>(null);
-    const [labelWidth, setLabelWidth] = React.useState(0);
+    const [errorHelperText, setErrorHelperText] = useState("");
 
-    const nativeInputLabel = React.useRef<HTMLLabelElement>(null);
-    const [nativeLabelWidth, setNativeLabelWidth] = React.useState(0);
+    useEffect(() => {
+        const defaultIsInArray: boolean = contains(
+            options,
+            defaultOption,
+            (a: ISelectionOption<T>, b: ISelectionOption<T>) => {
+                return a.value === b.value && a.label === b.label;
+            }
+        );
 
-    React.useEffect(() => {
+        if (!defaultIsInArray) {
+            setErrorHelperText(`${defaultOption.value} is not a possible option`);
+            onValidationError();
+        } else {
+            setErrorHelperText("");
+        }
+    }, [options, defaultOption, onValidationError]);
+
+    const inputLabel = useRef<HTMLLabelElement>(null);
+    const [labelWidth, setLabelWidth] = useState(0);
+
+    const nativeInputLabel = useRef<HTMLLabelElement>(null);
+    const [nativeLabelWidth, setNativeLabelWidth] = useState(0);
+
+    useEffect(() => {
         setLabelWidth(inputLabel.current!.offsetWidth);
         setNativeLabelWidth(nativeInputLabel.current!.offsetWidth);
     }, []);
 
-    const [value, setValue] = React.useState(defaultOption.value);
+    const [value, setValue] = useState(defaultOption.value);
 
     function handleOnChange(event: React.ChangeEvent<{ name?: string; value: unknown }>) {
         const selectedValue: T = event.target.value as T;
@@ -87,20 +115,30 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
     return (
         <>
             <Hidden xsDown implementation="css">
-                <FormControl variant="outlined" className={classes.formControl}>
+                <FormControl
+                    variant="outlined"
+                    className={classes.formControl}
+                    error={errorHelperText !== ""}
+                >
                     <InputLabel ref={inputLabel} htmlFor={`${label}-select`}>
                         {label}
                     </InputLabel>
                     {selectComponent(false)}
+                    <FormHelperText>{errorHelperText}</FormHelperText>
                 </FormControl>
             </Hidden>
 
             <Hidden smUp implementation="css">
-                <FormControl variant="outlined" className={classes.formControl}>
+                <FormControl
+                    variant="outlined"
+                    className={classes.formControl}
+                    error={errorHelperText !== ""}
+                >
                     <InputLabel ref={nativeInputLabel} htmlFor={`native-${label}-select`}>
                         {label}
                     </InputLabel>
                     {selectComponent(true)}
+                    <FormHelperText>{errorHelperText}</FormHelperText>
                 </FormControl>
             </Hidden>
         </>

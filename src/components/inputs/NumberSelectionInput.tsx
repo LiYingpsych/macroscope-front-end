@@ -6,10 +6,11 @@ interface IProps {
     numbers: number[];
     defaultNumber: number;
     onChange: (selectedNumber: number) => void;
+    onValidationError?: () => void;
 }
 
 export default function NumberSelectionInput(props: IProps) {
-    const { label, numbers, defaultNumber, onChange } = props;
+    const { label, numbers, defaultNumber, onChange, onValidationError } = props;
 
     const options: ISelectionOption<number>[] = numbers.map((year: number) => {
         return { value: year, label: year.toString() };
@@ -26,6 +27,7 @@ export default function NumberSelectionInput(props: IProps) {
             options={options}
             defaultOption={defaultOption}
             onChange={onChange}
+            onValidationError={onValidationError}
         />
     );
 }

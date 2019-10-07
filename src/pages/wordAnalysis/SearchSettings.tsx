@@ -54,6 +54,11 @@ interface ISearchSettings {
 }
 
 export default function SearchSettings() {
+    // TODO: on update - add settings to url
+    // URL encode settings object and append to query string
+    // ?settings=ENCODED_SETTINGS_OBJECT
+    // on load check query string for settings object and validate items
+
     const classes = useStyles();
 
     const defaultSettings: ISearchSettings = {
@@ -92,6 +97,9 @@ export default function SearchSettings() {
                     >
                         <SynonymListSettings
                             defaultSettings={defaultSettings.synonymListSettingsPanel.settings}
+                            onInvalidSettings={() => {
+                                console.log("Invalid settings");
+                            }}
                             onChange={(synonymListSettings: ISynonymListSettings) => {
                                 handleSettingsChange((oldSettings: ISearchSettings) => {
                                     oldSettings.synonymListSettingsPanel.settings = synonymListSettings;
