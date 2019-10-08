@@ -66,7 +66,7 @@ export default function SearchSettings() {
             isOpen: false,
             settings: {
                 year: closestMaxYear,
-                numberOfSynonyms: 105
+                numberOfSynonyms: 5
             }
         }
     };
