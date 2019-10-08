@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import useReactRouter from "use-react-router";
+import queryString from "query-string";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -53,6 +55,19 @@ interface ISearchSettings {
     synonymListSettingsPanel: ISettingPanel<ISynonymListSettings>;
 }
 
+const encodeSettings = <T,>(obj: T, propName: string = "obj") => {
+    return queryString.stringify({
+        [propName]: JSON.stringify(obj)
+    });
+};
+
+const decodeSettings = <T,>(qs: string, propName: string = "obj") => {
+    const decoded = queryString.parse(qs);
+
+    // @ts-ignore
+    return JSON.parse(decoded[propName]) as T;
+};
+
 export default function SearchSettings() {
     // TODO: on update - add settings to url
     // URL encode settings object and append to query string
@@ -70,6 +85,16 @@ export default function SearchSettings() {
             }
         }
     };
+
+    const settingsPropName = "settings";
+    const encoded = encodeSettings<ISearchSettings>(defaultSettings, settingsPropName);
+    console.log(encoded);
+
+    const decoded = decodeSettings<ISearchSettings>(encoded, settingsPropName);
+    console.log(decoded);
+
+    // const { history, location, match } = useReactRouter();
+    // console.log(location.search)
 
     const [settings, handleSettingsChange] = useModifyableObject(defaultSettings);
 
