@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useReactRouter from "use-react-router";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
@@ -18,7 +18,6 @@ import SynonymListSettings, { ISynonymListSettings } from "./settings/SynonymLis
 // import SentimentSettings from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
 import { closestMaxYear } from "../../globals";
-import useModifyableObject from "../../customHooks/useModifyableObject";
 import { encodeQueryStringObject, decodeQueryString } from "../../utils/queryStringUtils";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -84,11 +83,7 @@ const getSettingsFromSearchString = (searchString: string): ISearchSettings => {
 type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
 
 export default function SearchSettings() {
-    // TODO: on update - add settings to url
-    // URL encode settings object and append to query string
-    // ?settings=ENCODED_SETTINGS_OBJECT
-    // on load check query string for settings object and validate items
-
+    // TODO: Add clone function instead of JSON.parse(JSON.stringify(obj))
     const classes = useStyles();
 
     const { location, history } = useReactRouter();
@@ -99,20 +94,12 @@ export default function SearchSettings() {
         JSON.parse(JSON.stringify(parsedSettings))
     );
 
-    // useEffect(() => {
-    //     console.log(`qp change: ${location.search}`);
-    //     setSavedSettings(getSettingsFromSearchString(location.search));
-    // }, [location]);
-
     const [isUpdateable, setIsUpdateable] = useState(false);
-
-    // const [unsavedSettings, handleSettingsChange] = useModifyableObject(savedSettings);
-
-    const [synonymListError, setSynonymListError] = useState(false);
 
     const onSettingsChange = (cb: (oldSettings: ISearchSettings) => ISearchSettings) => {
         handleSettingsChange(cb);
 
+        // TODO: settings have not changed if isOpen is false - extract this logic into a function and only compare settings that are "open"
         const settingsHaveChanged =
             JSON.stringify(unsavedSettings) !== JSON.stringify(savedSettings);
         setIsUpdateable(settingsHaveChanged);
@@ -121,11 +108,15 @@ export default function SearchSettings() {
     const handleSettingsChange = (
         handleModificationFunction: HandleSettingsModificationFunction
     ) => {
-        const modifiedSettings = handleModificationFunction(unsavedSettings);
+        const modifiedSettings = handleModificationFunction(
+            JSON.parse(JSON.stringify(unsavedSettings))
+        );
         setUnsavedSettings(modifiedSettings);
     };
 
-    // TODO: consider having a global year?getSettingsFromSearchString
+    const [synonymListError, setSynonymListError] = useState(false);
+
+    // TODO: consider having a global year
     return (
         <div className={classes.root}>
             <ExpansionPanel>
