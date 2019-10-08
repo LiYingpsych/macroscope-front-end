@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useReactRouter from "use-react-router";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
@@ -56,25 +56,29 @@ interface ISearchSettings {
 }
 
 const getSettingsFromSearchString = (searchString: string): ISearchSettings => {
+    const defaultSettings: ISearchSettings = {
+        synonymListSettingsPanel: {
+            isOpen: false,
+            settings: {
+                year: closestMaxYear,
+                numberOfSynonyms: 5
+            }
+        }
+    };
+
     if (searchString[0] === "?") {
         searchString = searchString.substr(1);
     }
 
     if (searchString.length === 0) {
-        const defaultSettings: ISearchSettings = {
-            synonymListSettingsPanel: {
-                isOpen: false,
-                settings: {
-                    year: closestMaxYear,
-                    numberOfSynonyms: 5
-                }
-            }
-        };
-
         return defaultSettings;
     }
 
-    return decodeQueryString<ISearchSettings>(searchString, "settings");
+    try {
+        return decodeQueryString<ISearchSettings>(searchString, "settings");
+    } catch (error) {
+        return defaultSettings;
+    }
 };
 
 export default function SearchSettings() {
@@ -85,14 +89,17 @@ export default function SearchSettings() {
 
     const classes = useStyles();
 
-    const { location } = useReactRouter();
+    const { location, history } = useReactRouter();
+
     const parsedSettings = getSettingsFromSearchString(location.search);
 
-    // const settingsPropName = "settings";
-    // const encoded = encodeQueryStringObject<ISearchSettings>(defaultSettings, settingsPropName);
-    // console.log(encoded);
-
     const [settings, handleSettingsChange] = useModifyableObject(parsedSettings);
+
+    const [isUpdateable, setIsUpdateable] = useState(false);
+
+    useEffect(() => {
+        // deep equal object and if updated then settings are updatable
+    }, [settings]);
 
     const [synonymListError, setSynonymListError] = useState(false);
 
@@ -158,7 +165,9 @@ export default function SearchSettings() {
                         variant="contained"
                         color="secondary"
                         onClick={() => {
-                            console.log(settings);
+                            history.push(
+                                `?${encodeQueryStringObject<ISearchSettings>(settings, "settings")}`
+                            );
                         }}
                     >
                         Update
