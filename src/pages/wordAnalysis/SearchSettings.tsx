@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import useReactRouter from "use-react-router";
+import useReactRouter from "use-react-router";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -55,6 +55,28 @@ interface ISearchSettings {
     synonymListSettingsPanel: ISettingPanel<ISynonymListSettings>;
 }
 
+const getSettingsFromSearchString = (searchString: string): ISearchSettings => {
+    if (searchString[0] === "?") {
+        searchString = searchString.substr(1);
+    }
+
+    if (searchString.length === 0) {
+        const defaultSettings: ISearchSettings = {
+            synonymListSettingsPanel: {
+                isOpen: false,
+                settings: {
+                    year: closestMaxYear,
+                    numberOfSynonyms: 5
+                }
+            }
+        };
+
+        return defaultSettings;
+    }
+
+    return decodeQueryString<ISearchSettings>(searchString, "settings");
+};
+
 export default function SearchSettings() {
     // TODO: on update - add settings to url
     // URL encode settings object and append to query string
@@ -63,31 +85,18 @@ export default function SearchSettings() {
 
     const classes = useStyles();
 
-    const defaultSettings: ISearchSettings = {
-        synonymListSettingsPanel: {
-            isOpen: false,
-            settings: {
-                year: closestMaxYear,
-                numberOfSynonyms: 5
-            }
-        }
-    };
+    const { location } = useReactRouter();
+    const parsedSettings = getSettingsFromSearchString(location.search);
 
-    const settingsPropName = "settings";
-    const encoded = encodeQueryStringObject<ISearchSettings>(defaultSettings, settingsPropName);
-    console.log(encoded);
+    // const settingsPropName = "settings";
+    // const encoded = encodeQueryStringObject<ISearchSettings>(defaultSettings, settingsPropName);
+    // console.log(encoded);
 
-    const decoded = decodeQueryString<ISearchSettings>(encoded, settingsPropName);
-    console.log(decoded);
-
-    // const { history, location, match } = useReactRouter();
-    // console.log(location.search)
-
-    const [settings, handleSettingsChange] = useModifyableObject(defaultSettings);
+    const [settings, handleSettingsChange] = useModifyableObject(parsedSettings);
 
     const [synonymListError, setSynonymListError] = useState(false);
 
-    // TODO: consider having a global year?
+    // TODO: consider having a global year?getSettingsFromSearchString
     return (
         <div className={classes.root}>
             <ExpansionPanel>
@@ -101,7 +110,7 @@ export default function SearchSettings() {
                 <ExpansionPanelDetails className={classes.content}>
                     <SwitchExpansionPanel
                         label="Synonym list"
-                        isOpenDefault={defaultSettings.synonymListSettingsPanel.isOpen}
+                        isOpenDefault={parsedSettings.synonymListSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
                             handleSettingsChange((oldSettings: ISearchSettings) => {
                                 oldSettings.synonymListSettingsPanel.isOpen = isOpen;
@@ -111,7 +120,7 @@ export default function SearchSettings() {
                         error={synonymListError}
                     >
                         <SynonymListSettings
-                            defaultSettings={defaultSettings.synonymListSettingsPanel.settings}
+                            defaultSettings={parsedSettings.synonymListSettingsPanel.settings}
                             onInvalidSettings={() => {
                                 setSynonymListError(true);
                             }}
