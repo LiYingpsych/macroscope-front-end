@@ -81,6 +81,8 @@ const getSettingsFromSearchString = (searchString: string): ISearchSettings => {
     }
 };
 
+type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
+
 export default function SearchSettings() {
     // TODO: on update - add settings to url
     // URL encode settings object and append to query string
@@ -92,16 +94,36 @@ export default function SearchSettings() {
     const { location, history } = useReactRouter();
 
     const parsedSettings = getSettingsFromSearchString(location.search);
+    const [savedSettings, setSavedSettings] = useState(JSON.parse(JSON.stringify(parsedSettings)));
+    const [unsavedSettings, setUnsavedSettings] = useState(
+        JSON.parse(JSON.stringify(parsedSettings))
+    );
 
-    const [settings, handleSettingsChange] = useModifyableObject(parsedSettings);
+    // useEffect(() => {
+    //     console.log(`qp change: ${location.search}`);
+    //     setSavedSettings(getSettingsFromSearchString(location.search));
+    // }, [location]);
 
     const [isUpdateable, setIsUpdateable] = useState(false);
 
-    useEffect(() => {
-        // deep equal object and if updated then settings are updatable
-    }, [settings]);
+    // const [unsavedSettings, handleSettingsChange] = useModifyableObject(savedSettings);
 
     const [synonymListError, setSynonymListError] = useState(false);
+
+    const onSettingsChange = (cb: (oldSettings: ISearchSettings) => ISearchSettings) => {
+        handleSettingsChange(cb);
+
+        const settingsHaveChanged =
+            JSON.stringify(unsavedSettings) !== JSON.stringify(savedSettings);
+        setIsUpdateable(settingsHaveChanged);
+    };
+
+    const handleSettingsChange = (
+        handleModificationFunction: HandleSettingsModificationFunction
+    ) => {
+        const modifiedSettings = handleModificationFunction(unsavedSettings);
+        setUnsavedSettings(modifiedSettings);
+    };
 
     // TODO: consider having a global year?getSettingsFromSearchString
     return (
@@ -117,9 +139,9 @@ export default function SearchSettings() {
                 <ExpansionPanelDetails className={classes.content}>
                     <SwitchExpansionPanel
                         label="Synonym list"
-                        isOpenDefault={parsedSettings.synonymListSettingsPanel.isOpen}
+                        isOpenDefault={savedSettings.synonymListSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
-                            handleSettingsChange((oldSettings: ISearchSettings) => {
+                            onSettingsChange((oldSettings: ISearchSettings) => {
                                 oldSettings.synonymListSettingsPanel.isOpen = isOpen;
                                 return oldSettings;
                             });
@@ -127,12 +149,12 @@ export default function SearchSettings() {
                         error={synonymListError}
                     >
                         <SynonymListSettings
-                            defaultSettings={parsedSettings.synonymListSettingsPanel.settings}
+                            defaultSettings={savedSettings.synonymListSettingsPanel.settings}
                             onInvalidSettings={() => {
                                 setSynonymListError(true);
                             }}
                             onChange={(synonymListSettings: ISynonymListSettings) => {
-                                handleSettingsChange((oldSettings: ISearchSettings) => {
+                                onSettingsChange((oldSettings: ISearchSettings) => {
                                     setSynonymListError(false);
                                     oldSettings.synonymListSettingsPanel.settings = synonymListSettings;
                                     return oldSettings;
@@ -164,10 +186,16 @@ export default function SearchSettings() {
                     <Button
                         variant="contained"
                         color="secondary"
+                        disabled={!isUpdateable}
                         onClick={() => {
                             history.push(
-                                `?${encodeQueryStringObject<ISearchSettings>(settings, "settings")}`
+                                `?${encodeQueryStringObject<ISearchSettings>(
+                                    unsavedSettings,
+                                    "settings"
+                                )}`
                             );
+                            setSavedSettings(JSON.parse(JSON.stringify(unsavedSettings)));
+                            setIsUpdateable(false);
                         }}
                     >
                         Update
