@@ -50,7 +50,7 @@ interface ISettingPanel<T> {
     settings: T;
 }
 
-interface ISearchSettings {
+interface ISearchSettings extends Object {
     synonymListSettingsPanel: ISettingPanel<ISynonymListSettings>;
     synonymNetworkSettingsPanel: ISettingPanel<ISynonymNetworkSettings>;
 }
@@ -83,7 +83,7 @@ const getSettingsFromSearchString = (searchString: string): ISearchSettings => {
     }
 
     try {
-        return decodeQueryString<ISearchSettings>(searchString, "settings");
+        return decodeQueryString<ISearchSettings>(searchString, Object.keys(defaultSettings));
     } catch (error) {
         return defaultSettings;
     }
@@ -169,7 +169,7 @@ export default function SearchSettings() {
                         isOpenDefault={savedSettings.synonymNetworkSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
                             onSettingsChange((oldSettings: ISearchSettings) => {
-                                oldSettings.synonymListSettingsPanel.isOpen = isOpen;
+                                oldSettings.synonymNetworkSettingsPanel.isOpen = isOpen;
                                 return oldSettings;
                             });
                         }}
@@ -211,12 +211,7 @@ export default function SearchSettings() {
                         color="secondary"
                         disabled={!isUpdateable}
                         onClick={() => {
-                            history.push(
-                                `?${encodeQueryStringObject<ISearchSettings>(
-                                    unsavedSettings,
-                                    "settings"
-                                )}`
-                            );
+                            history.push(`?${encodeQueryStringObject(unsavedSettings)}`);
                             setSavedSettings(JSON.parse(JSON.stringify(unsavedSettings)));
                             setIsUpdateable(false);
                         }}
