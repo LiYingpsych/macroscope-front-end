@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import useReactRouter from "use-react-router";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -17,7 +16,6 @@ import SynonymNetworkSettings, { ISynonymNetworkSettings } from "./settings/Syno
 // import ContextChangeSettings from "./settings/ContextChangeSettings";
 // import SentimentSettings from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
-import { encodeQueryStringObject } from "../../utils/queryStringUtils";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -58,6 +56,7 @@ type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISea
 
 interface IProps {
     defaultSettings: ISearchSettings;
+    onUpdate: (updatedSettings: ISearchSettings) => void;
 }
 
 const settingsHaveChanged = (settingsA: ISearchSettings, settingsB: ISearchSettings): boolean => {
@@ -68,9 +67,7 @@ const settingsHaveChanged = (settingsA: ISearchSettings, settingsB: ISearchSetti
 export default function SearchSettings(props: IProps) {
     // TODO: Add clone function instead of JSON.parse(JSON.stringify(obj))
     const classes = useStyles();
-    const { defaultSettings } = props;
-
-    const { history } = useReactRouter();
+    const { defaultSettings, onUpdate } = props;
 
     const [unsavedSettings, setUnsavedSettings] = useState(defaultSettings);
     const [isUpdateable, setIsUpdateable] = useState(false);
@@ -172,8 +169,8 @@ export default function SearchSettings(props: IProps) {
                         color="secondary"
                         disabled={!isUpdateable}
                         onClick={() => {
-                            history.push(`?${encodeQueryStringObject(unsavedSettings)}`);
                             setIsUpdateable(false);
+                            onUpdate(unsavedSettings);
                         }}
                     >
                         Update

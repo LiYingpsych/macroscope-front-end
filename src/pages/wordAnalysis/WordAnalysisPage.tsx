@@ -8,6 +8,7 @@ import SearchSettings, { ISearchSettings } from "./SearchSettings";
 import SearchBar from "../../components/SearchBar";
 import { closestMaxYear, synonymNetworkMaxYear } from "../../globals";
 import { getObjectFromQueryString } from "./getObjectFromQueryString";
+import { encodeQueryStringObject } from "../../utils/queryStringUtils";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() =>
 
 export default function WordAnalysisPage() {
     const classes = useStyles();
-    const { location } = useReactRouter();
+    const { location, history } = useReactRouter();
 
     const defaultSettings: ISearchSettings = {
         synonymListSettingsPanel: {
@@ -52,7 +53,12 @@ export default function WordAnalysisPage() {
                 />
             </Grid>
             <Grid item xs={12} className={classes.gridItem}>
-                <SearchSettings defaultSettings={currentSettings} />
+                <SearchSettings
+                    defaultSettings={currentSettings}
+                    onUpdate={(updatedSettings: ISearchSettings) => {
+                        history.push(`?${encodeQueryStringObject(updatedSettings)}`);
+                    }}
+                />
             </Grid>
         </Grid>
     );
