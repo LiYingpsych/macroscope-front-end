@@ -6,17 +6,14 @@ import NumberSelectionInput from "../../../components/inputs/NumberSelectionInpu
 import { closestMaxYear, closestMinYear } from "../../../globals";
 import range from "../../../utils/range";
 import useModifyableObject from "../../../customHooks/useModifyableObject";
+import { ISettingsProps } from "./ISettingsProps";
 
 export interface ISynonymListSettings {
     year: number;
     numberOfSynonyms: number;
 }
 
-interface IProps {
-    onChange: (settings: ISynonymListSettings) => void;
-    defaultSettings: ISynonymListSettings;
-    onInvalidSettings: () => void;
-}
+interface IProps extends ISettingsProps<ISynonymListSettings> {}
 
 export default function SynonymListSettings(props: IProps) {
     const { onChange, defaultSettings, onInvalidSettings } = props;

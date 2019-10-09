@@ -5,20 +5,28 @@ import NumberSelectionInput from "../../../components/inputs/NumberSelectionInpu
 
 import range from "../../../utils/range";
 import { synonymNetworkMinYear, synonymNetworkMaxYear } from "../../../globals";
+import { ISettingsProps } from "./ISettingsProps";
+import useModifyableObject from "../../../customHooks/useModifyableObject";
 
-export default function SynonymNetworkSettings() {
+export interface ISynonymNetworkSettings {
+    year: number;
+    synonymsPerTarget: number;
+    simalarityThreshold: number;
+}
+
+interface IProps extends ISettingsProps<ISynonymNetworkSettings> {}
+
+export default function SynonymNetworkSettings(props: IProps) {
     // TODO: add additional target words
+    const { onChange, defaultSettings, onInvalidSettings } = props;
 
     const years: number[] = range(synonymNetworkMinYear, synonymNetworkMaxYear, 10);
-    const defaultYear = years[years.length - 1];
-
     const synonymsPerTarget: number[] = range(3, 10);
-    const defaultSynonymsPerTarget = 5;
-
     const simalarityThreshold: number[] = range(50, 100).map((value: number) => {
         return value / 100;
     });
-    const defaultSimalarityThreshold = 0.7;
+
+    const [, handleSettingsChange] = useModifyableObject(defaultSettings, onChange);
 
     return (
         <form autoComplete="off">
@@ -27,25 +35,37 @@ export default function SynonymNetworkSettings() {
                     <NumberSelectionInput
                         label="Year"
                         numbers={years}
-                        defaultNumber={defaultYear}
+                        defaultNumber={defaultSettings.year}
+                        onValidationError={onInvalidSettings}
                         onChange={(selectedYear: number) => {
-                            console.log(selectedYear);
+                            handleSettingsChange((oldSettings: ISynonymNetworkSettings) => {
+                                oldSettings.year = selectedYear;
+                                return oldSettings;
+                            });
                         }}
                     />
                     <NumberSelectionInput
                         label="Synonyms per target"
                         numbers={synonymsPerTarget}
-                        defaultNumber={defaultSynonymsPerTarget}
-                        onChange={(selectedNUmber: number) => {
-                            console.log(selectedNUmber);
+                        defaultNumber={defaultSettings.synonymsPerTarget}
+                        onValidationError={onInvalidSettings}
+                        onChange={(selectedNumber: number) => {
+                            handleSettingsChange((oldSettings: ISynonymNetworkSettings) => {
+                                oldSettings.synonymsPerTarget = selectedNumber;
+                                return oldSettings;
+                            });
                         }}
                     />
                     <NumberSelectionInput
                         label="Simalarity threshold"
                         numbers={simalarityThreshold}
-                        defaultNumber={defaultSimalarityThreshold}
-                        onChange={(selectedNUmber: number) => {
-                            console.log(selectedNUmber);
+                        defaultNumber={defaultSettings.simalarityThreshold}
+                        onValidationError={onInvalidSettings}
+                        onChange={(selectedNumber: number) => {
+                            handleSettingsChange((oldSettings: ISynonymNetworkSettings) => {
+                                oldSettings.simalarityThreshold = selectedNumber;
+                                return oldSettings;
+                            });
                         }}
                     />
                 </Grid>

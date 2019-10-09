@@ -12,12 +12,12 @@ import SettingsIcon from "../../icons/SettingsIcon";
 
 import SwitchExpansionPanel from "../../components/SwitchExpansionPanel";
 import SynonymListSettings, { ISynonymListSettings } from "./settings/SynonymListSettings";
-// import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
+import SynonymNetworkSettings, { ISynonymNetworkSettings } from "./settings/SynonymNetworkSettings";
 // import ContextNetworkSettings from "./settings/ContextNetworkSettings";
 // import ContextChangeSettings from "./settings/ContextChangeSettings";
 // import SentimentSettings from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
-import { closestMaxYear } from "../../globals";
+import { closestMaxYear, synonymNetworkMaxYear } from "../../globals";
 import { encodeQueryStringObject, decodeQueryString } from "../../utils/queryStringUtils";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,6 +52,7 @@ interface ISettingPanel<T> {
 
 interface ISearchSettings {
     synonymListSettingsPanel: ISettingPanel<ISynonymListSettings>;
+    synonymNetworkSettingsPanel: ISettingPanel<ISynonymNetworkSettings>;
 }
 
 const getSettingsFromSearchString = (searchString: string): ISearchSettings => {
@@ -61,6 +62,14 @@ const getSettingsFromSearchString = (searchString: string): ISearchSettings => {
             settings: {
                 year: closestMaxYear,
                 numberOfSynonyms: 5
+            }
+        },
+        synonymNetworkSettingsPanel: {
+            isOpen: false,
+            settings: {
+                year: synonymNetworkMaxYear,
+                synonymsPerTarget: 5,
+                simalarityThreshold: 0.7
             }
         }
     };
@@ -115,6 +124,7 @@ export default function SearchSettings() {
     };
 
     const [synonymListError, setSynonymListError] = useState(false);
+    const [synonymNetworkError, setSynonymNetworkError] = useState(false);
 
     // TODO: consider having a global year
     return (
@@ -154,11 +164,33 @@ export default function SearchSettings() {
                         />
                     </SwitchExpansionPanel>
 
-                    {/* <SwitchExpansionPanel label="Synonym network">
-                        <SynonymNetworkSettings />
+                    <SwitchExpansionPanel
+                        label="Synonym network"
+                        isOpenDefault={savedSettings.synonymNetworkSettingsPanel.isOpen}
+                        onChange={(isOpen: boolean) => {
+                            onSettingsChange((oldSettings: ISearchSettings) => {
+                                oldSettings.synonymListSettingsPanel.isOpen = isOpen;
+                                return oldSettings;
+                            });
+                        }}
+                        error={synonymNetworkError}
+                    >
+                        <SynonymNetworkSettings
+                            defaultSettings={savedSettings.synonymNetworkSettingsPanel.settings}
+                            onInvalidSettings={() => {
+                                setSynonymNetworkError(true);
+                            }}
+                            onChange={(synonymNetworkSettings: ISynonymNetworkSettings) => {
+                                onSettingsChange((oldSettings: ISearchSettings) => {
+                                    setSynonymNetworkError(false);
+                                    oldSettings.synonymNetworkSettingsPanel.settings = synonymNetworkSettings;
+                                    return oldSettings;
+                                });
+                            }}
+                        />
                     </SwitchExpansionPanel>
 
-                    <SwitchExpansionPanel label="Context network">
+                    {/* <SwitchExpansionPanel label="Context network">
                         <ContextNetworkSettings />
                     </SwitchExpansionPanel>
 
