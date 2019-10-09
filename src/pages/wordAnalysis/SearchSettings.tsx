@@ -60,6 +60,11 @@ interface IProps {
     defaultSettings: ISearchSettings;
 }
 
+const settingsHaveChanged = (settingsA: ISearchSettings, settingsB: ISearchSettings): boolean => {
+    // TODO: settings have not changed if isOpen is false - extract this logic into a function and only compare settings that are "open"
+    return JSON.stringify(settingsA) !== JSON.stringify(settingsB);
+};
+
 export default function SearchSettings(props: IProps) {
     // TODO: Add clone function instead of JSON.parse(JSON.stringify(obj))
     const classes = useStyles();
@@ -76,10 +81,7 @@ export default function SearchSettings(props: IProps) {
         );
         setUnsavedSettings(modifiedSettings);
 
-        // TODO: settings have not changed if isOpen is false - extract this logic into a function and only compare settings that are "open"
-        const settingsHaveChanged =
-            JSON.stringify(modifiedSettings) !== JSON.stringify(defaultSettings);
-        setIsUpdateable(settingsHaveChanged);
+        setIsUpdateable(settingsHaveChanged(modifiedSettings, defaultSettings));
     };
 
     const [synonymListError, setSynonymListError] = useState(false);
