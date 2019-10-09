@@ -17,8 +17,7 @@ import SynonymNetworkSettings, { ISynonymNetworkSettings } from "./settings/Syno
 // import ContextChangeSettings from "./settings/ContextChangeSettings";
 // import SentimentSettings from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
-import { closestMaxYear, synonymNetworkMaxYear } from "../../globals";
-import { encodeQueryStringObject, decodeQueryString } from "../../utils/queryStringUtils";
+import { encodeQueryStringObject } from "../../utils/queryStringUtils";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -50,77 +49,37 @@ interface ISettingPanel<T> {
     settings: T;
 }
 
-interface ISearchSettings extends Object {
+export interface ISearchSettings {
     synonymListSettingsPanel: ISettingPanel<ISynonymListSettings>;
     synonymNetworkSettingsPanel: ISettingPanel<ISynonymNetworkSettings>;
 }
 
-const getSettingsFromSearchString = (searchString: string): ISearchSettings => {
-    const defaultSettings: ISearchSettings = {
-        synonymListSettingsPanel: {
-            isOpen: false,
-            settings: {
-                year: closestMaxYear,
-                numberOfSynonyms: 5
-            }
-        },
-        synonymNetworkSettingsPanel: {
-            isOpen: false,
-            settings: {
-                year: synonymNetworkMaxYear,
-                synonymsPerTarget: 5,
-                simalarityThreshold: 0.7
-            }
-        }
-    };
-
-    if (searchString[0] === "?") {
-        searchString = searchString.substr(1);
-    }
-
-    if (searchString.length === 0) {
-        return defaultSettings;
-    }
-
-    try {
-        return decodeQueryString<ISearchSettings>(searchString, Object.keys(defaultSettings));
-    } catch (error) {
-        return defaultSettings;
-    }
-};
-
 type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
 
-export default function SearchSettings() {
+interface IProps {
+    defaultSettings: ISearchSettings;
+}
+
+export default function SearchSettings(props: IProps) {
     // TODO: Add clone function instead of JSON.parse(JSON.stringify(obj))
     const classes = useStyles();
+    const { defaultSettings } = props;
 
-    const { location, history } = useReactRouter();
+    const { history } = useReactRouter();
 
-    const parsedSettings = getSettingsFromSearchString(location.search);
-    const [savedSettings, setSavedSettings] = useState(JSON.parse(JSON.stringify(parsedSettings)));
-    const [unsavedSettings, setUnsavedSettings] = useState(
-        JSON.parse(JSON.stringify(parsedSettings))
-    );
-
+    const [unsavedSettings, setUnsavedSettings] = useState(defaultSettings);
     const [isUpdateable, setIsUpdateable] = useState(false);
 
-    const onSettingsChange = (cb: (oldSettings: ISearchSettings) => ISearchSettings) => {
-        handleSettingsChange(cb);
-
-        // TODO: settings have not changed if isOpen is false - extract this logic into a function and only compare settings that are "open"
-        const settingsHaveChanged =
-            JSON.stringify(unsavedSettings) !== JSON.stringify(savedSettings);
-        setIsUpdateable(settingsHaveChanged);
-    };
-
-    const handleSettingsChange = (
-        handleModificationFunction: HandleSettingsModificationFunction
-    ) => {
+    const onSettingsChange = (handleModificationFunction: HandleSettingsModificationFunction) => {
         const modifiedSettings = handleModificationFunction(
             JSON.parse(JSON.stringify(unsavedSettings))
         );
         setUnsavedSettings(modifiedSettings);
+
+        // TODO: settings have not changed if isOpen is false - extract this logic into a function and only compare settings that are "open"
+        const settingsHaveChanged =
+            JSON.stringify(modifiedSettings) !== JSON.stringify(defaultSettings);
+        setIsUpdateable(settingsHaveChanged);
     };
 
     const [synonymListError, setSynonymListError] = useState(false);
@@ -140,7 +99,7 @@ export default function SearchSettings() {
                 <ExpansionPanelDetails className={classes.content}>
                     <SwitchExpansionPanel
                         label="Synonym list"
-                        isOpenDefault={savedSettings.synonymListSettingsPanel.isOpen}
+                        isOpenDefault={defaultSettings.synonymListSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
                             onSettingsChange((oldSettings: ISearchSettings) => {
                                 oldSettings.synonymListSettingsPanel.isOpen = isOpen;
@@ -150,7 +109,7 @@ export default function SearchSettings() {
                         error={synonymListError}
                     >
                         <SynonymListSettings
-                            defaultSettings={savedSettings.synonymListSettingsPanel.settings}
+                            defaultSettings={defaultSettings.synonymListSettingsPanel.settings}
                             onInvalidSettings={() => {
                                 setSynonymListError(true);
                             }}
@@ -166,7 +125,7 @@ export default function SearchSettings() {
 
                     <SwitchExpansionPanel
                         label="Synonym network"
-                        isOpenDefault={savedSettings.synonymNetworkSettingsPanel.isOpen}
+                        isOpenDefault={defaultSettings.synonymNetworkSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
                             onSettingsChange((oldSettings: ISearchSettings) => {
                                 oldSettings.synonymNetworkSettingsPanel.isOpen = isOpen;
@@ -176,7 +135,7 @@ export default function SearchSettings() {
                         error={synonymNetworkError}
                     >
                         <SynonymNetworkSettings
-                            defaultSettings={savedSettings.synonymNetworkSettingsPanel.settings}
+                            defaultSettings={defaultSettings.synonymNetworkSettingsPanel.settings}
                             onInvalidSettings={() => {
                                 setSynonymNetworkError(true);
                             }}
@@ -212,7 +171,6 @@ export default function SearchSettings() {
                         disabled={!isUpdateable}
                         onClick={() => {
                             history.push(`?${encodeQueryStringObject(unsavedSettings)}`);
-                            setSavedSettings(JSON.parse(JSON.stringify(unsavedSettings)));
                             setIsUpdateable(false);
                         }}
                     >
