@@ -40,7 +40,16 @@ export default function WordAnalysisPage() {
         }
     };
 
-    const currentSettings = getObjectFromQueryString(location.search, defaultSettings);
+    const updateSettings = (settings: ISearchSettings) => {
+        history.push(`?${encodeQueryStringObject(settings)}`);
+    };
+
+    let currentSettings = JSON.parse(JSON.stringify(defaultSettings));
+    try {
+        currentSettings = getObjectFromQueryString(location.search, defaultSettings);
+    } catch (error) {
+        updateSettings(defaultSettings);
+    }
 
     return (
         <Grid container direction="column" spacing={1}>
@@ -56,7 +65,7 @@ export default function WordAnalysisPage() {
                 <SearchSettings
                     defaultSettings={currentSettings}
                     onUpdate={(updatedSettings: ISearchSettings) => {
-                        history.push(`?${encodeQueryStringObject(updatedSettings)}`);
+                        updateSettings(updatedSettings);
                     }}
                 />
             </Grid>
