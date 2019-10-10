@@ -54,6 +54,21 @@ export interface ISearchSettings {
 
 type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
 
+interface IErrors {
+    synonymList: boolean;
+    synonymNetwork: boolean;
+}
+
+interface IValidationErrorProps {
+    errors: boolean[];
+}
+
+const ValidationErrorMessage = (props: IValidationErrorProps) => {
+    const { errors } = props;
+
+    return errors.includes(true) ? <Typography>There is an error with settings</Typography> : null;
+};
+
 interface IProps {
     defaultSettings: ISearchSettings;
     onUpdate: (updatedSettings: ISearchSettings) => void;
@@ -113,8 +128,9 @@ export default function SearchSettings(props: IProps) {
                                 setSynonymListError(true);
                             }}
                             onChange={(synonymListSettings: ISynonymListSettings) => {
+                                setSynonymListError(false);
+
                                 onSettingsChange((oldSettings: ISearchSettings) => {
-                                    setSynonymListError(false);
                                     oldSettings.synonymListSettingsPanel.settings = synonymListSettings;
                                     return oldSettings;
                                 });
@@ -139,8 +155,9 @@ export default function SearchSettings(props: IProps) {
                                 setSynonymNetworkError(true);
                             }}
                             onChange={(synonymNetworkSettings: ISynonymNetworkSettings) => {
+                                setSynonymNetworkError(false);
+
                                 onSettingsChange((oldSettings: ISearchSettings) => {
-                                    setSynonymNetworkError(false);
                                     oldSettings.synonymNetworkSettingsPanel.settings = synonymNetworkSettings;
                                     return oldSettings;
                                 });
@@ -177,6 +194,7 @@ export default function SearchSettings(props: IProps) {
                     </Button>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
+            <ValidationErrorMessage errors={[synonymListError, synonymNetworkError]} />
         </div>
     );
 }
