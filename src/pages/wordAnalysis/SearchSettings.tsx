@@ -12,7 +12,7 @@ import SettingsIcon from "../../icons/SettingsIcon";
 import SwitchExpansionPanel from "../../components/SwitchExpansionPanel";
 import SynonymListSettings, { ISynonymListSettings } from "./settings/SynonymListSettings";
 import SynonymNetworkSettings, { ISynonymNetworkSettings } from "./settings/SynonymNetworkSettings";
-// import ContextNetworkSettings from "./settings/ContextNetworkSettings";
+import ContextNetworkSettings, { IContextNetworkSettings } from "./settings/ContextNetworkSettings";
 // import ContextChangeSettings from "./settings/ContextChangeSettings";
 // import SentimentSettings from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
@@ -50,6 +50,7 @@ interface ISettingPanel<T> {
 export interface ISearchSettings {
     synonymListSettingsPanel: ISettingPanel<ISynonymListSettings>;
     synonymNetworkSettingsPanel: ISettingPanel<ISynonymNetworkSettings>;
+    contextNetworkSettingsPanel: ISettingPanel<IContextNetworkSettings>;
 }
 
 type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
@@ -98,6 +99,7 @@ export default function SearchSettings(props: IProps) {
 
     const [synonymListError, setSynonymListError] = useState(false);
     const [synonymNetworkError, setSynonymNetworkError] = useState(false);
+    const [contextNetworkError, setContextNetworkError] = useState(false);
 
     // TODO: consider having a global year
     return (
@@ -165,11 +167,34 @@ export default function SearchSettings(props: IProps) {
                         />
                     </SwitchExpansionPanel>
 
-                    {/* <SwitchExpansionPanel label="Context network">
-                        <ContextNetworkSettings />
+                    <SwitchExpansionPanel
+                        label="Context network"
+                        isOpenDefault={defaultSettings.synonymNetworkSettingsPanel.isOpen}
+                        onChange={(isOpen: boolean) => {
+                            onSettingsChange((oldSettings: ISearchSettings) => {
+                                oldSettings.synonymNetworkSettingsPanel.isOpen = isOpen;
+                                return oldSettings;
+                            });
+                        }}
+                        error={synonymNetworkError}
+                    >
+                        <ContextNetworkSettings
+                            defaultSettings={defaultSettings.contextNetworkSettingsPanel.settings}
+                            onInvalidSettings={() => {
+                                setContextNetworkError(true);
+                            }}
+                            onChange={(settings: IContextNetworkSettings) => {
+                                setContextNetworkError(false);
+
+                                onSettingsChange((oldSettings: ISearchSettings) => {
+                                    oldSettings.contextNetworkSettingsPanel.settings = settings;
+                                    return oldSettings;
+                                });
+                            }}
+                        />
                     </SwitchExpansionPanel>
 
-                    <SwitchExpansionPanel label="Semantic drift"></SwitchExpansionPanel>
+                    {/* <SwitchExpansionPanel label="Semantic drift"></SwitchExpansionPanel>
 
                     <SwitchExpansionPanel label="Context change">
                         <ContextChangeSettings />
@@ -194,7 +219,9 @@ export default function SearchSettings(props: IProps) {
                     </Button>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
-            <ValidationErrorMessage errors={[synonymListError, synonymNetworkError]} />
+            <ValidationErrorMessage
+                errors={[synonymListError, synonymNetworkError, contextNetworkError]}
+            />
         </div>
     );
 }

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
 import NumberSelectionInput from "../../../components/inputs/NumberSelectionInput";
+import { ISettingsProps } from "./ISettingsProps";
 
 import range from "../../../utils/range";
 import { synonymNetworkMinYear, synonymNetworkMaxYear } from "../../../globals";
-import { ISettingsProps } from "./ISettingsProps";
 
 export interface ISynonymNetworkSettings {
     year: number;
@@ -27,6 +27,12 @@ export default function SynonymNetworkSettings(props: IProps) {
 
     const [settings, setSettings] = useState(defaultSettings);
 
+    const modifySettings = (propName: keyof ISynonymNetworkSettings, value: number) => {
+        const modifiedSettings = { ...settings, [propName]: value };
+        setSettings(modifiedSettings);
+        onChange(modifiedSettings);
+    };
+
     return (
         <form autoComplete="off">
             <Grid container direction="column">
@@ -36,10 +42,8 @@ export default function SynonymNetworkSettings(props: IProps) {
                         numbers={years}
                         defaultNumber={defaultSettings.year}
                         onValidationError={onInvalidSettings}
-                        onChange={(selectedYear: number) => {
-                            const modifiedSettings = { ...settings, year: selectedYear };
-                            setSettings(modifiedSettings);
-                            onChange(modifiedSettings);
+                        onChange={(selectedValue: number) => {
+                            modifySettings("year", selectedValue);
                         }}
                     />
                     <NumberSelectionInput
@@ -47,13 +51,8 @@ export default function SynonymNetworkSettings(props: IProps) {
                         numbers={synonymsPerTarget}
                         defaultNumber={defaultSettings.synonymsPerTarget}
                         onValidationError={onInvalidSettings}
-                        onChange={(selectedNumber: number) => {
-                            const modifiedSettings = {
-                                ...settings,
-                                synonymsPerTarget: selectedNumber
-                            };
-                            setSettings(modifiedSettings);
-                            onChange(modifiedSettings);
+                        onChange={(selectedValue: number) => {
+                            modifySettings("synonymsPerTarget", selectedValue);
                         }}
                     />
                     <NumberSelectionInput
@@ -61,13 +60,8 @@ export default function SynonymNetworkSettings(props: IProps) {
                         numbers={simalarityThreshold}
                         defaultNumber={defaultSettings.simalarityThreshold}
                         onValidationError={onInvalidSettings}
-                        onChange={(selectedNumber: number) => {
-                            const modifiedSettings = {
-                                ...settings,
-                                simalarityThreshold: selectedNumber
-                            };
-                            setSettings(modifiedSettings);
-                            onChange(modifiedSettings);
+                        onChange={(selectedValue: number) => {
+                            modifySettings("simalarityThreshold", selectedValue);
                         }}
                     />
                 </Grid>

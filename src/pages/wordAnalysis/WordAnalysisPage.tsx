@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 
 import SearchSettings, { ISearchSettings } from "./SearchSettings";
 import SearchBar from "../../components/SearchBar";
-import { closestMaxYear, synonymNetworkMaxYear } from "../../globals";
+import { closestMaxYear, synonymNetworkMaxYear, contextNetworkMaxYear } from "../../globals";
 import { getObjectFromQueryString } from "./getObjectFromQueryString";
 import { encodeQueryStringObject } from "../../utils/queryStringUtils";
 
@@ -36,6 +36,18 @@ export default function WordAnalysisPage() {
                 year: synonymNetworkMaxYear,
                 synonymsPerTarget: 5,
                 simalarityThreshold: 0.7
+            }
+        },
+        contextNetworkSettingsPanel: {
+            isOpen: false,
+            settings: {
+                year: contextNetworkMaxYear,
+                maximumNodes: 200,
+                contextRelevance: 0.55,
+                contextCohesiveness: 0.55,
+                individualWordRelevance: 3,
+                minimumEdges: 5,
+                displayNodes: 110
             }
         }
     };
