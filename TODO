@@ -1,2 +1,4 @@
 * Word analysis page url should be copyable and pastable with word query and setting stored in url 
 * Change logo192 and logo512 to macroscope logos
+
+* Document .env
