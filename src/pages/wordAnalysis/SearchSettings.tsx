@@ -13,7 +13,7 @@ import SwitchExpansionPanel from "../../components/SwitchExpansionPanel";
 import SynonymListSettings, { ISynonymListSettings } from "./settings/SynonymListSettings";
 import SynonymNetworkSettings, { ISynonymNetworkSettings } from "./settings/SynonymNetworkSettings";
 import ContextNetworkSettings, { IContextNetworkSettings } from "./settings/ContextNetworkSettings";
-// import ContextChangeSettings from "./settings/ContextChangeSettings";
+import ContextChangeSettings, { IContextChangeSettings } from "./settings/ContextChangeSettings";
 // import SentimentSettings from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
 import { ISemanticDriftSettings } from "./settings/SemanticDrift";
@@ -32,13 +32,13 @@ const useStyles = makeStyles((theme: Theme) =>
             flexDirection: "column"
         },
         expansionPanelSummary: {
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.secondary.contrastText,
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
             boxShadow:
                 "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
         },
         expandIcon: {
-            color: theme.palette.secondary.contrastText
+            color: theme.palette.primary.contrastText
         }
     })
 );
@@ -53,6 +53,7 @@ export interface ISearchSettings {
     synonymNetworkSettingsPanel: ISettingPanel<ISynonymNetworkSettings>;
     contextNetworkSettingsPanel: ISettingPanel<IContextNetworkSettings>;
     semanticDriftSettingsPanel: ISettingPanel<ISemanticDriftSettings>;
+    contextChangeSettingsPanel: ISettingPanel<IContextChangeSettings>;
 }
 
 type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
@@ -102,6 +103,7 @@ export default function SearchSettings(props: IProps) {
     const [synonymListError, setSynonymListError] = useState(false);
     const [synonymNetworkError, setSynonymNetworkError] = useState(false);
     const [contextNetworkError, setContextNetworkError] = useState(false);
+    const [contextChangeError, setContextChangeError] = useState(false);
 
     // TODO: consider having a global year
     return (
@@ -207,11 +209,34 @@ export default function SearchSettings(props: IProps) {
                         }}
                     ></SwitchExpansionPanel>
 
-                    {/* <SwitchExpansionPanel label="Context change">
-                        <ContextChangeSettings />
+                    <SwitchExpansionPanel
+                        label="Context change"
+                        isOpenDefault={defaultSettings.contextChangeSettingsPanel.isOpen}
+                        onChange={(isOpen: boolean) => {
+                            onSettingsChange((oldSettings: ISearchSettings) => {
+                                oldSettings.contextChangeSettingsPanel.isOpen = isOpen;
+                                return oldSettings;
+                            });
+                        }}
+                        error={contextChangeError}
+                    >
+                        <ContextChangeSettings
+                            defaultSettings={defaultSettings.contextChangeSettingsPanel.settings}
+                            onInvalidSettings={() => {
+                                setContextChangeError(true);
+                            }}
+                            onChange={(settings: IContextChangeSettings) => {
+                                setContextChangeError(false);
+
+                                onSettingsChange((oldSettings: ISearchSettings) => {
+                                    oldSettings.contextChangeSettingsPanel.settings = settings;
+                                    return oldSettings;
+                                });
+                            }}
+                        />
                     </SwitchExpansionPanel>
 
-                    <SwitchExpansionPanel label="Sentiment">
+                    {/* <SwitchExpansionPanel label="Sentiment">
                         <SentimentSettings />
                     </SwitchExpansionPanel>
 
@@ -231,7 +256,12 @@ export default function SearchSettings(props: IProps) {
                 </ExpansionPanelDetails>
             </ExpansionPanel>
             <ValidationErrorMessage
-                errors={[synonymListError, synonymNetworkError, contextNetworkError]}
+                errors={[
+                    synonymListError,
+                    synonymNetworkError,
+                    contextNetworkError,
+                    contextChangeError
+                ]}
             />
         </div>
     );

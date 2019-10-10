@@ -6,7 +6,13 @@ import Grid from "@material-ui/core/Grid";
 
 import SearchSettings, { ISearchSettings } from "./SearchSettings";
 import SearchBar from "../../components/SearchBar";
-import { closestMaxYear, synonymNetworkMaxYear, contextNetworkMaxYear } from "../../globals";
+import {
+    closestMaxYear,
+    synonymNetworkMaxYear,
+    contextNetworkMaxYear,
+    contextChangeMinYear,
+    contextChangeMaxYear
+} from "../../globals";
 import { getObjectFromQueryString } from "./getObjectFromQueryString";
 import { encodeQueryStringObject } from "../../utils/queryStringUtils";
 
@@ -53,6 +59,13 @@ export default function WordAnalysisPage() {
         semanticDriftSettingsPanel: {
             isOpen: false,
             settings: {}
+        },
+        contextChangeSettingsPanel: {
+            isOpen: false,
+            settings: {
+                startYear: contextChangeMinYear,
+                endYear: contextChangeMaxYear
+            }
         }
     };
 
