@@ -49,6 +49,10 @@ export default function WordAnalysisPage() {
                 minimumEdges: 5,
                 displayNodes: 110
             }
+        },
+        semanticDriftSettingsPanel: {
+            isOpen: false,
+            settings: {}
         }
     };
 

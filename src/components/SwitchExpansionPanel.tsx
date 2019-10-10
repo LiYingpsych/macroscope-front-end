@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
     label: string;
-    error: boolean;
+    error?: boolean;
     isOpenDefault?: boolean;
     children?: ReactNode;
     onChange?: (isOpen: boolean) => void;
@@ -39,7 +39,7 @@ export default function SwitchExpansionPanel(props: IProps) {
 
     const {
         label,
-        error,
+        error = false,
         isOpenDefault = false,
         children,
         onChange = (isOpen: boolean) => {}

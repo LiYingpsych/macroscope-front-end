@@ -16,6 +16,7 @@ import ContextNetworkSettings, { IContextNetworkSettings } from "./settings/Cont
 // import ContextChangeSettings from "./settings/ContextChangeSettings";
 // import SentimentSettings from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
+import { ISemanticDriftSettings } from "./settings/SemanticDrift";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -51,6 +52,7 @@ export interface ISearchSettings {
     synonymListSettingsPanel: ISettingPanel<ISynonymListSettings>;
     synonymNetworkSettingsPanel: ISettingPanel<ISynonymNetworkSettings>;
     contextNetworkSettingsPanel: ISettingPanel<IContextNetworkSettings>;
+    semanticDriftSettingsPanel: ISettingPanel<ISemanticDriftSettings>;
 }
 
 type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
@@ -169,10 +171,10 @@ export default function SearchSettings(props: IProps) {
 
                     <SwitchExpansionPanel
                         label="Context network"
-                        isOpenDefault={defaultSettings.synonymNetworkSettingsPanel.isOpen}
+                        isOpenDefault={defaultSettings.contextNetworkSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
                             onSettingsChange((oldSettings: ISearchSettings) => {
-                                oldSettings.synonymNetworkSettingsPanel.isOpen = isOpen;
+                                oldSettings.contextNetworkSettingsPanel.isOpen = isOpen;
                                 return oldSettings;
                             });
                         }}
@@ -194,9 +196,18 @@ export default function SearchSettings(props: IProps) {
                         />
                     </SwitchExpansionPanel>
 
-                    {/* <SwitchExpansionPanel label="Semantic drift"></SwitchExpansionPanel>
+                    <SwitchExpansionPanel
+                        label="Semantic drift"
+                        isOpenDefault={defaultSettings.semanticDriftSettingsPanel.isOpen}
+                        onChange={(isOpen: boolean) => {
+                            onSettingsChange((oldSettings: ISearchSettings) => {
+                                oldSettings.semanticDriftSettingsPanel.isOpen = isOpen;
+                                return oldSettings;
+                            });
+                        }}
+                    ></SwitchExpansionPanel>
 
-                    <SwitchExpansionPanel label="Context change">
+                    {/* <SwitchExpansionPanel label="Context change">
                         <ContextChangeSettings />
                     </SwitchExpansionPanel>
 
