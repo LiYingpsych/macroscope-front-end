@@ -30,7 +30,7 @@ interface IProps<T extends OptionValue> {
     label: string;
     options: ISelectionOption<T>[];
     onChange: (value: T) => void;
-    defaultOption?: ISelectionOption<T>; // TODO: make nullable - default to first item
+    defaultOption?: ISelectionOption<T>;
     onValidationError?: () => void;
 }
 

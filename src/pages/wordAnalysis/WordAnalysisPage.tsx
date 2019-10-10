@@ -15,6 +15,7 @@ import {
 } from "../../globals";
 import { getObjectFromQueryString } from "./getObjectFromQueryString";
 import { encodeQueryStringObject } from "../../utils/queryStringUtils";
+import { SentimentTypes } from "./settings/SentimentSettings";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -65,6 +66,12 @@ export default function WordAnalysisPage() {
             settings: {
                 startYear: contextChangeMinYear,
                 endYear: contextChangeMaxYear
+            }
+        },
+        sentimentSettingsPanel: {
+            isOpen: false,
+            settings: {
+                type: SentimentTypes.VALENCE
             }
         }
     };

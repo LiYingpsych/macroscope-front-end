@@ -14,7 +14,7 @@ import SynonymListSettings, { ISynonymListSettings } from "./settings/SynonymLis
 import SynonymNetworkSettings, { ISynonymNetworkSettings } from "./settings/SynonymNetworkSettings";
 import ContextNetworkSettings, { IContextNetworkSettings } from "./settings/ContextNetworkSettings";
 import ContextChangeSettings, { IContextChangeSettings } from "./settings/ContextChangeSettings";
-// import SentimentSettings from "./settings/SentimentSettings";
+import SentimentSettings, { ISentimentSettings } from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
 import { ISemanticDriftSettings } from "./settings/SemanticDrift";
 
@@ -54,6 +54,7 @@ export interface ISearchSettings {
     contextNetworkSettingsPanel: ISettingPanel<IContextNetworkSettings>;
     semanticDriftSettingsPanel: ISettingPanel<ISemanticDriftSettings>;
     contextChangeSettingsPanel: ISettingPanel<IContextChangeSettings>;
+    sentimentSettingsPanel: ISettingPanel<ISentimentSettings>;
 }
 
 type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
@@ -104,6 +105,7 @@ export default function SearchSettings(props: IProps) {
     const [synonymNetworkError, setSynonymNetworkError] = useState(false);
     const [contextNetworkError, setContextNetworkError] = useState(false);
     const [contextChangeError, setContextChangeError] = useState(false);
+    const [sentimentError, setSentimentError] = useState(false);
 
     // TODO: consider having a global year
     return (
@@ -236,11 +238,34 @@ export default function SearchSettings(props: IProps) {
                         />
                     </SwitchExpansionPanel>
 
-                    {/* <SwitchExpansionPanel label="Sentiment">
-                        <SentimentSettings />
+                    <SwitchExpansionPanel
+                        label="Sentiment"
+                        isOpenDefault={defaultSettings.sentimentSettingsPanel.isOpen}
+                        onChange={(isOpen: boolean) => {
+                            onSettingsChange((oldSettings: ISearchSettings) => {
+                                oldSettings.sentimentSettingsPanel.isOpen = isOpen;
+                                return oldSettings;
+                            });
+                        }}
+                        error={sentimentError}
+                    >
+                        <SentimentSettings
+                            defaultSettings={defaultSettings.sentimentSettingsPanel.settings}
+                            onInvalidSettings={() => {
+                                setSentimentError(true);
+                            }}
+                            onChange={(settings: ISentimentSettings) => {
+                                setSentimentError(false);
+
+                                onSettingsChange((oldSettings: ISearchSettings) => {
+                                    oldSettings.sentimentSettingsPanel.settings = settings;
+                                    return oldSettings;
+                                });
+                            }}
+                        />
                     </SwitchExpansionPanel>
 
-                    <SwitchExpansionPanel label="Frequeny"></SwitchExpansionPanel> */}
+                    {/* <SwitchExpansionPanel label="Frequeny"></SwitchExpansionPanel> */}
 
                     <Button
                         variant="contained"
@@ -260,7 +285,8 @@ export default function SearchSettings(props: IProps) {
                     synonymListError,
                     synonymNetworkError,
                     contextNetworkError,
-                    contextChangeError
+                    contextChangeError,
+                    sentimentError
                 ]}
             />
         </div>
