@@ -73,6 +73,10 @@ export default function WordAnalysisPage() {
             settings: {
                 type: SentimentTypes.VALENCE
             }
+        },
+        frequencySettingsPanel: {
+            isOpen: false,
+            settings: {}
         }
     };
 

@@ -16,7 +16,8 @@ import ContextNetworkSettings, { IContextNetworkSettings } from "./settings/Cont
 import ContextChangeSettings, { IContextChangeSettings } from "./settings/ContextChangeSettings";
 import SentimentSettings, { ISentimentSettings } from "./settings/SentimentSettings";
 import Button from "@material-ui/core/Button";
-import { ISemanticDriftSettings } from "./settings/SemanticDrift";
+import { ISemanticDriftSettings } from "./settings/SemanticDriftSettings";
+import { IFrequencySettings } from "./settings/FrequencySettings";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -55,6 +56,7 @@ export interface ISearchSettings {
     semanticDriftSettingsPanel: ISettingPanel<ISemanticDriftSettings>;
     contextChangeSettingsPanel: ISettingPanel<IContextChangeSettings>;
     sentimentSettingsPanel: ISettingPanel<ISentimentSettings>;
+    frequencySettingsPanel: ISettingPanel<IFrequencySettings>;
 }
 
 type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
@@ -265,7 +267,16 @@ export default function SearchSettings(props: IProps) {
                         />
                     </SwitchExpansionPanel>
 
-                    {/* <SwitchExpansionPanel label="Frequeny"></SwitchExpansionPanel> */}
+                    <SwitchExpansionPanel
+                        label="Frequeny"
+                        isOpenDefault={defaultSettings.frequencySettingsPanel.isOpen}
+                        onChange={(isOpen: boolean) => {
+                            onSettingsChange((oldSettings: ISearchSettings) => {
+                                oldSettings.frequencySettingsPanel.isOpen = isOpen;
+                                return oldSettings;
+                            });
+                        }}
+                    ></SwitchExpansionPanel>
 
                     <Button
                         variant="contained"
@@ -280,6 +291,7 @@ export default function SearchSettings(props: IProps) {
                     </Button>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
+
             <ValidationErrorMessage
                 errors={[
                     synonymListError,
