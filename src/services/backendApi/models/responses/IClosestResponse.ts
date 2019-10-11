@@ -1,4 +1,4 @@
-import { IWord } from "../IWord";
+import { IWord } from "./IWord";
 
 export interface IClosestResponse {
     readonly items: IClosestResponseItem[];
