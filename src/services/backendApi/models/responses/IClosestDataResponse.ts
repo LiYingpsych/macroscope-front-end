@@ -1,6 +1,6 @@
 import { IWord } from "./IWord";
 
-export interface IClosestResponse {
+export interface IClosestDataResponse {
     readonly items: IClosestResponseItem[];
 }
 

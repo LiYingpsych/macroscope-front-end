@@ -17,6 +17,21 @@ import { getObjectFromQueryString } from "./getObjectFromQueryString";
 import { encodeQueryStringObject } from "../../utils/queryStringUtils";
 import { SentimentTypes } from "./settings/SentimentSettings";
 
+import { BackendApi } from "../../services/backendApi/BackendApi";
+import { ClosestSearchMethod } from "../../services/backendApi/models/requestParameters/ClosestSearchMethod";
+
+const backendApi = new BackendApi();
+backendApi
+    .getClosest({
+        searchTerms: ["hello", "there"],
+        year: 1990,
+        numberOfClosestWords: 5,
+        method: ClosestSearchMethod.SGNS
+    })
+    .then(data => {
+        console.log(data);
+    });
+
 const useStyles = makeStyles(() =>
     createStyles({
         gridItem: {

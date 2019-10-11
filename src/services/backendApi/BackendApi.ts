@@ -1,5 +1,7 @@
 import Endpoints from "./Endpoints";
 import { IClosestRequestParameters } from "./models/requestParameters/IClosestRequestParameters";
+import { IClosestDataResponse } from "./models/responses/IClosestDataResponse";
+import { IClosestDataModel } from "../../models/IClosestDataModel";
 
 export class BackendApi {
     private endpoints: Endpoints;
@@ -28,8 +30,31 @@ export class BackendApi {
         return this.endpoints.getHealth();
     }
 
-    public getClosest(params: IClosestRequestParameters): Promise<string> {
+    public async getClosest(params: IClosestRequestParameters): Promise<IClosestDataModel[]> {
         const queryParameters = this.parseClosesrQueryParameters(params);
-        return this.endpoints.getClosest(queryParameters);
+
+        const json = await this.endpoints.getClosest(queryParameters);
+
+        const parsedJson: IClosestDataResponse = JSON.parse(json);
+
+        return parsedJson.items.map(item => {
+            const closestData: IClosestDataModel = {
+                primaryWord: {
+                    index: item.primaryWord.index,
+                    value: item.primaryWord.value
+                },
+                closestWords: item.closestWords.map(closestWord => {
+                    return {
+                        word: {
+                            index: closestWord.word.index,
+                            value: closestWord.word.value
+                        },
+                        score: closestWord.score
+                    };
+                })
+            };
+
+            return closestData;
+        });
     }
 }
