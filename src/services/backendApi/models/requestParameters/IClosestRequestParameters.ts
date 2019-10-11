@@ -1,7 +1,4 @@
-export enum ClosestSearchMethod {
-    SVD = "SVD",
-    SGNS = "SGNS"
-}
+import { ClosestSearchMethod } from "./ClosestSearchMethod";
 
 export interface IClosestRequestParameters {
     searchTerms: string[];

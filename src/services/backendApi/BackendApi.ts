@@ -1,5 +1,5 @@
 import Endpoints from "./Endpoints";
-import { IClosestRequestParameters } from "./requestParameters/IClosestRequestParameters";
+import { IClosestRequestParameters } from "./models/requestParameters/IClosestRequestParameters";
 
 export class BackendApi {
     private endpoints: Endpoints;
