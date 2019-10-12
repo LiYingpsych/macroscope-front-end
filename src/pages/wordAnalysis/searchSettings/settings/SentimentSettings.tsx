@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
-import RadioButtonsGroup, { IRadioButton } from "../../../components/inputs/RadioButtonsGroup";
+import RadioButtonsGroup, { IRadioButton } from "../../../../components/inputs/RadioButtonsGroup";
 import { ISettingsProps } from "./ISettingsProps";
 
 export enum SentimentTypes {

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { BackendApi } from "../../services/backendApi/BackendApi";
 import { ClosestSearchMethod } from "../../services/backendApi/models/requestParameters/ClosestSearchMethod";
 import SearchbarWithSettings from "./SearchbarWithSettings";
-import { ISearchSettings } from "./SearchSettings";
+import { Button } from "@material-ui/core";
+import ISearchSettings from "./searchSettings/models/ISearchSettings";
 
 const backendApi = new BackendApi();
 const getData = () => {
@@ -20,12 +21,23 @@ const getData = () => {
 };
 
 export default function WordAnalysisPage() {
+    const [blah, setBlah] = useState(0);
     return (
-        <SearchbarWithSettings
-            onSearch={(searchWord: string, settings: ISearchSettings) => {
-                console.log(`searchWord: ${searchWord}`);
-                console.log(settings);
-            }}
-        />
+        <>
+            <SearchbarWithSettings
+                onSearch={(searchWord: string, settings: ISearchSettings) => {
+                    console.log(`searchWord: ${searchWord}`);
+                    console.log(settings);
+                }}
+            />
+            <Button
+                onClick={() => {
+                    console.log(blah);
+                    setBlah(blah + 1);
+                }}
+            >
+                Helo
+            </Button>
+        </>
     );
 }

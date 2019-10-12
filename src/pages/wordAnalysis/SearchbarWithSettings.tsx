@@ -1,10 +1,8 @@
 import React from "react";
-import useReactRouter from "use-react-router";
 
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
-import SearchSettings, { ISearchSettings } from "./SearchSettings";
 import SearchBar from "../../components/SearchBar";
 import {
     closestMaxYear,
@@ -13,9 +11,9 @@ import {
     contextChangeMinYear,
     contextChangeMaxYear
 } from "../../globals";
-import { getObjectFromQueryString } from "./getObjectFromQueryString";
-import { encodeQueryStringObject } from "../../utils/queryStringUtils";
-import { SentimentTypes } from "./settings/SentimentSettings";
+import { SentimentTypes } from "./searchSettings/settings/SentimentSettings";
+import SearchSettingsWithUrlParsing from "./searchSettings/SearchSettingsWithUrlParsing";
+import ISearchSettings from "./searchSettings/models/ISearchSettings";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -31,8 +29,7 @@ interface IProps {
 
 export default function SearchbarWithSettings(props: IProps) {
     const classes = useStyles();
-    const { location, history } = useReactRouter();
-    const { onSearch = (searchWord: string, settings: ISearchSettings) => {} } = props;
+    // const { onSearch = (searchWord: string, settings: ISearchSettings) => {} } = props;
 
     const defaultSettings: ISearchSettings = {
         synonymListSettingsPanel: {
@@ -85,32 +82,22 @@ export default function SearchbarWithSettings(props: IProps) {
         }
     };
 
-    const pushSettingsToHistory = (settings: ISearchSettings) => {
-        history.push(`?${encodeQueryStringObject(settings)}`);
-    };
-
-    let currentSettings: ISearchSettings = JSON.parse(JSON.stringify(defaultSettings));
-    try {
-        currentSettings = getObjectFromQueryString(location.search, defaultSettings);
-    } catch (error) {
-        pushSettingsToHistory(currentSettings);
-    }
-
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item xs={12} className={classes.gridItem}>
                 <SearchBar
                     placeholder="Search word..."
                     onSearch={(searchWord: string) => {
-                        onSearch(searchWord, currentSettings);
+                        console.log(searchWord);
+                        // onSearch(searchWord, currentSettings);
                     }}
                 />
             </Grid>
             <Grid item xs={12} className={classes.gridItem}>
-                <SearchSettings
-                    defaultSettings={currentSettings}
+                <SearchSettingsWithUrlParsing
+                    defaultSettings={defaultSettings}
                     onUpdate={(updatedSettings: ISearchSettings) => {
-                        pushSettingsToHistory(updatedSettings);
+                        console.log(updatedSettings);
                     }}
                 />
             </Grid>

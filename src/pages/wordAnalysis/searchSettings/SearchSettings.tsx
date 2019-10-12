@@ -5,19 +5,19 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import SettingsIcon from "../../icons/SettingsIcon";
+import SettingsIcon from "../../../icons/SettingsIcon";
 
-import SwitchExpansionPanel from "../../components/SwitchExpansionPanel";
+import SwitchExpansionPanel from "../../../components/SwitchExpansionPanel";
+
 import SynonymListSettings, { ISynonymListSettings } from "./settings/SynonymListSettings";
 import SynonymNetworkSettings, { ISynonymNetworkSettings } from "./settings/SynonymNetworkSettings";
 import ContextNetworkSettings, { IContextNetworkSettings } from "./settings/ContextNetworkSettings";
 import ContextChangeSettings, { IContextChangeSettings } from "./settings/ContextChangeSettings";
 import SentimentSettings, { ISentimentSettings } from "./settings/SentimentSettings";
-import Button from "@material-ui/core/Button";
-import { ISemanticDriftSettings } from "./settings/SemanticDriftSettings";
-import { IFrequencySettings } from "./settings/FrequencySettings";
+import ISearchSettings from "./models/ISearchSettings";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -44,27 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-interface ISettingPanel<T> {
-    isOpen: boolean;
-    settings: T;
-}
-
-export interface ISearchSettings {
-    synonymListSettingsPanel: ISettingPanel<ISynonymListSettings>;
-    synonymNetworkSettingsPanel: ISettingPanel<ISynonymNetworkSettings>;
-    contextNetworkSettingsPanel: ISettingPanel<IContextNetworkSettings>;
-    semanticDriftSettingsPanel: ISettingPanel<ISemanticDriftSettings>;
-    contextChangeSettingsPanel: ISettingPanel<IContextChangeSettings>;
-    sentimentSettingsPanel: ISettingPanel<ISentimentSettings>;
-    frequencySettingsPanel: ISettingPanel<IFrequencySettings>;
-}
-
 type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
-
-interface IErrors {
-    synonymList: boolean;
-    synonymNetwork: boolean;
-}
 
 interface IValidationErrorProps {
     errors: boolean[];
