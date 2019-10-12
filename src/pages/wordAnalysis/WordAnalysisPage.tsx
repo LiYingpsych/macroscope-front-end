@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { BackendApi } from "../../services/backendApi/BackendApi";
 import { ClosestSearchMethod } from "../../services/backendApi/models/requestParameters/ClosestSearchMethod";
 import SearchbarWithSettings from "./SearchbarWithSettings";
-import { Button } from "@material-ui/core";
 import ISearchSettings from "./searchSettings/models/ISearchSettings";
 
 const backendApi = new BackendApi();
+
 const getData = () => {
     return backendApi
         .getClosest({
@@ -21,7 +21,6 @@ const getData = () => {
 };
 
 export default function WordAnalysisPage() {
-    const [blah, setBlah] = useState(0);
     return (
         <>
             <SearchbarWithSettings
@@ -30,14 +29,7 @@ export default function WordAnalysisPage() {
                     console.log(settings);
                 }}
             />
-            <Button
-                onClick={() => {
-                    console.log(blah);
-                    setBlah(blah + 1);
-                }}
-            >
-                Helo
-            </Button>
+            {/* {Results displayed here} */}
         </>
     );
 }

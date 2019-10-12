@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -29,7 +29,7 @@ interface IProps {
 
 export default function SearchbarWithSettings(props: IProps) {
     const classes = useStyles();
-    // const { onSearch = (searchWord: string, settings: ISearchSettings) => {} } = props;
+    const { onSearch = (searchWord: string, settings: ISearchSettings) => {} } = props;
 
     const defaultSettings: ISearchSettings = {
         synonymListSettingsPanel: {
@@ -82,14 +82,17 @@ export default function SearchbarWithSettings(props: IProps) {
         }
     };
 
+    const [searchWord, setSearchWord] = useState("");
+    const [settings, setSettings] = useState(defaultSettings);
+
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item xs={12} className={classes.gridItem}>
                 <SearchBar
                     placeholder="Search word..."
-                    onSearch={(searchWord: string) => {
-                        console.log(searchWord);
-                        // onSearch(searchWord, currentSettings);
+                    onSearch={(updatedSearchWord: string) => {
+                        setSearchWord(updatedSearchWord);
+                        onSearch(updatedSearchWord, settings);
                     }}
                 />
             </Grid>
@@ -97,7 +100,8 @@ export default function SearchbarWithSettings(props: IProps) {
                 <SearchSettingsWithUrlParsing
                     defaultSettings={defaultSettings}
                     onUpdate={(updatedSettings: ISearchSettings) => {
-                        console.log(updatedSettings);
+                        setSettings(updatedSettings);
+                        onSearch(searchWord, updatedSettings);
                     }}
                 />
             </Grid>
