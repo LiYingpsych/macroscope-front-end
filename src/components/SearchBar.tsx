@@ -23,21 +23,22 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IProps {
-    onSearch: (searchWord: string) => void;
+    onSearch: (searchTerm: string) => void;
+    defaultSearchTerm?: string;
     placeholder?: string;
 }
 
 export default function SearchBar(props: IProps) {
     const classes = useStyles();
-    const { onSearch, placeholder = "" } = props;
-    const [searchWord, setSearchWord] = useState("");
+    const { onSearch, defaultSearchTerm = "", placeholder = "" } = props;
+    const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
 
     const search = () => {
-        onSearch(searchWord);
+        onSearch(searchTerm);
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchWord(event.target.value);
+        setSearchTerm(event.target.value);
     };
 
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -51,7 +52,7 @@ export default function SearchBar(props: IProps) {
             <TextField
                 placeholder={placeholder}
                 className={classes.textField}
-                value={searchWord}
+                value={searchTerm}
                 onChange={handleChange}
                 variant="outlined"
                 InputProps={{

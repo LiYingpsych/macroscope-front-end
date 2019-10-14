@@ -4,14 +4,6 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import SearchBar from "../../components/SearchBar";
-import {
-    closestMaxYear,
-    synonymNetworkMaxYear,
-    contextNetworkMaxYear,
-    contextChangeMinYear,
-    contextChangeMaxYear
-} from "../../globals";
-import { SentimentTypes } from "./searchSettings/settings/SentimentSettings";
 import SearchSettingsWithUrlParsing from "./searchSettings/SearchSettingsWithUrlParsing";
 import ISearchSettings from "./searchSettings/models/ISearchSettings";
 
@@ -24,75 +16,31 @@ const useStyles = makeStyles(() =>
 );
 
 interface IProps {
-    onSearch?: (searchWord: string, settings: ISearchSettings) => void;
+    defaultSettings: ISearchSettings;
+    defaultSearchTerm: string;
+    onSearch?: (searchTerm: string, settings: ISearchSettings) => void;
 }
 
 export default function SearchbarWithSettings(props: IProps) {
     const classes = useStyles();
-    const { onSearch = (searchWord: string, settings: ISearchSettings) => {} } = props;
+    const {
+        defaultSettings,
+        defaultSearchTerm,
+        onSearch = (searchTerm: string, settings: ISearchSettings) => {}
+    } = props;
 
-    const defaultSettings: ISearchSettings = {
-        synonymListSettingsPanel: {
-            isOpen: false,
-            settings: {
-                year: closestMaxYear,
-                numberOfSynonyms: 5
-            }
-        },
-        synonymNetworkSettingsPanel: {
-            isOpen: false,
-            settings: {
-                year: synonymNetworkMaxYear,
-                synonymsPerTarget: 5,
-                simalarityThreshold: 0.7
-            }
-        },
-        contextNetworkSettingsPanel: {
-            isOpen: false,
-            settings: {
-                year: contextNetworkMaxYear,
-                maximumNodes: 200,
-                contextRelevance: 0.55,
-                contextCohesiveness: 0.55,
-                individualWordRelevance: 3,
-                minimumEdges: 5,
-                displayNodes: 110
-            }
-        },
-        semanticDriftSettingsPanel: {
-            isOpen: false,
-            settings: {}
-        },
-        contextChangeSettingsPanel: {
-            isOpen: false,
-            settings: {
-                startYear: contextChangeMinYear,
-                endYear: contextChangeMaxYear
-            }
-        },
-        sentimentSettingsPanel: {
-            isOpen: false,
-            settings: {
-                type: SentimentTypes.VALENCE
-            }
-        },
-        frequencySettingsPanel: {
-            isOpen: false,
-            settings: {}
-        }
-    };
-
-    const [searchWord, setSearchWord] = useState("");
+    const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
     const [settings, setSettings] = useState(defaultSettings);
 
     return (
         <Grid container direction="column" spacing={1}>
             <Grid item xs={12} className={classes.gridItem}>
                 <SearchBar
+                    defaultSearchTerm={defaultSearchTerm}
                     placeholder="Search word..."
-                    onSearch={(updatedSearchWord: string) => {
-                        setSearchWord(updatedSearchWord);
-                        onSearch(updatedSearchWord, settings);
+                    onSearch={(updatedSearchTerm: string) => {
+                        setSearchTerm(updatedSearchTerm);
+                        onSearch(updatedSearchTerm, settings);
                     }}
                 />
             </Grid>
@@ -101,7 +49,7 @@ export default function SearchbarWithSettings(props: IProps) {
                     defaultSettings={defaultSettings}
                     onUpdate={(updatedSettings: ISearchSettings) => {
                         setSettings(updatedSettings);
-                        onSearch(searchWord, updatedSettings);
+                        onSearch(searchTerm, updatedSettings);
                     }}
                 />
             </Grid>

@@ -1,35 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { BackendApi } from "../../services/backendApi/BackendApi";
-import { ClosestSearchMethod } from "../../services/backendApi/models/requestParameters/ClosestSearchMethod";
 import SearchbarWithSettings from "./SearchbarWithSettings";
 import ISearchSettings from "./searchSettings/models/ISearchSettings";
-
-const backendApi = new BackendApi();
-
-const getData = () => {
-    return backendApi
-        .getClosest({
-            searchTerms: ["hello", "there"],
-            year: 1990,
-            numberOfClosestWords: 5,
-            method: ClosestSearchMethod.SGNS
-        })
-        .then(data => {
-            console.log(data);
-        });
-};
+import {
+    closestMaxYear,
+    synonymNetworkMaxYear,
+    contextNetworkMaxYear,
+    contextChangeMinYear,
+    contextChangeMaxYear
+} from "../../globals";
+import { SentimentTypes } from "./searchSettings/settings/SentimentSettings";
+import DataDisplays from "./dataDisplays";
 
 export default function WordAnalysisPage() {
+    const defaultSearchTerm: string = "";
+    const defaultSettings: ISearchSettings = {
+        synonymListSettingsPanel: {
+            isOpen: false,
+            settings: {
+                year: closestMaxYear,
+                numberOfSynonyms: 5
+            }
+        },
+        synonymNetworkSettingsPanel: {
+            isOpen: false,
+            settings: {
+                year: synonymNetworkMaxYear,
+                synonymsPerTarget: 5,
+                simalarityThreshold: 0.7
+            }
+        },
+        contextNetworkSettingsPanel: {
+            isOpen: false,
+            settings: {
+                year: contextNetworkMaxYear,
+                maximumNodes: 200,
+                contextRelevance: 0.55,
+                contextCohesiveness: 0.55,
+                individualWordRelevance: 3,
+                minimumEdges: 5,
+                displayNodes: 110
+            }
+        },
+        semanticDriftSettingsPanel: {
+            isOpen: false,
+            settings: {}
+        },
+        contextChangeSettingsPanel: {
+            isOpen: false,
+            settings: {
+                startYear: contextChangeMinYear,
+                endYear: contextChangeMaxYear
+            }
+        },
+        sentimentSettingsPanel: {
+            isOpen: false,
+            settings: {
+                type: SentimentTypes.VALENCE
+            }
+        },
+        frequencySettingsPanel: {
+            isOpen: false,
+            settings: {}
+        }
+    };
+
+    const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
+    const [settings, setSettings] = useState(defaultSettings);
+
     return (
         <>
             <SearchbarWithSettings
-                onSearch={(searchWord: string, settings: ISearchSettings) => {
-                    console.log(`searchWord: ${searchWord}`);
-                    console.log(settings);
+                defaultSearchTerm={defaultSearchTerm}
+                defaultSettings={defaultSettings}
+                onSearch={(updatedSearchTerm: string, updatedSettings: ISearchSettings) => {
+                    setSearchTerm(updatedSearchTerm);
+                    setSettings(updatedSettings);
                 }}
             />
-            {/* {Results displayed here} */}
+            <DataDisplays searchTerm={searchTerm} settings={settings}></DataDisplays>
         </>
     );
 }
