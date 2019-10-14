@@ -12,7 +12,20 @@ import {
 import { SentimentTypes } from "./searchSettings/settings/SentimentSettings";
 import DataDisplays from "./dataDisplays";
 
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        gridItem: {
+            width: "100%"
+        }
+    })
+);
+
 export default function WordAnalysisPage() {
+    const classes = useStyles();
+
     const defaultSearchTerm: string = "";
     const defaultSettings: ISearchSettings = {
         synonymListSettingsPanel: {
@@ -69,16 +82,20 @@ export default function WordAnalysisPage() {
     const [settings, setSettings] = useState(defaultSettings);
 
     return (
-        <>
-            <SearchbarWithSettings
-                defaultSearchTerm={defaultSearchTerm}
-                defaultSettings={defaultSettings}
-                onSearch={(updatedSearchTerm: string, updatedSettings: ISearchSettings) => {
-                    setSearchTerm(updatedSearchTerm);
-                    setSettings(updatedSettings);
-                }}
-            />
-            <DataDisplays searchTerm={searchTerm} settings={settings}></DataDisplays>
-        </>
+        <Grid container direction="column" spacing={4}>
+            <Grid item xs={12} className={classes.gridItem}>
+                <SearchbarWithSettings
+                    defaultSearchTerm={defaultSearchTerm}
+                    defaultSettings={defaultSettings}
+                    onSearch={(updatedSearchTerm: string, updatedSettings: ISearchSettings) => {
+                        setSearchTerm(updatedSearchTerm);
+                        setSettings(updatedSettings);
+                    }}
+                />
+            </Grid>
+            <Grid item xs={12} className={classes.gridItem}>
+                <DataDisplays searchTerm={searchTerm} settings={settings}></DataDisplays>
+            </Grid>
+        </Grid>
     );
 }
