@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ISynonymListSettings from "../models/ISynonymListSettings";
 import { ClosestSearchMethod } from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
 import { BackendApi } from "../../../services/backendApi/BackendApi";
-import { IClosestDataModel, IClosestWordModel } from "../../../models/IClosestDataModel";
+import { IClosestDataModel } from "../../../models/IClosestDataModel";
 
 const backendApi = new BackendApi();
 
@@ -51,7 +51,7 @@ interface ISynonymListProps {
 }
 
 function SynonymList(props: ISynonymListProps) {
-    const { data } = props;
+    // const { data } = props;
 
     // return (
     //     <>

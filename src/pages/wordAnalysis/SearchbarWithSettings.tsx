@@ -4,7 +4,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import SearchBar from "../../components/SearchBar";
-import SearchSettingsWithUrlParsing from "./searchSettings/SearchSettingsWithUrlParsing";
+import SearchSettings from "./searchSettings/SearchSettings";
 import ISearchSettings from "./models/ISearchSettings";
 
 const useStyles = makeStyles(() =>
@@ -19,6 +19,7 @@ interface IProps {
     defaultSettings: ISearchSettings;
     defaultSearchTerm: string;
     onSearch?: (searchTerm: string, settings: ISearchSettings) => void;
+    autoFocus?: boolean;
 }
 
 export default function SearchbarWithSettings(props: IProps) {
@@ -26,7 +27,8 @@ export default function SearchbarWithSettings(props: IProps) {
     const {
         defaultSettings,
         defaultSearchTerm,
-        onSearch = (searchTerm: string, settings: ISearchSettings) => {}
+        onSearch = (searchTerm: string, settings: ISearchSettings) => {},
+        autoFocus = false
     } = props;
 
     const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
@@ -36,6 +38,7 @@ export default function SearchbarWithSettings(props: IProps) {
         <Grid container direction="column" spacing={1}>
             <Grid item xs={12} className={classes.gridItem}>
                 <SearchBar
+                    autoFocus={autoFocus}
                     defaultSearchTerm={defaultSearchTerm}
                     placeholder="Search word..."
                     onSearch={(updatedSearchTerm: string) => {
@@ -45,7 +48,7 @@ export default function SearchbarWithSettings(props: IProps) {
                 />
             </Grid>
             <Grid item xs={12} className={classes.gridItem}>
-                <SearchSettingsWithUrlParsing
+                <SearchSettings
                     defaultSettings={defaultSettings}
                     onUpdate={(updatedSettings: ISearchSettings) => {
                         setSettings(updatedSettings);

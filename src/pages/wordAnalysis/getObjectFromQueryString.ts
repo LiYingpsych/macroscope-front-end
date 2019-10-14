@@ -6,8 +6,15 @@ export const getObjectFromQueryString = <T>(searchString: string, defaultObject:
     }
 
     if (searchString.length === 0) {
-        throw new Error("Search string cannot be empty");
+        return defaultObject;
     }
 
-    return decodeQueryString<T>(searchString, Object.keys(defaultObject));
+    let result;
+    try {
+        result = decodeQueryString<T>(searchString, Object.keys(defaultObject));
+    } catch (error) {
+        result = defaultObject;
+    }
+
+    return result;
 };

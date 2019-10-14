@@ -26,11 +26,12 @@ interface IProps {
     onSearch: (searchTerm: string) => void;
     defaultSearchTerm?: string;
     placeholder?: string;
+    autoFocus?: boolean;
 }
 
 export default function SearchBar(props: IProps) {
     const classes = useStyles();
-    const { onSearch, defaultSearchTerm = "", placeholder = "" } = props;
+    const { onSearch, defaultSearchTerm = "", placeholder = "", autoFocus = false } = props;
     const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
 
     const search = () => {
@@ -50,6 +51,7 @@ export default function SearchBar(props: IProps) {
     return (
         <Paper className={classes.root}>
             <TextField
+                autoFocus={autoFocus}
                 placeholder={placeholder}
                 className={classes.textField}
                 value={searchTerm}
