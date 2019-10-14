@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useReactRouter from "use-react-router";
 
 import SearchSettings from "./SearchSettings";
@@ -19,12 +19,18 @@ export default function SearchSettingsWithUrlParsing(props: IProps) {
         history.push(`?${encodeQueryStringObject(settings)}`);
     };
 
-    let currentSettings: ISearchSettings = JSON.parse(JSON.stringify(defaultSettings));
-    try {
-        currentSettings = getObjectFromQueryString(location.search, defaultSettings);
-    } catch (error) {
-        pushSettingsToHistory(currentSettings);
-    }
+    const [currentSettings, setCurrentSettings] = useState(
+        JSON.parse(JSON.stringify(defaultSettings))
+    );
+    useEffect(() => {
+        try {
+            const parsedSettings = getObjectFromQueryString(location.search, defaultSettings);
+            setCurrentSettings(parsedSettings);
+            onUpdate(parsedSettings);
+        } catch (error) {
+            pushSettingsToHistory(defaultSettings);
+        }
+    }, []);
 
     return (
         <SearchSettings

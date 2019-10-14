@@ -53,18 +53,19 @@ interface ISynonymListProps {
 function SynonymList(props: ISynonymListProps) {
     const { data } = props;
 
-    return (
-        <>
-            {data.map((datum: IClosestDataModel) => {
-                return (
-                    <div>
-                        <div>{datum.primaryWord}</div>
-                        {datum.closestWords.map((word: IClosestWordModel) => {
-                            return <div>{word.word.value}</div>;
-                        })}
-                    </div>
-                );
-            })}
-        </>
-    );
+    // return (
+    //     <>
+    //         {data.map((datum: IClosestDataModel) => {
+    //             return (
+    //                 <div>
+    //                     <div>{datum.primaryWord}</div>
+    //                     {datum.closestWords.map((word: IClosestWordModel) => {
+    //                         return <div>{word.word.value}</div>;
+    //                     })}
+    //                 </div>
+    //             );
+    //         })}
+    //     </>
+    // );
+    return <div>SynonymList</div>;
 }
