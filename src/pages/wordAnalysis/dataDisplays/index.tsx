@@ -1,20 +1,6 @@
 import React from "react";
 import ISearchSettings from "../models/ISearchSettings";
-
-// const backendApi = new BackendApi();
-
-// const getData = () => {
-//     return backendApi
-//         .getClosest({
-//             searchTerms: ["hello", "there"],
-//             year: 1990,
-//             numberOfClosestWords: 5,
-//             method: ClosestSearchMethod.SGNS
-//         })
-//         .then(data => {
-//             console.log(data);
-//         });
-// };
+import IdentifiedSynonyms from "./IdentifiedSynonyms";
 
 interface IProps {
     searchTerm: string;
@@ -24,9 +10,15 @@ interface IProps {
 export default function DataDisplays(props: IProps) {
     const { searchTerm, settings } = props;
 
-    console.log("hey nonny no");
-    console.log(searchTerm);
-    console.log(settings);
-
-    return <div>Data displays</div>;
+    return searchTerm.trim() === "" ? null : (
+        <>
+            <div>Data displays</div>
+            {settings.synonymListSettingsPanel.isOpen ? (
+                <IdentifiedSynonyms
+                    searchTerm={searchTerm}
+                    settings={settings.synonymListSettingsPanel.settings}
+                ></IdentifiedSynonyms>
+            ) : null}
+        </>
+    );
 }

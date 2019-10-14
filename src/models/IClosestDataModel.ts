@@ -5,7 +5,7 @@ export interface IClosestDataModel {
     readonly closestWords: IClosestWordModel[];
 }
 
-interface IClosestWordModel {
+export interface IClosestWordModel {
     readonly word: IWordModel;
     readonly score: number;
 }
