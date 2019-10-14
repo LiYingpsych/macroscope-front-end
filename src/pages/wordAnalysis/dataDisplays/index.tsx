@@ -1,5 +1,5 @@
 import React from "react";
-import ISearchSettings from "../searchSettings/models/ISearchSettings";
+import ISearchSettings from "../models/ISearchSettings";
 
 // const backendApi = new BackendApi();
 

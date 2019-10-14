@@ -2,15 +2,12 @@ import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
 import NumberSelectionInput from "../../../../components/inputs/NumberSelectionInput";
-import { ISettingsProps } from "./ISettingsProps";
 
 import range from "../../../../utils/range";
 import { closestMaxYear, closestMinYear } from "../../../../globals";
 
-export interface ISynonymListSettings {
-    year: number;
-    numberOfSynonyms: number;
-}
+import ISettingsProps from "./ISettingsProps";
+import ISynonymListSettings from "../../models/ISynonymListSettings";
 
 interface IProps extends ISettingsProps<ISynonymListSettings> {}
 

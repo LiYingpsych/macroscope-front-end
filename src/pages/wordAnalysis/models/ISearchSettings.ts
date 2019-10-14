@@ -1,12 +1,11 @@
 import ISettingPanel from "./ISettingPanel";
-
-import { ISynonymListSettings } from "../settings/SynonymListSettings";
-import { ISynonymNetworkSettings } from "../settings/SynonymNetworkSettings";
-import { IContextNetworkSettings } from "../settings/ContextNetworkSettings";
-import { ISemanticDriftSettings } from "../settings/SemanticDriftSettings";
-import { IContextChangeSettings } from "../settings/ContextChangeSettings";
-import { ISentimentSettings } from "../settings/SentimentSettings";
-import { IFrequencySettings } from "../settings/FrequencySettings";
+import ISynonymListSettings from "./ISynonymListSettings";
+import ISynonymNetworkSettings from "./ISynonymNetworkSettings";
+import IContextNetworkSettings from "./IContextNetworkSettings";
+import ISemanticDriftSettings from "./ISemanticDriftSettings";
+import IContextChangeSettings from "./IContextChangeSettings";
+import ISentimentSettings from "./ISentimentSettings";
+import IFrequencySettings from "./IFrequencySettings";
 
 export default interface ISearchSettings {
     synonymListSettingsPanel: ISettingPanel<ISynonymListSettings>;

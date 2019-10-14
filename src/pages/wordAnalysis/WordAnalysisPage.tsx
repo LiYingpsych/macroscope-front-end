@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 import SearchbarWithSettings from "./SearchbarWithSettings";
-import ISearchSettings from "./searchSettings/models/ISearchSettings";
+import DataDisplays from "./dataDisplays";
+
 import {
     closestMaxYear,
     synonymNetworkMaxYear,
@@ -9,11 +12,9 @@ import {
     contextChangeMinYear,
     contextChangeMaxYear
 } from "../../globals";
-import { SentimentTypes } from "./searchSettings/settings/SentimentSettings";
-import DataDisplays from "./dataDisplays";
 
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import SentimentTypes from "./models/SentimentTypes";
+import ISearchSettings from "./models/ISearchSettings";
 
 const useStyles = makeStyles(() =>
     createStyles({

@@ -2,20 +2,12 @@ import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
 import NumberSelectionInput from "../../../../components/inputs/NumberSelectionInput";
-import { ISettingsProps } from "./ISettingsProps";
 
 import range from "../../../../utils/range";
 import { contextNetworkMinYear, contextNetworkMaxYear } from "../../../../globals";
 
-export interface IContextNetworkSettings {
-    year: number;
-    maximumNodes: number;
-    contextRelevance: number;
-    contextCohesiveness: number;
-    individualWordRelevance: number;
-    minimumEdges: number;
-    displayNodes: number;
-}
+import ISettingsProps from "./ISettingsProps";
+import IContextNetworkSettings from "../../models/IContextNetworkSettings";
 
 interface IProps extends ISettingsProps<IContextNetworkSettings> {}
 

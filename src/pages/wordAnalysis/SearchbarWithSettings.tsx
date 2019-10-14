@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 
 import SearchBar from "../../components/SearchBar";
 import SearchSettingsWithUrlParsing from "./searchSettings/SearchSettingsWithUrlParsing";
-import ISearchSettings from "./searchSettings/models/ISearchSettings";
+import ISearchSettings from "./models/ISearchSettings";
 
 const useStyles = makeStyles(() =>
     createStyles({

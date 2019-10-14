@@ -2,17 +2,10 @@ import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
 import RadioButtonsGroup, { IRadioButton } from "../../../../components/inputs/RadioButtonsGroup";
-import { ISettingsProps } from "./ISettingsProps";
 
-export enum SentimentTypes {
-    VALENCE = "VALENCE",
-    AROUSAL = "AROUSAL",
-    CONCRETENESS = "CONCRETENESS"
-}
-
-export interface ISentimentSettings {
-    type: SentimentTypes;
-}
+import ISettingsProps from "./ISettingsProps";
+import ISentimentSettings from "../../models/ISentimentSettings";
+import SentimentTypes from "../../models/SentimentTypes";
 
 interface IProps extends ISettingsProps<ISentimentSettings> {}
 

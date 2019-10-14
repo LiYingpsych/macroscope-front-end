@@ -12,12 +12,18 @@ import SettingsIcon from "../../../icons/SettingsIcon";
 
 import SwitchExpansionPanel from "../../../components/SwitchExpansionPanel";
 
-import SynonymListSettings, { ISynonymListSettings } from "./settings/SynonymListSettings";
-import SynonymNetworkSettings, { ISynonymNetworkSettings } from "./settings/SynonymNetworkSettings";
-import ContextNetworkSettings, { IContextNetworkSettings } from "./settings/ContextNetworkSettings";
-import ContextChangeSettings, { IContextChangeSettings } from "./settings/ContextChangeSettings";
-import SentimentSettings, { ISentimentSettings } from "./settings/SentimentSettings";
-import ISearchSettings from "./models/ISearchSettings";
+import SynonymListSettings from "./settings/SynonymListSettings";
+import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
+import ContextNetworkSettings from "./settings/ContextNetworkSettings";
+import ContextChangeSettings from "./settings/ContextChangeSettings";
+import SentimentSettings from "./settings/SentimentSettings";
+
+import ISearchSettings from "../models/ISearchSettings";
+import ISynonymListSettings from "../models/ISynonymListSettings";
+import ISynonymNetworkSettings from "../models/ISynonymNetworkSettings";
+import IContextNetworkSettings from "../models/IContextNetworkSettings";
+import IContextChangeSettings from "../models/IContextChangeSettings";
+import ISentimentSettings from "../models/ISentimentSettings";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

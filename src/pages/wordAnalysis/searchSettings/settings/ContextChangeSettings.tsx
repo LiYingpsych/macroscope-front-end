@@ -2,15 +2,12 @@ import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
 import NumberSelectionInput from "../../../../components/inputs/NumberSelectionInput";
-import { ISettingsProps } from "./ISettingsProps";
 
 import range from "../../../../utils/range";
 import { contextChangeMinYear, contextChangeMaxYear } from "../../../../globals";
 
-export interface IContextChangeSettings {
-    startYear: number;
-    endYear: number;
-}
+import ISettingsProps from "./ISettingsProps";
+import IContextChangeSettings from "../../models/IContextChangeSettings";
 
 interface IProps extends ISettingsProps<IContextChangeSettings> {}
 

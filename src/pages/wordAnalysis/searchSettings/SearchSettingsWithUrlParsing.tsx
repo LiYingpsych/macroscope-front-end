@@ -4,7 +4,7 @@ import useReactRouter from "use-react-router";
 import SearchSettings from "./SearchSettings";
 import { encodeQueryStringObject } from "../../../utils/queryStringUtils";
 import { getObjectFromQueryString } from "../getObjectFromQueryString";
-import ISearchSettings from "./models/ISearchSettings";
+import ISearchSettings from "../models/ISearchSettings";
 
 interface IProps {
     defaultSettings: ISearchSettings;
