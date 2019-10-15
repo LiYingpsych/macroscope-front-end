@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -100,26 +100,29 @@ export default function SearchSettings(props: IProps) {
                             onInvalidSettings={() => {
                                 setSynonymListError(true);
                             }}
-                            onChange={(synonymListSettings: ISynonymListSettings) => {
+                            onChange={(settings: ISynonymListSettings) => {
                                 setSynonymListError(false);
                                 setUnsavedSettings({
                                     ...unsavedSettings,
                                     synonymListSettingsPanel: {
                                         ...unsavedSettings.synonymListSettingsPanel,
-                                        settings: synonymListSettings
+                                        settings: settings
                                     }
                                 });
                             }}
                         />
                     </SwitchExpansionPanel>
 
-                    {/* <SwitchExpansionPanel
+                    <SwitchExpansionPanel
                         label="Synonym network"
                         isOpenDefault={defaultSettings.synonymNetworkSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
-                            onSettingsChange((oldSettings: ISearchSettings) => {
-                                oldSettings.synonymNetworkSettingsPanel.isOpen = isOpen;
-                                return oldSettings;
+                            setUnsavedSettings({
+                                ...unsavedSettings,
+                                synonymNetworkSettingsPanel: {
+                                    ...unsavedSettings.synonymNetworkSettingsPanel,
+                                    isOpen: isOpen
+                                }
                             });
                         }}
                         error={synonymNetworkError}
@@ -129,12 +132,15 @@ export default function SearchSettings(props: IProps) {
                             onInvalidSettings={() => {
                                 setSynonymNetworkError(true);
                             }}
-                            onChange={(synonymNetworkSettings: ISynonymNetworkSettings) => {
+                            onChange={(settings: ISynonymNetworkSettings) => {
                                 setSynonymNetworkError(false);
 
-                                onSettingsChange((oldSettings: ISearchSettings) => {
-                                    oldSettings.synonymNetworkSettingsPanel.settings = synonymNetworkSettings;
-                                    return oldSettings;
+                                setUnsavedSettings({
+                                    ...unsavedSettings,
+                                    synonymNetworkSettingsPanel: {
+                                        ...unsavedSettings.synonymNetworkSettingsPanel,
+                                        settings: settings
+                                    }
                                 });
                             }}
                         />
@@ -144,9 +150,12 @@ export default function SearchSettings(props: IProps) {
                         label="Context network"
                         isOpenDefault={defaultSettings.contextNetworkSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
-                            onSettingsChange((oldSettings: ISearchSettings) => {
-                                oldSettings.contextNetworkSettingsPanel.isOpen = isOpen;
-                                return oldSettings;
+                            setUnsavedSettings({
+                                ...unsavedSettings,
+                                contextNetworkSettingsPanel: {
+                                    ...unsavedSettings.contextNetworkSettingsPanel,
+                                    isOpen: isOpen
+                                }
                             });
                         }}
                         error={synonymNetworkError}
@@ -159,9 +168,12 @@ export default function SearchSettings(props: IProps) {
                             onChange={(settings: IContextNetworkSettings) => {
                                 setContextNetworkError(false);
 
-                                onSettingsChange((oldSettings: ISearchSettings) => {
-                                    oldSettings.contextNetworkSettingsPanel.settings = settings;
-                                    return oldSettings;
+                                setUnsavedSettings({
+                                    ...unsavedSettings,
+                                    contextNetworkSettingsPanel: {
+                                        ...unsavedSettings.contextNetworkSettingsPanel,
+                                        settings: settings
+                                    }
                                 });
                             }}
                         />
@@ -171,9 +183,12 @@ export default function SearchSettings(props: IProps) {
                         label="Semantic drift"
                         isOpenDefault={defaultSettings.semanticDriftSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
-                            onSettingsChange((oldSettings: ISearchSettings) => {
-                                oldSettings.semanticDriftSettingsPanel.isOpen = isOpen;
-                                return oldSettings;
+                            setUnsavedSettings({
+                                ...unsavedSettings,
+                                semanticDriftSettingsPanel: {
+                                    ...unsavedSettings.semanticDriftSettingsPanel,
+                                    isOpen: isOpen
+                                }
                             });
                         }}
                     ></SwitchExpansionPanel>
@@ -182,9 +197,12 @@ export default function SearchSettings(props: IProps) {
                         label="Context change"
                         isOpenDefault={defaultSettings.contextChangeSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
-                            onSettingsChange((oldSettings: ISearchSettings) => {
-                                oldSettings.contextChangeSettingsPanel.isOpen = isOpen;
-                                return oldSettings;
+                            setUnsavedSettings({
+                                ...unsavedSettings,
+                                contextChangeSettingsPanel: {
+                                    ...unsavedSettings.contextChangeSettingsPanel,
+                                    isOpen: isOpen
+                                }
                             });
                         }}
                         error={contextChangeError}
@@ -197,9 +215,12 @@ export default function SearchSettings(props: IProps) {
                             onChange={(settings: IContextChangeSettings) => {
                                 setContextChangeError(false);
 
-                                onSettingsChange((oldSettings: ISearchSettings) => {
-                                    oldSettings.contextChangeSettingsPanel.settings = settings;
-                                    return oldSettings;
+                                setUnsavedSettings({
+                                    ...unsavedSettings,
+                                    contextChangeSettingsPanel: {
+                                        ...unsavedSettings.contextChangeSettingsPanel,
+                                        settings: settings
+                                    }
                                 });
                             }}
                         />
@@ -209,9 +230,12 @@ export default function SearchSettings(props: IProps) {
                         label="Sentiment"
                         isOpenDefault={defaultSettings.sentimentSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
-                            onSettingsChange((oldSettings: ISearchSettings) => {
-                                oldSettings.sentimentSettingsPanel.isOpen = isOpen;
-                                return oldSettings;
+                            setUnsavedSettings({
+                                ...unsavedSettings,
+                                sentimentSettingsPanel: {
+                                    ...unsavedSettings.sentimentSettingsPanel,
+                                    isOpen: isOpen
+                                }
                             });
                         }}
                         error={sentimentError}
@@ -224,9 +248,12 @@ export default function SearchSettings(props: IProps) {
                             onChange={(settings: ISentimentSettings) => {
                                 setSentimentError(false);
 
-                                onSettingsChange((oldSettings: ISearchSettings) => {
-                                    oldSettings.sentimentSettingsPanel.settings = settings;
-                                    return oldSettings;
+                                setUnsavedSettings({
+                                    ...unsavedSettings,
+                                    sentimentSettingsPanel: {
+                                        ...unsavedSettings.sentimentSettingsPanel,
+                                        settings: settings
+                                    }
                                 });
                             }}
                         />
@@ -236,12 +263,15 @@ export default function SearchSettings(props: IProps) {
                         label="Frequeny"
                         isOpenDefault={defaultSettings.frequencySettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
-                            onSettingsChange((oldSettings: ISearchSettings) => {
-                                oldSettings.frequencySettingsPanel.isOpen = isOpen;
-                                return oldSettings;
+                            setUnsavedSettings({
+                                ...unsavedSettings,
+                                frequencySettingsPanel: {
+                                    ...unsavedSettings.frequencySettingsPanel,
+                                    isOpen: isOpen
+                                }
                             });
                         }}
-                    ></SwitchExpansionPanel> */}
+                    ></SwitchExpansionPanel>
 
                     <UpdateButton
                         defaultObject={defaultSettings}
