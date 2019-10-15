@@ -10,6 +10,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SettingsIcon from "../../../icons/SettingsIcon";
 
 import SwitchExpansionPanel from "../../../components/SwitchExpansionPanel";
+import ValidationErrorMessage from "../../../components/ValidationErrorMessage";
 
 import SynonymListSettings from "./settings/SynonymListSettings";
 import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
@@ -49,16 +50,6 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     })
 );
-
-interface IValidationErrorProps {
-    errors: boolean[];
-}
-
-const ValidationErrorMessage = (props: IValidationErrorProps) => {
-    const { errors } = props;
-
-    return errors.includes(true) ? <Typography>There is an error with settings</Typography> : null;
-};
 
 interface IProps {
     defaultSettings: ISearchSettings;
@@ -263,14 +254,16 @@ export default function SearchSettings(props: IProps) {
             </ExpansionPanel>
 
             <ValidationErrorMessage
-                errors={[
+                isError={[
                     synonymListError,
                     synonymNetworkError,
                     contextNetworkError,
                     contextChangeError,
                     sentimentError
                 ]}
-            />
+            >
+                There is an error with the settings
+            </ValidationErrorMessage>
         </div>
     );
 }
