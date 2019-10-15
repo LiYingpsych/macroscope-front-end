@@ -57,7 +57,6 @@ interface IProps {
 }
 
 export default function SearchSettings(props: IProps) {
-    // TODO: Add clone function instead of JSON.parse(JSON.stringify(obj))
     const classes = useStyles();
     const { defaultSettings, onUpdate } = props;
 
