@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SettingsIcon from "../../../icons/SettingsIcon";
@@ -24,6 +23,7 @@ import ISynonymNetworkSettings from "../models/ISynonymNetworkSettings";
 import IContextNetworkSettings from "../models/IContextNetworkSettings";
 import IContextChangeSettings from "../models/IContextChangeSettings";
 import ISentimentSettings from "../models/ISentimentSettings";
+import UpdateButton from "./UpdateButton";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -50,8 +50,6 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-type HandleSettingsModificationFunction = (oldSettings: ISearchSettings) => ISearchSettings;
-
 interface IValidationErrorProps {
     errors: boolean[];
 }
@@ -67,27 +65,12 @@ interface IProps {
     onUpdate: (updatedSettings: ISearchSettings) => void;
 }
 
-const settingsHaveChanged = (settingsA: ISearchSettings, settingsB: ISearchSettings): boolean => {
-    // TODO: settings have not changed if isOpen is false - extract this logic into a function and only compare settings that are "open"
-    return JSON.stringify(settingsA) !== JSON.stringify(settingsB);
-};
-
 export default function SearchSettings(props: IProps) {
     // TODO: Add clone function instead of JSON.parse(JSON.stringify(obj))
     const classes = useStyles();
     const { defaultSettings, onUpdate } = props;
 
     const [unsavedSettings, setUnsavedSettings] = useState(defaultSettings);
-    const [isUpdateable, setIsUpdateable] = useState(false);
-
-    const onSettingsChange = (handleModificationFunction: HandleSettingsModificationFunction) => {
-        const modifiedSettings = handleModificationFunction(
-            JSON.parse(JSON.stringify(unsavedSettings))
-        );
-        setUnsavedSettings(modifiedSettings);
-
-        setIsUpdateable(settingsHaveChanged(modifiedSettings, defaultSettings));
-    };
 
     const [synonymListError, setSynonymListError] = useState(false);
     const [synonymNetworkError, setSynonymNetworkError] = useState(false);
@@ -111,9 +94,12 @@ export default function SearchSettings(props: IProps) {
                         label="Synonym list"
                         isOpenDefault={defaultSettings.synonymListSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
-                            onSettingsChange((oldSettings: ISearchSettings) => {
-                                oldSettings.synonymListSettingsPanel.isOpen = isOpen;
-                                return oldSettings;
+                            setUnsavedSettings({
+                                ...unsavedSettings,
+                                synonymListSettingsPanel: {
+                                    ...unsavedSettings.synonymListSettingsPanel,
+                                    isOpen: isOpen
+                                }
                             });
                         }}
                         error={synonymListError}
@@ -125,16 +111,18 @@ export default function SearchSettings(props: IProps) {
                             }}
                             onChange={(synonymListSettings: ISynonymListSettings) => {
                                 setSynonymListError(false);
-
-                                onSettingsChange((oldSettings: ISearchSettings) => {
-                                    oldSettings.synonymListSettingsPanel.settings = synonymListSettings;
-                                    return oldSettings;
+                                setUnsavedSettings({
+                                    ...unsavedSettings,
+                                    synonymListSettingsPanel: {
+                                        ...unsavedSettings.synonymListSettingsPanel,
+                                        settings: synonymListSettings
+                                    }
                                 });
                             }}
                         />
                     </SwitchExpansionPanel>
 
-                    <SwitchExpansionPanel
+                    {/* <SwitchExpansionPanel
                         label="Synonym network"
                         isOpenDefault={defaultSettings.synonymNetworkSettingsPanel.isOpen}
                         onChange={(isOpen: boolean) => {
@@ -262,19 +250,15 @@ export default function SearchSettings(props: IProps) {
                                 return oldSettings;
                             });
                         }}
-                    ></SwitchExpansionPanel>
+                    ></SwitchExpansionPanel> */}
 
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        disabled={!isUpdateable}
-                        onClick={() => {
-                            setIsUpdateable(false);
+                    <UpdateButton
+                        defaultObject={defaultSettings}
+                        modifiedObject={unsavedSettings}
+                        onUpdate={() => {
                             onUpdate(unsavedSettings);
                         }}
-                    >
-                        Update
-                    </Button>
+                    />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
