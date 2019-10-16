@@ -16,7 +16,7 @@ export class BackendApi {
     private parseClosesrQueryParameters(params: IClosestRequestParameters) {
         let paramArray = [];
 
-        paramArray.push(`searchTerms=${params.searchTerms.join("_")}`);
+        paramArray.push(`searchTerms=${params.searchTerm}`);
         paramArray.push(`year=${params.year}`);
 
         if (params.numberOfClosestWords)
@@ -30,7 +30,7 @@ export class BackendApi {
         return this.endpoints.getHealth();
     }
 
-    public async getClosest(params: IClosestRequestParameters): Promise<IClosestDataModel[]> {
+    public async getClosest(params: IClosestRequestParameters): Promise<IClosestDataModel> {
         const queryParameters = this.parseClosesrQueryParameters(params);
 
         const json = await this.endpoints.getClosest(queryParameters);
@@ -55,6 +55,6 @@ export class BackendApi {
             };
 
             return closestData;
-        });
+        })[0]; // TODO: remove [0] when api no longer accepts multiple words - https://github.com/StraightOuttaCrompton/macroscope-api/issues/5
     }
 }

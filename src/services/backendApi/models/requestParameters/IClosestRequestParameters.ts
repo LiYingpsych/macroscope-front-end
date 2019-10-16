@@ -1,7 +1,7 @@
 import { ClosestSearchMethod } from "./ClosestSearchMethod";
 
 export interface IClosestRequestParameters {
-    searchTerms: string[];
+    searchTerm: string;
     year: number;
     numberOfClosestWords?: number;
     method?: ClosestSearchMethod;

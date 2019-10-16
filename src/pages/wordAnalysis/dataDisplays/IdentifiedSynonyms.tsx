@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import ISynonymListSettings from "../models/ISynonymListSettings";
 import { ClosestSearchMethod } from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
 import { BackendApi } from "../../../services/backendApi/BackendApi";
-import { IClosestDataModel } from "../../../models/IClosestDataModel";
+import { IClosestDataModel, IClosestWordModel } from "../../../models/IClosestDataModel";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import { TableHead, TableCell, TableBody, TableRow } from "@material-ui/core";
 
 const backendApi = new BackendApi();
 
@@ -15,17 +18,15 @@ export default function IdentifiedSynonyms(props: IProps) {
     const { searchTerm, settings } = props;
 
     const [isLoading, setIsLoading] = useState(false);
-    const [data, setData] = useState<IClosestDataModel[]>([]);
+    const [data, setData] = useState<IClosestDataModel>();
 
     useEffect(() => {
-        console.log("fetching data");
-
         setIsLoading(true);
 
         async function fetchData() {
             try {
                 const response = await backendApi.getClosest({
-                    searchTerms: searchTerm.split(" "),
+                    searchTerm: searchTerm,
                     year: settings.year,
                     numberOfClosestWords: settings.numberOfSynonyms,
                     // TODO: extract method into default settings?
@@ -34,6 +35,7 @@ export default function IdentifiedSynonyms(props: IProps) {
 
                 setData(response);
             } catch (error) {
+                // TODO: handle error in a meaningful way
                 console.log(error);
             } finally {
                 setIsLoading(false);
@@ -43,29 +45,36 @@ export default function IdentifiedSynonyms(props: IProps) {
         fetchData();
     }, [searchTerm, settings]);
 
-    return isLoading ? <div>Loading</div> : <SynonymList data={data} />;
+    return <Paper>{isLoading ? <div>Loading</div> : <SynonymsTable data={data} />}</Paper>;
 }
 
-interface ISynonymListProps {
-    data: IClosestDataModel[];
+interface ISynonymsTableProps {
+    data?: IClosestDataModel;
 }
 
-function SynonymList(props: ISynonymListProps) {
-    // const { data } = props;
+function SynonymsTable(props: ISynonymsTableProps) {
+    const { data } = props;
 
-    // return (
-    //     <>
-    //         {data.map((datum: IClosestDataModel) => {
-    //             return (
-    //                 <div>
-    //                     <div>{datum.primaryWord}</div>
-    //                     {datum.closestWords.map((word: IClosestWordModel) => {
-    //                         return <div>{word.word.value}</div>;
-    //                     })}
-    //                 </div>
-    //             );
-    //         })}
-    //     </>
-    // );
-    return <div>SynonymList</div>;
+    if (typeof data === "undefined") return null;
+
+    return (
+        <Table size="small">
+            <TableHead>
+                <TableRow>
+                    <TableCell>{data.primaryWord.value} synonyms</TableCell>
+                    <TableCell>Relative score</TableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {data.closestWords.map((synonym: IClosestWordModel) => {
+                    return (
+                        <TableRow>
+                            <TableCell>{synonym.word.value}</TableCell>
+                            <TableCell>{synonym.score}</TableCell>
+                        </TableRow>
+                    );
+                })}
+            </TableBody>
+        </Table>
+    );
 }

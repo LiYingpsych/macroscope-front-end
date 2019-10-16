@@ -2,3 +2,6 @@
 * Change logo192 and logo512 to macroscope logos
 
 * Document .env
+
+TO ASK:
+* What should "score" be called in synonym table?
