@@ -97,7 +97,7 @@ export default function WordAnalysisPage() {
     const [settings, setSettings] = useState(parsedSettings);
 
     return (
-        <Grid container direction="column" spacing={4}>
+        <Grid container direction="column" spacing={2}>
             <Grid item xs={12} className={classes.gridItem}>
                 <SearchbarWithSettings
                     autoFocus={true}

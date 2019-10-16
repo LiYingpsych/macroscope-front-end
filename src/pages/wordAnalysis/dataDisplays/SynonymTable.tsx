@@ -21,6 +21,10 @@ const backendApi = new BackendApi();
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        tableWrapper: {
+            maxHeight: 440,
+            overflow: "auto"
+        },
         tableHeaders: {
             padding: theme.spacing(2)
         },
@@ -75,28 +79,30 @@ export default function SynonymTable(props: IProps) {
 
     return (
         <Paper>
-            <Table size="small">
-                <TableHead className={classes.tableHeaders}>
-                    <TableRow>
-                        <TableCell>
-                            <Grid container spacing={1}>
-                                <Grid item>
-                                    <Title>Synonyms of {searchTerm}</Title>
-                                </Grid>
-                                <Grid item>({settings.year})</Grid>
-                            </Grid>
-                        </TableCell>
-                        {!isLoading ? (
+            <div className={classes.tableWrapper}>
+                <Table size="small" stickyHeader>
+                    <TableHead className={classes.tableHeaders}>
+                        <TableRow>
                             <TableCell>
-                                <Title>Relative score</Title>
+                                <Grid container spacing={1}>
+                                    <Grid item>
+                                        <Title>Synonyms of {searchTerm}</Title>
+                                    </Grid>
+                                    <Grid item>({settings.year})</Grid>
+                                </Grid>
                             </TableCell>
-                        ) : null}
-                    </TableRow>
-                </TableHead>
-                {!isLoading && requestErrorMsg.length === 0 ? (
-                    <SynonymTableRows data={data} />
-                ) : null}
-            </Table>
+                            {!isLoading ? (
+                                <TableCell>
+                                    <Title>Relative score</Title>
+                                </TableCell>
+                            ) : null}
+                        </TableRow>
+                    </TableHead>
+                    {!isLoading && requestErrorMsg.length === 0 ? (
+                        <SynonymTableRows data={data} />
+                    ) : null}
+                </Table>
+            </div>
             {isLoading ? (
                 <Grid container justify="center" className={classes.loaderContainer}>
                     <Grid item>
