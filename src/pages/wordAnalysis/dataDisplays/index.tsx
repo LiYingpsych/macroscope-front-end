@@ -1,6 +1,6 @@
 import React from "react";
 import ISearchSettings from "../models/ISearchSettings";
-import IdentifiedSynonyms from "./IdentifiedSynonyms";
+import SynonymTable from "./SynonymTable";
 
 interface IProps {
     searchTerm: string;
@@ -12,12 +12,11 @@ export default function DataDisplays(props: IProps) {
 
     return searchTerm.trim() === "" ? null : (
         <>
-            <div>Data displays</div>
             {settings.synonymListSettingsPanel.isOpen ? (
-                <IdentifiedSynonyms
+                <SynonymTable
                     searchTerm={searchTerm}
                     settings={settings.synonymListSettingsPanel.settings}
-                ></IdentifiedSynonyms>
+                ></SynonymTable>
             ) : null}
         </>
     );

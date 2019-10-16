@@ -1,15 +1,5 @@
 import React, { ReactNode } from "react";
-
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            color: theme.palette.error.main
-        }
-    })
-);
+import ErrorMessage from "./ErrorMessage";
 
 interface IProps {
     isError: boolean | boolean[];
@@ -17,11 +7,9 @@ interface IProps {
 }
 
 export default function ValidationErrorMessage(props: IProps) {
-    const classes = useStyles();
-
     const { isError, children = "There is a validation error" } = props;
 
-    const validationMessage = <Typography className={classes.root}>{children}</Typography>;
+    const validationMessage = <ErrorMessage>{children}</ErrorMessage>;
 
     let ReturnComponent = null;
 

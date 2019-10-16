@@ -23,7 +23,6 @@ class Endpoints {
         timeout: 99999
     };
 
-    // TODO: extract into object
     constructor(props: IEnpointsProps) {
         const { rootUrl = "http://localhost:3000", apiVersion = "v1", apiKey = "" } = props;
 

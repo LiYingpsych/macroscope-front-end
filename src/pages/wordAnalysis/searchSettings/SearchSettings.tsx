@@ -10,7 +10,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SettingsIcon from "../../../icons/SettingsIcon";
 
 import SwitchExpansionPanel from "../../../components/SwitchExpansionPanel";
-import ValidationErrorMessage from "../../../components/ValidationErrorMessage";
+import ValidationErrorMessage from "../../../components/errors/ValidationErrorMessage";
 
 import SynonymListSettings from "./settings/SynonymListSettings";
 import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";
