@@ -22,7 +22,7 @@ const backendApi = new BackendApi();
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         tableWrapper: {
-            maxHeight: 440,
+            maxHeight: 432,
             overflow: "auto"
         },
         tableHeaders: {
