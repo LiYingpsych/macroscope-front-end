@@ -15,6 +15,7 @@ import Grid from "@material-ui/core/Grid";
 
 import Title from "../../../components/Title";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const backendApi = new BackendApi();
 
@@ -23,7 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
         tableHeaders: {
             padding: theme.spacing(2)
         },
-        nonTableContent: {
+        loaderContainer: {
+            padding: theme.spacing(2)
+        },
+        errorMessageContainer: {
             padding: theme.spacing(1)
         }
     })
@@ -82,18 +86,26 @@ export default function SynonymTable(props: IProps) {
                                 <Grid item>({settings.year})</Grid>
                             </Grid>
                         </TableCell>
-                        <TableCell>
-                            <Title>Relative score</Title>
-                        </TableCell>
+                        {!isLoading ? (
+                            <TableCell>
+                                <Title>Relative score</Title>
+                            </TableCell>
+                        ) : null}
                     </TableRow>
                 </TableHead>
                 {!isLoading && requestErrorMsg.length === 0 ? (
                     <SynonymTableRows data={data} />
                 ) : null}
             </Table>
-            {isLoading ? <div className={classes.nonTableContent}>Loading</div> : null}
+            {isLoading ? (
+                <Grid container justify="center" className={classes.loaderContainer}>
+                    <Grid item>
+                        <CircularProgress color="secondary" />
+                    </Grid>
+                </Grid>
+            ) : null}
             {requestErrorMsg.length > 0 && !isLoading ? (
-                <Grid container justify="center" className={classes.nonTableContent}>
+                <Grid container justify="center" className={classes.errorMessageContainer}>
                     <Grid item>
                         <ErrorMessage>{requestErrorMsg}</ErrorMessage>
                     </Grid>
