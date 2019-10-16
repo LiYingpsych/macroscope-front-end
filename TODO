@@ -3,5 +3,7 @@
 
 * Document .env
 
+* Add https://github.com/bvaughn/react-virtualized to tables?
+
 TO ASK:
 * What should "score" be called in synonym table?
