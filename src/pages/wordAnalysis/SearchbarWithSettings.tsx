@@ -47,6 +47,7 @@ export default function SearchbarWithSettings(props: IProps) {
                         setSearchTerm(updatedSearchTerm);
                         onSearch(updatedSearchTerm, settings);
                     }}
+                    caseSensitive
                 />
             </Grid>
             <Grid item xs={12} className={classes.gridItem}>

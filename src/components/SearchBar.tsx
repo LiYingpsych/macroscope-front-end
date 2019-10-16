@@ -9,6 +9,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 import UpdatableTimeout from "../utils/UpdatableTimeout";
 import constructProhibitedCharacterErrorMsg from "../utils/constructProhibitedCharacterErrorMsg";
+import { removeDuplicateCharacters } from "../utils/removeDuplicateCharacters";
 
 const clearErrorMessageTimeout = new UpdatableTimeout();
 
@@ -33,6 +34,7 @@ interface IProps {
     placeholder?: string;
     autoFocus?: boolean;
     allowedCharacters?: string;
+    caseSensitive?: boolean;
 }
 
 export default function SearchBar(props: IProps) {
@@ -42,7 +44,8 @@ export default function SearchBar(props: IProps) {
         defaultSearchTerm = "",
         placeholder = "",
         autoFocus = false,
-        allowedCharacters
+        allowedCharacters = "",
+        caseSensitive = false
     } = props;
     const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
 
@@ -52,15 +55,21 @@ export default function SearchBar(props: IProps) {
         onSearch(searchTerm);
     };
 
+    const parsedAllowedCharacters = removeDuplicateCharacters(
+        caseSensitive
+            ? allowedCharacters
+            : `${allowedCharacters.toLowerCase()}${allowedCharacters.toUpperCase()}`
+    );
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
 
         let prohibitedCharacters: string = "";
-        if (typeof allowedCharacters !== "undefined") {
+        if (parsedAllowedCharacters.length > 0) {
             for (let index = 0; index < value.length; index++) {
                 const char = value[index];
 
-                if (allowedCharacters.includes(char)) continue;
+                if (parsedAllowedCharacters.includes(char)) continue;
                 if (prohibitedCharacters.includes(char)) continue;
 
                 prohibitedCharacters += char;
@@ -80,15 +89,9 @@ export default function SearchBar(props: IProps) {
 
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         const key = event.key;
-        if (key === "Enter") {
-            search();
-        } else if (typeof allowedCharacters !== "undefined" && !allowedCharacters.includes(key)) {
-            setErrorMessage(constructProhibitedCharacterErrorMsg(key));
-            clearErrorMessageTimeout.updateTimeout(() => {
-                setErrorMessage("");
-            }, 3000);
 
-            event.preventDefault();
+        if (key.toLowerCase() === "enter") {
+            search();
         }
     };
 
