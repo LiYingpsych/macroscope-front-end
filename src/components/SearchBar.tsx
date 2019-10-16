@@ -7,6 +7,11 @@ import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
+import UpdatableTimeout from "../utils/UpdatableTimeout";
+import constructProhibitedCharacterErrorMsg from "../utils/constructProhibitedCharacterErrorMsg";
+
+const clearErrorMessageTimeout = new UpdatableTimeout();
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -29,44 +34,6 @@ interface IProps {
     autoFocus?: boolean;
     allowedCharacters?: string;
 }
-
-class UpdatableTimeout {
-    private timeout: NodeJS.Timeout;
-
-    constructor() {
-        this.timeout = setTimeout(() => {}, 1);
-    }
-
-    public updateTimeout(cb: (...args: any[]) => void, time: number = 1000) {
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(cb, time);
-    }
-}
-
-const clearErrorMessageTimeout = new UpdatableTimeout();
-
-const constructProhibitedCharacterErrorMsg = (prohibitedChars: string) => {
-    if (prohibitedChars.length === 0) return "";
-
-    const getCharacterDisplayValue = (char: string) => {
-        if (char === " ") return "Space";
-
-        return char;
-    };
-
-    let prohibitedCharsArray: string[] = [];
-    for (let index = 0; index < prohibitedChars.length; index++) {
-        const char = getCharacterDisplayValue(prohibitedChars[index]);
-
-        if (prohibitedCharsArray.includes(char)) continue;
-
-        prohibitedCharsArray.push(char);
-    }
-
-    if (prohibitedCharsArray.length === 1)
-        return `${prohibitedCharsArray[0]} character is not allowed`;
-    return `${prohibitedCharsArray.join(" ")} characters are not allowed`;
-};
 
 export default function SearchBar(props: IProps) {
     const classes = useStyles();
