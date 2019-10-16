@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import SearchBar from "../../components/SearchBar";
 import SearchSettings from "./searchSettings/SearchSettings";
 import ISearchSettings from "./models/ISearchSettings";
+import { alphabet } from "../../globals";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -41,6 +42,7 @@ export default function SearchbarWithSettings(props: IProps) {
                     autoFocus={autoFocus}
                     defaultSearchTerm={defaultSearchTerm}
                     placeholder="Search word..."
+                    allowedCharacters={`${alphabet.toLowerCase()}`}
                     onSearch={(updatedSearchTerm: string) => {
                         setSearchTerm(updatedSearchTerm);
                         onSearch(updatedSearchTerm, settings);
