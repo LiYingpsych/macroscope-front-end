@@ -4,7 +4,7 @@ import SynonymTable from "./SynonymTable";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
 
 interface IDataDisplay {
-    component: ReactNode;
+    render: (key: number) => ReactNode;
     isDisplayed: boolean;
 }
 
@@ -18,8 +18,9 @@ export default function DataDisplays(props: IProps) {
 
     const dataDisplays: IDataDisplay[] = [
         {
-            component: (
+            render: (key: number) => (
                 <SynonymTable
+                    key={key}
                     searchTerm={searchTerm}
                     settings={settings.synonymListSettingsPanel.settings}
                 />
@@ -29,10 +30,10 @@ export default function DataDisplays(props: IProps) {
     ];
 
     let displayError = true;
-    const displays = dataDisplays.map(display => {
+    const displays = dataDisplays.map((display, i) => {
         if (display.isDisplayed) {
             displayError = false;
-            return display.component;
+            return display.render(i);
         }
 
         return null;

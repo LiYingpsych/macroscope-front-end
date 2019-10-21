@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ISynonymListSettings from "../models/ISynonymListSettings";
 import { ClosestSearchMethod } from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
 import { BackendApi } from "../../../services/backendApi/BackendApi";
-import { IClosestDataModel, IClosestWordModel } from "../../../models/IClosestDataModel";
+import { IClosestDataModel } from "../../../models/IClosestDataModel";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -132,9 +132,9 @@ function SynonymTableRows(props: ISynonymsTableProps) {
 
     return (
         <TableBody>
-            {data.closestWords.map((synonym: IClosestWordModel) => {
+            {data.closestWords.map((synonym, i) => {
                 return (
-                    <TableRow hover>
+                    <TableRow key={i} hover>
                         <TableCell>{synonym.word.value}</TableCell>
                         <TableCell>{synonym.score}</TableCell>
                     </TableRow>
