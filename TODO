@@ -5,5 +5,8 @@
 
 * Add https://github.com/bvaughn/react-virtualized to tables?
 
+* Add search query to url
+* Add feedback when no settings are selected
+
 TO ASK:
 * What should "score" be called in synonym table?
