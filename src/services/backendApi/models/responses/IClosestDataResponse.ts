@@ -1,15 +1,15 @@
-import { IWord } from "./IWord";
+import IWordResponse from "./IWordResponse";
 
-export interface IClosestDataResponse {
+export default interface IClosestDataResponse {
     readonly items: IClosestResponseItem[];
 }
 
 interface IClosestResponseItem {
-    readonly primaryWord: IWord;
+    readonly primaryWord: IWordResponse;
     readonly closestWords: IClosestWord[];
 }
 
 interface IClosestWord {
-    readonly word: IWord;
+    readonly word: IWordResponse;
     readonly score: number;
 }

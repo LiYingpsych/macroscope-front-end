@@ -41,7 +41,7 @@ const defaultSettings: ISearchSettings = {
         settings: {
             year: synonymNetworkMaxYear,
             synonymsPerTarget: 5,
-            simalarityThreshold: 0.7
+            similarityThreshold: 0.7
         }
     },
     contextNetworkSettingsPanel: {

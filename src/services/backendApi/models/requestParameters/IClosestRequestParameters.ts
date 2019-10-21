@@ -1,6 +1,6 @@
-import { ClosestSearchMethod } from "./ClosestSearchMethod";
+import ClosestSearchMethod from "./ClosestSearchMethod";
 
-export interface IClosestRequestParameters {
+export default interface IClosestRequestParameters {
     searchTerm: string;
     year: number;
     numberOfClosestWords?: number;

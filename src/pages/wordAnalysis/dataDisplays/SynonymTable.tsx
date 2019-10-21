@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ISynonymListSettings from "../models/ISynonymListSettings";
-import { ClosestSearchMethod } from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
-import { BackendApi } from "../../../services/backendApi/BackendApi";
-import { IClosestDataModel } from "../../../models/IClosestDataModel";
+import ClosestSearchMethod from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
+import BackendApi from "../../../services/backendApi/BackendApi";
+import IClosestData from "../../../models/IClosestData";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -48,7 +48,7 @@ export default function SynonymTable(props: IProps) {
     const { searchTerm, settings } = props;
 
     const [isLoading, setIsLoading] = useState(false);
-    const [data, setData] = useState<IClosestDataModel>();
+    const [data, setData] = useState<IClosestData>();
     const [requestErrorMsg, setRequestErrorMsg] = useState("");
 
     useEffect(() => {
@@ -122,7 +122,7 @@ export default function SynonymTable(props: IProps) {
 }
 
 interface ISynonymsTableProps {
-    data?: IClosestDataModel;
+    data?: IClosestData;
 }
 
 function SynonymTableRows(props: ISynonymsTableProps) {

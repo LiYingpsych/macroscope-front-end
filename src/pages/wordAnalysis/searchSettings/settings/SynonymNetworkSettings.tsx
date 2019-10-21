@@ -17,7 +17,7 @@ export default function SynonymNetworkSettings(props: IProps) {
 
     const years: number[] = range(synonymNetworkMinYear, synonymNetworkMaxYear, 10);
     const synonymsPerTarget: number[] = range(3, 10);
-    const simalarityThreshold: number[] = range(50, 100).map((value: number) => {
+    const similarityThreshold: number[] = range(50, 100).map((value: number) => {
         return value / 100;
     });
 
@@ -53,11 +53,11 @@ export default function SynonymNetworkSettings(props: IProps) {
                     />
                     <NumberSelectionInput
                         label="Simalarity threshold"
-                        numbers={simalarityThreshold}
-                        defaultNumber={defaultSettings.simalarityThreshold}
+                        numbers={similarityThreshold}
+                        defaultNumber={defaultSettings.similarityThreshold}
                         onValidationError={onInvalidSettings}
                         onChange={(selectedValue: number) => {
-                            modifySettings("simalarityThreshold", selectedValue);
+                            modifySettings("similarityThreshold", selectedValue);
                         }}
                     />
                 </Grid>
