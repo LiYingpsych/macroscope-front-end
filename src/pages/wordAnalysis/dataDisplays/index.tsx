@@ -2,6 +2,8 @@ import React, { ReactNode } from "react";
 import ISearchSettings from "../models/ISearchSettings";
 import SynonymTable from "./SynonymTable";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
+import SynonymNetworkGraph from "./SynonymNetworkGraph";
+import Grid from "@material-ui/core/Grid";
 
 interface IDataDisplay {
     render: (key: number) => ReactNode;
@@ -26,6 +28,16 @@ export default function DataDisplays(props: IProps) {
                 />
             ),
             isDisplayed: settings.synonymListSettingsPanel.isOpen
+        },
+        {
+            render: (key: number) => (
+                <SynonymNetworkGraph
+                    key={key}
+                    searchTerm={searchTerm}
+                    settings={settings.synonymNetworkSettingsPanel.settings}
+                />
+            ),
+            isDisplayed: settings.synonymNetworkSettingsPanel.isOpen
         }
     ];
 
@@ -41,7 +53,15 @@ export default function DataDisplays(props: IProps) {
 
     return searchTerm.trim() === "" ? null : (
         <>
-            {displays}
+            <Grid container direction="column" spacing={2}>
+                {displays.map((display, i) => {
+                    return (
+                        <Grid key={i} item>
+                            {display}
+                        </Grid>
+                    );
+                })}
+            </Grid>
 
             {displayError ? (
                 <ErrorMessage>

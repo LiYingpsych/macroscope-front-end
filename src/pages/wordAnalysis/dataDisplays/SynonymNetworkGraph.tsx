@@ -4,10 +4,14 @@ import BackendApi from "../../../services/backendApi/BackendApi";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
 
 import Title from "../../../components/Title";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import ISynonymNetworkSettings from "../models/ISynonymNetworkSettings";
 import NetworkGraph from "../../../components/NetworkGraph";
 import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
@@ -16,6 +20,9 @@ const backendApi = new BackendApi();
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        tableHeaders: {
+            padding: theme.spacing(2)
+        },
         loaderContainer: {
             padding: theme.spacing(2)
         },
@@ -67,12 +74,27 @@ export default function SynonymNetworkGraph(props: IProps) {
 
     return (
         <Paper>
+            <Table size="small">
+                <TableHead className={classes.tableHeaders}>
+                    <TableRow>
+                        <TableCell>
+                            <Grid container spacing={1}>
+                                <Grid item>
+                                    <Title>Synonyms of {searchTerm}</Title>
+                                </Grid>
+                                <Grid item>({settings.year})</Grid>
+                            </Grid>
+                        </TableCell>
+                    </TableRow>
+                </TableHead>
+            </Table>
             {!isLoading && requestErrorMsg.length === 0 ? (
-                <NetworkGraph
-                    nodes={[]}
-                    edges={[]}
-                    // data={data}
-                />
+                typeof data !== "undefined" ? (
+                    <NetworkGraph
+                        nodes={data.synonymNetwork.nodes}
+                        edges={data.synonymNetwork.edges}
+                    />
+                ) : null
             ) : null}
             {isLoading ? (
                 <Grid container justify="center" className={classes.loaderContainer}>
