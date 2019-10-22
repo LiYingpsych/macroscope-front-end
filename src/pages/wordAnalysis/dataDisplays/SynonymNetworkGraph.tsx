@@ -2,15 +2,9 @@ import React, { useState, useEffect } from "react";
 import BackendApi from "../../../services/backendApi/BackendApi";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
 
-import Title from "../../../components/Title";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
 import ISynonymNetworkSettings from "../models/ISynonymNetworkSettings";
 import NetworkGraph, { IGraphData } from "../../../components/NetworkGraph";
@@ -92,21 +86,7 @@ export default function SynonymNetworkGraph(props: IProps) {
     }, [searchTerm, settings]);
 
     return (
-        <Paper className={classes.root}>
-            <Table size="small">
-                <TableHead className={classes.tableHeaders}>
-                    <TableRow>
-                        <TableCell>
-                            <Grid container spacing={1}>
-                                <Grid item>
-                                    <Title>Synonym network of {searchTerm}</Title>
-                                </Grid>
-                                <Grid item>({settings.year})</Grid>
-                            </Grid>
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-            </Table>
+        <>
             {!isLoading && requestErrorMsg.length === 0 ? (
                 typeof data !== "undefined" ? (
                     <NetworkGraph
@@ -130,6 +110,6 @@ export default function SynonymNetworkGraph(props: IProps) {
                     </Grid>
                 </Grid>
             ) : null}
-        </Paper>
+        </>
     );
 }
