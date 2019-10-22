@@ -1,19 +1,38 @@
 import React from "react";
 import JSNetworkGraph from "./JSNetworkGraph";
 
-interface INode {}
-
-interface IEdge {}
-
-interface IProps {
-    nodes: INode[];
-    edges: IEdge[];
+interface IProps<T> {
+    id: string;
+    data: IGraphData<T>;
+    config?: IGraphConfig;
 }
 
-const NetworkGraph = (props: IProps) => {
-    const { nodes, edges } = props;
+interface IGraphConfig {
+    automaticRearrangeAfterDropNode?: boolean;
+    collapsible?: boolean;
+    directed?: boolean;
+    height?: number;
+    width?: number;
+}
 
-    return <JSNetworkGraph nodes={nodes} edges={edges} />;
+export interface IGraphData<T> {
+    nodes: INetworkGraphNode<T>[];
+    links: INetworkGraphLinks<T>[];
+}
+
+interface INetworkGraphNode<T> {
+    id: T;
+}
+
+interface INetworkGraphLinks<T> {
+    source: T;
+    target: T;
+}
+
+const NetworkGraph = <T,>(props: IProps<T>) => {
+    const { id, data, config = {} } = props;
+
+    return <JSNetworkGraph id={id} data={data} config={config} />;
 };
 
 export default NetworkGraph;

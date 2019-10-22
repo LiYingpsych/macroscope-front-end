@@ -1,12 +1,24 @@
-import React from 'react';
-import {ForceGraph, ForceGraphNode, ForceGraphLink} from 'react-vis-force';
+import React from "react";
+import { Graph } from "react-d3-graph";
 
 export default function(props) {
+    const { id, data, config } = props;
+
     return (
-        <ForceGraph simulationOptions={{ height: 300, width: 300 }}>
-          <ForceGraphNode node={{ id: 'first-node' }} fill="red" />
-          <ForceGraphNode node={{ id: 'second-node' }} fill="blue" />
-          <ForceGraphLink link={{ source: 'first-node', target: 'second-node' }} />
-        </ForceGraph>
-    )
+        <Graph
+            id={id}
+            data={data}
+             config={config}
+            //  onClickGraph={onClickGraph}
+            //  onClickNode={onClickNode}
+            //  onDoubleClickNode={onDoubleClickNode}
+            //  onRightClickNode={onRightClickNode}
+            //  onClickLink={onClickLink}
+            //  onRightClickLink={onRightClickLink}
+            //  onMouseOverNode={onMouseOverNode}
+            //  onMouseOutNode={onMouseOutNode}
+            //  onMouseOverLink={onMouseOverLink}
+            //  onMouseOutLink={onMouseOutLink}
+        />
+    );
 }

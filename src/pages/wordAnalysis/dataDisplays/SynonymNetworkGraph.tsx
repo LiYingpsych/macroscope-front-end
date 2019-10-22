@@ -13,13 +13,19 @@ import TableRow from "@material-ui/core/TableRow";
 import Title from "../../../components/Title";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
 import ISynonymNetworkSettings from "../models/ISynonymNetworkSettings";
-import NetworkGraph from "../../../components/NetworkGraph";
-import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
+import NetworkGraph, { IGraphData } from "../../../components/NetworkGraph";
+import INode from "../../../models/INode";
+import IEdge from "../../../models/IEdge";
 
 const backendApi = new BackendApi();
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        root: {
+            "& svg": {
+                width: "100% !important"
+            }
+        },
         tableHeaders: {
             padding: theme.spacing(2)
         },
@@ -43,7 +49,7 @@ export default function SynonymNetworkGraph(props: IProps) {
     const { searchTerm, settings } = props;
 
     const [isLoading, setIsLoading] = useState(false);
-    const [data, setData] = useState<ISynonymNetworkData>();
+    const [data, setData] = useState<IGraphData<string>>();
     const [requestErrorMsg, setRequestErrorMsg] = useState("");
 
     useEffect(() => {
@@ -55,11 +61,24 @@ export default function SynonymNetworkGraph(props: IProps) {
                     searchTerm: searchTerm,
                     year: settings.year,
                     synonymsPerTarget: settings.synonymsPerTarget,
-                    // TODO: extract method into default settings?
                     similarityThreshold: settings.similarityThreshold
                 });
 
-                setData(response);
+                const _data: IGraphData<string> = {
+                    nodes: response.synonymNetwork.nodes.map((node: INode) => {
+                        return {
+                            id: node.word.value
+                        };
+                    }),
+                    links: response.synonymNetwork.edges.map((edge: IEdge) => {
+                        return {
+                            source: edge.source,
+                            target: edge.target
+                        };
+                    })
+                };
+
+                setData(_data);
                 setRequestErrorMsg("");
             } catch (error) {
                 const errorMsg = error.response.data;
@@ -73,14 +92,14 @@ export default function SynonymNetworkGraph(props: IProps) {
     }, [searchTerm, settings]);
 
     return (
-        <Paper>
+        <Paper className={classes.root}>
             <Table size="small">
                 <TableHead className={classes.tableHeaders}>
                     <TableRow>
                         <TableCell>
                             <Grid container spacing={1}>
                                 <Grid item>
-                                    <Title>Synonyms of {searchTerm}</Title>
+                                    <Title>Synonym network of {searchTerm}</Title>
                                 </Grid>
                                 <Grid item>({settings.year})</Grid>
                             </Grid>
@@ -91,8 +110,9 @@ export default function SynonymNetworkGraph(props: IProps) {
             {!isLoading && requestErrorMsg.length === 0 ? (
                 typeof data !== "undefined" ? (
                     <NetworkGraph
-                        nodes={data.synonymNetwork.nodes}
-                        edges={data.synonymNetwork.edges}
+                        id="Synonym-network-graph"
+                        data={data}
+                        config={{ automaticRearrangeAfterDropNode: true }}
                     />
                 ) : null
             ) : null}

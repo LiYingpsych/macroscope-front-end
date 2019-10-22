@@ -56,7 +56,9 @@ class Endpoints {
     ): Promise<ISynonymNetworkResponse> {
         let url = `/synonymNetwork?${this.parseSynonymNetworkQueryParameters(params)}`;
 
-        return this.makeRequest(url);
+        const response = await this.makeRequest(url);
+
+        return JSON.parse(response) as ISynonymNetworkResponse;
     }
 
     private async makeRequest(url: string) {
@@ -64,7 +66,7 @@ class Endpoints {
 
         const response = await axios.get(url, this.config);
 
-        return response.data;
+        return response.data as string;
     }
 
     private parseClosestQueryParameters(params: IClosestRequestParameters) {
