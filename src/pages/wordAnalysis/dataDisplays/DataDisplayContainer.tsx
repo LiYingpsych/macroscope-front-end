@@ -7,7 +7,7 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
@@ -15,7 +15,7 @@ import ErrorMessage from "../../../components/errors/ErrorMessage";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {},
-        panelSummary: {
+        panelSummaryBottomBorder: {
             borderBottom: `1px solid ${theme.palette.grey[300]}`
         },
         heading: {
@@ -26,8 +26,11 @@ const useStyles = makeStyles((theme: Theme) =>
         panelDetails: {
             padding: 0
         },
-        loaderContainer: {
-            padding: theme.spacing(2)
+        linearLoader: {
+            position: "absolute",
+            width: "100%",
+            left: 0,
+            bottom: -1
         },
         errorMessageContainer: {
             padding: theme.spacing(1)
@@ -81,7 +84,6 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
         setIsExpanded(expanded);
     };
 
-    const Loader = <CircularProgress color="secondary" />;
     const isError = requestErrorMsg.length > 0;
 
     return (
@@ -90,23 +92,26 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
             defaultExpanded={defaultIsExpanded}
             onChange={onChange}
         >
-            <ExpansionPanelSummary className={classes.panelSummary} expandIcon={<ExpandMoreIcon />}>
+            <ExpansionPanelSummary
+                className={classnames(isExpanded ? classes.panelSummaryBottomBorder : "")}
+                expandIcon={<ExpandMoreIcon />}
+            >
                 <Typography className={classes.heading}>{title}</Typography>
+                {isLoading ? (
+                    <LinearProgress className={classes.linearLoader} color="secondary" />
+                ) : null}
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.panelDetails}>
-                {!isLoading && !isError && typeof data !== "undefined" ? render(data) : <div></div>}
-                {isLoading ? (
-                    <Grid container justify="center" className={classes.loaderContainer}>
-                        <Grid item>{Loader}</Grid>
-                    </Grid>
-                ) : null}
-                {isError && !isLoading ? (
-                    <Grid container justify="center" className={classes.errorMessageContainer}>
-                        <Grid item>
-                            <ErrorMessage>{requestErrorMsg}</ErrorMessage>
+                <>
+                    {!isError && typeof data !== "undefined" ? render(data) : null}
+                    {isError && !isLoading ? (
+                        <Grid container justify="center" className={classes.errorMessageContainer}>
+                            <Grid item>
+                                <ErrorMessage>{requestErrorMsg}</ErrorMessage>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                ) : null}
+                    ) : null}
+                </>
             </ExpansionPanelDetails>
         </ExpansionPanel>
     );
