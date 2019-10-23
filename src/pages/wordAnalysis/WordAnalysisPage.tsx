@@ -112,7 +112,7 @@ export default function WordAnalysisPage() {
                 />
             </Grid>
             <Grid item xs={12} className={classes.gridItem}>
-                <DataDisplays searchTerm={searchTerm} settings={settings}></DataDisplays>
+                <DataDisplays searchTerm={searchTerm} searchSettings={settings}></DataDisplays>
             </Grid>
         </Grid>
     );

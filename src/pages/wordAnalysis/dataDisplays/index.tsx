@@ -1,35 +1,47 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import ISearchSettings from "../models/ISearchSettings";
 import SynonymTable from "./SynonymTable";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
 import SynonymNetworkGraph from "./SynonymNetworkGraph";
+import DataDisplayContainer, { IDataDisplayContainerProps } from "./DataDisplayContainer";
+import IClosestRequestParameters from "../../../services/backendApi/models/requestParameters/IClosestRequestParameters";
+import ClosestSearchMethod from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
+import IClosestData from "../../../models/IClosestData";
+import { fetchClosestData } from "./dataFetchers";
 
-interface IDataDisplay {
-    render: (key: number) => ReactNode;
+interface IDataDisplay<S, T> extends IDataDisplayContainerProps<S, T> {
     isDisplayed: boolean;
-    title: string;
 }
 
 interface IProps {
     searchTerm: string;
-    settings: ISearchSettings;
+    searchSettings: ISearchSettings;
 }
 
 export default function DataDisplays(props: IProps) {
-    const { searchTerm, settings } = props;
+    const { searchTerm, searchSettings } = props;
 
-    const dataDisplays: IDataDisplay[] = [
-        {
-            title: `Synonyms table`,
-            render: (key: number) => (
-                <SynonymTable
-                    key={key}
-                    searchTerm={searchTerm}
-                    settings={settings.synonymListSettingsPanel.settings}
-                />
-            ),
-            isDisplayed: settings.synonymListSettingsPanel.isOpen
-        }
+    const synonymTableDataDisplay: IDataDisplay<IClosestRequestParameters, IClosestData> = {
+        isDisplayed: searchSettings.synonymListSettingsPanel.isOpen,
+        title: `Synonyms table`,
+        params: {
+            searchTerm: searchTerm,
+            year: searchSettings.synonymListSettingsPanel.settings.year,
+            numberOfClosestWords: searchSettings.synonymListSettingsPanel.settings.numberOfSynonyms,
+            method: ClosestSearchMethod.SGNS
+        },
+        fetchDataFunction: fetchClosestData,
+        render: (data: IClosestData) => (
+            <SynonymTable
+                searchTerm={searchTerm}
+                settings={searchSettings.synonymListSettingsPanel.settings}
+                data={data}
+            />
+        )
+    };
+
+    const dataDisplays: IDataDisplay<any, any>[] = [
+        synonymTableDataDisplay
         // {
         //     title: `Synonym network graph`,
         //     render: (key: number) => (
@@ -45,10 +57,12 @@ export default function DataDisplays(props: IProps) {
 
     let displayError = true;
     const displays = dataDisplays.map((display, i) => {
-        if (display.isDisplayed) {
+        const { isDisplayed, ...rest } = display;
+
+        if (isDisplayed) {
             displayError = false;
 
-            return display.render(i);
+            return <DataDisplayContainer key={i} {...rest} />;
         }
 
         return null;
