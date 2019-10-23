@@ -1,4 +1,5 @@
 import React, { ReactNode, useState, useEffect } from "react";
+import classnames from "classnames";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -13,16 +14,26 @@ import ErrorMessage from "../../../components/errors/ErrorMessage";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        root: {},
+        panelSummary: {
+            borderBottom: `1px solid ${theme.palette.grey[300]}`
+        },
         heading: {
             paddingLeft: "10px",
             fontSize: theme.typography.pxToRem(15),
             fontWeight: theme.typography.fontWeightRegular
+        },
+        panelDetails: {
+            padding: 0
         },
         loaderContainer: {
             padding: theme.spacing(2)
         },
         errorMessageContainer: {
             padding: theme.spacing(1)
+        },
+        errorBorder: {
+            border: `1px solid ${theme.palette.error.main}`
         }
     })
 );
@@ -42,6 +53,9 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState<T>();
     const [requestErrorMsg, setRequestErrorMsg] = useState("");
+
+    const defaultIsExpanded = true;
+    const [isExpanded, setIsExpanded] = useState(defaultIsExpanded);
 
     useEffect(() => {
         setIsLoading(true);
@@ -63,34 +77,37 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
         fetchData();
     }, [params, fetchDataFunction]);
 
+    const onChange = (event: object, expanded: boolean) => {
+        setIsExpanded(expanded);
+    };
+
+    const Loader = <CircularProgress color="secondary" />;
+    const isError = requestErrorMsg.length > 0;
+
     return (
-        <>
-            <ExpansionPanel>
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography className={classes.heading}>{title}</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    {!isLoading && requestErrorMsg.length === 0 && typeof data !== "undefined" ? (
-                        render(data)
-                    ) : (
-                        <div></div>
-                    )}
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
-            {isLoading ? (
-                <Grid container justify="center" className={classes.loaderContainer}>
-                    <Grid item>
-                        <CircularProgress color="secondary" />
+        <ExpansionPanel
+            className={classnames(classes.root, isError && !isLoading ? classes.errorBorder : "")}
+            defaultExpanded={defaultIsExpanded}
+            onChange={onChange}
+        >
+            <ExpansionPanelSummary className={classes.panelSummary} expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>{title}</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails className={classes.panelDetails}>
+                {!isLoading && !isError && typeof data !== "undefined" ? render(data) : <div></div>}
+                {isLoading ? (
+                    <Grid container justify="center" className={classes.loaderContainer}>
+                        <Grid item>{Loader}</Grid>
                     </Grid>
-                </Grid>
-            ) : null}
-            {requestErrorMsg.length > 0 && !isLoading ? (
-                <Grid container justify="center" className={classes.errorMessageContainer}>
-                    <Grid item>
-                        <ErrorMessage>{requestErrorMsg}</ErrorMessage>
+                ) : null}
+                {isError && !isLoading ? (
+                    <Grid container justify="center" className={classes.errorMessageContainer}>
+                        <Grid item>
+                            <ErrorMessage>{requestErrorMsg}</ErrorMessage>
+                        </Grid>
                     </Grid>
-                </Grid>
-            ) : null}
-        </>
+                ) : null}
+            </ExpansionPanelDetails>
+        </ExpansionPanel>
     );
 }
