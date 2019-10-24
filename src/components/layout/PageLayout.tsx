@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import classnames from "classnames";
 
-import useReactRouter from "use-react-router";
-import { Link, Route, Switch, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { makeStyles, useTheme, Theme, createStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -65,24 +65,46 @@ export interface ITabItem {
     content: any;
 }
 
-interface ResponsiveDrawerProps {
+interface IProps {
     tabItems: ITabItem[];
     title?: string;
 }
 
-export default function PageLayout(props: ResponsiveDrawerProps) {
+export default function PageLayout(props: IProps) {
     const { title = "Macroscope", tabItems } = props;
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const classes = useStyles();
     const theme = useTheme();
-    const { location } = useReactRouter();
+
+    let location = useLocation();
+
+    const getDefautltTab = () => {
+        for (let index = 0; index < tabItems.length; index++) {
+            const tab = tabItems[index];
+
+            if (tab.route === location.pathname) return index;
+        }
+
+        return -1; // Show not found page
+    };
+
+    const [currentTabIndex, setCurrentTabIndex] = useState(getDefautltTab());
+
+    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+        setCurrentTabIndex(newValue);
+    };
+
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
 
     const tabs = (orientation: "horizontal" | "vertical" = "horizontal") => {
         return (
             <Tabs
-                value={location.pathname}
+                value={currentTabIndex}
+                onChange={handleChange}
                 classes={{ flexContainer: "main-app-bar-height" }}
                 orientation={orientation}
             >
@@ -90,24 +112,31 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                     return (
                         <Tab
                             label={tab.label}
-                            value={tab.route}
+                            value={index}
                             component={Link}
                             to={tab.route}
                             key={`tab-${index}`}
                         />
                     );
                 })}
+                <Tab hidden value={-1} />
             </Tabs>
         );
     };
 
-    const pageRoutes = tabItems.map((tab, index) => {
-        return <Route exact path={tab.route} render={() => tab.content} key={`route-${index}`} />;
+    const tabPanels = tabItems.map((tab, i) => {
+        return (
+            <div key={i} hidden={currentTabIndex !== i}>
+                {tab.content}
+            </div>
+        );
     });
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
+    tabPanels.push(
+        <div key={-1} hidden={currentTabIndex !== -1}>
+            <NotFoundPage />
+        </div>
+    );
 
     return (
         <div className={classes.root}>
@@ -158,15 +187,7 @@ export default function PageLayout(props: ResponsiveDrawerProps) {
                 content={
                     <div className={classes.content}>
                         <div className={classes.toolbar} />
-                        <Switch>
-                            <Route
-                                exact
-                                path="/"
-                                render={() => <Redirect to={tabItems[0].route} />}
-                            />
-                            {pageRoutes}
-                            <Route component={NotFoundPage} />
-                        </Switch>
+                        {tabPanels}
                     </div>
                 }
                 footer={<Footer />}

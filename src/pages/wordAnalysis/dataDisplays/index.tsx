@@ -7,7 +7,9 @@ import DataDisplayContainer, { IDataDisplayContainerProps } from "./DataDisplayC
 import IClosestRequestParameters from "../../../services/backendApi/models/requestParameters/IClosestRequestParameters";
 import ClosestSearchMethod from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
 import IClosestData from "../../../models/IClosestData";
-import { fetchClosestData } from "./dataFetchers";
+import { fetchSynonymListData, fetchSynonymNetworkData } from "./dataFetchers";
+import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
+import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
 
 interface IDataDisplay<S, T> extends IDataDisplayContainerProps<S, T> {
     isDisplayed: boolean;
@@ -30,7 +32,7 @@ export default function DataDisplays(props: IProps) {
             numberOfClosestWords: searchSettings.synonymListSettingsPanel.settings.numberOfSynonyms,
             method: ClosestSearchMethod.SGNS
         },
-        fetchDataFunction: fetchClosestData,
+        fetchDataFunction: fetchSynonymListData,
         render: (data: IClosestData) => (
             <SynonymTable
                 searchTerm={searchTerm}
@@ -40,19 +42,27 @@ export default function DataDisplays(props: IProps) {
         )
     };
 
+    const synonymNetworkDataDisplay: IDataDisplay<
+        ISynonymNetworkRequestParameters,
+        ISynonymNetworkData
+    > = {
+        isDisplayed: searchSettings.synonymNetworkSettingsPanel.isOpen,
+        title: `Synonyms network`,
+        params: {
+            searchTerm: searchTerm,
+            year: searchSettings.synonymNetworkSettingsPanel.settings.year,
+            synonymsPerTarget:
+                searchSettings.synonymNetworkSettingsPanel.settings.synonymsPerTarget,
+            similarityThreshold:
+                searchSettings.synonymNetworkSettingsPanel.settings.similarityThreshold
+        },
+        fetchDataFunction: fetchSynonymNetworkData,
+        render: (data: ISynonymNetworkData) => <SynonymNetworkGraph data={data} />
+    };
+
     const dataDisplays: IDataDisplay<any, any>[] = [
-        synonymTableDataDisplay
-        // {
-        //     title: `Synonym network graph`,
-        //     render: (key: number) => (
-        //         <SynonymNetworkGraph
-        //             key={key}
-        //             searchTerm={searchTerm}
-        //             settings={settings.synonymNetworkSettingsPanel.settings}
-        //         />
-        //     ),
-        //     isDisplayed: settings.synonymNetworkSettingsPanel.isOpen
-        // }
+        synonymTableDataDisplay,
+        synonymNetworkDataDisplay
     ];
 
     let displayError = true;

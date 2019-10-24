@@ -1,7 +1,7 @@
 import { decodeQueryString } from "../../utils/queryStringUtils";
 
 export const getObjectFromQueryString = <T>(searchString: string, defaultObject: T): T => {
-    if (searchString[0] === "?") {
+    if (searchString[0] === "?" || searchString[0] === "?") {
         searchString = searchString.substr(1);
     }
 

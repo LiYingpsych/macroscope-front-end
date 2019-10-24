@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useReactRouter from "use-react-router";
+import { useLocation } from "react-router-dom";
 
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -81,20 +81,22 @@ const defaultSettings: ISearchSettings = {
 
 export default function WordAnalysisPage() {
     const classes = useStyles();
-    const { location, history } = useReactRouter();
+
+    let location = useLocation();
 
     const pushSettingsToHistory = (settings: ISearchSettings) => {
-        history.push(`?${encodeQueryStringObject(settings)}`);
+        window.history.pushState({}, "", `?${encodeQueryStringObject(settings)}`);
     };
 
     const parsedSettings = getObjectFromQueryString(location.search, defaultSettings);
-    useEffect(() => {
-        pushSettingsToHistory(parsedSettings);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
     const [settings, setSettings] = useState(parsedSettings);
+    const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
+
+    useEffect(() => {
+        if (location.pathname.toLowerCase() === "/wordanalysis") pushSettingsToHistory(settings);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname]);
 
     return (
         <Grid container direction="column" spacing={2}>
@@ -102,7 +104,7 @@ export default function WordAnalysisPage() {
                 <SearchbarWithSettings
                     autoFocus={true}
                     defaultSearchTerm={defaultSearchTerm}
-                    defaultSettings={parsedSettings}
+                    defaultSettings={settings}
                     onSearch={(updatedSearchTerm: string, updatedSettings: ISearchSettings) => {
                         setSearchTerm(updatedSearchTerm);
                         setSettings(updatedSettings);
