@@ -14,5 +14,7 @@
 
 * Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
 
+* Calculate width of screen and pass to JSNetworkGraph so that the network renders in the middle of the screen
+
 TO ASK:
 * What should "score" be called in synonym table?
