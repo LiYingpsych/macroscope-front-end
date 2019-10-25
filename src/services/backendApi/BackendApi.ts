@@ -10,6 +10,8 @@ import IContextNetworkRequestParameters from "./models/requestParameters/IContex
 import IContextNetworkData from "../../models/IContextNetworkData";
 import ISemanticDriftRequestParameters from "./models/requestParameters/ISemanticDriftRequestParameters";
 import ISemanticDriftData from "../../models/ISemanticDriftData";
+import IContextChangeRequestParameters from "./models/requestParameters/IContextChangeRequestParameters";
+import IContextChangeData from "../../models/IContextChangeData";
 
 export default class BackendApi {
     private endpoints: Endpoints;
@@ -51,6 +53,14 @@ export default class BackendApi {
         params: ISemanticDriftRequestParameters
     ): Promise<ISemanticDriftData> {
         const json = await this.endpoints.getSemanticDrift(params);
+
+        return json;
+    }
+
+    public async getContextChange(
+        params: IContextChangeRequestParameters
+    ): Promise<IContextChangeData> {
+        const json = await this.endpoints.getContextChange(params);
 
         return json;
     }

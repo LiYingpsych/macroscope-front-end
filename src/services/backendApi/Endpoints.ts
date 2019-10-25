@@ -7,6 +7,8 @@ import IContextNetworkRequestParameters from "./models/requestParameters/IContex
 import IContextNetworkResponse from "./models/responses/IContextNetworkResponse";
 import ISemanticDriftRequestParameters from "./models/requestParameters/ISemanticDriftRequestParameters";
 import ISemanticDriftResponse from "./models/responses/ISemanticDriftResponse";
+import IContextChangeRequestParameters from "./models/requestParameters/IContextChangeRequestParameters";
+import IContextChangeResponse from "./models/responses/IContextChangeResponse";
 
 axios.defaults.transformResponse = (data: any) => {
     return data;
@@ -78,11 +80,21 @@ class Endpoints {
     public async getSemanticDrift(
         params: ISemanticDriftRequestParameters
     ): Promise<ISemanticDriftResponse> {
-        let url = `/contextNetwork?${this.parseSemanticDriftQueryParameters(params)}`;
+        let url = `/drift?${this.parseSemanticDriftQueryParameters(params)}`;
 
         const response = await this.makeRequest(url);
 
         return JSON.parse(response) as ISemanticDriftResponse;
+    }
+
+    public async getContextChange(
+        params: IContextChangeRequestParameters
+    ): Promise<IContextChangeResponse> {
+        let url = `/contextChange?${this.parseContextChangeQueryParameters(params)}`;
+
+        const response = await this.makeRequest(url);
+
+        return JSON.parse(response) as IContextChangeResponse;
     }
 
     private async makeRequest(url: string) {
@@ -141,6 +153,18 @@ class Endpoints {
         paramArray.push(`endYear=${params.endYear}`);
         paramArray.push(`numberOfYearsInInterval=${params.numberOfYearsInInterval}`);
         paramArray.push(`numberOfClosestWords=${params.numberOfClosestWords}`);
+
+        return paramArray.join("&");
+    }
+
+    private parseContextChangeQueryParameters(params: IContextChangeRequestParameters) {
+        let paramArray = [];
+
+        paramArray.push(`searchTerms=${params.searchTerm}`);
+        paramArray.push(`startYear=${params.startYear}`);
+        paramArray.push(`endYear=${params.endYear}`);
+        paramArray.push(`numberOfContextWords=${params.numberOfContextWords}`);
+        paramArray.push(`decrease=${params.decrease}`);
 
         return paramArray.join("&");
     }

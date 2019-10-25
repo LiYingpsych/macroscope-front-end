@@ -3,6 +3,7 @@ import IClosestRequestParameters from "../../../services/backendApi/models/reque
 import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
 import IContextNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/IContextNetworkRequestParameters";
 import ISemanticDriftRequestParameters from "../../../services/backendApi/models/requestParameters/ISemanticDriftRequestParameters";
+import IContextChangeRequestParameters from "../../../services/backendApi/models/requestParameters/IContextChangeRequestParameters";
 
 const backendApi = new BackendApi();
 
@@ -20,4 +21,8 @@ export const fetchContextNetworkData = async (params: IContextNetworkRequestPara
 
 export const fetchSemanticDriftData = async (params: ISemanticDriftRequestParameters) => {
     return await backendApi.getSemanticDrift(params);
+};
+
+export const fetchContextChangeData = async (params: IContextChangeRequestParameters) => {
+    return await backendApi.getContextChange(params);
 };
