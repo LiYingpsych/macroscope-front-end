@@ -80,6 +80,7 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
     useEffect(() => {
         setLabelWidth(inputLabel.current!.offsetWidth);
         setNativeLabelWidth(nativeInputLabel.current!.offsetWidth);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputLabel.current]);
 
     function handleOnChange(event: React.ChangeEvent<{ name?: string; value: unknown }>) {
