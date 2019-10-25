@@ -1,6 +1,4 @@
 import IWord from "./IWord";
-import IEdge from "./IEdge";
-import INode from "./INode";
 
 export default interface ISynonymNetworkData {
     readonly primaryWord: IWord;
@@ -8,6 +6,17 @@ export default interface ISynonymNetworkData {
 }
 
 interface ISynonymNetwork {
-    readonly nodes: INode[];
-    readonly edges: IEdge[];
+    readonly nodes: ISynonymNetworkNode[];
+    readonly edges: ISynonymNetworkEdge[];
+}
+
+export interface ISynonymNetworkNode {
+    readonly word: IWord;
+    readonly group: number;
+}
+
+export interface ISynonymNetworkEdge {
+    readonly source: string;
+    readonly target: string;
+    readonly weight: number;
 }

@@ -8,5 +8,9 @@
 * Add search query to url
 * Add feedback when no settings are selected
 
+* Make optional request parameters not optional - idea is that I should not be defaulting options and that the user should know what options are being used
+
+* Makesure root url redirects to default tab route
+
 TO ASK:
 * What should "score" be called in synonym table?

@@ -6,6 +6,9 @@ import IClosestData from "../../models/IClosestData";
 import ISynonymNetworkRequestParameters from "./models/requestParameters/ISynonymNetworkRequestParameters";
 import ISynonymNetworkData from "../../models/ISynonymNetworkData";
 
+import IContextNetworkRequestParameters from "./models/requestParameters/IContextNetworkRequestParameters";
+import IContextNetworkData from "../../models/IContextNetworkData";
+
 export default class BackendApi {
     private endpoints: Endpoints;
 
@@ -30,6 +33,14 @@ export default class BackendApi {
         params: ISynonymNetworkRequestParameters
     ): Promise<ISynonymNetworkData> {
         const json = await this.endpoints.getSynonymNetwork(params);
+
+        return json;
+    }
+
+    public async getContextNetwork(
+        params: IContextNetworkRequestParameters
+    ): Promise<IContextNetworkData> {
+        const json = await this.endpoints.getContextNetwork(params);
 
         return json;
     }

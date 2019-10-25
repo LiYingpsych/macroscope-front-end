@@ -1,6 +1,4 @@
 import IWordResponse from "./IWordResponse";
-import INodeResponse from "./INodeResponse";
-import IEdgeResponse from "./IEdgeResponse";
 
 export default interface ISynonymNetworkResponse {
     readonly primaryWord: IWordResponse;
@@ -8,6 +6,17 @@ export default interface ISynonymNetworkResponse {
 }
 
 interface ISynonymNetwork {
-    readonly nodes: INodeResponse[];
-    readonly edges: IEdgeResponse[];
+    readonly nodes: ISynonymNetworkNode[];
+    readonly edges: ISynonymNetworkEdge[];
+}
+
+interface ISynonymNetworkNode {
+    readonly word: IWordResponse;
+    readonly group: number;
+}
+
+interface ISynonymNetworkEdge {
+    readonly source: string;
+    readonly target: string;
+    readonly weight: number;
 }

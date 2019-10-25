@@ -3,6 +3,8 @@ import IClosestRequestParameters from "./models/requestParameters/IClosestReques
 import IClosestDataResponse from "./models/responses/IClosestDataResponse";
 import ISynonymNetworkRequestParameters from "./models/requestParameters/ISynonymNetworkRequestParameters";
 import ISynonymNetworkResponse from "./models/responses/ISynonymNetworkResponse";
+import IContextNetworkRequestParameters from "./models/requestParameters/IContextNetworkRequestParameters";
+import IContextNetworkResponse from "./models/responses/IContextNetworkResponse";
 
 axios.defaults.transformResponse = (data: any) => {
     return data;
@@ -61,6 +63,16 @@ class Endpoints {
         return JSON.parse(response) as ISynonymNetworkResponse;
     }
 
+    public async getContextNetwork(
+        params: IContextNetworkRequestParameters
+    ): Promise<IContextNetworkResponse> {
+        let url = `/contextNetwork?${this.parseContextNetworkQueryParameters(params)}`;
+
+        const response = await this.makeRequest(url);
+
+        return JSON.parse(response) as IContextNetworkResponse;
+    }
+
     private async makeRequest(url: string) {
         this.config.headers = { Authorization: this.authorization };
 
@@ -74,9 +86,8 @@ class Endpoints {
 
         paramArray.push(`searchTerms=${params.searchTerm}`);
         paramArray.push(`year=${params.year}`);
+        paramArray.push(`numberOfClosestWords=${params.numberOfClosestWords}`);
 
-        if (params.numberOfClosestWords)
-            paramArray.push(`numberOfClosestWords=${params.numberOfClosestWords}`);
         if (params.method) paramArray.push(`method=${params.method}`);
 
         return paramArray.join("&");
@@ -87,11 +98,25 @@ class Endpoints {
 
         paramArray.push(`searchTerm=${params.searchTerm}`);
         paramArray.push(`year=${params.year}`);
+        paramArray.push(`synonymsPerTarget=${params.synonymsPerTarget}`);
+        paramArray.push(`similarityThreshold=${params.similarityThreshold}`);
 
-        if (params.synonymsPerTarget)
-            paramArray.push(`synonymsPerTarget=${params.synonymsPerTarget}`);
-        if (params.similarityThreshold)
-            paramArray.push(`similarityThreshold=${params.similarityThreshold}`);
+        return paramArray.join("&");
+    }
+
+    private parseContextNetworkQueryParameters(params: IContextNetworkRequestParameters) {
+        let paramArray = [];
+
+        paramArray.push(`searchTerm=${params.searchTerm}`);
+        paramArray.push(`year=${params.year}`);
+        paramArray.push(`maximumNodes=${params.maximumNodes}`);
+        paramArray.push(`contextRelevance=${params.contextRelevance}`);
+        paramArray.push(`contextCohesiveness=${params.contextCohesiveness}`);
+        paramArray.push(`wordRelevance=${params.wordRelevance}`);
+        paramArray.push(`minimumEdges=${params.minimumEdges}`);
+        paramArray.push(`displayNodes=${params.displayNodes}`);
+
+        if (params.method) paramArray.push(`method=${params.method}`);
 
         return paramArray.join("&");
     }
