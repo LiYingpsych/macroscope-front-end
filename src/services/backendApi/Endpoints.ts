@@ -13,6 +13,7 @@ import ISentimentRequestParameters from "./models/requestParameters/ISentimentRe
 import ISentimentResponse from "./models/responses/ISentimentResponse";
 import IFrequencyRequestParameters from "./models/requestParameters/IFrequencyRequestParameters";
 import IFrequencyResponse from "./models/responses/IFrequencyResponse";
+import QueryParameter from "./models/QueryParameter";
 
 axios.defaults.transformResponse = (data: any) => {
     return data;
@@ -30,16 +31,15 @@ interface IEnpointsProps {
 }
 
 class Endpoints {
-    private readonly authorization: string;
-
-    private readonly config: IConfig = {
-        timeout: 99999
-    };
+    private readonly config: IConfig;
 
     constructor(props: IEnpointsProps) {
         const { rootUrl = "http://localhost:3000", apiVersion = "v1", apiKey = "" } = props;
 
-        this.authorization = `API_KEY ${apiKey}`;
+        this.config = {
+            timeout: 99999,
+            headers: { Authorization: `API_KEY ${apiKey}` }
+        };
 
         axios.defaults.baseURL = `${rootUrl}/${apiVersion}`;
         axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
@@ -54,9 +54,16 @@ class Endpoints {
     }
 
     public async getClosest(params: IClosestRequestParameters): Promise<IClosestDataResponse> {
-        let url = `/closest?${this.parseClosestQueryParameters(params)}`;
+        let url = `/closest`;
 
-        const response = await this.makeRequest(url);
+        const queryParams = [
+            new QueryParameter("searchTerms", params.searchTerm),
+            new QueryParameter("year", params.year),
+            new QueryParameter("numberOfClosestWords", params.numberOfClosestWords),
+            new QueryParameter("method", params.method)
+        ];
+
+        const response = await this.makeRequest(url, queryParams);
 
         return JSON.parse(response) as IClosestDataResponse;
     }
@@ -117,25 +124,27 @@ class Endpoints {
         return JSON.parse(response) as IFrequencyResponse;
     }
 
-    private async makeRequest(url: string) {
-        this.config.headers = { Authorization: this.authorization };
+    private async makeRequest(url: string, queryParameters?: QueryParameter[]) {
+        const queryParameterString: string = this.constructCliParamString(queryParameters);
 
-        const response = await axios.get(url, this.config);
+        const response = await axios.get(`${url}${queryParameterString}`, this.config);
 
         return response.data as string;
     }
 
-    private parseClosestQueryParameters(params: IClosestRequestParameters) {
-        let paramArray = [];
+    private constructCliParamString = (params?: QueryParameter[]) => {
+        if (!params) return "";
 
-        paramArray.push(`searchTerms=${params.searchTerm}`);
-        paramArray.push(`year=${params.year}`);
-        paramArray.push(`numberOfClosestWords=${params.numberOfClosestWords}`);
-
-        if (params.method) paramArray.push(`method=${params.method}`);
-
-        return paramArray.join("&");
-    }
+        return (
+            "?" +
+            params
+                .map(param => {
+                    return param.buildParamString();
+                })
+                .join("&")
+                .trim()
+        );
+    };
 
     private parseSynonymNetworkQueryParameters(params: ISynonymNetworkRequestParameters) {
         let paramArray = [];
