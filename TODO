@@ -10,13 +10,9 @@
 
 * Make optional request parameters not optional - idea is that I should not be defaulting options and that the user should know what options are being used
 
-* Makesure root url redirects to default tab route
-
 * Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
 
 * Calculate width of screen and pass to JSNetworkGraph so that the network renders in the middle of the screen
-
-* Add something like new CliParameter("word", params.searchTerm) used in api for api parameters
 
 * Create .d.ts files for api request parameter and response interfaces? 
 

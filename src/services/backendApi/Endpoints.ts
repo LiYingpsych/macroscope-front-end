@@ -54,7 +54,7 @@ class Endpoints {
     }
 
     public async getClosest(params: IClosestRequestParameters): Promise<IClosestDataResponse> {
-        let url = `/closest`;
+        let url = "/closest";
 
         const queryParams = [
             new QueryParameter("searchTerms", params.searchTerm),
@@ -71,9 +71,16 @@ class Endpoints {
     public async getSynonymNetwork(
         params: ISynonymNetworkRequestParameters
     ): Promise<ISynonymNetworkResponse> {
-        let url = `/synonymNetwork?${this.parseSynonymNetworkQueryParameters(params)}`;
+        let url = "/synonymNetwork";
 
-        const response = await this.makeRequest(url);
+        const queryParams = [
+            new QueryParameter("searchTerm", params.searchTerm),
+            new QueryParameter("year", params.year),
+            new QueryParameter("synonymsPerTarget", params.synonymsPerTarget),
+            new QueryParameter("similarityThreshold", params.similarityThreshold)
+        ];
+
+        const response = await this.makeRequest(url, queryParams);
 
         return JSON.parse(response) as ISynonymNetworkResponse;
     }
@@ -81,9 +88,20 @@ class Endpoints {
     public async getContextNetwork(
         params: IContextNetworkRequestParameters
     ): Promise<IContextNetworkResponse> {
-        let url = `/contextNetwork?${this.parseContextNetworkQueryParameters(params)}`;
+        let url = "/contextNetwork";
 
-        const response = await this.makeRequest(url);
+        const queryParams = [
+            new QueryParameter("searchTerm", params.searchTerm),
+            new QueryParameter("year", params.year),
+            new QueryParameter("maximumNodes", params.maximumNodes),
+            new QueryParameter("contextRelevance", params.contextRelevance),
+            new QueryParameter("contextCohesiveness", params.contextCohesiveness),
+            new QueryParameter("wordRelevance", params.wordRelevance),
+            new QueryParameter("minimumEdges", params.minimumEdges),
+            new QueryParameter("displayNodes", params.displayNodes)
+        ];
+
+        const response = await this.makeRequest(url, queryParams);
 
         return JSON.parse(response) as IContextNetworkResponse;
     }
@@ -91,9 +109,17 @@ class Endpoints {
     public async getSemanticDrift(
         params: ISemanticDriftRequestParameters
     ): Promise<ISemanticDriftResponse> {
-        let url = `/drift?${this.parseSemanticDriftQueryParameters(params)}`;
+        let url = "/drift";
 
-        const response = await this.makeRequest(url);
+        const queryParams = [
+            new QueryParameter("searchTerm", params.searchTerm),
+            new QueryParameter("startYear", params.startYear),
+            new QueryParameter("endYear", params.endYear),
+            new QueryParameter("numberOfYearsInInterval", params.numberOfYearsInInterval),
+            new QueryParameter("numberOfClosestWords", params.numberOfClosestWords)
+        ];
+
+        const response = await this.makeRequest(url, queryParams);
 
         return JSON.parse(response) as ISemanticDriftResponse;
     }
@@ -101,25 +127,46 @@ class Endpoints {
     public async getContextChange(
         params: IContextChangeRequestParameters
     ): Promise<IContextChangeResponse> {
-        let url = `/contextChange?${this.parseContextChangeQueryParameters(params)}`;
+        let url = "/contextChange";
 
-        const response = await this.makeRequest(url);
+        const queryParams = [
+            new QueryParameter("searchTerms", params.searchTerm),
+            new QueryParameter("startYear", params.startYear),
+            new QueryParameter("endYear", params.endYear),
+            new QueryParameter("numberOfContextWords", params.numberOfContextWords),
+            new QueryParameter("decrease", params.decrease)
+        ];
+
+        const response = await this.makeRequest(url, queryParams);
 
         return JSON.parse(response) as IContextChangeResponse;
     }
 
     public async getSentiment(params: ISentimentRequestParameters): Promise<ISentimentResponse> {
-        let url = `/emotion?${this.parseSentimentQueryParameters(params)}`;
+        let url = "/emotion";
 
-        const response = await this.makeRequest(url);
+        const queryParams = [
+            new QueryParameter("searchTerms", params.searchTerm),
+            new QueryParameter("plotType", params.plotType)
+        ];
+
+        const response = await this.makeRequest(url, queryParams);
 
         return JSON.parse(response) as ISentimentResponse;
     }
 
     public async getFrequency(params: IFrequencyRequestParameters): Promise<IFrequencyResponse> {
-        let url = `/frequency?${this.parseFrequencyQueryParameters(params)}`;
+        let url = "/frequency";
 
-        const response = await this.makeRequest(url);
+        const queryParams = [
+            new QueryParameter("searchTerms", params.searchTerm),
+            new QueryParameter("matchFullWord", params.matchFullWord),
+            new QueryParameter("matchStart", params.matchStart),
+            new QueryParameter("matchMiddle", params.matchMiddle),
+            new QueryParameter("matchEnd", params.matchEnd)
+        ];
+
+        const response = await this.makeRequest(url, queryParams);
 
         return JSON.parse(response) as IFrequencyResponse;
     }
@@ -145,79 +192,6 @@ class Endpoints {
                 .trim()
         );
     };
-
-    private parseSynonymNetworkQueryParameters(params: ISynonymNetworkRequestParameters) {
-        let paramArray = [];
-
-        paramArray.push(`searchTerm=${params.searchTerm}`);
-        paramArray.push(`year=${params.year}`);
-        paramArray.push(`synonymsPerTarget=${params.synonymsPerTarget}`);
-        paramArray.push(`similarityThreshold=${params.similarityThreshold}`);
-
-        return paramArray.join("&");
-    }
-
-    private parseContextNetworkQueryParameters(params: IContextNetworkRequestParameters) {
-        let paramArray = [];
-
-        paramArray.push(`searchTerm=${params.searchTerm}`);
-        paramArray.push(`year=${params.year}`);
-        paramArray.push(`maximumNodes=${params.maximumNodes}`);
-        paramArray.push(`contextRelevance=${params.contextRelevance}`);
-        paramArray.push(`contextCohesiveness=${params.contextCohesiveness}`);
-        paramArray.push(`wordRelevance=${params.wordRelevance}`);
-        paramArray.push(`minimumEdges=${params.minimumEdges}`);
-        paramArray.push(`displayNodes=${params.displayNodes}`);
-
-        if (params.method) paramArray.push(`method=${params.method}`);
-
-        return paramArray.join("&");
-    }
-
-    private parseSemanticDriftQueryParameters(params: ISemanticDriftRequestParameters) {
-        let paramArray = [];
-
-        paramArray.push(`searchTerm=${params.searchTerm}`);
-        paramArray.push(`startYear=${params.startYear}`);
-        paramArray.push(`endYear=${params.endYear}`);
-        paramArray.push(`numberOfYearsInInterval=${params.numberOfYearsInInterval}`);
-        paramArray.push(`numberOfClosestWords=${params.numberOfClosestWords}`);
-
-        return paramArray.join("&");
-    }
-
-    private parseContextChangeQueryParameters(params: IContextChangeRequestParameters) {
-        let paramArray = [];
-
-        paramArray.push(`searchTerms=${params.searchTerm}`);
-        paramArray.push(`startYear=${params.startYear}`);
-        paramArray.push(`endYear=${params.endYear}`);
-        paramArray.push(`numberOfContextWords=${params.numberOfContextWords}`);
-        paramArray.push(`decrease=${params.decrease}`);
-
-        return paramArray.join("&");
-    }
-
-    private parseSentimentQueryParameters(params: ISentimentRequestParameters) {
-        let paramArray = [];
-
-        paramArray.push(`searchTerms=${params.searchTerm}`);
-        paramArray.push(`plotType=${params.plotType}`);
-
-        return paramArray.join("&");
-    }
-
-    private parseFrequencyQueryParameters(params: IFrequencyRequestParameters) {
-        let paramArray = [];
-
-        paramArray.push(`searchTerms=${params.searchTerm}`);
-        paramArray.push(`matchFullWord=${params.matchFullWord}`);
-        paramArray.push(`matchStart=${params.matchStart}`);
-        paramArray.push(`matchMiddle=${params.matchMiddle}`);
-        paramArray.push(`matchEnd=${params.matchEnd}`);
-
-        return paramArray.join("&");
-    }
 }
 
 export default Endpoints;
