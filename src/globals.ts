@@ -10,4 +10,7 @@ export const contextNetworkMaxYear = 2000;
 export const contextChangeMinYear = 1800;
 export const contextChangeMaxYear = 2000;
 
+export const semanticDriftMinYear = 1800;
+export const semanticDriftMaxYear = 2000;
+
 export const alphabet = "abcdefghijklmnopqrstuvwxyz";

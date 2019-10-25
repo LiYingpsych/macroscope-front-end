@@ -8,6 +8,8 @@ import ISynonymNetworkData from "../../models/ISynonymNetworkData";
 
 import IContextNetworkRequestParameters from "./models/requestParameters/IContextNetworkRequestParameters";
 import IContextNetworkData from "../../models/IContextNetworkData";
+import ISemanticDriftRequestParameters from "./models/requestParameters/ISemanticDriftRequestParameters";
+import ISemanticDriftData from "../../models/ISemanticDriftData";
 
 export default class BackendApi {
     private endpoints: Endpoints;
@@ -41,6 +43,14 @@ export default class BackendApi {
         params: IContextNetworkRequestParameters
     ): Promise<IContextNetworkData> {
         const json = await this.endpoints.getContextNetwork(params);
+
+        return json;
+    }
+
+    public async getSemanticDrift(
+        params: ISemanticDriftRequestParameters
+    ): Promise<ISemanticDriftData> {
+        const json = await this.endpoints.getSemanticDrift(params);
 
         return json;
     }

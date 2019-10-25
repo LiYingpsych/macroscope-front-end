@@ -5,6 +5,8 @@ import ISynonymNetworkRequestParameters from "./models/requestParameters/ISynony
 import ISynonymNetworkResponse from "./models/responses/ISynonymNetworkResponse";
 import IContextNetworkRequestParameters from "./models/requestParameters/IContextNetworkRequestParameters";
 import IContextNetworkResponse from "./models/responses/IContextNetworkResponse";
+import ISemanticDriftRequestParameters from "./models/requestParameters/ISemanticDriftRequestParameters";
+import ISemanticDriftResponse from "./models/responses/ISemanticDriftResponse";
 
 axios.defaults.transformResponse = (data: any) => {
     return data;
@@ -73,6 +75,16 @@ class Endpoints {
         return JSON.parse(response) as IContextNetworkResponse;
     }
 
+    public async getSemanticDrift(
+        params: ISemanticDriftRequestParameters
+    ): Promise<ISemanticDriftResponse> {
+        let url = `/contextNetwork?${this.parseSemanticDriftQueryParameters(params)}`;
+
+        const response = await this.makeRequest(url);
+
+        return JSON.parse(response) as ISemanticDriftResponse;
+    }
+
     private async makeRequest(url: string) {
         this.config.headers = { Authorization: this.authorization };
 
@@ -117,6 +129,18 @@ class Endpoints {
         paramArray.push(`displayNodes=${params.displayNodes}`);
 
         if (params.method) paramArray.push(`method=${params.method}`);
+
+        return paramArray.join("&");
+    }
+
+    private parseSemanticDriftQueryParameters(params: ISemanticDriftRequestParameters) {
+        let paramArray = [];
+
+        paramArray.push(`searchTerm=${params.searchTerm}`);
+        paramArray.push(`startYear=${params.startYear}`);
+        paramArray.push(`endYear=${params.endYear}`);
+        paramArray.push(`numberOfYearsInInterval=${params.numberOfYearsInInterval}`);
+        paramArray.push(`numberOfClosestWords=${params.numberOfClosestWords}`);
 
         return paramArray.join("&");
     }
