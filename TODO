@@ -12,5 +12,7 @@
 
 * Makesure root url redirects to default tab route
 
+* Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
+
 TO ASK:
 * What should "score" be called in synonym table?
