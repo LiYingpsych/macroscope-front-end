@@ -103,7 +103,7 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.panelDetails}>
                 <>
-                    {!isError && typeof data !== "undefined" ? render(data) : null}
+                    {!isError && !isLoading && typeof data !== "undefined" ? render(data) : null}
                     {isError && !isLoading ? (
                         <Grid container justify="center" className={classes.errorMessageContainer}>
                             <Grid item>
