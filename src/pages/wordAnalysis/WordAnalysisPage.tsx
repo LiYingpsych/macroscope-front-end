@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { makeStyles, createStyles } from "@material-ui/core/styles";
@@ -92,11 +92,7 @@ export default function WordAnalysisPage() {
     const [settings, setSettings] = useState(parsedSettings);
     const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
 
-    useEffect(() => {
-        if (location.pathname.toLowerCase() === "/wordanalysis") pushSettingsToHistory(settings);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location.pathname]);
+    if (location.pathname.toLowerCase() === "/wordanalysis") pushSettingsToHistory(settings);
 
     return (
         <Grid container direction="column" spacing={2}>

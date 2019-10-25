@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Route, Switch } from "react-router-dom";
 import classnames from "classnames";
 
 import { Link } from "react-router-dom";
@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
         content: {
             flexGrow: 1,
             padding: theme.spacing(3)
+        },
+        hidden: {
+            display: "none"
         }
     })
 );
@@ -80,7 +83,7 @@ export default function PageLayout(props: IProps) {
 
     let location = useLocation();
 
-    const getDefautltTab = () => {
+    const getInitialTab = () => {
         for (let index = 0; index < tabItems.length; index++) {
             const tab = tabItems[index];
 
@@ -90,7 +93,7 @@ export default function PageLayout(props: IProps) {
         return -1; // Show not found page
     };
 
-    const [currentTabIndex, setCurrentTabIndex] = useState(getDefautltTab());
+    const [currentTabIndex, setCurrentTabIndex] = useState(getInitialTab());
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setCurrentTabIndex(newValue);
@@ -119,7 +122,7 @@ export default function PageLayout(props: IProps) {
                         />
                     );
                 })}
-                <Tab hidden value={-1} />
+                <Tab className={classes.hidden} value={-1} />
             </Tabs>
         );
     };
@@ -131,12 +134,6 @@ export default function PageLayout(props: IProps) {
             </div>
         );
     });
-
-    tabPanels.push(
-        <div key={-1} hidden={currentTabIndex !== -1}>
-            <NotFoundPage />
-        </div>
-    );
 
     return (
         <div className={classes.root}>
@@ -187,7 +184,13 @@ export default function PageLayout(props: IProps) {
                 content={
                     <div className={classes.content}>
                         <div className={classes.toolbar} />
-                        {tabPanels}
+                        <Switch>
+                            <Route
+                                path={`(${tabItems.map(tab => tab.route).join("|")})`}
+                                render={() => tabPanels}
+                            />
+                            <Route component={NotFoundPage} />
+                        </Switch>
                     </div>
                 }
                 footer={<Footer />}

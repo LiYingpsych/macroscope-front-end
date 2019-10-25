@@ -3,7 +3,7 @@ import React from "react";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { theme } from "./themes";
 
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.css";
 import WordAnalysisPage from "./pages/wordAnalysis/WordAnalysisPage";
@@ -16,10 +16,15 @@ const App: React.FC = () => {
         { route: "/contactus", label: "Contact us", content: "Contact us!" }
     ];
 
+    const defaultTab = mainNavTabs[0];
+
     return (
         <MuiThemeProvider theme={theme}>
             <BrowserRouter>
-                <PageLayout tabItems={mainNavTabs} />
+                <Switch>
+                    <Route path="/" exact render={() => <Redirect to={defaultTab.route} />} />
+                    <Route render={() => <PageLayout tabItems={mainNavTabs} />} />
+                </Switch>
             </BrowserRouter>
         </MuiThemeProvider>
     );
