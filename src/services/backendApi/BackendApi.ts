@@ -14,6 +14,8 @@ import IContextChangeRequestParameters from "./models/requestParameters/IContext
 import IContextChangeData from "../../models/IContextChangeData";
 import ISentimentRequestParameters from "./models/requestParameters/ISentimentRequestParameters";
 import ISentimentData from "../../models/ISentimentData";
+import IFrequencyRequestParameters from "./models/requestParameters/IFrequencyRequestParameters";
+import IFrequencyData from "../../models/IFrequencyData";
 
 export default class BackendApi {
     private endpoints: Endpoints;
@@ -69,6 +71,12 @@ export default class BackendApi {
 
     public async getSentiment(params: ISentimentRequestParameters): Promise<ISentimentData> {
         const json = await this.endpoints.getSentiment(params);
+
+        return json.items[0];
+    }
+
+    public async getFrequency(params: IFrequencyRequestParameters): Promise<IFrequencyData> {
+        const json = await this.endpoints.getFrequency(params);
 
         return json.items[0];
     }

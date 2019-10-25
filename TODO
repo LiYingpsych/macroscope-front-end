@@ -20,5 +20,7 @@
 
 * Create .d.ts files for api request parameter and response interfaces? 
 
+* Add /cooccurrence data display and settings
+
 TO ASK:
 * What should "score" be called in synonym table?

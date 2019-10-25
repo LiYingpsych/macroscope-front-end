@@ -5,6 +5,7 @@ import IContextNetworkRequestParameters from "../../../services/backendApi/model
 import ISemanticDriftRequestParameters from "../../../services/backendApi/models/requestParameters/ISemanticDriftRequestParameters";
 import IContextChangeRequestParameters from "../../../services/backendApi/models/requestParameters/IContextChangeRequestParameters";
 import ISentimentRequestParameters from "../../../services/backendApi/models/requestParameters/ISentimentRequestParameters";
+import IFrequencyRequestParameters from "../../../services/backendApi/models/requestParameters/IFrequencyRequestParameters";
 
 const backendApi = new BackendApi();
 
@@ -30,4 +31,8 @@ export const fetchContextChangeData = async (params: IContextChangeRequestParame
 
 export const fetchSentimentData = async (params: ISentimentRequestParameters) => {
     return await backendApi.getSentiment(params);
+};
+
+export const fetchFrequencyData = async (params: IFrequencyRequestParameters) => {
+    return await backendApi.getFrequency(params);
 };

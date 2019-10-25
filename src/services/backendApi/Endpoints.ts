@@ -11,6 +11,8 @@ import IContextChangeRequestParameters from "./models/requestParameters/IContext
 import IContextChangeResponse from "./models/responses/IContextChangeResponse";
 import ISentimentRequestParameters from "./models/requestParameters/ISentimentRequestParameters";
 import ISentimentResponse from "./models/responses/ISentimentResponse";
+import IFrequencyRequestParameters from "./models/requestParameters/IFrequencyRequestParameters";
+import IFrequencyResponse from "./models/responses/IFrequencyResponse";
 
 axios.defaults.transformResponse = (data: any) => {
     return data;
@@ -107,6 +109,14 @@ class Endpoints {
         return JSON.parse(response) as ISentimentResponse;
     }
 
+    public async getFrequency(params: IFrequencyRequestParameters): Promise<IFrequencyResponse> {
+        let url = `/frequency?${this.parseFrequencyQueryParameters(params)}`;
+
+        const response = await this.makeRequest(url);
+
+        return JSON.parse(response) as IFrequencyResponse;
+    }
+
     private async makeRequest(url: string) {
         this.config.headers = { Authorization: this.authorization };
 
@@ -184,6 +194,18 @@ class Endpoints {
 
         paramArray.push(`searchTerms=${params.searchTerm}`);
         paramArray.push(`plotType=${params.plotType}`);
+
+        return paramArray.join("&");
+    }
+
+    private parseFrequencyQueryParameters(params: IFrequencyRequestParameters) {
+        let paramArray = [];
+
+        paramArray.push(`searchTerms=${params.searchTerm}`);
+        paramArray.push(`matchFullWord=${params.matchFullWord}`);
+        paramArray.push(`matchStart=${params.matchStart}`);
+        paramArray.push(`matchMiddle=${params.matchMiddle}`);
+        paramArray.push(`matchEnd=${params.matchEnd}`);
 
         return paramArray.join("&");
     }
