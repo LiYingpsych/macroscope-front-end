@@ -7,9 +7,17 @@ import DataDisplayContainer, { IDataDisplayContainerProps } from "./DataDisplayC
 import IClosestRequestParameters from "../../../services/backendApi/models/requestParameters/IClosestRequestParameters";
 import ClosestSearchMethod from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
 import IClosestData from "../../../models/IClosestData";
-import { fetchSynonymListData, fetchSynonymNetworkData } from "./dataFetchers";
+import {
+    fetchSynonymListData,
+    fetchSynonymNetworkData,
+    fetchContextNetworkData
+} from "./dataFetchers";
 import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
 import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
+import IContextNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/IContextNetworkRequestParameters";
+import IContextNetworkData from "../../../models/IContextNetworkData";
+import ContextNetworkMethod from "../../../services/backendApi/models/requestParameters/ContextNetworkMethod";
+import ContextNetworkGraph from "./ContextNetworkGraph";
 
 interface IDataDisplay<S, T> extends IDataDisplayContainerProps<S, T> {
     isDisplayed: boolean;
@@ -60,9 +68,33 @@ export default function DataDisplays(props: IProps) {
         render: (data: ISynonymNetworkData) => <SynonymNetworkGraph data={data} />
     };
 
+    const contextNetworkDataDisplay: IDataDisplay<
+        IContextNetworkRequestParameters,
+        IContextNetworkData
+    > = {
+        isDisplayed: searchSettings.contextNetworkSettingsPanel.isOpen,
+        title: `Context network`,
+        params: {
+            searchTerm: searchTerm,
+            year: searchSettings.contextNetworkSettingsPanel.settings.year,
+            maximumNodes: searchSettings.contextNetworkSettingsPanel.settings.maximumNodes,
+            contextRelevance: searchSettings.contextNetworkSettingsPanel.settings.contextRelevance,
+            contextCohesiveness:
+                searchSettings.contextNetworkSettingsPanel.settings.contextCohesiveness,
+            wordRelevance:
+                searchSettings.contextNetworkSettingsPanel.settings.individualWordRelevance,
+            minimumEdges: searchSettings.contextNetworkSettingsPanel.settings.minimumEdges,
+            displayNodes: searchSettings.contextNetworkSettingsPanel.settings.displayNodes,
+            method: ContextNetworkMethod.COR
+        },
+        fetchDataFunction: fetchContextNetworkData,
+        render: (data: IContextNetworkData) => <ContextNetworkGraph data={data} />
+    };
+
     const dataDisplays: IDataDisplay<any, any>[] = [
         synonymTableDataDisplay,
-        synonymNetworkDataDisplay
+        synonymNetworkDataDisplay,
+        contextNetworkDataDisplay
     ];
 
     let displayError = true;

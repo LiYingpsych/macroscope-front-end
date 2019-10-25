@@ -10,13 +10,13 @@ interface IContextNetwork {
     readonly edges: IContextNetworkEdge[];
 }
 
-interface IContextNetworkNode {
+export interface IContextNetworkNode {
     readonly word: IWord;
     readonly group: number;
     readonly size: number;
 }
 
-interface IContextNetworkEdge {
+export interface IContextNetworkEdge {
     readonly source: string;
     readonly target: string;
     readonly weight: number;
