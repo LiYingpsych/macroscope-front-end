@@ -9,6 +9,8 @@ import ISemanticDriftRequestParameters from "./models/requestParameters/ISemanti
 import ISemanticDriftResponse from "./models/responses/ISemanticDriftResponse";
 import IContextChangeRequestParameters from "./models/requestParameters/IContextChangeRequestParameters";
 import IContextChangeResponse from "./models/responses/IContextChangeResponse";
+import ISentimentRequestParameters from "./models/requestParameters/ISentimentRequestParameters";
+import ISentimentResponse from "./models/responses/ISentimentResponse";
 
 axios.defaults.transformResponse = (data: any) => {
     return data;
@@ -97,6 +99,14 @@ class Endpoints {
         return JSON.parse(response) as IContextChangeResponse;
     }
 
+    public async getSentiment(params: ISentimentRequestParameters): Promise<ISentimentResponse> {
+        let url = `/emotion?${this.parseSentimentQueryParameters(params)}`;
+
+        const response = await this.makeRequest(url);
+
+        return JSON.parse(response) as ISentimentResponse;
+    }
+
     private async makeRequest(url: string) {
         this.config.headers = { Authorization: this.authorization };
 
@@ -165,6 +175,15 @@ class Endpoints {
         paramArray.push(`endYear=${params.endYear}`);
         paramArray.push(`numberOfContextWords=${params.numberOfContextWords}`);
         paramArray.push(`decrease=${params.decrease}`);
+
+        return paramArray.join("&");
+    }
+
+    private parseSentimentQueryParameters(params: ISentimentRequestParameters) {
+        let paramArray = [];
+
+        paramArray.push(`searchTerms=${params.searchTerm}`);
+        paramArray.push(`plotType=${params.plotType}`);
 
         return paramArray.join("&");
     }

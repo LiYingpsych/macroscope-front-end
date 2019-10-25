@@ -12,6 +12,8 @@ import ISemanticDriftRequestParameters from "./models/requestParameters/ISemanti
 import ISemanticDriftData from "../../models/ISemanticDriftData";
 import IContextChangeRequestParameters from "./models/requestParameters/IContextChangeRequestParameters";
 import IContextChangeData from "../../models/IContextChangeData";
+import ISentimentRequestParameters from "./models/requestParameters/ISentimentRequestParameters";
+import ISentimentData from "../../models/ISentimentData";
 
 export default class BackendApi {
     private endpoints: Endpoints;
@@ -62,6 +64,12 @@ export default class BackendApi {
     ): Promise<IContextChangeData> {
         const json = await this.endpoints.getContextChange(params);
 
-        return json;
+        return json.items[0]; // TODO: remove [0] when api no longer accepts multiple words - https://github.com/StraightOuttaCrompton/macroscope-api/issues/5
+    }
+
+    public async getSentiment(params: ISentimentRequestParameters): Promise<ISentimentData> {
+        const json = await this.endpoints.getSentiment(params);
+
+        return json.items[0];
     }
 }
