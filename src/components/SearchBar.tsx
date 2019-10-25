@@ -35,6 +35,7 @@ interface IProps {
     autoFocus?: boolean;
     allowedCharacters?: string;
     caseSensitive?: boolean;
+    allowEmptySearch?: boolean;
 }
 
 export default function SearchBar(props: IProps) {
@@ -45,14 +46,22 @@ export default function SearchBar(props: IProps) {
         placeholder = "",
         autoFocus = false,
         allowedCharacters = "",
-        caseSensitive = false
+        caseSensitive = false,
+        allowEmptySearch = false
     } = props;
     const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
 
     const [errorMessage, setErrorMessage] = useState("");
 
     const search = () => {
-        onSearch(searchTerm);
+        if (searchTerm.length > 0 || allowEmptySearch) {
+            onSearch(searchTerm);
+        } else {
+            setErrorMessage("Please enter a value");
+            clearErrorMessageTimeout.updateTimeout(() => {
+                setErrorMessage("");
+            }, 10000);
+        }
     };
 
     const parsedAllowedCharacters = removeDuplicateCharacters(
