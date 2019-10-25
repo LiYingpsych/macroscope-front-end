@@ -80,7 +80,7 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
     useEffect(() => {
         setLabelWidth(inputLabel.current!.offsetWidth);
         setNativeLabelWidth(nativeInputLabel.current!.offsetWidth);
-    }, []);
+    }, [inputLabel.current]);
 
     function handleOnChange(event: React.ChangeEvent<{ name?: string; value: unknown }>) {
         const selectedValue: T = event.target.value as T;
