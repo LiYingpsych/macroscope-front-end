@@ -42,7 +42,6 @@ const baseLabelStyles = {
 const centeredLabelStyles = assign({ textAnchor: "middle" }, baseLabelStyles);
 
 // Strokes
-const strokeDasharray = "10, 5";
 const strokeLinecap = "round";
 const strokeLinejoin = "round";
 
@@ -75,10 +74,7 @@ const defaultTheme: VictoryThemeDefinition = {
                 }),
                 grid: {
                     fill: "none",
-                    stroke: blueGrey50,
-                    strokeDasharray,
-                    strokeLinecap,
-                    strokeLinejoin,
+                    stroke: "none",
                     pointerEvents: "painted"
                 },
                 ticks: {
