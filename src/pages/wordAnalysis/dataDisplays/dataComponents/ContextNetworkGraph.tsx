@@ -1,10 +1,10 @@
 import React from "react";
 
-import NetworkGraph, { IGraphData } from "../../../components/NetworkGraph";
+import NetworkGraph, { IGraphData } from "../../../../components/NetworkGraph";
 import IContextNetworkData, {
     IContextNetworkNode,
     IContextNetworkEdge
-} from "../../../models/IContextNetworkData";
+} from "../../../../models/IContextNetworkData";
 
 interface IProps {
     data: IContextNetworkData;

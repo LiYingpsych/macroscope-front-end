@@ -3,7 +3,7 @@ import indigo from "@material-ui/core/colors/indigo";
 import deepOrange from "@material-ui/core/colors/deepOrange";
 import red from "@material-ui/core/colors/red";
 
-export const theme: Theme = createMuiTheme({
+const defaultTheme: Theme = createMuiTheme({
     palette: {
         primary: indigo,
         secondary: deepOrange,
@@ -17,3 +17,5 @@ export const theme: Theme = createMuiTheme({
         }
     }
 });
+
+export default { defaultTheme: defaultTheme };

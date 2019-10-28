@@ -1,8 +1,8 @@
 import React from "react";
 import ISearchSettings from "../models/ISearchSettings";
-import SynonymTable from "./SynonymTable";
+import SynonymTable from "./dataComponents/SynonymTable";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
-import SynonymNetworkGraph from "./SynonymNetworkGraph";
+import SynonymNetworkGraph from "./dataComponents/SynonymNetworkGraph";
 import DataDisplayContainer, { IDataDisplayContainerProps } from "./DataDisplayContainer";
 import IClosestRequestParameters from "../../../services/backendApi/models/requestParameters/IClosestRequestParameters";
 import ClosestSearchMethod from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
@@ -10,14 +10,19 @@ import IClosestData from "../../../models/IClosestData";
 import {
     fetchSynonymListData,
     fetchSynonymNetworkData,
-    fetchContextNetworkData
+    fetchContextNetworkData,
+    fetchSemanticDriftData
 } from "./dataFetchers";
 import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
 import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
 import IContextNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/IContextNetworkRequestParameters";
 import IContextNetworkData from "../../../models/IContextNetworkData";
 import ContextNetworkMethod from "../../../services/backendApi/models/requestParameters/ContextNetworkMethod";
-import ContextNetworkGraph from "./ContextNetworkGraph";
+import ContextNetworkGraph from "./dataComponents/ContextNetworkGraph";
+import ISemanticDriftRequestParameters from "../../../services/backendApi/models/requestParameters/ISemanticDriftRequestParameters";
+import ISemanticDriftData from "../../../models/ISemanticDriftData";
+import { semanticDriftMinYear, semanticDriftMaxYear } from "../../../globals";
+import SemanticDriftGraph from "./dataComponents/SemanticDriftGraph";
 
 interface IDataDisplay<S, T> extends IDataDisplayContainerProps<S, T> {
     isDisplayed: boolean;
@@ -91,10 +96,28 @@ export default function DataDisplays(props: IProps) {
         render: (data: IContextNetworkData) => <ContextNetworkGraph data={data} />
     };
 
+    const semanticDriftDataDisplay: IDataDisplay<
+        ISemanticDriftRequestParameters,
+        ISemanticDriftData
+    > = {
+        isDisplayed: searchSettings.semanticDriftSettingsPanel.isOpen,
+        title: `Semantic drift`,
+        params: {
+            searchTerm: searchTerm,
+            startYear: semanticDriftMinYear,
+            endYear: semanticDriftMaxYear,
+            numberOfYearsInInterval: 5,
+            numberOfClosestWords: 10
+        },
+        fetchDataFunction: fetchSemanticDriftData,
+        render: (data: ISemanticDriftData) => <SemanticDriftGraph data={data} />
+    };
+
     const dataDisplays: IDataDisplay<any, any>[] = [
         synonymTableDataDisplay,
         synonymNetworkDataDisplay,
-        contextNetworkDataDisplay
+        contextNetworkDataDisplay,
+        semanticDriftDataDisplay
     ];
 
     let displayError = true;

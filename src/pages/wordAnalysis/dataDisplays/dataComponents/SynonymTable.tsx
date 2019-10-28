@@ -1,6 +1,6 @@
 import React from "react";
-import ISynonymListSettings from "../models/ISynonymListSettings";
-import IClosestData from "../../../models/IClosestData";
+import ISynonymListSettings from "../../models/ISynonymListSettings";
+import IClosestData from "../../../../models/IClosestData";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -10,7 +10,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
 
-import Title from "../../../components/Title";
+import Title from "../../../../components/Title";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

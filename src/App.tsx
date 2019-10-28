@@ -1,13 +1,13 @@
 import React from "react";
 
 import { MuiThemeProvider } from "@material-ui/core/styles";
-import { theme } from "./themes";
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.css";
 import WordAnalysisPage from "./pages/wordAnalysis/WordAnalysisPage";
 import PageLayout, { ITabItem } from "./components/layout/PageLayout";
+import muiThemes from "./themes/muiThemes";
 
 const App: React.FC = () => {
     const mainNavTabs: ITabItem[] = [
@@ -19,7 +19,7 @@ const App: React.FC = () => {
     const defaultTab = mainNavTabs[0];
 
     return (
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={muiThemes.defaultTheme}>
             <BrowserRouter>
                 <Switch>
                     <Route path="/" exact render={() => <Redirect to={defaultTab.route} />} />
