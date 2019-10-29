@@ -144,7 +144,7 @@ class Endpoints {
     }
 
     public async getSentiment(params: ISentimentRequestParameters): Promise<ISentimentResponse> {
-        let url = "/emotion";
+        let url = "/sentiment";
 
         const queryParams = [
             new QueryParameter("searchTerms", params.searchTerm),

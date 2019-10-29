@@ -1,7 +1,7 @@
-enum SentimentTypes {
+enum SentimentType {
     VALENCE = "VALENCE",
     AROUSAL = "AROUSAL",
     CONCRETENESS = "CONCRETENESS"
 }
 
-export default SentimentTypes;
+export default SentimentType;

@@ -14,7 +14,7 @@ import {
     contextChangeMaxYear
 } from "../../globals";
 
-import SentimentTypes from "./models/SentimentTypes";
+import SentimentType from "./models/SentimentType";
 import ISearchSettings from "./models/ISearchSettings";
 import { getObjectFromQueryString } from "./getObjectFromQueryString";
 import { encodeQueryStringObject } from "../../utils/queryStringUtils";
@@ -70,7 +70,7 @@ const defaultSettings: ISearchSettings = {
     sentimentSettingsPanel: {
         isOpen: false,
         settings: {
-            type: SentimentTypes.VALENCE
+            type: SentimentType.VALENCE
         }
     },
     frequencySettingsPanel: {

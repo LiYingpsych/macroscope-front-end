@@ -18,6 +18,10 @@
 
 * Add /cooccurrence data display and settings
 
+CHARTS
+* Add labels to axis
+* Add tooltips 
+
 TO ASK:
 * What should "score" be called in synonym table?
 

@@ -12,7 +12,8 @@ import {
     fetchSynonymNetworkData,
     fetchContextNetworkData,
     fetchSemanticDriftData,
-    fetchContextChangeData
+    fetchContextChangeData,
+    fetchSentimentData
 } from "./dataFetchers";
 import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
 import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
@@ -27,6 +28,10 @@ import SemanticDriftChart from "./dataComponents/SemanticDriftChart";
 import IContextChangeRequestParameters from "../../../services/backendApi/models/requestParameters/IContextChangeRequestParameters";
 import IContextChangeData from "../../../models/IContextChangeData";
 import ContextChangeChart from "./dataComponents/ContextChangeChart";
+import ISentimentRequestParameters from "../../../services/backendApi/models/requestParameters/ISentimentRequestParameters";
+import ISentimentData from "../../../models/ISentimentData";
+import SentimentChart from "./dataComponents/SentimentChart";
+import { mapSentimentTypeToPlotTypeRequestParams } from "../../../services/backendApi/models/requestParameters/SentimentPlotType";
 
 interface IDataDisplay<S, T> extends IDataDisplayContainerProps<S, T> {
     isDisplayed: boolean;
@@ -133,12 +138,26 @@ export default function DataDisplays(props: IProps) {
         render: (data: IContextChangeData) => <ContextChangeChart data={data} />
     };
 
+    const sentimentDataDisplay: IDataDisplay<ISentimentRequestParameters, ISentimentData> = {
+        isDisplayed: searchSettings.sentimentSettingsPanel.isOpen,
+        title: `Sentiment`,
+        params: {
+            searchTerm: searchTerm,
+            plotType: mapSentimentTypeToPlotTypeRequestParams(
+                searchSettings.sentimentSettingsPanel.settings.type
+            )
+        },
+        fetchDataFunction: fetchSentimentData,
+        render: (data: ISentimentData) => <SentimentChart data={data} />
+    };
+
     const dataDisplays: IDataDisplay<any, any>[] = [
         synonymTableDataDisplay,
         synonymNetworkDataDisplay,
         contextNetworkDataDisplay,
         semanticDriftDataDisplay,
-        contextChangeDataDisplay
+        contextChangeDataDisplay,
+        sentimentDataDisplay
     ];
 
     let displayError = true;

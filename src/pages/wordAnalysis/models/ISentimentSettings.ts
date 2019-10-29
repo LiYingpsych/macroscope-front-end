@@ -1,5 +1,5 @@
-import SentimentTypes from "./SentimentTypes";
+import SentimentType from "./SentimentType";
 
 export default interface ISentimentSettings {
-    type: SentimentTypes;
+    type: SentimentType;
 }

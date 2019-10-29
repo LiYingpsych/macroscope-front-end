@@ -5,14 +5,14 @@ import RadioButtonsGroup, { IRadioButton } from "../../../../components/inputs/R
 
 import ISettingsProps from "./ISettingsProps";
 import ISentimentSettings from "../../models/ISentimentSettings";
-import SentimentTypes from "../../models/SentimentTypes";
+import SentimentType from "../../models/SentimentType";
 
 interface IProps extends ISettingsProps<ISentimentSettings> {}
 
 const getDefaultOption = (
-    options: IRadioButton<SentimentTypes>[],
-    type: SentimentTypes
-): IRadioButton<SentimentTypes> => {
+    options: IRadioButton<SentimentType>[],
+    type: SentimentType
+): IRadioButton<SentimentType> => {
     for (let index = 0; index < options.length; index++) {
         const option = options[index];
 
@@ -25,10 +25,10 @@ const getDefaultOption = (
 export default function SentimentSettings(props: IProps) {
     const { onChange, defaultSettings, onInvalidSettings } = props;
 
-    const options: IRadioButton<SentimentTypes>[] = [
-        { value: SentimentTypes.VALENCE, label: "Valence" },
-        { value: SentimentTypes.AROUSAL, label: "Arousal" },
-        { value: SentimentTypes.CONCRETENESS, label: "Concreteness" }
+    const options: IRadioButton<SentimentType>[] = [
+        { value: SentimentType.VALENCE, label: "Valence" },
+        { value: SentimentType.AROUSAL, label: "Arousal" },
+        { value: SentimentType.CONCRETENESS, label: "Concreteness" }
     ];
 
     let defaultOption = getDefaultOption(options, defaultSettings.type);
