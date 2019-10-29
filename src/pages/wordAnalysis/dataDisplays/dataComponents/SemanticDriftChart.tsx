@@ -1,8 +1,8 @@
 import React from "react";
-import { VictoryChart, VictoryScatter } from "victory";
-import victoryThemes from "../../../../themes/victoryThemes";
+import { VictoryScatter } from "victory";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import ISemanticDriftData from "../../../../models/ISemanticDriftData";
+import ChartWrapper from "./victoryCharts/ChartWrapper";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -21,7 +21,7 @@ interface IProps {
     data: ISemanticDriftData;
 }
 
-export default function SemanticDriftGraph(props: IProps) {
+export default function SemanticDriftChart(props: IProps) {
     const classes = useStyles();
     const { data } = props;
 
@@ -50,7 +50,7 @@ export default function SemanticDriftGraph(props: IProps) {
 
     return (
         <div className={classes.root}>
-            <VictoryChart height={500} width={809} theme={victoryThemes.defaultTheme}>
+            <ChartWrapper>
                 <VictoryScatter
                     size={7}
                     data={[...yearPoints, ...contextWordPoints]}
@@ -60,7 +60,7 @@ export default function SemanticDriftGraph(props: IProps) {
                         }
                     }}
                 />
-            </VictoryChart>
+            </ChartWrapper>
         </div>
     );
 }

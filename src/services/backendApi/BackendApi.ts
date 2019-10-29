@@ -64,9 +64,18 @@ export default class BackendApi {
     public async getContextChange(
         params: IContextChangeRequestParameters
     ): Promise<IContextChangeData> {
-        const json = await this.endpoints.getContextChange(params);
+        let [increaseResponse, decreaseResponse] = await Promise.all([
+            this.endpoints.getContextChange(params, false),
+            this.endpoints.getContextChange(params, true)
+        ]);
 
-        return json.items[0]; // TODO: remove [0] when api no longer accepts multiple words - https://github.com/StraightOuttaCrompton/macroscope-api/issues/5
+        const result: IContextChangeData = {
+            primaryWord: increaseResponse.items[0].primaryWord,
+            increasingWords: increaseResponse.items[0].contextChangeWords,
+            decreasingWords: decreaseResponse.items[0].contextChangeWords
+        };
+
+        return result; // TODO: remove [0] when api no longer accepts multiple words - https://github.com/StraightOuttaCrompton/macroscope-api/issues/5
     }
 
     public async getSentiment(params: ISentimentRequestParameters): Promise<ISentimentData> {

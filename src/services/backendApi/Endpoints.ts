@@ -125,7 +125,8 @@ class Endpoints {
     }
 
     public async getContextChange(
-        params: IContextChangeRequestParameters
+        params: IContextChangeRequestParameters,
+        decrease: boolean
     ): Promise<IContextChangeResponse> {
         let url = "/contextChange";
 
@@ -134,7 +135,7 @@ class Endpoints {
             new QueryParameter("startYear", params.startYear),
             new QueryParameter("endYear", params.endYear),
             new QueryParameter("numberOfContextWords", params.numberOfContextWords),
-            new QueryParameter("decrease", params.decrease)
+            new QueryParameter("decrease", decrease)
         ];
 
         const response = await this.makeRequest(url, queryParams);

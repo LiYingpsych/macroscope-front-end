@@ -11,7 +11,8 @@ import {
     fetchSynonymListData,
     fetchSynonymNetworkData,
     fetchContextNetworkData,
-    fetchSemanticDriftData
+    fetchSemanticDriftData,
+    fetchContextChangeData
 } from "./dataFetchers";
 import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
 import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
@@ -22,7 +23,10 @@ import ContextNetworkGraph from "./dataComponents/ContextNetworkGraph";
 import ISemanticDriftRequestParameters from "../../../services/backendApi/models/requestParameters/ISemanticDriftRequestParameters";
 import ISemanticDriftData from "../../../models/ISemanticDriftData";
 import { semanticDriftMinYear, semanticDriftMaxYear } from "../../../globals";
-import SemanticDriftGraph from "./dataComponents/SemanticDriftGraph";
+import SemanticDriftChart from "./dataComponents/SemanticDriftChart";
+import IContextChangeRequestParameters from "../../../services/backendApi/models/requestParameters/IContextChangeRequestParameters";
+import IContextChangeData from "../../../models/IContextChangeData";
+import ContextChangeChart from "./dataComponents/ContextChangeChart";
 
 interface IDataDisplay<S, T> extends IDataDisplayContainerProps<S, T> {
     isDisplayed: boolean;
@@ -110,14 +114,31 @@ export default function DataDisplays(props: IProps) {
             numberOfClosestWords: 10
         },
         fetchDataFunction: fetchSemanticDriftData,
-        render: (data: ISemanticDriftData) => <SemanticDriftGraph data={data} />
+        render: (data: ISemanticDriftData) => <SemanticDriftChart data={data} />
+    };
+
+    const contextChangeDataDisplay: IDataDisplay<
+        IContextChangeRequestParameters,
+        IContextChangeData
+    > = {
+        isDisplayed: searchSettings.contextChangeSettingsPanel.isOpen,
+        title: `Context change`,
+        params: {
+            searchTerm: searchTerm,
+            startYear: searchSettings.contextChangeSettingsPanel.settings.startYear,
+            endYear: searchSettings.contextChangeSettingsPanel.settings.endYear,
+            numberOfContextWords: 20
+        },
+        fetchDataFunction: fetchContextChangeData,
+        render: (data: IContextChangeData) => <ContextChangeChart data={data} />
     };
 
     const dataDisplays: IDataDisplay<any, any>[] = [
         synonymTableDataDisplay,
         synonymNetworkDataDisplay,
         contextNetworkDataDisplay,
-        semanticDriftDataDisplay
+        semanticDriftDataDisplay,
+        contextChangeDataDisplay
     ];
 
     let displayError = true;

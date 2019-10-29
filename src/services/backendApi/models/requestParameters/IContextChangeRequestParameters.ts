@@ -3,5 +3,4 @@ export default interface IContextChangeRequestParameters {
     startYear: number;
     endYear: number;
     numberOfContextWords: number;
-    decrease: boolean;
 }
