@@ -13,7 +13,8 @@ import {
     fetchContextNetworkData,
     fetchSemanticDriftData,
     fetchContextChangeData,
-    fetchSentimentData
+    fetchSentimentData,
+    fetchFrequencyData
 } from "./dataFetchers";
 import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
 import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
@@ -32,6 +33,9 @@ import ISentimentRequestParameters from "../../../services/backendApi/models/req
 import ISentimentData from "../../../models/ISentimentData";
 import SentimentChart from "./dataComponents/SentimentChart";
 import { mapSentimentTypeToPlotTypeRequestParams } from "../../../services/backendApi/models/requestParameters/SentimentPlotType";
+import IFrequencyData from "../../../models/IFrequencyData";
+import IFrequencyRequestParameters from "../../../services/backendApi/models/requestParameters/IFrequencyRequestParameters";
+import FrequencyChart from "./dataComponents/FrequencyChart";
 
 interface IDataDisplay<S, T> extends IDataDisplayContainerProps<S, T> {
     isDisplayed: boolean;
@@ -151,13 +155,28 @@ export default function DataDisplays(props: IProps) {
         render: (data: ISentimentData) => <SentimentChart data={data} />
     };
 
+    const frequencyDataDisplay: IDataDisplay<IFrequencyRequestParameters, IFrequencyData> = {
+        isDisplayed: searchSettings.frequencySettingsPanel.isOpen,
+        title: `Frequency`,
+        params: {
+            searchTerm: searchTerm,
+            matchEnd: false,
+            matchFullWord: true,
+            matchMiddle: false,
+            matchStart: false
+        },
+        fetchDataFunction: fetchFrequencyData,
+        render: (data: IFrequencyData) => <FrequencyChart data={data} />
+    };
+
     const dataDisplays: IDataDisplay<any, any>[] = [
         synonymTableDataDisplay,
         synonymNetworkDataDisplay,
         contextNetworkDataDisplay,
         semanticDriftDataDisplay,
         contextChangeDataDisplay,
-        sentimentDataDisplay
+        sentimentDataDisplay,
+        frequencyDataDisplay
     ];
 
     let displayError = true;

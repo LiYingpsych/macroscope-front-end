@@ -19,8 +19,10 @@
 * Add /cooccurrence data display and settings
 
 CHARTS
+* Move data displays from index.tsx into respective files
 * Add labels to axis
-* Add tooltips 
+* Add tooltips
+* Add all matches to frequency chart 
 
 TO ASK:
 * What should "score" be called in synonym table?
