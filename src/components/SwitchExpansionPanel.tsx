@@ -46,7 +46,10 @@ export default function SwitchExpansionPanel(props: IProps) {
     } = props;
 
     const [isOpen, setIsOpen] = React.useState(isOpenDefault);
-    const toggleSwitch = () => {
+
+    const toggleSwitch = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (event.type === "keydown") return;
+
         const newValue = !isOpen;
         setIsOpen(newValue);
         onChange(newValue);

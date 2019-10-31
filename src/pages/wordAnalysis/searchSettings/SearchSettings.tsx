@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -25,6 +25,7 @@ import IContextNetworkSettings from "../models/IContextNetworkSettings";
 import IContextChangeSettings from "../models/IContextChangeSettings";
 import ISentimentSettings from "../models/ISentimentSettings";
 import UpdateButton from "./UpdateButton";
+import { onEnter } from "../../../utils/onEnter";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -67,6 +68,17 @@ export default function SearchSettings(props: IProps) {
     const [contextNetworkError, setContextNetworkError] = useState(false);
     const [contextChangeError, setContextChangeError] = useState(false);
     const [sentimentError, setSentimentError] = useState(false);
+
+    useEffect(() => {
+        const onKeyPress = onEnter(() => {
+            onUpdate(unsavedSettings);
+        });
+        document.addEventListener("keydown", onKeyPress, false);
+
+        return function cleanup() {
+            document.removeEventListener("keydown", onKeyPress, false);
+        };
+    });
 
     // TODO: consider having a global year
     return (

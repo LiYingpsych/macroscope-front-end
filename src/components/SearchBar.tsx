@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -10,6 +10,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import UpdatableTimeout from "../utils/UpdatableTimeout";
 import constructProhibitedCharacterErrorMsg from "../utils/constructProhibitedCharacterErrorMsg";
 import { removeDuplicateCharacters } from "../utils/removeDuplicateCharacters";
+import { onEnter } from "../utils/onEnter";
 
 const clearErrorMessageTimeout = new UpdatableTimeout();
 
@@ -96,13 +97,16 @@ export default function SearchBar(props: IProps) {
         }
     };
 
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        const key = event.key;
-
-        if (key.toLowerCase() === "enter") {
+    useEffect(() => {
+        const onKeyPress = onEnter(() => {
             search();
-        }
-    };
+        });
+        document.addEventListener("keydown", onKeyPress, false);
+
+        return function cleanup() {
+            document.removeEventListener("keydown", onKeyPress, false);
+        };
+    });
 
     return (
         <Paper className={classes.root}>
@@ -124,7 +128,6 @@ export default function SearchBar(props: IProps) {
                     )
                 }}
                 onChange={handleChange}
-                onKeyPress={handleKeyPress}
             />
         </Paper>
     );

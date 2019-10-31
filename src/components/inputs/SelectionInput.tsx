@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, ChangeEvent } from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -83,7 +83,7 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inputLabel.current]);
 
-    function handleOnChange(event: React.ChangeEvent<{ name?: string; value: unknown }>) {
+    function handleOnChange(event: ChangeEvent<{ name?: string; value: unknown }>) {
         const selectedValue: T = event.target.value as T;
         clearError();
         setValue(selectedValue);
