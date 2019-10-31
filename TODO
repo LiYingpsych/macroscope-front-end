@@ -1,28 +1,25 @@
-* Word analysis page url should be copyable and pastable with word query and setting stored in url 
-* Change logo192 and logo512 to macroscope logos
-
-* Document .env
-
-* Add https://github.com/bvaughn/react-virtualized to tables?
-
+* Word analysis page url should be copyable and pastable with word query and setting stored in url
 * Add search query to url
-* Add feedback when no settings are selected
 
 * Make optional request parameters not optional - idea is that I should not be defaulting options and that the user should know what options are being used
 
-* Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
+* Change logo192 and logo512 to macroscope logos
 
 * Calculate width of screen and pass to JSNetworkGraph so that the network renders in the middle of the screen
 
-* Create .d.ts files for api request parameter and response interfaces? 
-
-* Add /cooccurrence data display and settings
+* Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
 
 CHARTS
 * Move data displays from index.tsx into respective files
 * Add labels to axis
 * Add tooltips
 * Add all matches to frequency chart 
+
+NICE TO HAVE
+* Create .d.ts files for api request parameter and response interfaces? 
+* Add /cooccurrence data display and settings
+* Document .env
+* Add https://github.com/bvaughn/react-virtualized to tables?
 
 TO ASK:
 * What should "score" be called in synonym table?
