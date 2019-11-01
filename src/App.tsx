@@ -8,11 +8,12 @@ import "./App.css";
 import WordAnalysisPage from "./pages/wordAnalysis/WordAnalysisPage";
 import PageLayout, { ITabItem } from "./components/layout/PageLayout";
 import muiThemes from "./themes/muiThemes";
+import ManualPage from "./pages/manual/ManualPage";
 
 const App: React.FC = () => {
     const mainNavTabs: ITabItem[] = [
         { route: "/wordanalysis", label: "Word analysis", content: <WordAnalysisPage /> },
-        { route: "/manual", label: "Manual", content: "Manual!" },
+        { route: "/manual", label: "Manual", content: <ManualPage /> },
         { route: "/contactus", label: "Contact us", content: "Contact us!" }
     ];
 
