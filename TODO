@@ -1,6 +1,3 @@
-* Word analysis page url should be copyable and pastable with word query and setting stored in url
-* Add search query to url
-
 * Make optional request parameters not optional - idea is that I should not be defaulting options and that the user should know what options are being used
 
 * Change logo192 and logo512 to macroscope logos

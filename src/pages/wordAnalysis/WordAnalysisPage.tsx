@@ -79,33 +79,45 @@ const defaultSettings: ISearchSettings = {
     }
 };
 
+interface IQueryStringObject {
+    settings: ISearchSettings;
+    searchTerm: string;
+}
+
 export default function WordAnalysisPage() {
     const classes = useStyles();
 
     let location = useLocation();
 
-    const pushSettingsToHistory = (settings: ISearchSettings) => {
-        window.history.pushState({}, "", `?${encodeQueryStringObject(settings)}`);
+    const pushToHistory = (object: IQueryStringObject) => {
+        window.history.pushState({}, "", `?${encodeQueryStringObject(object)}`);
     };
 
-    const parsedSettings = getObjectFromQueryString(location.search, defaultSettings);
-    const [settings, setSettings] = useState(parsedSettings);
-    const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
+    const defultQueryStringObject: IQueryStringObject = {
+        settings: defaultSettings,
+        searchTerm: defaultSearchTerm
+    };
 
-    if (location.pathname.toLowerCase() === "/wordanalysis") pushSettingsToHistory(settings);
+    const parsedQueryStringObj = getObjectFromQueryString(location.search, defultQueryStringObject);
+
+    const [settings, setSettings] = useState(parsedQueryStringObj.settings);
+    const [searchTerm, setSearchTerm] = useState(parsedQueryStringObj.searchTerm);
+
+    if (location.pathname.toLowerCase() === "/wordanalysis")
+        pushToHistory({ settings: settings, searchTerm: searchTerm });
 
     return (
         <Grid container direction="column" spacing={2}>
             <Grid item xs={12} className={classes.gridItem}>
                 <SearchbarWithSettings
                     autoFocus={true}
-                    defaultSearchTerm={defaultSearchTerm}
+                    defaultSearchTerm={searchTerm}
                     defaultSettings={settings}
                     onSearch={(updatedSearchTerm: string, updatedSettings: ISearchSettings) => {
                         setSearchTerm(updatedSearchTerm);
                         setSettings(updatedSettings);
                         // TODO: add search term to url object
-                        pushSettingsToHistory(updatedSettings);
+                        pushToHistory({ settings: updatedSettings, searchTerm: updatedSearchTerm });
                     }}
                 />
             </Grid>
