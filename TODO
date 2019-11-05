@@ -6,6 +6,8 @@
 
 * Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
 
+* Quick consecutive searches (ie one search followed by a second search before the first has finished) - second search doesn't show that it is loading and then results suddenly show
+
 CHARTS
 * Move data displays from index.tsx into respective files
 * Add labels to axis
@@ -20,6 +22,9 @@ NICE TO HAVE
 
 TO ASK:
 * What should "score" be called in synonym table?
+
+#Jack
+* setting -> search features
 
 INFO:
 51.89.148.58:88 - old front end. Love, test
