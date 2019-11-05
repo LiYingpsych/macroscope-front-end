@@ -30,7 +30,7 @@ const useStyles = makeStyles(() =>
 const defaultSearchTerm: string = "";
 const defaultSettings: ISearchSettings = {
     synonymListSettingsPanel: {
-        isOpen: false,
+        isOpen: true,
         settings: {
             year: closestMaxYear,
             numberOfSynonyms: 5
