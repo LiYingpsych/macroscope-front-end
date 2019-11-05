@@ -1,20 +1,8 @@
 import React from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import PersonPanel, { IPerson } from "./PersonPanel";
 import Grid from "@material-ui/core/Grid";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        personPanelContainer: {
-            // flex: "1 0 auto",
-            // display: "flex",
-            // justifyContent: "center"
-        }
-    })
-);
 export default function ContactUsPage() {
-    const classes = useStyles();
-
     const profileImageFolderLocation = `${process.env.PUBLIC_URL}/profileImages`;
     const peopleData: IPerson[] = [
         {
@@ -53,7 +41,7 @@ export default function ContactUsPage() {
     return (
         <Grid container justify="center" spacing={2}>
             {peopleData.map((person, i) => (
-                <Grid item className={classes.personPanelContainer}>
+                <Grid item>
                     <PersonPanel person={person} key={i} />
                 </Grid>
             ))}
