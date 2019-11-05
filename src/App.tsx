@@ -5,16 +5,18 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.css";
-import WordAnalysisPage from "./pages/wordAnalysis/WordAnalysisPage";
 import PageLayout, { ITabItem } from "./components/layout/PageLayout";
 import muiThemes from "./themes/muiThemes";
+
+import WordAnalysisPage from "./pages/wordAnalysis/WordAnalysisPage";
 import ManualPage from "./pages/manual/ManualPage";
+import ContactUsPage from "./pages/contactUs/ContactUsPage";
 
 const App: React.FC = () => {
     const mainNavTabs: ITabItem[] = [
         { route: "/wordanalysis", label: "Word analysis", content: <WordAnalysisPage /> },
         { route: "/manual", label: "Manual", content: <ManualPage /> },
-        { route: "/contactus", label: "Contact us", content: "Contact us!" }
+        { route: "/contactus", label: "Contact us", content: <ContactUsPage /> }
     ];
 
     const defaultTab = mainNavTabs[0];
