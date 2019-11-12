@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import SearchbarWithSettings from "./SearchbarWithSettings";
 import DataDisplays from "./dataDisplays";
 
 import {
@@ -18,6 +17,9 @@ import SentimentType from "./models/SentimentType";
 import ISearchSettings from "./models/ISearchSettings";
 import { getObjectFromQueryString } from "./getObjectFromQueryString";
 import { encodeQueryStringObject } from "../../utils/queryStringUtils";
+import { alphabet } from "../../globals";
+import SearchBar from "../../components/SearchBar";
+import SearchSettings from "./searchSettings/SearchSettings";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -109,17 +111,38 @@ export default function WordAnalysisPage() {
     return (
         <Grid container direction="column" spacing={2}>
             <Grid item xs={12} className={classes.gridItem}>
-                <SearchbarWithSettings
-                    autoFocus={true}
-                    defaultSearchTerm={searchTerm}
-                    defaultSettings={settings}
-                    onSearch={(updatedSearchTerm: string, updatedSettings: ISearchSettings) => {
-                        setSearchTerm(updatedSearchTerm);
-                        setSettings(updatedSettings);
-                        // TODO: add search term to url object
-                        pushToHistory({ settings: updatedSettings, searchTerm: updatedSearchTerm });
-                    }}
-                />
+                <Grid container direction="column" spacing={1}>
+                    <Grid item xs={12} className={classes.gridItem}>
+                        <SearchBar
+                            autoFocus={true}
+                            defaultSearchTerm={searchTerm}
+                            placeholder="Search word..."
+                            allowedCharacters={`${alphabet.toLowerCase()}`}
+                            onSearch={(updatedSearchTerm: string) => {
+                                setSearchTerm(updatedSearchTerm);
+                                pushToHistory({
+                                    settings: settings,
+                                    searchTerm: updatedSearchTerm
+                                });
+                            }}
+                            caseSensitive
+                        />
+                    </Grid>
+                    <Grid item xs={12} className={classes.gridItem}>
+                        <SearchSettings
+                            defaultSettings={settings}
+                            onUpdate={(updatedSettings: ISearchSettings) => {
+                                console.log("on update");
+                                setSettings(updatedSettings);
+                                console.log(updatedSettings.synonymListSettingsPanel.isOpen);
+                                pushToHistory({
+                                    settings: updatedSettings,
+                                    searchTerm: searchTerm
+                                });
+                            }}
+                        />
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid item xs={12} className={classes.gridItem}>
                 <DataDisplays searchTerm={searchTerm} searchSettings={settings}></DataDisplays>
