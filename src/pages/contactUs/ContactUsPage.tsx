@@ -1,7 +1,7 @@
 import React from "react";
 import PersonPanel, { IPerson } from "./PersonPanel";
 import Grid from "@material-ui/core/Grid";
-import PageContent from "../../components/PageContent";
+import PageContent from "../../components/layout/PageContent";
 
 export default function ContactUsPage() {
     const profileImageFolderLocation = `${process.env.PUBLIC_URL}/profileImages`;

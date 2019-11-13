@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
 import Logo from "../../components/Logo";
-import PageContent from "../../components/PageContent";
+import PageContent from "../../components/layout/PageContent";
 
 const useStyles = makeStyles(() =>
     createStyles({

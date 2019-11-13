@@ -1,5 +1,6 @@
-export default interface IFrequencyRequestParameters {
-    searchTerm: string;
+import DefaultRequestParameters from "./DefaultRequestParameters";
+
+export default interface IFrequencyRequestParameters extends DefaultRequestParameters {
     matchFullWord?: boolean;
     matchStart?: boolean;
     matchMiddle?: boolean;

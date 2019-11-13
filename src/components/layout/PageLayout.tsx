@@ -19,6 +19,8 @@ import "./PageLayout.css";
 import NotFoundPage from "../../pages/NotFoundPage";
 import StickyFooter from "./StickyFooter";
 import Footer from "../Footer";
+import Logo from "../Logo";
+import Grid from "@material-ui/core/Grid";
 
 const drawerWidth = 240;
 
@@ -54,6 +56,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         hidden: {
             display: "none"
+        },
+        title: {
+            textTransform: "uppercase"
+        },
+        logo: {
+            paddingRight: "12px"
         }
     })
 );
@@ -146,9 +154,17 @@ export default function PageLayout(props: IProps) {
                     </IconButton>
 
                     <div className={classes.appBarContents}>
-                        <Typography variant="h6" noWrap>
-                            {title}
-                        </Typography>
+                        <Grid container>
+                            <Grid item className={classes.logo}>
+                                <Logo size={30} />
+                            </Grid>
+                            <Grid item>
+                                <Typography className={classes.title} variant="h6" noWrap>
+                                    {title}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+
                         <div>
                             <Hidden xsDown implementation="css">
                                 {tabs()}

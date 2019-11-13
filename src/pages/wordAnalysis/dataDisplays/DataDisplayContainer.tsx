@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useEffect } from "react";
+import React, { ReactNode, useState } from "react";
 import classnames from "classnames";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
@@ -11,6 +11,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
+import useDeepCompareEffect from "../../../customHooks/useDeepCompareEffect";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -64,7 +65,7 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
     const defaultIsExpanded = true;
     const [isExpanded, setIsExpanded] = useState(defaultIsExpanded);
 
-    useEffect(() => {
+    useDeepCompareEffect(() => {
         setIsLoading(true);
 
         async function fetchData() {

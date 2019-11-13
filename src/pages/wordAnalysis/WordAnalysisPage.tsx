@@ -21,7 +21,7 @@ import { encodeQueryStringObject } from "../../utils/queryStringUtils";
 
 import SearchBar from "../../components/SearchBar";
 import ClippedDrawer from "../../components/ClippedDrawer";
-import PageContent from "../../components/PageContent";
+import PageContent from "../../components/layout/PageContent";
 import SearchSettings from "./searchSettings/SearchSettings";
 
 const useStyles = makeStyles(() =>

@@ -18,7 +18,15 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
+            "& .MuiOutlinedInput-root": {
+                "&:hover fieldset": {
+                    borderColor: theme.palette.secondary.main
+                },
+                "&.Mui-focused fieldset": {
+                    borderColor: theme.palette.secondary.main
+                }
+            }
         },
         iconButton: {
             padding: 10
