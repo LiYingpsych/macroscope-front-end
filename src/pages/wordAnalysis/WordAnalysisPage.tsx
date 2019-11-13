@@ -119,7 +119,7 @@ export default function WordAnalysisPage() {
             drawerContent={
                 <SearchSettings
                     defaultSettings={settings}
-                    onUpdate={(updatedSettings: ISearchSettings) => {
+                    onChange={(updatedSettings: ISearchSettings) => {
                         setSettings(updatedSettings);
                         pushToHistory({
                             settings: updatedSettings,

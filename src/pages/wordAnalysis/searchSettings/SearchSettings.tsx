@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 
@@ -17,8 +17,6 @@ import ISynonymNetworkSettings from "../models/ISynonymNetworkSettings";
 import IContextNetworkSettings from "../models/IContextNetworkSettings";
 import IContextChangeSettings from "../models/IContextChangeSettings";
 import ISentimentSettings from "../models/ISentimentSettings";
-import UpdateButton from "./UpdateButton";
-import { onEnter } from "../../../utils/onEnter";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,14 +30,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IProps {
     defaultSettings: ISearchSettings;
-    onUpdate: (updatedSettings: ISearchSettings) => void;
+    onChange: (updatedSettings: ISearchSettings) => void;
 }
 
 export default function SearchSettings(props: IProps) {
     const classes = useStyles();
-    const { defaultSettings, onUpdate } = props;
-
-    const [unsavedSettings, setUnsavedSettings] = useState(defaultSettings);
+    const { defaultSettings, onChange } = props;
 
     const [synonymListError, setSynonymListError] = useState(false);
     const [synonymNetworkError, setSynonymNetworkError] = useState(false);
@@ -47,35 +43,17 @@ export default function SearchSettings(props: IProps) {
     const [contextChangeError, setContextChangeError] = useState(false);
     const [sentimentError, setSentimentError] = useState(false);
 
-    useEffect(() => {
-        const onKeyPress = onEnter(() => {
-            onUpdate(unsavedSettings);
-        });
-        document.addEventListener("keydown", onKeyPress, false);
-
-        return function cleanup() {
-            document.removeEventListener("keydown", onKeyPress, false);
-        };
-    });
-
     // TODO: consider having a global year
     return (
         <div className={classes.root}>
-            <UpdateButton
-                defaultObject={defaultSettings}
-                modifiedObject={unsavedSettings}
-                onUpdate={() => {
-                    onUpdate(unsavedSettings);
-                }}
-            />
             <SwitchExpansionPanel
                 label="Synonym list"
                 isOpenDefault={defaultSettings.synonymListSettingsPanel.isOpen}
                 onChange={(isOpen: boolean) => {
-                    setUnsavedSettings({
-                        ...unsavedSettings,
+                    onChange({
+                        ...defaultSettings,
                         synonymListSettingsPanel: {
-                            ...unsavedSettings.synonymListSettingsPanel,
+                            ...defaultSettings.synonymListSettingsPanel,
                             isOpen: isOpen
                         }
                     });
@@ -89,10 +67,10 @@ export default function SearchSettings(props: IProps) {
                     }}
                     onChange={(settings: ISynonymListSettings) => {
                         setSynonymListError(false);
-                        setUnsavedSettings({
-                            ...unsavedSettings,
+                        onChange({
+                            ...defaultSettings,
                             synonymListSettingsPanel: {
-                                ...unsavedSettings.synonymListSettingsPanel,
+                                ...defaultSettings.synonymListSettingsPanel,
                                 settings: settings
                             }
                         });
@@ -104,10 +82,10 @@ export default function SearchSettings(props: IProps) {
                 label="Synonym network"
                 isOpenDefault={defaultSettings.synonymNetworkSettingsPanel.isOpen}
                 onChange={(isOpen: boolean) => {
-                    setUnsavedSettings({
-                        ...unsavedSettings,
+                    onChange({
+                        ...defaultSettings,
                         synonymNetworkSettingsPanel: {
-                            ...unsavedSettings.synonymNetworkSettingsPanel,
+                            ...defaultSettings.synonymNetworkSettingsPanel,
                             isOpen: isOpen
                         }
                     });
@@ -122,10 +100,10 @@ export default function SearchSettings(props: IProps) {
                     onChange={(settings: ISynonymNetworkSettings) => {
                         setSynonymNetworkError(false);
 
-                        setUnsavedSettings({
-                            ...unsavedSettings,
+                        onChange({
+                            ...defaultSettings,
                             synonymNetworkSettingsPanel: {
-                                ...unsavedSettings.synonymNetworkSettingsPanel,
+                                ...defaultSettings.synonymNetworkSettingsPanel,
                                 settings: settings
                             }
                         });
@@ -137,10 +115,10 @@ export default function SearchSettings(props: IProps) {
                 label="Context network"
                 isOpenDefault={defaultSettings.contextNetworkSettingsPanel.isOpen}
                 onChange={(isOpen: boolean) => {
-                    setUnsavedSettings({
-                        ...unsavedSettings,
+                    onChange({
+                        ...defaultSettings,
                         contextNetworkSettingsPanel: {
-                            ...unsavedSettings.contextNetworkSettingsPanel,
+                            ...defaultSettings.contextNetworkSettingsPanel,
                             isOpen: isOpen
                         }
                     });
@@ -155,10 +133,10 @@ export default function SearchSettings(props: IProps) {
                     onChange={(settings: IContextNetworkSettings) => {
                         setContextNetworkError(false);
 
-                        setUnsavedSettings({
-                            ...unsavedSettings,
+                        onChange({
+                            ...defaultSettings,
                             contextNetworkSettingsPanel: {
-                                ...unsavedSettings.contextNetworkSettingsPanel,
+                                ...defaultSettings.contextNetworkSettingsPanel,
                                 settings: settings
                             }
                         });
@@ -170,10 +148,10 @@ export default function SearchSettings(props: IProps) {
                 label="Semantic drift"
                 isOpenDefault={defaultSettings.semanticDriftSettingsPanel.isOpen}
                 onChange={(isOpen: boolean) => {
-                    setUnsavedSettings({
-                        ...unsavedSettings,
+                    onChange({
+                        ...defaultSettings,
                         semanticDriftSettingsPanel: {
-                            ...unsavedSettings.semanticDriftSettingsPanel,
+                            ...defaultSettings.semanticDriftSettingsPanel,
                             isOpen: isOpen
                         }
                     });
@@ -184,10 +162,10 @@ export default function SearchSettings(props: IProps) {
                 label="Context change"
                 isOpenDefault={defaultSettings.contextChangeSettingsPanel.isOpen}
                 onChange={(isOpen: boolean) => {
-                    setUnsavedSettings({
-                        ...unsavedSettings,
+                    onChange({
+                        ...defaultSettings,
                         contextChangeSettingsPanel: {
-                            ...unsavedSettings.contextChangeSettingsPanel,
+                            ...defaultSettings.contextChangeSettingsPanel,
                             isOpen: isOpen
                         }
                     });
@@ -202,10 +180,10 @@ export default function SearchSettings(props: IProps) {
                     onChange={(settings: IContextChangeSettings) => {
                         setContextChangeError(false);
 
-                        setUnsavedSettings({
-                            ...unsavedSettings,
+                        onChange({
+                            ...defaultSettings,
                             contextChangeSettingsPanel: {
-                                ...unsavedSettings.contextChangeSettingsPanel,
+                                ...defaultSettings.contextChangeSettingsPanel,
                                 settings: settings
                             }
                         });
@@ -217,10 +195,10 @@ export default function SearchSettings(props: IProps) {
                 label="Sentiment"
                 isOpenDefault={defaultSettings.sentimentSettingsPanel.isOpen}
                 onChange={(isOpen: boolean) => {
-                    setUnsavedSettings({
-                        ...unsavedSettings,
+                    onChange({
+                        ...defaultSettings,
                         sentimentSettingsPanel: {
-                            ...unsavedSettings.sentimentSettingsPanel,
+                            ...defaultSettings.sentimentSettingsPanel,
                             isOpen: isOpen
                         }
                     });
@@ -235,10 +213,10 @@ export default function SearchSettings(props: IProps) {
                     onChange={(settings: ISentimentSettings) => {
                         setSentimentError(false);
 
-                        setUnsavedSettings({
-                            ...unsavedSettings,
+                        onChange({
+                            ...defaultSettings,
                             sentimentSettingsPanel: {
-                                ...unsavedSettings.sentimentSettingsPanel,
+                                ...defaultSettings.sentimentSettingsPanel,
                                 settings: settings
                             }
                         });
@@ -250,10 +228,10 @@ export default function SearchSettings(props: IProps) {
                 label="Frequeny"
                 isOpenDefault={defaultSettings.frequencySettingsPanel.isOpen}
                 onChange={(isOpen: boolean) => {
-                    setUnsavedSettings({
-                        ...unsavedSettings,
+                    onChange({
+                        ...defaultSettings,
                         frequencySettingsPanel: {
-                            ...unsavedSettings.frequencySettingsPanel,
+                            ...defaultSettings.frequencySettingsPanel,
                             isOpen: isOpen
                         }
                     });
