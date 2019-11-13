@@ -59,6 +59,13 @@ export default function SearchSettings(props: IProps) {
     // TODO: consider having a global year
     return (
         <div className={classes.root}>
+            <UpdateButton
+                defaultObject={defaultSettings}
+                modifiedObject={unsavedSettings}
+                onUpdate={() => {
+                    onUpdate(unsavedSettings);
+                }}
+            />
             <SwitchExpansionPanel
                 label="Synonym list"
                 isOpenDefault={defaultSettings.synonymListSettingsPanel.isOpen}
@@ -251,13 +258,6 @@ export default function SearchSettings(props: IProps) {
                 }}
             ></SwitchExpansionPanel>
 
-            <UpdateButton
-                defaultObject={defaultSettings}
-                modifiedObject={unsavedSettings}
-                onUpdate={() => {
-                    onUpdate(unsavedSettings);
-                }}
-            />
             {/* TODO: Turn validation error message into toast popup thing? */}
             <ValidationErrorMessage
                 isError={[
