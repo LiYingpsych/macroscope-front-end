@@ -62,6 +62,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         logo: {
             paddingRight: "12px"
+        },
+        tab: {
+            "&:hover": {
+                opacity: 1
+            }
         }
     })
 );
@@ -118,6 +123,7 @@ export default function PageLayout(props: IProps) {
                 {tabItems.map((tab, index) => {
                     return (
                         <Tab
+                            className={classes.tab}
                             label={tab.label}
                             value={index}
                             component={Link}
