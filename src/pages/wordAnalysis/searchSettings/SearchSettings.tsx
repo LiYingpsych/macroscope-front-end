@@ -23,7 +23,9 @@ import { onEnter } from "../../../utils/onEnter";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            width: "100%"
+            marginRight: "1px",
+            display: "flex",
+            flexDirection: "column"
         }
     })
 );
@@ -143,7 +145,7 @@ export default function SearchSettings(props: IProps) {
                         }
                     });
                 }}
-                error={synonymNetworkError}
+                error={contextNetworkError}
             >
                 <ContextNetworkSettings
                     defaultSettings={defaultSettings.contextNetworkSettingsPanel.settings}
@@ -260,6 +262,7 @@ export default function SearchSettings(props: IProps) {
 
             {/* TODO: Turn validation error message into toast popup thing? */}
             <ValidationErrorMessage
+                snackbar
                 isError={[
                     synonymListError,
                     synonymNetworkError,
@@ -267,9 +270,8 @@ export default function SearchSettings(props: IProps) {
                     contextChangeError,
                     sentimentError
                 ]}
-            >
-                There is an error with the settings
-            </ValidationErrorMessage>
+                message="There is an error with the current settings"
+            />
         </div>
     );
 }
