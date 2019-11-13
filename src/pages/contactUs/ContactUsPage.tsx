@@ -43,8 +43,8 @@ export default function ContactUsPage() {
         <PageContent>
             <Grid container justify="center" spacing={2}>
                 {peopleData.map((person, i) => (
-                    <Grid item>
-                        <PersonPanel person={person} key={i} />
+                    <Grid item key={i}>
+                        <PersonPanel person={person} />
                     </Grid>
                 ))}
             </Grid>
