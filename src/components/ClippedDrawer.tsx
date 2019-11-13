@@ -27,11 +27,17 @@ interface IProps {
     width?: number;
     children?: ReactNode;
     anchor?: anchorTye;
+    drawerContent?: ReactNode;
 }
 
 export default function ClippedDrawer(props: IProps) {
     const theme = useTheme();
-    const { width = 240, children, anchor = theme.direction === "rtl" ? "right" : "left" } = props;
+    const {
+        width = 240,
+        children,
+        anchor = theme.direction === "rtl" ? "right" : "left",
+        drawerContent
+    } = props;
     const classes = useStyles(width, anchor)();
 
     return (
@@ -45,7 +51,7 @@ export default function ClippedDrawer(props: IProps) {
                 anchor={anchor}
             >
                 <div className={classes.toolbar} />
-                Drawer content
+                {typeof drawerContent === "undefined" ? null : drawerContent}
             </Drawer>
             {children}
         </div>

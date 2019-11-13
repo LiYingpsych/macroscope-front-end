@@ -22,6 +22,7 @@ import { encodeQueryStringObject } from "../../utils/queryStringUtils";
 import SearchBar from "../../components/SearchBar";
 import ClippedDrawer from "../../components/ClippedDrawer";
 import PageContent from "../../components/PageContent";
+import SearchSettings from "./searchSettings/SearchSettings";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -112,7 +113,22 @@ export default function WordAnalysisPage() {
         pushToHistory({ settings: settings, searchTerm: searchTerm });
 
     return (
-        <ClippedDrawer anchor="right">
+        <ClippedDrawer
+            anchor="right"
+            width={350}
+            drawerContent={
+                <SearchSettings
+                    defaultSettings={settings}
+                    onUpdate={(updatedSettings: ISearchSettings) => {
+                        setSettings(updatedSettings);
+                        pushToHistory({
+                            settings: updatedSettings,
+                            searchTerm: searchTerm
+                        });
+                    }}
+                />
+            }
+        >
             <PageContent>
                 <Grid item container direction="column" spacing={2}>
                     <Grid item xs={12} className={classes.gridItem}>
@@ -137,18 +153,6 @@ export default function WordAnalysisPage() {
                             searchSettings={settings}
                         ></DataDisplays>
                     </Grid>
-                    {/* <SearchSettings
-                    defaultSettings={settings}
-                    onUpdate={(updatedSettings: ISearchSettings) => {
-                        console.log("on update");
-                        setSettings(updatedSettings);
-                        console.log(updatedSettings.synonymListSettingsPanel.isOpen);
-                        pushToHistory({
-                            settings: updatedSettings,
-                            searchTerm: searchTerm
-                        });
-                    }}
-                /> */}
                 </Grid>
             </PageContent>
         </ClippedDrawer>
