@@ -195,10 +195,10 @@ export default function DataDisplays(props: IProps) {
     return searchTerm.trim() === "" ? null : (
         <>
             {displayError ? (
-                <ErrorMessage>
-                    There is no data to display. Please change the settings to include at least one
-                    setting.
-                </ErrorMessage>
+                <ErrorMessage
+                    message="There is no data to display. Please change the settings to include at least one
+                setting."
+                />
             ) : (
                 displays
             )}

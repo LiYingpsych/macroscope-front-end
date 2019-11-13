@@ -107,7 +107,7 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
                     {isError && !isLoading ? (
                         <Grid container justify="center" className={classes.errorMessageContainer}>
                             <Grid item>
-                                <ErrorMessage>{requestErrorMsg}</ErrorMessage>
+                                <ErrorMessage message={requestErrorMsg} />
                             </Grid>
                         </Grid>
                     ) : null}

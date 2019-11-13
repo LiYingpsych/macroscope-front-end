@@ -7,7 +7,10 @@ const defaultTheme: Theme = createMuiTheme({
     palette: {
         primary: indigo,
         secondary: deepOrange,
-        error: red
+        error: {
+            ...red,
+            light: "#e5737321"
+        }
     },
     overrides: {
         MuiLinearProgress: {

@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: "0px"
         },
         error: {
-            border: `1px solid ${theme.palette.error.main}`
+            border: `1px solid ${theme.palette.error.main}`,
+            backgroundColor: theme.palette.error.light
         }
     })
 );

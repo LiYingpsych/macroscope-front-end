@@ -1,15 +1,16 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import ErrorMessage from "./ErrorMessage";
 
 interface IProps {
     isError: boolean | boolean[];
-    children?: ReactNode;
+    message?: string;
+    snackbar?: boolean;
 }
 
 export default function ValidationErrorMessage(props: IProps) {
-    const { isError, children = "There is a validation error" } = props;
+    const { isError, message = "There is a validation error", snackbar = false } = props;
 
-    const validationMessage = <ErrorMessage>{children}</ErrorMessage>;
+    const validationMessage = <ErrorMessage snackbar={snackbar} message={message} />;
 
     let ReturnComponent = null;
 
