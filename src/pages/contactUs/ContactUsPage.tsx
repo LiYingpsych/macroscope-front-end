@@ -1,6 +1,7 @@
 import React from "react";
 import PersonPanel, { IPerson } from "./PersonPanel";
 import Grid from "@material-ui/core/Grid";
+import PageContent from "../../components/PageContent";
 
 export default function ContactUsPage() {
     const profileImageFolderLocation = `${process.env.PUBLIC_URL}/profileImages`;
@@ -39,12 +40,14 @@ export default function ContactUsPage() {
     ];
 
     return (
-        <Grid container justify="center" spacing={2}>
-            {peopleData.map((person, i) => (
-                <Grid item>
-                    <PersonPanel person={person} key={i} />
-                </Grid>
-            ))}
-        </Grid>
+        <PageContent>
+            <Grid container justify="center" spacing={2}>
+                {peopleData.map((person, i) => (
+                    <Grid item>
+                        <PersonPanel person={person} key={i} />
+                    </Grid>
+                ))}
+            </Grid>
+        </PageContent>
     );
 }

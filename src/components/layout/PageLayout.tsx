@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
             }
         },
         appBar: {
-            marginLeft: drawerWidth
+            marginLeft: drawerWidth,
+            zIndex: theme.zIndex.drawer + 1
         },
         appBarContents: {
             display: "flex",
@@ -48,13 +49,8 @@ const useStyles = makeStyles((theme: Theme) =>
                 display: "none"
             }
         },
-        toolbar: theme.mixins.toolbar,
         drawerPaper: {
             width: drawerWidth
-        },
-        content: {
-            flexGrow: 1,
-            padding: theme.spacing(3)
         },
         hidden: {
             display: "none"
@@ -182,16 +178,13 @@ export default function PageLayout(props: IProps) {
             </Hidden>
             <StickyFooter
                 content={
-                    <div className={classes.content}>
-                        <div className={classes.toolbar} />
-                        <Switch>
-                            <Route
-                                path={`(${tabItems.map(tab => tab.route).join("|")})`}
-                                render={() => tabPanels}
-                            />
-                            <Route component={NotFoundPage} />
-                        </Switch>
-                    </div>
+                    <Switch>
+                        <Route
+                            path={`(${tabItems.map(tab => tab.route).join("|")})`}
+                            render={() => tabPanels}
+                        />
+                        <Route component={NotFoundPage} />
+                    </Switch>
                 }
                 footer={<Footer />}
             />

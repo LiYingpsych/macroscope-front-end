@@ -10,21 +10,24 @@ import {
     synonymNetworkMaxYear,
     contextNetworkMaxYear,
     contextChangeMinYear,
-    contextChangeMaxYear
+    contextChangeMaxYear,
+    alphabet
 } from "../../globals";
 
 import SentimentType from "./models/SentimentType";
 import ISearchSettings from "./models/ISearchSettings";
 import { getObjectFromQueryString } from "./getObjectFromQueryString";
 import { encodeQueryStringObject } from "../../utils/queryStringUtils";
-import { alphabet } from "../../globals";
+
 import SearchBar from "../../components/SearchBar";
-import SearchSettings from "./searchSettings/SearchSettings";
+import ClippedDrawer from "../../components/ClippedDrawer";
+import PageContent from "../../components/PageContent";
 
 const useStyles = makeStyles(() =>
     createStyles({
         gridItem: {
-            width: "100%"
+            width: "100%",
+            flex: "1 0 auto"
         }
     })
 );
@@ -109,9 +112,9 @@ export default function WordAnalysisPage() {
         pushToHistory({ settings: settings, searchTerm: searchTerm });
 
     return (
-        <Grid container direction="column" spacing={2}>
-            <Grid item xs={12} className={classes.gridItem}>
-                <Grid container direction="column" spacing={1}>
+        <ClippedDrawer anchor="right">
+            <PageContent>
+                <Grid item container direction="column" spacing={2}>
                     <Grid item xs={12} className={classes.gridItem}>
                         <SearchBar
                             autoFocus={true}
@@ -129,24 +132,25 @@ export default function WordAnalysisPage() {
                         />
                     </Grid>
                     <Grid item xs={12} className={classes.gridItem}>
-                        <SearchSettings
-                            defaultSettings={settings}
-                            onUpdate={(updatedSettings: ISearchSettings) => {
-                                console.log("on update");
-                                setSettings(updatedSettings);
-                                console.log(updatedSettings.synonymListSettingsPanel.isOpen);
-                                pushToHistory({
-                                    settings: updatedSettings,
-                                    searchTerm: searchTerm
-                                });
-                            }}
-                        />
+                        <DataDisplays
+                            searchTerm={searchTerm}
+                            searchSettings={settings}
+                        ></DataDisplays>
                     </Grid>
+                    {/* <SearchSettings
+                    defaultSettings={settings}
+                    onUpdate={(updatedSettings: ISearchSettings) => {
+                        console.log("on update");
+                        setSettings(updatedSettings);
+                        console.log(updatedSettings.synonymListSettingsPanel.isOpen);
+                        pushToHistory({
+                            settings: updatedSettings,
+                            searchTerm: searchTerm
+                        });
+                    }}
+                /> */}
                 </Grid>
-            </Grid>
-            <Grid item xs={12} className={classes.gridItem}>
-                <DataDisplays searchTerm={searchTerm} searchSettings={settings}></DataDisplays>
-            </Grid>
-        </Grid>
+            </PageContent>
+        </ClippedDrawer>
     );
 }
