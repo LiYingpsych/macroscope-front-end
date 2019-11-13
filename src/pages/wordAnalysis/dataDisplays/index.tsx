@@ -37,10 +37,6 @@ import IFrequencyData from "../../../models/IFrequencyData";
 import IFrequencyRequestParameters from "../../../services/backendApi/models/requestParameters/IFrequencyRequestParameters";
 import FrequencyChart from "./dataComponents/FrequencyChart";
 
-interface IDataDisplay<S, T> extends IDataDisplayContainerProps<S, T> {
-    isDisplayed: boolean;
-}
-
 interface IProps {
     searchTerm: string;
     searchSettings: ISearchSettings;
@@ -49,7 +45,10 @@ interface IProps {
 export default function DataDisplays(props: IProps) {
     const { searchTerm, searchSettings } = props;
 
-    const synonymTableDataDisplay: IDataDisplay<IClosestRequestParameters, IClosestData> = {
+    const synonymTableDataDisplay: IDataDisplayContainerProps<
+        IClosestRequestParameters,
+        IClosestData
+    > = {
         isDisplayed: searchSettings.synonymListSettingsPanel.isOpen,
         title: `Synonyms table`,
         params: {
@@ -68,7 +67,7 @@ export default function DataDisplays(props: IProps) {
         )
     };
 
-    const synonymNetworkDataDisplay: IDataDisplay<
+    const synonymNetworkDataDisplay: IDataDisplayContainerProps<
         ISynonymNetworkRequestParameters,
         ISynonymNetworkData
     > = {
@@ -86,7 +85,7 @@ export default function DataDisplays(props: IProps) {
         render: (data: ISynonymNetworkData) => <SynonymNetworkGraph data={data} />
     };
 
-    const contextNetworkDataDisplay: IDataDisplay<
+    const contextNetworkDataDisplay: IDataDisplayContainerProps<
         IContextNetworkRequestParameters,
         IContextNetworkData
     > = {
@@ -109,7 +108,7 @@ export default function DataDisplays(props: IProps) {
         render: (data: IContextNetworkData) => <ContextNetworkGraph data={data} />
     };
 
-    const semanticDriftDataDisplay: IDataDisplay<
+    const semanticDriftDataDisplay: IDataDisplayContainerProps<
         ISemanticDriftRequestParameters,
         ISemanticDriftData
     > = {
@@ -126,7 +125,7 @@ export default function DataDisplays(props: IProps) {
         render: (data: ISemanticDriftData) => <SemanticDriftChart data={data} />
     };
 
-    const contextChangeDataDisplay: IDataDisplay<
+    const contextChangeDataDisplay: IDataDisplayContainerProps<
         IContextChangeRequestParameters,
         IContextChangeData
     > = {
@@ -142,7 +141,10 @@ export default function DataDisplays(props: IProps) {
         render: (data: IContextChangeData) => <ContextChangeChart data={data} />
     };
 
-    const sentimentDataDisplay: IDataDisplay<ISentimentRequestParameters, ISentimentData> = {
+    const sentimentDataDisplay: IDataDisplayContainerProps<
+        ISentimentRequestParameters,
+        ISentimentData
+    > = {
         isDisplayed: searchSettings.sentimentSettingsPanel.isOpen,
         title: `Sentiment`,
         params: {
@@ -155,7 +157,10 @@ export default function DataDisplays(props: IProps) {
         render: (data: ISentimentData) => <SentimentChart data={data} />
     };
 
-    const frequencyDataDisplay: IDataDisplay<IFrequencyRequestParameters, IFrequencyData> = {
+    const frequencyDataDisplay: IDataDisplayContainerProps<
+        IFrequencyRequestParameters,
+        IFrequencyData
+    > = {
         isDisplayed: searchSettings.frequencySettingsPanel.isOpen,
         title: `Frequency`,
         params: {
@@ -169,7 +174,7 @@ export default function DataDisplays(props: IProps) {
         render: (data: IFrequencyData) => <FrequencyChart data={data} />
     };
 
-    const dataDisplays: IDataDisplay<any, any>[] = [
+    const dataDisplays: IDataDisplayContainerProps<any, any>[] = [
         synonymTableDataDisplay,
         synonymNetworkDataDisplay,
         contextNetworkDataDisplay,
@@ -179,29 +184,30 @@ export default function DataDisplays(props: IProps) {
         frequencyDataDisplay
     ];
 
-    let displayError = true;
-    const displays = dataDisplays.map((display, i) => {
-        const { isDisplayed, ...rest } = display;
+    const displayError = () => {
+        for (let index = 0; index < dataDisplays.length; index++) {
+            const { isDisplayed } = dataDisplays[index];
 
-        if (isDisplayed) {
-            displayError = false;
-
-            return <DataDisplayContainer key={i} {...rest} />;
+            if (isDisplayed) {
+                return false;
+            }
         }
 
-        return null;
-    });
+        return true;
+    };
 
     return searchTerm.trim() === "" ? null : (
         <>
-            {displayError ? (
+            {displayError() ? (
                 <ErrorMessage
                     message="There is no data to display. Please change the settings to include at least one
                 setting."
                 />
-            ) : (
-                displays
-            )}
+            ) : null}
+
+            {dataDisplays.map((display, i) => {
+                return <DataDisplayContainer key={i} {...display} />;
+            })}
         </>
     );
 }

@@ -37,11 +37,15 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         errorBorder: {
             border: `1px solid ${theme.palette.error.main}`
+        },
+        hide: {
+            display: "none"
         }
     })
 );
 
 export interface IDataDisplayContainerProps<S, T> {
+    isDisplayed: boolean;
     title: string;
     params: S;
     fetchDataFunction: (params: S) => Promise<T>;
@@ -51,7 +55,7 @@ export interface IDataDisplayContainerProps<S, T> {
 export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerProps<S, T>) {
     const classes = useStyles();
 
-    const { title, fetchDataFunction, params, render } = props;
+    const { isDisplayed, title, fetchDataFunction, params, render } = props;
 
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState<T>();
@@ -64,6 +68,7 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
         setIsLoading(true);
 
         async function fetchData() {
+            if (!isDisplayed) return;
             try {
                 const response = await fetchDataFunction(params);
 
@@ -78,7 +83,7 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
         }
 
         fetchData();
-    }, [params, fetchDataFunction]);
+    }, [params, fetchDataFunction, isDisplayed]);
 
     const onChange = (event: object, expanded: boolean) => {
         setIsExpanded(expanded);
@@ -88,7 +93,11 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
 
     return (
         <ExpansionPanel
-            className={classnames(classes.root, isError && !isLoading ? classes.errorBorder : "")}
+            className={classnames(
+                classes.root,
+                isError && !isLoading ? classes.errorBorder : "",
+                isDisplayed ? "" : classes.hide
+            )}
             defaultExpanded={defaultIsExpanded}
             onChange={onChange}
         >
