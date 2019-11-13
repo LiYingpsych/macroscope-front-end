@@ -2,6 +2,8 @@
 
 * sort out main content scrollbar and scrolling over graph containers
 
+* Add request response caching to quickly responde to recently run requests
+
 * Make optional request parameters not optional - idea is that I should not be defaulting options and that the user should know what options are being used
 
 * Change logo192 and logo512 to macroscope logos
@@ -19,6 +21,7 @@ CHARTS
 * Add all matches to frequency chart 
 
 NICE TO HAVE
+* Make setting bar collapsable
 * Create .d.ts files for api request parameter and response interfaces? 
 * Add /cooccurrence data display and settings
 * Document .env
