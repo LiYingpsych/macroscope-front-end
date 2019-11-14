@@ -16,6 +16,12 @@ import useDeepCompareEffect from "../../../customHooks/useDeepCompareEffect";
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {},
+        panelSummary: {
+            "&:hover": {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText
+            }
+        },
         panelSummaryBottomBorder: {
             borderBottom: `1px solid ${theme.palette.grey[300]}`
         },
@@ -103,8 +109,14 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
             onChange={onChange}
         >
             <ExpansionPanelSummary
-                className={classnames(isExpanded ? classes.panelSummaryBottomBorder : "")}
+                className={classnames(
+                    isExpanded ? classes.panelSummaryBottomBorder : "",
+                    classes.panelSummary
+                )}
                 expandIcon={<ExpandMoreIcon />}
+                IconButtonProps={{
+                    color: "inherit"
+                }}
             >
                 <Typography className={classes.heading}>{title}</Typography>
                 {isLoading ? (

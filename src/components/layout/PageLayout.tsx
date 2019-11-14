@@ -61,7 +61,9 @@ const useStyles = makeStyles((theme: Theme) =>
             textTransform: "uppercase"
         },
         logo: {
-            paddingRight: "12px"
+            paddingRight: "12px",
+            display: "flex",
+            alignItems: "center"
         },
         tab: {
             "&:hover": {
@@ -165,9 +167,11 @@ export default function PageLayout(props: IProps) {
                                 <Logo size={30} />
                             </Grid>
                             <Grid item>
-                                <Typography className={classes.title} variant="h6" noWrap>
-                                    {title}
-                                </Typography>
+                                <Hidden only="sm">
+                                    <Typography className={classes.title} variant="h6" noWrap>
+                                        {title}
+                                    </Typography>
+                                </Hidden>
                             </Grid>
                         </Grid>
 

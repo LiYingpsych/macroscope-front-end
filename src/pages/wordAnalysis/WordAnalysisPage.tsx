@@ -114,7 +114,7 @@ export default function WordAnalysisPage() {
 
     return (
         <ClippedDrawer
-            anchor="right"
+            anchor="left"
             width={350}
             drawerContent={
                 <SearchSettings
