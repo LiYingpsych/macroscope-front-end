@@ -1,29 +1,37 @@
 import React, { ReactNode } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        toolbar: theme.mixins.toolbar,
-        content: {
-            flexGrow: 1,
-            padding: theme.spacing(3)
-        }
-    })
-);
+const useStyles = (paddingTop: number) =>
+    makeStyles((theme: Theme) =>
+        createStyles({
+            toolbar: theme.mixins.toolbar,
+            content: {
+                flexGrow: 1,
+                padding: theme.spacing(3),
+                paddingTop: theme.spacing(paddingTop)
+            },
+            contentWrapper: {
+                flex: 1,
+                maxWidth: "1200px"
+            }
+        })
+    );
 
 interface IProps {
     children?: ReactNode;
+    paddingTop?: number;
 }
 
 export default function PageContent(props: IProps) {
-    const classes = useStyles();
-
-    const { children } = props;
+    const { children, paddingTop = 3 } = props;
+    const classes = useStyles(paddingTop)();
 
     return (
-        <div className={classes.content}>
-            <div className={classes.toolbar} />
-            {children}
+        <div className={classes.contentWrapper}>
+            <div className={classes.content}>
+                <div className={classes.toolbar} />
+                {children}
+            </div>
         </div>
     );
 }

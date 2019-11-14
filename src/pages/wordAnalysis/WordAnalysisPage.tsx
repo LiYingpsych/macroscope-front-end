@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import DataDisplays from "./dataDisplays";
 
@@ -23,12 +23,32 @@ import SearchBar from "../../components/SearchBar";
 import ClippedDrawer from "../../components/ClippedDrawer";
 import PageContent from "../../components/layout/PageContent";
 import SearchSettings from "./searchSettings/SearchSettings";
+import LoremIpsum from "../../components/LoremIpsum";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        gridItem: {
+        results: {},
+        searchBarContainer: {
+            flex: "1 0 auto",
+            maxWidth: 1200,
             width: "100%",
-            flex: "1 0 auto"
+            height: theme.spacing(3) + 56
+        },
+        blurField: {
+            position: "fixed",
+            maxWidth: "inherit",
+            height: "inherit",
+            zIndex: theme.zIndex.drawer - 1,
+            backgroundColor: theme.palette.grey[100],
+            opacity: 0.5,
+            width: "calc(100% - 408px)"
+        },
+        searchBar: {
+            position: "fixed",
+            maxWidth: "inherit",
+            zIndex: theme.zIndex.drawer,
+            marginTop: theme.spacing(1),
+            width: "calc(100% - 408px)"
         }
     })
 );
@@ -115,7 +135,7 @@ export default function WordAnalysisPage() {
     return (
         <ClippedDrawer
             anchor="left"
-            width={350}
+            width={360}
             drawerContent={
                 <SearchSettings
                     defaultSettings={settings}
@@ -129,10 +149,13 @@ export default function WordAnalysisPage() {
                 />
             }
         >
-            <PageContent>
+            <PageContent paddingTop={0}>
                 <Grid item container direction="column" spacing={2}>
-                    <Grid item xs={12} className={classes.gridItem}>
+                    <Grid item xs={12} className={classes.searchBarContainer}>
+                        <div className={classes.blurField}></div>
+
                         <SearchBar
+                            className={classes.searchBar}
                             autoFocus={true}
                             defaultSearchTerm={searchTerm}
                             placeholder="Search word..."
@@ -147,7 +170,8 @@ export default function WordAnalysisPage() {
                             caseSensitive
                         />
                     </Grid>
-                    <Grid item xs={12} className={classes.gridItem}>
+                    <Grid item xs={12} className={classes.results}>
+                        {/* <LoremIpsum iterations={3} /> */}
                         <DataDisplays
                             searchTerm={searchTerm}
                             searchSettings={settings}

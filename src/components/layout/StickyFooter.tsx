@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            backgroundColor: "#f5f5f5",
+            backgroundColor: theme.palette.grey[100],
             display: "flex",
             flex: 1,
             flexDirection: "column",
@@ -14,10 +14,6 @@ const useStyles = makeStyles(() =>
             flex: 1,
             display: "flex",
             justifyContent: "center"
-        },
-        contentWrapper: {
-            flex: 1,
-            maxWidth: "1200px"
         }
     })
 );
@@ -32,9 +28,7 @@ export default function StickyFooter(props: IStickyFooterProps) {
 
     return (
         <main className={classes.root}>
-            <div className={classes.content}>
-                <div className={classes.contentWrapper}>{props.content}</div>
-            </div>
+            <div className={classes.content}>{props.content}</div>
             {props.footer}
         </main>
     );

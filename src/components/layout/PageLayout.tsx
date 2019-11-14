@@ -69,6 +69,9 @@ const useStyles = makeStyles((theme: Theme) =>
             "&:hover": {
                 opacity: 1
             }
+        },
+        content: {
+            flex: "1"
         }
     })
 );
@@ -204,13 +207,15 @@ export default function PageLayout(props: IProps) {
             </Hidden>
             <StickyFooter
                 content={
-                    <Switch>
-                        <Route
-                            path={`(${tabItems.map(tab => tab.route).join("|")})`}
-                            render={() => tabPanels}
-                        />
-                        <Route component={NotFoundPage} />
-                    </Switch>
+                    <div className={classes.content}>
+                        <Switch>
+                            <Route
+                                path={`(${tabItems.map(tab => tab.route).join("|")})`}
+                                render={() => tabPanels}
+                            />
+                            <Route component={NotFoundPage} />
+                        </Switch>
+                    </div>
                 }
                 footer={<Footer />}
             />

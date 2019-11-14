@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import classnames from "classnames";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -45,6 +46,7 @@ interface IProps {
     allowedCharacters?: string;
     caseSensitive?: boolean;
     allowEmptySearch?: boolean;
+    className: string;
 }
 
 export default function SearchBar(props: IProps) {
@@ -56,7 +58,8 @@ export default function SearchBar(props: IProps) {
         autoFocus = false,
         allowedCharacters = "",
         caseSensitive = false,
-        allowEmptySearch = false
+        allowEmptySearch = false,
+        className
     } = props;
     const [searchTerm, setSearchTerm] = useState(defaultSearchTerm);
 
@@ -117,7 +120,7 @@ export default function SearchBar(props: IProps) {
     });
 
     return (
-        <Paper className={classes.root}>
+        <Paper className={classnames(classes.root, className)}>
             <TextField
                 error={errorMessage.length > 0}
                 label={errorMessage}
