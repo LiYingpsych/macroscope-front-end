@@ -6,13 +6,15 @@ const useStyles = (paddingTop: number) =>
         createStyles({
             toolbar: theme.mixins.toolbar,
             content: {
+                maxWidth: "1200px",
                 flexGrow: 1,
                 padding: theme.spacing(3),
                 paddingTop: theme.spacing(paddingTop)
             },
             contentWrapper: {
                 flex: 1,
-                maxWidth: "1200px"
+                display: "flex",
+                justifyContent: "center"
             }
         })
     );

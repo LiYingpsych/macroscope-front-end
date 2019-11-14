@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
                 "&.Mui-focused fieldset": {
                     borderColor: theme.palette.secondary.main
                 }
-            }
+            },
+            boxShadow: `4px 4px 10px -6px ${theme.palette.primary.main}`
         },
         iconButton: {
             padding: 10

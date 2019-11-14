@@ -23,7 +23,6 @@ import SearchBar from "../../components/SearchBar";
 import ClippedDrawer from "../../components/ClippedDrawer";
 import PageContent from "../../components/layout/PageContent";
 import SearchSettings from "./searchSettings/SearchSettings";
-import LoremIpsum from "../../components/LoremIpsum";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,15 +31,16 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: "1 0 auto",
             maxWidth: 1200,
             width: "100%",
-            height: theme.spacing(3) + 56
+            height: theme.spacing(4) + 56,
+            paddingBottom: `${theme.spacing(3)} !important`
         },
         blurField: {
             position: "fixed",
             maxWidth: "inherit",
             height: "inherit",
             zIndex: theme.zIndex.drawer - 1,
-            backgroundColor: theme.palette.grey[100],
-            opacity: 0.5,
+            opacity: 0.7,
+            backgroundImage: `linear-gradient(${theme.palette.grey[100]}, ${theme.palette.grey[100]}, transparent)`,
             width: "calc(100% - 408px)"
         },
         searchBar: {
@@ -171,7 +171,6 @@ export default function WordAnalysisPage() {
                         />
                     </Grid>
                     <Grid item xs={12} className={classes.results}>
-                        {/* <LoremIpsum iterations={3} /> */}
                         <DataDisplays
                             searchTerm={searchTerm}
                             searchSettings={settings}
