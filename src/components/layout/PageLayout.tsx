@@ -19,8 +19,8 @@ import "./PageLayout.css";
 import NotFoundPage from "../../pages/NotFoundPage";
 import StickyFooter from "./StickyFooter";
 import Footer from "../Footer";
-import Logo from "../Logo";
 import Grid from "@material-ui/core/Grid";
+import MacroscopeLogo from "../Logos/MacroscopeLogo";
 
 const drawerWidth = 240;
 
@@ -167,7 +167,7 @@ export default function PageLayout(props: IProps) {
                     <div className={classes.appBarContents}>
                         <Grid container>
                             <Grid item className={classes.logo}>
-                                <Logo size={30} />
+                                <MacroscopeLogo size={30} />
                             </Grid>
                             <Grid item>
                                 <Hidden only="sm">

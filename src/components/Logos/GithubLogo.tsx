@@ -17,12 +17,16 @@ interface IProps {
     size?: number;
 }
 
-export default function Logo(props: IProps) {
+export default function GithubLogo(props: IProps) {
     const { size = 512 } = props;
 
     const classes = useStyles(size)();
 
     return (
-        <img src={process.env.PUBLIC_URL + "/logo512.png"} alt="logo512" className={classes.img} />
+        <img
+            src={process.env.PUBLIC_URL + "/logos/GitHub-Mark-32px.png"}
+            alt="GitHub-Mark-32px.png"
+            className={classes.img}
+        />
     );
 }

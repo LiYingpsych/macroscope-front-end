@@ -4,8 +4,8 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
-import Logo from "../../components/Logo";
 import PageContent from "../../components/layout/PageContent";
+import MacroscopeLogo from "../../components/Logos/MacroscopeLogo";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -23,7 +23,7 @@ export default function ManualPage() {
             <Grid container direction="column" spacing={2}>
                 <Grid container justify="center" item xs={12} className={classes.gridItem}>
                     <Grid item>
-                        <Logo size={300} />
+                        <MacroscopeLogo size={300} />
                     </Grid>
                 </Grid>
                 <Grid item xs={12} className={classes.gridItem}>
