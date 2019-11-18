@@ -8,10 +8,13 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import IconButton from "@material-ui/core/IconButton";
+import GetApp from "@material-ui/icons/GetApp";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
 import useDeepCompareEffect from "../../../customHooks/useDeepCompareEffect";
+import JsonDownloadLink from "../../../components/links/JsonDownloadLink";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -47,6 +50,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         hide: {
             display: "none"
+        },
+        exportButton: {
+            margin: theme.spacing(0.25)
         }
     })
 );
@@ -63,6 +69,10 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
     const classes = useStyles();
 
     const { isDisplayed, title, fetchDataFunction, params, render } = props;
+
+    const downloadFileName = `${title.toLowerCase().replace(" ", "-")}_${Object.values(params).join(
+        "-"
+    )}`;
 
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState<T>();
@@ -125,7 +135,24 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.panelDetails}>
                 <>
-                    {!isError && !isLoading && typeof data !== "undefined" ? render(data) : null}
+                    {!isError && !isLoading && typeof data !== "undefined" ? (
+                        <Grid container direction="column">
+                            <Grid item>{render(data)}</Grid>
+                            <Grid container item justify="flex-end">
+                                <Grid item>
+                                    <IconButton
+                                        color="primary"
+                                        className={classes.exportButton}
+                                        component="span"
+                                    >
+                                        <JsonDownloadLink json={data} fileName={downloadFileName}>
+                                            <GetApp />
+                                        </JsonDownloadLink>
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    ) : null}
                     {isError && !isLoading ? (
                         <Grid container justify="center" className={classes.errorMessageContainer}>
                             <Grid item>

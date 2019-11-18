@@ -9,8 +9,6 @@ Make sure fast consecutive requests load the most up to date settings
 
 * Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
 
-* Add the ability to export data from DataDisplayContainer
-
 TO DOCUMENT
 * .env file (REACT_APP_BASE_API_URL=https://api.macroscope.tech REACT_APP_API_KEY=cNiI3wAUwlKX/tFJedwEWmIAk1RBT5y3IujdgUNq4rM= REACT_APP_NODE_ENV=production)
 * svgs sourced from https://svgporn.com/
