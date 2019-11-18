@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useLocation, Route, Switch } from "react-router-dom";
 import classnames from "classnames";
 
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 
 import { makeStyles, useTheme, Theme, createStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -131,7 +132,7 @@ export default function PageLayout(props: IProps) {
                             className={classes.tab}
                             label={tab.label}
                             value={index}
-                            component={Link}
+                            component={RouterLink}
                             to={tab.route}
                             key={`tab-${index}`}
                         />
@@ -165,18 +166,20 @@ export default function PageLayout(props: IProps) {
                     </IconButton>
 
                     <div className={classes.appBarContents}>
-                        <Grid container>
-                            <Grid item className={classes.logo}>
-                                <MacroscopeLogo size={30} />
+                        <Link href="/wordanalysis" color="inherit" underline="none">
+                            <Grid container>
+                                <Grid item className={classes.logo}>
+                                    <MacroscopeLogo size={30} />
+                                </Grid>
+                                <Grid item>
+                                    <Hidden only="sm">
+                                        <Typography className={classes.title} variant="h6" noWrap>
+                                            {title}
+                                        </Typography>
+                                    </Hidden>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <Hidden only="sm">
-                                    <Typography className={classes.title} variant="h6" noWrap>
-                                        {title}
-                                    </Typography>
-                                </Hidden>
-                            </Grid>
-                        </Grid>
+                        </Link>
 
                         <div>
                             <Hidden xsDown implementation="css">
