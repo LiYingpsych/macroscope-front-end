@@ -111,7 +111,7 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
             <ExpansionPanelSummary
                 className={classnames(
                     isExpanded ? classes.panelSummaryBottomBorder : ""
-                    // classes.panelSummary
+                    // classes.panelSummary // Hover class
                 )}
                 expandIcon={<ExpandMoreIcon />}
                 IconButtonProps={{
