@@ -3,8 +3,8 @@ import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
 import GithubLogoSvg from "./images/GithubLogoSvg";
+import NewTabLink from "./Links/NewTabLink";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -26,17 +26,16 @@ export default function Footer() {
             <div className={classes.root}>
                 <Grid container justify="flex-end" alignItems="center">
                     <Grid item>
-                        <Link target="_blank" href="https://github.com/StraightOuttaCrompton/">
+                        <NewTabLink href="https://github.com/StraightOuttaCrompton/">
                             <Grid container alignItems="center">
                                 <Grid item className={classes.logo}>
-                                    {/* <GithubLogo size={24} /> */}
                                     <GithubLogoSvg />
                                 </Grid>
                                 <Grid item className={classes.githubText}>
                                     StraightOuttaCrompton
                                 </Grid>
                             </Grid>
-                        </Link>
+                        </NewTabLink>
                     </Grid>
                 </Grid>
             </div>

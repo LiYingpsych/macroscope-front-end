@@ -2,7 +2,8 @@ import React from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
+import EmailLink from "../../components/Links/EmailLink";
+import NewTabLink from "../../components/Links/NewTabLink";
 
 const useStyles = (avatarImageSize: number) =>
     makeStyles(() =>
@@ -48,16 +49,12 @@ export default function Avatar(props: IAvatarProps) {
                 </Grid>
                 <Grid item>
                     {typeof email === "undefined" ? null : (
-                        <Link target="_top" href={`mailto:${email}`}>
-                            Email
-                        </Link>
+                        <EmailLink email={email}>Email</EmailLink>
                     )}
                 </Grid>
                 <Grid item>
                     {typeof websiteUrl === "undefined" ? null : (
-                        <Link target="_blank" rel="noopener noreferrer" href={websiteUrl}>
-                            Website
-                        </Link>
+                        <NewTabLink href={websiteUrl}>Website</NewTabLink>
                     )}
                 </Grid>
             </Grid>
