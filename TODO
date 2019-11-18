@@ -27,6 +27,7 @@ NICE TO HAVE
 * Document .env
 * Add https://github.com/bvaughn/react-virtualized to tables?
 * Monetise with client side crypto mining (which is easily turned of or adjusted) and donations
+* Create svg macroscope logo
 
 TO ASK:
 * What should "score" be called in synonym table?
