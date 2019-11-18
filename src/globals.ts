@@ -13,4 +13,8 @@ export const semanticDriftMaxYear = 2000;
 export const contextChangeMinYear = 1800;
 export const contextChangeMaxYear = 2000;
 
+export const wordAnalysisDrawerWidth = 360;
+
+export const pageContentPadding = 3;
+
 export const alphabet = "abcdefghijklmnopqrstuvwxyz";

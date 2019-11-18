@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { pageContentPadding } from "../../globals";
 
 const useStyles = (paddingTop: number) =>
     makeStyles((theme: Theme) =>
@@ -8,7 +9,7 @@ const useStyles = (paddingTop: number) =>
             content: {
                 maxWidth: "1200px",
                 flexGrow: 1,
-                padding: theme.spacing(3),
+                padding: theme.spacing(pageContentPadding),
                 paddingTop: theme.spacing(paddingTop)
             },
             contentWrapper: {
