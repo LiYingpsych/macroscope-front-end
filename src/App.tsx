@@ -26,7 +26,9 @@ const App: React.FC = () => {
             <BrowserRouter>
                 <Switch>
                     <Route path="/" exact render={() => <Redirect to={defaultTab.route} />} />
-                    <Route render={() => <PageLayout tabItems={mainNavTabs} />} />
+                    <Route
+                        render={() => <PageLayout deafultTab={defaultTab} tabItems={mainNavTabs} />}
+                    />
                 </Switch>
             </BrowserRouter>
         </MuiThemeProvider>

@@ -84,12 +84,13 @@ export interface ITabItem {
 }
 
 interface IProps {
+    deafultTab: ITabItem;
     tabItems: ITabItem[];
     title?: string;
 }
 
 export default function PageLayout(props: IProps) {
-    const { title = "Macroscope", tabItems } = props;
+    const { title = "Macroscope", deafultTab, tabItems } = props;
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -166,7 +167,7 @@ export default function PageLayout(props: IProps) {
                     </IconButton>
 
                     <div className={classes.appBarContents}>
-                        <Link href="/wordanalysis" color="inherit" underline="none">
+                        <Link href={deafultTab.route} color="inherit" underline="none">
                             <Grid container>
                                 <Grid item className={classes.logo}>
                                     <MacroscopeLogo size={30} />
