@@ -169,7 +169,7 @@ export default function PageLayout(props: IProps) {
 
     return (
         <div className={classes.root}>
-            <AppBar position="fixed" className={classnames(classes.appBar, "main-app-bar-height")}>
+            <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
