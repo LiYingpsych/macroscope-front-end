@@ -11,7 +11,9 @@ import {
     contextNetworkMaxYear,
     contextChangeMinYear,
     contextChangeMaxYear,
-    alphabet
+    alphabet,
+    wordAnalysisDrawerWidth,
+    pageContentPadding
 } from "../../globals";
 
 import SentimentType from "./models/SentimentType";
@@ -24,15 +26,28 @@ import ClippedDrawer from "../../components/ClippedDrawer";
 import PageContent from "../../components/layout/PageContent";
 import SearchSettings from "./searchSettings/SearchSettings";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
+const useStyles = makeStyles((theme: Theme) => {
+    const floatingBarWidth = `calc(100% - ${wordAnalysisDrawerWidth}px - ${theme.spacing(
+        pageContentPadding * 2
+    )}px)`;
+
+    return createStyles({
         results: {},
-        searchBarContainer: {
+        floatingBarContainer: {
             flex: "1 0 auto",
             maxWidth: 1200,
             width: "100%",
             height: theme.spacing(4) + 56,
             paddingBottom: `${theme.spacing(3)} !important`
+        },
+        floatingBar: {
+            display: "flex",
+            alignItems: "center",
+            position: "fixed",
+            maxWidth: "inherit",
+            zIndex: theme.zIndex.drawer,
+            marginTop: theme.spacing(1),
+            width: floatingBarWidth
         },
         blurField: {
             position: "fixed",
@@ -41,17 +56,13 @@ const useStyles = makeStyles((theme: Theme) =>
             zIndex: theme.zIndex.drawer - 1,
             opacity: 0.7,
             backgroundImage: `linear-gradient(${theme.palette.grey[100]}, ${theme.palette.grey[100]}, transparent)`,
-            width: "calc(100% - 408px)"
+            width: floatingBarWidth
         },
         searchBar: {
-            position: "fixed",
-            maxWidth: "inherit",
-            zIndex: theme.zIndex.drawer,
-            marginTop: theme.spacing(1),
-            width: "calc(100% - 408px)"
+            flex: "1 0 auto"
         }
-    })
-);
+    });
+});
 
 const defaultSearchTerm: string = "";
 const defaultSettings: ISearchSettings = {
@@ -74,7 +85,7 @@ const defaultSettings: ISearchSettings = {
         isOpen: false,
         settings: {
             year: contextNetworkMaxYear,
-            maximumNodes: 200,
+            maximumNodes: 50,
             contextRelevance: 0.55,
             contextCohesiveness: 0.55,
             individualWordRelevance: 3,
@@ -135,7 +146,7 @@ export default function WordAnalysisPage() {
     return (
         <ClippedDrawer
             anchor="left"
-            width={360}
+            width={wordAnalysisDrawerWidth}
             drawerContent={
                 <SearchSettings
                     defaultSettings={settings}
@@ -151,24 +162,25 @@ export default function WordAnalysisPage() {
         >
             <PageContent paddingTop={0}>
                 <Grid item container direction="column" spacing={2}>
-                    <Grid item xs={12} className={classes.searchBarContainer}>
+                    <Grid item xs={12} className={classes.floatingBarContainer}>
                         <div className={classes.blurField}></div>
-
-                        <SearchBar
-                            className={classes.searchBar}
-                            autoFocus={true}
-                            defaultSearchTerm={searchTerm}
-                            placeholder="Search word..."
-                            allowedCharacters={`${alphabet.toLowerCase()}`}
-                            onSearch={(updatedSearchTerm: string) => {
-                                setSearchTerm(updatedSearchTerm);
-                                pushToHistory({
-                                    settings: settings,
-                                    searchTerm: updatedSearchTerm
-                                });
-                            }}
-                            caseSensitive
-                        />
+                        <div className={classes.floatingBar}>
+                            <SearchBar
+                                className={classes.searchBar}
+                                autoFocus={true}
+                                defaultSearchTerm={searchTerm}
+                                placeholder="Search word..."
+                                allowedCharacters={`${alphabet.toLowerCase()}`}
+                                onSearch={(updatedSearchTerm: string) => {
+                                    setSearchTerm(updatedSearchTerm);
+                                    pushToHistory({
+                                        settings: settings,
+                                        searchTerm: updatedSearchTerm
+                                    });
+                                }}
+                                caseSensitive
+                            />
+                        </div>
                     </Grid>
                     <Grid item xs={12} className={classes.results}>
                         <DataDisplays
