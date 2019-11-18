@@ -1,17 +1,20 @@
 import React from "react";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import GithubLogoSvg from "./images/GithubLogoSvg";
 import NewTabLink from "./Links/NewTabLink";
+import { footerHeight } from "../globals";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            padding: theme.spacing(1),
+            height: footerHeight,
+            display: "flex",
             paddingRight: theme.spacing(4),
-            backgroundColor: theme.palette.background.paper
+            backgroundColor: theme.palette.background.paper,
+            zIndex: theme.zIndex.drawer + 1,
+            borderTop: `1px solid ${theme.palette.grey[300]}`
         },
         logo: { display: "flex" },
         githubText: { marginLeft: theme.spacing(1) }
@@ -21,24 +24,21 @@ export default function Footer() {
     const classes = useStyles();
 
     return (
-        <>
-            <Divider />
-            <div className={classes.root}>
-                <Grid container justify="flex-end" alignItems="center">
-                    <Grid item>
-                        <NewTabLink href="https://github.com/StraightOuttaCrompton/">
-                            <Grid container alignItems="center">
-                                <Grid item className={classes.logo}>
-                                    <GithubLogoSvg />
-                                </Grid>
-                                <Grid item className={classes.githubText}>
-                                    StraightOuttaCrompton
-                                </Grid>
+        <div className={classes.root}>
+            <Grid container justify="flex-end" alignItems="center">
+                <Grid item>
+                    <NewTabLink href="https://github.com/StraightOuttaCrompton/">
+                        <Grid container alignItems="center">
+                            <Grid item className={classes.logo}>
+                                <GithubLogoSvg />
                             </Grid>
-                        </NewTabLink>
-                    </Grid>
+                            <Grid item className={classes.githubText}>
+                                StraightOuttaCrompton
+                            </Grid>
+                        </Grid>
+                    </NewTabLink>
                 </Grid>
-            </div>
-        </>
+            </Grid>
+        </div>
     );
 }

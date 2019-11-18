@@ -17,4 +17,6 @@ export const wordAnalysisDrawerWidth = 360;
 
 export const pageContentPadding = 3;
 
+export const footerHeight = 40;
+
 export const alphabet = "abcdefghijklmnopqrstuvwxyz";

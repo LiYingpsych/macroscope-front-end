@@ -1,6 +1,3 @@
-Quick
-* remove min height from app bar? main-app-bar-height
-
 * On settings change update data displays, this should only have to load the data displays that have changed as the search term itself hasnt been changed.
 Make sure fast consecutive requests load the most up to date settings 
 
