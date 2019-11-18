@@ -172,7 +172,7 @@ export default function PageLayout(props: IProps) {
                                     <MacroscopeLogo size={30} />
                                 </Grid>
                                 <Grid item>
-                                    <Hidden only="sm">
+                                    <Hidden only="sm" implementation="css">
                                         <Typography className={classes.title} variant="h6" noWrap>
                                             {title}
                                         </Typography>
