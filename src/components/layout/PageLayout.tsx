@@ -16,7 +16,6 @@ import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
-import "./PageLayout.css";
 import NotFoundPage from "../../pages/NotFoundPage";
 import StickyFooter from "./StickyFooter";
 import Footer from "../Footer";
@@ -77,6 +76,9 @@ const useStyles = makeStyles((theme: Theme) =>
         tabHighlight: {
             backgroundColor: theme.palette.primary.main,
             color: theme.palette.primary.contrastText
+        },
+        fullHeight: {
+            height: "100%"
         }
     })
 );
@@ -127,11 +129,14 @@ export default function PageLayout(props: IProps) {
         orientation: "horizontal" | "vertical" = "horizontal",
         addSelectedHighlight: boolean = false
     ) => {
+        const isHorizantal = orientation === "horizontal";
         return (
             <Tabs
+                className={isHorizantal ? classes.fullHeight : ""}
+                centered
                 value={currentTabIndex}
                 onChange={handleChange}
-                classes={{ flexContainer: "main-app-bar-height" }}
+                classes={{ flexContainer: isHorizantal ? classes.fullHeight : "" }}
                 orientation={orientation}
             >
                 {tabItems.map((tab, index) => {
@@ -176,7 +181,7 @@ export default function PageLayout(props: IProps) {
                         <MenuIcon />
                     </IconButton>
 
-                    <div className={classes.appBarContents}>
+                    <div className={classnames(classes.appBarContents, classes.fullHeight)}>
                         <Link href={deafultTab.route} color="inherit" underline="none">
                             <Grid container>
                                 <Grid item className={classes.logo}>
@@ -192,7 +197,7 @@ export default function PageLayout(props: IProps) {
                             </Grid>
                         </Link>
 
-                        <div>
+                        <div className={classes.fullHeight} style={{ display: "flex" }}>
                             <Hidden xsDown implementation="css">
                                 {tabs()}
                             </Hidden>
