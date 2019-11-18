@@ -47,7 +47,7 @@ interface IProps {
     allowedCharacters?: string;
     caseSensitive?: boolean;
     allowEmptySearch?: boolean;
-    className: string;
+    className?: string;
 }
 
 export default function SearchBar(props: IProps) {
