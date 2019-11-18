@@ -20,7 +20,7 @@ import NotFoundPage from "../../pages/NotFoundPage";
 import StickyFooter from "./StickyFooter";
 import Footer from "../Footer";
 import Grid from "@material-ui/core/Grid";
-import MacroscopeLogo from "../Logos/MacroscopeLogo";
+import MacroscopeLogo from "../images/MacroscopeLogo";
 
 const drawerWidth = 240;
 

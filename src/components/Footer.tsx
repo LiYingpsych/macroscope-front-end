@@ -3,14 +3,14 @@ import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import GithubLogo from "./Logos/GithubLogo";
 import Link from "@material-ui/core/Link";
+import GithubLogoSvg from "./images/GithubLogoSvg";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            padding: theme.spacing(2),
-            paddingRight: theme.spacing(6),
+            padding: theme.spacing(1),
+            paddingRight: theme.spacing(4),
             backgroundColor: theme.palette.background.paper
         },
         logo: { display: "flex" },
@@ -29,7 +29,8 @@ export default function Footer() {
                         <Link target="_blank" href="https://github.com/StraightOuttaCrompton/">
                             <Grid container alignItems="center">
                                 <Grid item className={classes.logo}>
-                                    <GithubLogo size={24} />
+                                    {/* <GithubLogo size={24} /> */}
+                                    <GithubLogoSvg />
                                 </Grid>
                                 <Grid item className={classes.githubText}>
                                     StraightOuttaCrompton

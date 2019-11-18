@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
 import PageContent from "../../components/layout/PageContent";
-import MacroscopeLogo from "../../components/Logos/MacroscopeLogo";
+import MacroscopeLogo from "../../components/images/MacroscopeLogo";
 
 const useStyles = makeStyles(() =>
     createStyles({

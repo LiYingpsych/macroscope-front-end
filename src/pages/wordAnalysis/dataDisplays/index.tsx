@@ -206,7 +206,7 @@ export default function DataDisplays(props: IProps) {
             ) : null}
 
             {dataDisplays.map((display, i) => {
-                return <DataDisplayContainer {...display} />;
+                return <DataDisplayContainer key={i} {...display} />;
             })}
         </>
     );
