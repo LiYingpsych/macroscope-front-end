@@ -1,32 +1,34 @@
-* On settings change update data displays, this should only have to load the data displays that have changed as the search term itself hasnt been changed. Make sure fast consecutive requests load the most up to date settings 
+Quick
+* remove min height from app bar? main-app-bar-height
+* add background to mobile 
 
-* sort out main content scrollbar and scrolling over graph containers
+* On settings change update data displays, this should only have to load the data displays that have changed as the search term itself hasnt been changed.
+Make sure fast consecutive requests load the most up to date settings 
 
 * Add request response caching to quickly responde to recently run requests
 
+* Quick consecutive searches (ie one search followed by a second search before the first has finished) - second search doesn't show that it is loading and then results suddenly show
+
 * Make optional request parameters not optional - idea is that I should not be defaulting options and that the user should know what options are being used
 
-* Change logo192 and logo512 to macroscope logos
-
-* Calculate width of screen and pass to JSNetworkGraph so that the network renders in the middle of the screen
-
 * Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
-
-* Quick consecutive searches (ie one search followed by a second search before the first has finished) - second search doesn't show that it is loading and then results suddenly show
 
 * Add the ability to export data from DataDisplayContainer
 
 TO DOCUMENT
 * .env file (REACT_APP_BASE_API_URL=https://api.macroscope.tech REACT_APP_API_KEY=cNiI3wAUwlKX/tFJedwEWmIAk1RBT5y3IujdgUNq4rM= REACT_APP_NODE_ENV=production)
+* svgs sourced from https://svgporn.com/
 
 CHARTS
+* Calculate width of screen and pass to JSNetworkGraph so that the network renders in the middle of the screen
 * Move data displays from index.tsx into respective files
 * Add labels to axis
 * Add tooltips
 * Add all matches to frequency chart 
 
 NICE TO HAVE
-* Make setting bar collapsable
+* Search bar word autocomplete
+* Make setting bar collapsable - make width adjustable?
 * Create .d.ts files for api request parameter and response interfaces? 
 * Add /cooccurrence data display and settings
 * Document .env
