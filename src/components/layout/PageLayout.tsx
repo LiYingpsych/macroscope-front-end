@@ -73,6 +73,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         content: {
             flex: "1"
+        },
+        tabHighlight: {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText
         }
     })
 );
@@ -119,7 +123,10 @@ export default function PageLayout(props: IProps) {
         setMobileOpen(!mobileOpen);
     };
 
-    const tabs = (orientation: "horizontal" | "vertical" = "horizontal") => {
+    const tabs = (
+        orientation: "horizontal" | "vertical" = "horizontal",
+        addSelectedHighlight: boolean = false
+    ) => {
         return (
             <Tabs
                 value={currentTabIndex}
@@ -130,6 +137,9 @@ export default function PageLayout(props: IProps) {
                 {tabItems.map((tab, index) => {
                     return (
                         <Tab
+                            classes={{
+                                selected: addSelectedHighlight ? classes.tabHighlight : undefined
+                            }}
                             className={classes.tab}
                             label={tab.label}
                             value={index}
@@ -205,7 +215,7 @@ export default function PageLayout(props: IProps) {
                             keepMounted: true // Better open performance on mobile.
                         }}
                     >
-                        {tabs("vertical")}
+                        {tabs("vertical", true)}
                     </Drawer>
                 </nav>
             </Hidden>
