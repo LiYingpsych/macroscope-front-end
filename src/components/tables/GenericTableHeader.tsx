@@ -5,11 +5,22 @@ import TableHead from "@material-ui/core/TableHead";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
-import IColumn from "./models/IColumn";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
+
 import Title from "../Title";
+
+import IColumn from "./models/IColumn";
+import SortingOrder from "./models/SortingOrder";
+
+interface IHeaderSortingProperties<P> {
+    onRequestSort: (event: React.MouseEvent<unknown>, property: P) => void;
+    order: SortingOrder;
+    orderBy: P;
+}
 
 interface IProps<T> {
     columnData: IColumn<T>[];
+    sorting?: IHeaderSortingProperties<keyof T>;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -19,22 +30,40 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function GenericTableHeader<T>(props: IProps<T>) {
-    const { columnData } = props;
+    const { columnData, sorting } = props;
 
     const classes = useStyles();
+
+    const createSortHandler = (property: keyof T) => (event: React.MouseEvent<unknown>) => {
+        if (typeof sorting !== "undefined") sorting.onRequestSort(event, property);
+    };
 
     return (
         <TableHead className={classes.root}>
             <TableRow>
                 {columnData.map((column, i) => {
+                    const contents = (
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <Title>{column.label}</Title>
+                            </Grid>
+                            <Grid item>{column.subLabel}</Grid>
+                        </Grid>
+                    );
+
                     return (
                         <TableCell key={i}>
-                            <Grid container spacing={1}>
-                                <Grid item>
-                                    <Title>{column.label}</Title>
-                                </Grid>
-                                <Grid item>{column.subLabel}</Grid>
-                            </Grid>
+                            {typeof sorting === "undefined" ? (
+                                contents
+                            ) : (
+                                <TableSortLabel
+                                    active={sorting.orderBy === column.dataPropertyKey}
+                                    direction={sorting.order}
+                                    onClick={createSortHandler(column.dataPropertyKey)}
+                                >
+                                    {contents}
+                                </TableSortLabel>
+                            )}
                         </TableCell>
                     );
                 })}
