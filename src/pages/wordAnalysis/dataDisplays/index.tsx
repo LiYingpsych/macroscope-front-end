@@ -50,7 +50,7 @@ export default function DataDisplays(props: IProps) {
         IClosestData
     > = {
         isDisplayed: searchSettings.synonymListSettingsPanel.isOpen,
-        title: `Synonyms table`,
+        title: `Synonym list`,
         params: {
             searchTerm: searchTerm,
             year: searchSettings.synonymListSettingsPanel.settings.year,
@@ -68,7 +68,7 @@ export default function DataDisplays(props: IProps) {
         ISynonymNetworkData
     > = {
         isDisplayed: searchSettings.synonymNetworkSettingsPanel.isOpen,
-        title: `Synonyms network`,
+        title: `Synonym network`,
         params: {
             searchTerm: searchTerm,
             year: searchSettings.synonymNetworkSettingsPanel.settings.year,
