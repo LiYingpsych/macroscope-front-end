@@ -21,12 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         tableHeaders: {
             padding: theme.spacing(2)
-        },
-        loaderContainer: {
-            padding: theme.spacing(2)
-        },
-        errorMessageContainer: {
-            padding: theme.spacing(1)
         }
     })
 );
