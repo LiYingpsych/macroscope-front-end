@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import IconButton from "@material-ui/core/IconButton";
 import GetApp from "@material-ui/icons/GetApp";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ErrorMessage from "../../../components/errors/ErrorMessage";
@@ -50,6 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         hide: {
             display: "none"
+        },
+        exportButtonContainer: {
+            marginRight: theme.spacing(1)
         },
         exportButton: {
             margin: theme.spacing(0.25)
@@ -139,16 +143,18 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
                         <Grid container direction="column">
                             <Grid item>{render(data)}</Grid>
                             <Grid container item justify="flex-end">
-                                <Grid item>
-                                    <IconButton
-                                        color="primary"
-                                        className={classes.exportButton}
-                                        component="span"
-                                    >
-                                        <JsonDownloadLink json={data} fileName={downloadFileName}>
-                                            <GetApp />
-                                        </JsonDownloadLink>
-                                    </IconButton>
+                                <Grid item className={classes.exportButtonContainer}>
+                                    <JsonDownloadLink json={data} fileName={downloadFileName}>
+                                        <Tooltip title="Export results" placement="left">
+                                            <IconButton
+                                                color="primary"
+                                                className={classes.exportButton}
+                                                component="span"
+                                            >
+                                                <GetApp />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </JsonDownloadLink>
                                 </Grid>
                             </Grid>
                         </Grid>
