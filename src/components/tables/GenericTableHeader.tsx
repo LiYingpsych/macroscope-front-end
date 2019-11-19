@@ -14,10 +14,7 @@ interface IProps<T> {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {},
-        tableHeaders: {
-            padding: theme.spacing(2)
-        }
+        root: {}
     })
 );
 
@@ -27,7 +24,7 @@ export default function GenericTableHeader<T>(props: IProps<T>) {
     const classes = useStyles();
 
     return (
-        <TableHead className={classes.tableHeaders}>
+        <TableHead className={classes.root}>
             <TableRow>
                 {columnData.map((column, i) => {
                     return (
