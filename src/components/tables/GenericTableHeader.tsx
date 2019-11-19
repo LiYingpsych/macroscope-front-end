@@ -25,7 +25,7 @@ interface IProps<T> {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {}
+        paperBackgroundColor: { backgroundColor: theme.palette.background.paper }
     })
 );
 
@@ -39,7 +39,7 @@ export default function GenericTableHeader<T>(props: IProps<T>) {
     };
 
     return (
-        <TableHead className={classes.root}>
+        <TableHead>
             <TableRow>
                 {columnData.map((column, i) => {
                     const contents = (
@@ -52,7 +52,7 @@ export default function GenericTableHeader<T>(props: IProps<T>) {
                     );
 
                     return (
-                        <TableCell key={i}>
+                        <TableCell key={i} classes={{ stickyHeader: classes.paperBackgroundColor }}>
                             {typeof sorting === "undefined" ? (
                                 contents
                             ) : (

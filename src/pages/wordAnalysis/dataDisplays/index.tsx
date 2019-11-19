@@ -59,11 +59,7 @@ export default function DataDisplays(props: IProps) {
         },
         fetchDataFunction: fetchSynonymListData,
         render: (data: IClosestData) => (
-            <SynonymTable
-                searchTerm={searchTerm}
-                settings={searchSettings.synonymListSettingsPanel.settings}
-                data={data}
-            />
+            <SynonymTable settings={searchSettings.synonymListSettingsPanel.settings} data={data} />
         )
     };
 

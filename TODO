@@ -1,3 +1,5 @@
+* Add tooltip to data export button
+
 * On settings change update data displays, this should only have to load the data displays that have changed as the search term itself hasnt been changed.
 Make sure fast consecutive requests load the most up to date settings 
 
@@ -29,6 +31,7 @@ NICE TO HAVE
 * Add https://github.com/bvaughn/react-virtualized to tables?
 * Monetise with client side crypto mining (which is easily turned of or adjusted) and donations
 * Create svg macroscope logo
+* clicking on data display title takes you to full page view in new tab
 
 TO ASK:
 * What should "score" be called in synonym table?
