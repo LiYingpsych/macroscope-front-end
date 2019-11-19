@@ -21,7 +21,7 @@ interface ISortingProperties<P> {
 interface IProps<T> {
     columnData: IColumn<T>[];
     data: T[];
-    onRowClick?: (id: number) => void;
+    onRowClick?: (item: T) => void;
     size?: TableSize;
     maxHeight?: number;
     sorting?: ISortingProperties<keyof T>;
