@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
         githubText: { marginLeft: theme.spacing(1) }
     })
 );
+
 export default function Footer() {
     const classes = useStyles();
 
