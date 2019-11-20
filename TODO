@@ -20,7 +20,8 @@ CHARTS
 * Move data displays from index.tsx into respective files
 * Add labels to axis
 * Add tooltips
-* Add all matches to frequency chart 
+* Add all matches to frequency chart
+* Context change "hello" isnt working
 
 NICE TO HAVE
 * Search bar word autocomplete
