@@ -135,7 +135,8 @@ export default function DataDisplays(props: IProps) {
             searchTerm: searchTerm,
             startYear: searchSettings.contextChangeSettingsPanel.settings.startYear,
             endYear: searchSettings.contextChangeSettingsPanel.settings.endYear,
-            numberOfContextWords: 20
+            numberOfContextWords:
+                searchSettings.contextChangeSettingsPanel.settings.numberOfContextWords
         },
         fetchDataFunction: fetchContextChangeData,
         render: (data: IContextChangeData) => <ContextChangeChart data={data} />

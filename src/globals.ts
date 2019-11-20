@@ -13,6 +13,9 @@ export const semanticDriftMaxYear = 2000;
 export const contextChangeMinYear = 1800;
 export const contextChangeMaxYear = 2000;
 
+export const contextNumberOfContextWordsMin = 0;
+export const contextNumberOfContextWordsMax = 20;
+
 export const wordAnalysisDrawerWidth = 360;
 
 export const pageContentPadding = 3;

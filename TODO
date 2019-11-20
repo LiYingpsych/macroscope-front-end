@@ -37,6 +37,11 @@ NICE TO HAVE
 * clicking on data display title takes you to full page view in new tab
 * proper error catching when wordanalysis query string is faulty
 
+SETTINGS
+* Settings with start and end year should be a range input slider
+* Frequency should have options for --match-full-word --match-start --match-middle --match-end cli flags and display lines for each with differnet colours and a key
+* Semantic drift should have options for --start-year --end-year --number-of-years-in-interval --number-of-closest-words
+
 TO ASK:
 * What should "score" be called in synonym table?
 

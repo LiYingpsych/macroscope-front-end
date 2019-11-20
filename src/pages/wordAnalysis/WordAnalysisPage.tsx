@@ -106,7 +106,8 @@ const defaultSettings: ISearchSettings = {
         isOpen: false,
         settings: {
             startYear: contextChangeMinYear,
-            endYear: contextChangeMaxYear
+            endYear: contextChangeMaxYear,
+            numberOfContextWords: 20
         }
     },
     sentimentSettingsPanel: {
