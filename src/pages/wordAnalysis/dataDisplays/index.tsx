@@ -166,6 +166,7 @@ export default function DataDisplays(props: IProps) {
         title: `Frequency`,
         params: {
             searchTerm: searchTerm,
+            // TODO: the following should be options and not be defaulted
             matchEnd: false,
             matchFullWord: true,
             matchMiddle: false,
