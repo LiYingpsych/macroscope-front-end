@@ -25,6 +25,7 @@ import SearchBar from "../../components/SearchBar";
 import ClippedDrawer from "../../components/ClippedDrawer";
 import PageContent from "../../components/layout/PageContent";
 import SearchSettings from "./searchSettings/SearchSettings";
+import SynonymListMethod from "./models/SynonymListMethod";
 
 const useStyles = makeStyles((theme: Theme) => {
     const floatingBarWidth = `calc(100% - ${wordAnalysisDrawerWidth}px - ${theme.spacing(
@@ -70,7 +71,8 @@ const defaultSettings: ISearchSettings = {
         isOpen: true,
         settings: {
             year: closestMaxYear,
-            numberOfSynonyms: 5
+            numberOfSynonyms: 5,
+            method: SynonymListMethod.SGNS
         }
     },
     synonymNetworkSettingsPanel: {

@@ -1,15 +1,17 @@
-* Add tooltip to data export button
+* Make optional request parameters not optional 
+    - idea is that I should not be defaulting options and that the user should know what options are being used
+
+* Quick consecutive searches (ie one search followed by a second search before the first has finished) - second search doesn't show that it is loading and then results suddenly show
 
 * On settings change update data displays, this should only have to load the data displays that have changed as the search term itself hasnt been changed.
 Make sure fast consecutive requests load the most up to date settings 
 
 * Add request response caching to quickly responde to recently run requests
 
-* Quick consecutive searches (ie one search followed by a second search before the first has finished) - second search doesn't show that it is loading and then results suddenly show
-
-* Make optional request parameters not optional - idea is that I should not be defaulting options and that the user should know what options are being used
 
 * Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
+
+* Add tests!!
 
 TO DOCUMENT
 * .env file (REACT_APP_BASE_API_URL=https://api.macroscope.tech REACT_APP_API_KEY=cNiI3wAUwlKX/tFJedwEWmIAk1RBT5y3IujdgUNq4rM= REACT_APP_NODE_ENV=production)
@@ -33,6 +35,7 @@ NICE TO HAVE
 * Monetise with client side crypto mining (which is easily turned of or adjusted) and donations
 * Create svg macroscope logo
 * clicking on data display title takes you to full page view in new tab
+* proper error catching when wordanalysis query string is faulty
 
 TO ASK:
 * What should "score" be called in synonym table?

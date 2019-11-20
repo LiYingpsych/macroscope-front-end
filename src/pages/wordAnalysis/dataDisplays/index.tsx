@@ -5,7 +5,7 @@ import ErrorMessage from "../../../components/errors/ErrorMessage";
 import SynonymNetworkGraph from "./dataComponents/SynonymNetworkGraph";
 import DataDisplayContainer, { IDataDisplayContainerProps } from "./DataDisplayContainer";
 import IClosestRequestParameters from "../../../services/backendApi/models/requestParameters/IClosestRequestParameters";
-import ClosestSearchMethod from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
+import { mapSynonymListMethodToClosestSearchMethod } from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
 import IClosestData from "../../../models/IClosestData";
 import {
     fetchSynonymListData,
@@ -55,7 +55,9 @@ export default function DataDisplays(props: IProps) {
             searchTerm: searchTerm,
             year: searchSettings.synonymListSettingsPanel.settings.year,
             numberOfClosestWords: searchSettings.synonymListSettingsPanel.settings.numberOfSynonyms,
-            method: ClosestSearchMethod.SGNS
+            method: mapSynonymListMethodToClosestSearchMethod(
+                searchSettings.synonymListSettingsPanel.settings.method
+            )
         },
         fetchDataFunction: fetchSynonymListData,
         render: (data: IClosestData) => (
