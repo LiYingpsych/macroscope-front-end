@@ -1,8 +1,8 @@
-import ClosestSearchMethod from "./ClosestSearchMethod";
-import DefaultRequestParameters from "./DefaultRequestParameters";
+import IDefaultRequestParameters from "./IDefaultRequestParameters";
+import ClosestSearchMethodRequestParameter from "./enums/ClosestSearchMethodRequestParameter";
 
-export default interface IClosestRequestParameters extends DefaultRequestParameters {
+export default interface IClosestRequestParameters extends IDefaultRequestParameters {
     year: number;
     numberOfClosestWords: number;
-    method: ClosestSearchMethod;
+    method: ClosestSearchMethodRequestParameter;
 }

@@ -5,7 +5,7 @@ import ErrorMessage from "../../../components/errors/ErrorMessage";
 import SynonymNetworkGraph from "./dataComponents/SynonymNetworkGraph";
 import DataDisplayContainer, { IDataDisplayContainerProps } from "./DataDisplayContainer";
 import IClosestRequestParameters from "../../../services/backendApi/models/requestParameters/IClosestRequestParameters";
-import { mapSynonymListMethodToClosestSearchMethod } from "../../../services/backendApi/models/requestParameters/ClosestSearchMethod";
+import { mapSynonymListEnumToRequestParamEnum } from "../../../services/backendApi/models/requestParameters/enums/ClosestSearchMethodRequestParameter";
 import IClosestData from "../../../models/IClosestData";
 import {
     fetchSynonymListData,
@@ -20,7 +20,7 @@ import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
 import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
 import IContextNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/IContextNetworkRequestParameters";
 import IContextNetworkData from "../../../models/IContextNetworkData";
-import ContextNetworkMethod from "../../../services/backendApi/models/requestParameters/ContextNetworkMethod";
+import ContextNetworkMethodRequestParameter from "../../../services/backendApi/models/requestParameters/enums/ContextNetworkMethodRequestParameter";
 import ContextNetworkGraph from "./dataComponents/ContextNetworkGraph";
 import ISemanticDriftRequestParameters from "../../../services/backendApi/models/requestParameters/ISemanticDriftRequestParameters";
 import ISemanticDriftData from "../../../models/ISemanticDriftData";
@@ -32,7 +32,7 @@ import ContextChangeChart from "./dataComponents/ContextChangeChart";
 import ISentimentRequestParameters from "../../../services/backendApi/models/requestParameters/ISentimentRequestParameters";
 import ISentimentData from "../../../models/ISentimentData";
 import SentimentChart from "./dataComponents/SentimentChart";
-import { mapSentimentTypeToPlotTypeRequestParams } from "../../../services/backendApi/models/requestParameters/SentimentPlotType";
+import { mapSentimentTypeEnumToRequestParamEnum } from "../../../services/backendApi/models/requestParameters/enums/SentimentPlotTypeRequestParameter";
 import IFrequencyData from "../../../models/IFrequencyData";
 import IFrequencyRequestParameters from "../../../services/backendApi/models/requestParameters/IFrequencyRequestParameters";
 import FrequencyChart from "./dataComponents/FrequencyChart";
@@ -55,7 +55,7 @@ export default function DataDisplays(props: IProps) {
             searchTerm: searchTerm,
             year: searchSettings.synonymListSettingsPanel.settings.year,
             numberOfClosestWords: searchSettings.synonymListSettingsPanel.settings.numberOfSynonyms,
-            method: mapSynonymListMethodToClosestSearchMethod(
+            method: mapSynonymListEnumToRequestParamEnum(
                 searchSettings.synonymListSettingsPanel.settings.method
             )
         },
@@ -100,7 +100,7 @@ export default function DataDisplays(props: IProps) {
                 searchSettings.contextNetworkSettingsPanel.settings.individualWordRelevance,
             minimumEdges: searchSettings.contextNetworkSettingsPanel.settings.minimumEdges,
             displayNodes: searchSettings.contextNetworkSettingsPanel.settings.displayNodes,
-            method: ContextNetworkMethod.COR
+            method: ContextNetworkMethodRequestParameter.COR
         },
         fetchDataFunction: fetchContextNetworkData,
         render: (data: IContextNetworkData) => <ContextNetworkGraph data={data} />
@@ -147,7 +147,7 @@ export default function DataDisplays(props: IProps) {
         title: `Sentiment`,
         params: {
             searchTerm: searchTerm,
-            plotType: mapSentimentTypeToPlotTypeRequestParams(
+            plotType: mapSentimentTypeEnumToRequestParamEnum(
                 searchSettings.sentimentSettingsPanel.settings.type
             )
         },

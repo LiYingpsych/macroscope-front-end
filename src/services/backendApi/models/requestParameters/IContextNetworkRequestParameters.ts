@@ -1,7 +1,7 @@
-import ContextNetworkMethod from "./ContextNetworkMethod";
-import DefaultRequestParameters from "./DefaultRequestParameters";
+import IDefaultRequestParameters from "./IDefaultRequestParameters";
+import ContextNetworkMethodRequestParameter from "./enums/ContextNetworkMethodRequestParameter";
 
-export default interface IContextNetworkRequestParameters extends DefaultRequestParameters {
+export default interface IContextNetworkRequestParameters extends IDefaultRequestParameters {
     year: number;
     maximumNodes: number;
     contextRelevance: number;
@@ -9,5 +9,5 @@ export default interface IContextNetworkRequestParameters extends DefaultRequest
     wordRelevance: number;
     minimumEdges: number;
     displayNodes: number;
-    method?: ContextNetworkMethod;
+    method?: ContextNetworkMethodRequestParameter;
 }

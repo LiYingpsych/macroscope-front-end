@@ -1,6 +1,6 @@
-import DefaultRequestParameters from "./DefaultRequestParameters";
+import IDefaultRequestParameters from "./IDefaultRequestParameters";
 
-export default interface ISemanticDriftRequestParameters extends DefaultRequestParameters {
+export default interface ISemanticDriftRequestParameters extends IDefaultRequestParameters {
     startYear: number;
     endYear: number;
     numberOfYearsInInterval: number;

@@ -1,6 +1,6 @@
-import DefaultRequestParameters from "./DefaultRequestParameters";
+import IDefaultRequestParameters from "./IDefaultRequestParameters";
 
-export default interface IFrequencyRequestParameters extends DefaultRequestParameters {
+export default interface IFrequencyRequestParameters extends IDefaultRequestParameters {
     matchFullWord?: boolean;
     matchStart?: boolean;
     matchMiddle?: boolean;

@@ -1,6 +1,6 @@
-import DefaultRequestParameters from "./DefaultRequestParameters";
+import IDefaultRequestParameters from "./IDefaultRequestParameters";
 
-export default interface IContextChangeRequestParameters extends DefaultRequestParameters {
+export default interface IContextChangeRequestParameters extends IDefaultRequestParameters {
     startYear: number;
     endYear: number;
     numberOfContextWords: number;
