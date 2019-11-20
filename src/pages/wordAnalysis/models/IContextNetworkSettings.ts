@@ -1,3 +1,5 @@
+import ContextNetworkMethod from "./enums/ContextNetworkMethod";
+
 export default interface IContextNetworkSettings {
     year: number;
     maximumNodes: number;
@@ -6,4 +8,5 @@ export default interface IContextNetworkSettings {
     individualWordRelevance: number;
     minimumEdges: number;
     displayNodes: number;
+    method: ContextNetworkMethod;
 }

@@ -1,4 +1,4 @@
-import SentimentType from "../../../../../pages/wordAnalysis/models/SentimentType";
+import SentimentType from "../../../../../pages/wordAnalysis/models/enums/SentimentType";
 
 enum SentimentPlotTypeRequestParameter {
     V = "V",

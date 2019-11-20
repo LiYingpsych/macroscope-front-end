@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 
 import ISettingsProps from "./ISettingsProps";
 import ISentimentSettings from "../../models/ISentimentSettings";
-import SentimentType from "../../models/SentimentType";
+import SentimentType from "../../models/enums/SentimentType";
 import IRadioButton, {
     RadioButtonValue
 } from "../../../../components/inputs/radioButton/IRadioButton";

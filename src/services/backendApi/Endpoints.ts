@@ -98,7 +98,8 @@ class Endpoints {
             new QueryParameter("contextCohesiveness", params.contextCohesiveness),
             new QueryParameter("wordRelevance", params.wordRelevance),
             new QueryParameter("minimumEdges", params.minimumEdges),
-            new QueryParameter("displayNodes", params.displayNodes)
+            new QueryParameter("displayNodes", params.displayNodes),
+            new QueryParameter("method", params.method)
         ];
 
         const response = await this.makeRequest(url, queryParams);

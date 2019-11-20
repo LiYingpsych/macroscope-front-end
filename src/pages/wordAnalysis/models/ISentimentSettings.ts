@@ -1,4 +1,4 @@
-import SentimentType from "./SentimentType";
+import SentimentType from "./enums/SentimentType";
 
 export default interface ISentimentSettings {
     type: SentimentType;

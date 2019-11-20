@@ -16,7 +16,10 @@ import {
     pageContentPadding
 } from "../../globals";
 
-import SentimentType from "./models/SentimentType";
+import SentimentType from "./models/enums/SentimentType";
+import SynonymListMethod from "./models/enums/SynonymListMethod";
+import ContextNetworkMethod from "./models/enums/ContextNetworkMethod";
+
 import ISearchSettings from "./models/ISearchSettings";
 import { getObjectFromQueryString } from "./getObjectFromQueryString";
 import { encodeQueryStringObject } from "../../utils/queryStringUtils";
@@ -25,7 +28,6 @@ import SearchBar from "../../components/SearchBar";
 import ClippedDrawer from "../../components/ClippedDrawer";
 import PageContent from "../../components/layout/PageContent";
 import SearchSettings from "./searchSettings/SearchSettings";
-import SynonymListMethod from "./models/SynonymListMethod";
 
 const useStyles = makeStyles((theme: Theme) => {
     const floatingBarWidth = `calc(100% - ${wordAnalysisDrawerWidth}px - ${theme.spacing(
@@ -92,7 +94,8 @@ const defaultSettings: ISearchSettings = {
             contextCohesiveness: 0.55,
             individualWordRelevance: 3,
             minimumEdges: 5,
-            displayNodes: 110
+            displayNodes: 110,
+            method: ContextNetworkMethod.COR
         }
     },
     semanticDriftSettingsPanel: {

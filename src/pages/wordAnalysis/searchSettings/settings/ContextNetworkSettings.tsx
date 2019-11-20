@@ -8,6 +8,11 @@ import { contextNetworkMinYear, contextNetworkMaxYear } from "../../../../global
 
 import ISettingsProps from "./ISettingsProps";
 import IContextNetworkSettings from "../../models/IContextNetworkSettings";
+import ContextNetworkMethod from "../../models/enums/ContextNetworkMethod";
+import IRadioButton, {
+    RadioButtonValue
+} from "../../../../components/inputs/radioButton/IRadioButton";
+import RadioButtonsGroup from "../../../../components/inputs/radioButton/RadioButtonsGroup";
 
 interface IProps extends ISettingsProps<IContextNetworkSettings> {}
 
@@ -28,9 +33,14 @@ export default function ContextNetworkSettings(props: IProps) {
     const minimumEdges: number[] = range(4, 6);
     const displayNodes: number[] = range(20, 200, 5);
 
+    const methodOptions: IRadioButton[] = [
+        { value: ContextNetworkMethod.COR, label: "COR" },
+        { value: ContextNetworkMethod.PMI, label: "PMI" }
+    ];
+
     const [settings, setSettings] = useState(defaultSettings);
 
-    const modifySettings = (propName: keyof IContextNetworkSettings, value: number) => {
+    const modifySettings = (propName: keyof IContextNetworkSettings, value: number | string) => {
         const modifiedSettings = { ...settings, [propName]: value };
         setSettings(modifiedSettings);
         onChange(modifiedSettings);
@@ -101,6 +111,15 @@ export default function ContextNetworkSettings(props: IProps) {
                         onValidationError={onInvalidSettings}
                         onChange={(selectedValue: number) => {
                             modifySettings("displayNodes", selectedValue);
+                        }}
+                    />
+                    <RadioButtonsGroup
+                        label="Method"
+                        options={methodOptions}
+                        defaultOptionValue={defaultSettings.method}
+                        onValidationError={onInvalidSettings}
+                        onChange={(selectedValue: RadioButtonValue) => {
+                            modifySettings("method", selectedValue);
                         }}
                     />
                 </Grid>

@@ -9,7 +9,7 @@ import { closestMaxYear, closestMinYear } from "../../../../globals";
 import ISettingsProps from "./ISettingsProps";
 import ISynonymListSettings from "../../models/ISynonymListSettings";
 import RadioButtonsGroup from "../../../../components/inputs/radioButton/RadioButtonsGroup";
-import SynonymListMethod from "../../models/SynonymListMethod";
+import SynonymListMethod from "../../models/enums/SynonymListMethod";
 import IRadioButton, {
     RadioButtonValue
 } from "../../../../components/inputs/radioButton/IRadioButton";
@@ -34,7 +34,7 @@ export default function SynonymListSettings(props: IProps) {
 
     const [settings, setSettings] = useState(defaultSettings);
 
-    const modifySettings = (propName: keyof ISynonymListSettings, value: any) => {
+    const modifySettings = (propName: keyof ISynonymListSettings, value: number | string) => {
         const modifiedSettings = { ...settings, [propName]: value };
         setSettings(modifiedSettings);
         onChange(modifiedSettings);

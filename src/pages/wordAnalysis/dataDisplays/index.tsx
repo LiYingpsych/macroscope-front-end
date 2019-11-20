@@ -20,7 +20,7 @@ import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
 import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
 import IContextNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/IContextNetworkRequestParameters";
 import IContextNetworkData from "../../../models/IContextNetworkData";
-import ContextNetworkMethodRequestParameter from "../../../services/backendApi/models/requestParameters/enums/ContextNetworkMethodRequestParameter";
+import { mapContextNetworkEnumToRequestParamEnum } from "../../../services/backendApi/models/requestParameters/enums/ContextNetworkMethodRequestParameter";
 import ContextNetworkGraph from "./dataComponents/ContextNetworkGraph";
 import ISemanticDriftRequestParameters from "../../../services/backendApi/models/requestParameters/ISemanticDriftRequestParameters";
 import ISemanticDriftData from "../../../models/ISemanticDriftData";
@@ -100,7 +100,9 @@ export default function DataDisplays(props: IProps) {
                 searchSettings.contextNetworkSettingsPanel.settings.individualWordRelevance,
             minimumEdges: searchSettings.contextNetworkSettingsPanel.settings.minimumEdges,
             displayNodes: searchSettings.contextNetworkSettingsPanel.settings.displayNodes,
-            method: ContextNetworkMethodRequestParameter.COR
+            method: mapContextNetworkEnumToRequestParamEnum(
+                searchSettings.contextNetworkSettingsPanel.settings.method
+            )
         },
         fetchDataFunction: fetchContextNetworkData,
         render: (data: IContextNetworkData) => <ContextNetworkGraph data={data} />

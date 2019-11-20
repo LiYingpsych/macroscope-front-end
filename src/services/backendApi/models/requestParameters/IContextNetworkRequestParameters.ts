@@ -9,5 +9,5 @@ export default interface IContextNetworkRequestParameters extends IDefaultReques
     wordRelevance: number;
     minimumEdges: number;
     displayNodes: number;
-    method?: ContextNetworkMethodRequestParameter;
+    method: ContextNetworkMethodRequestParameter;
 }
