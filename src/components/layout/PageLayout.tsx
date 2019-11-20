@@ -170,7 +170,7 @@ export default function PageLayout(props: IProps) {
     return (
         <div className={classes.root}>
             <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
+                <Toolbar style={{ display: "flex", alignItems: "unset" }}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -181,7 +181,7 @@ export default function PageLayout(props: IProps) {
                         <MenuIcon />
                     </IconButton>
 
-                    <div className={classnames(classes.appBarContents, classes.fullHeight)}>
+                    <div className={classnames(classes.appBarContents)}>
                         <Link href={deafultTab.route} color="inherit" underline="none">
                             <Grid container>
                                 <Grid item className={classes.logo}>
