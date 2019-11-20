@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useLocation, Route, Switch } from "react-router-dom";
+import React, { useState, ReactNode } from "react";
+import { useLocation } from "react-router-dom";
 import classnames from "classnames";
 
 import { Link as RouterLink } from "react-router-dom";
@@ -159,14 +159,6 @@ export default function PageLayout(props: IProps) {
         );
     };
 
-    const tabPanels = tabItems.map((tab, i) => {
-        return (
-            <div key={i} hidden={currentTabIndex !== i}>
-                {tab.content}
-            </div>
-        );
-    });
-
     return (
         <div className={classes.root}>
             <AppBar position="fixed" className={classes.appBar}>
@@ -227,17 +219,37 @@ export default function PageLayout(props: IProps) {
             <StickyFooter
                 content={
                     <div className={classes.content}>
-                        <Switch>
-                            <Route
-                                path={`(${tabItems.map(tab => tab.route).join("|")})`}
-                                render={() => tabPanels}
-                            />
-                            <Route component={NotFoundPage} />
-                        </Switch>
+                        {tabItems.map((tab, i) => {
+                            return (
+                                <TabPanel
+                                    key={i}
+                                    currentTabIndex={currentTabIndex}
+                                    tabPanelIndex={i}
+                                >
+                                    {tab.content}
+                                </TabPanel>
+                            );
+                        })}
+
+                        <TabPanel currentTabIndex={currentTabIndex} tabPanelIndex={-1}>
+                            <NotFoundPage />
+                        </TabPanel>
                     </div>
                 }
                 footer={<Footer />}
             />
         </div>
     );
+}
+
+interface ITabPanelProps {
+    currentTabIndex: number;
+    tabPanelIndex: number;
+    children?: ReactNode;
+}
+
+function TabPanel(props: ITabPanelProps) {
+    const { currentTabIndex, tabPanelIndex, children } = props;
+
+    return <div hidden={currentTabIndex !== tabPanelIndex}>{children}</div>;
 }
