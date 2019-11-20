@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -24,7 +25,15 @@ function getDefaultOption(options: IRadioButton[], type?: RadioButtonValue): IRa
     return firstOption;
 }
 
-export interface IRadioButtonsGroupProps {
+const useStyles = makeStyles((theme: Theme) => {
+    return createStyles({
+        root: {
+            margin: `0px ${theme.spacing(1)}px`
+        }
+    });
+});
+
+interface IProps {
     label: string;
     options: IRadioButton[];
     onChange: (value: RadioButtonValue) => void;
@@ -33,7 +42,7 @@ export interface IRadioButtonsGroupProps {
     onValidationError?: () => void;
 }
 
-export default function RadioButtonsGroup(props: IRadioButtonsGroupProps) {
+export default function RadioButtonsGroup(props: IProps) {
     const {
         label,
         options,
@@ -42,6 +51,8 @@ export default function RadioButtonsGroup(props: IRadioButtonsGroupProps) {
         defaultOptionValue,
         onValidationError = () => {}
     } = props;
+
+    const classes = useStyles();
 
     const parsedDefaultOption =
         typeof defaultOption === "undefined"
@@ -81,7 +92,7 @@ export default function RadioButtonsGroup(props: IRadioButtonsGroupProps) {
     }, [options, parsedDefaultOption, onValidationError, value]);
 
     return (
-        <FormControl component="fieldset">
+        <FormControl component="fieldset" className={classes.root}>
             <FormLabel component="legend">{label}</FormLabel>
 
             <RadioGroup value={value} onChange={handleChange}>
