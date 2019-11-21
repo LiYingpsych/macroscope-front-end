@@ -54,33 +54,18 @@ export default function NetworkGraph<T>(props: IProps<T>) {
         automaticRearrangeAfterDropNode: false,
         collapsible: false,
         directed: false,
-        height: 250
+        height: 400
     };
 
-    // React.useEffect(() => {
-    //     window.addEventListener("resize", updateWidthAndHeight);
-    //     return () => window.removeEventListener("resize", updateWidthAndHeight);
-    // });
-
-    // React.useEffect(() => {
-    //     window.addEventListener("load", updateWidthAndHeight);
-    //     return () => window.removeEventListener("load", updateWidthAndHeight);
-    // });
-
     React.useEffect(() => {
-        console.log("hello");
-        updateWidthAndHeight();
+        updateWidth();
     }, [rootElement]);
 
-    const updateWidthAndHeight = () => {
-        console.log("updateWidthAndHeight");
+    const updateWidth = () => {
         //@ts-ignore
         const currentWidth = rootElement.current.offsetWidth;
 
-        console.log(currentWidth);
-
         setWidth(currentWidth);
-        // setHeight(window.innerHeight);
     };
 
     return (

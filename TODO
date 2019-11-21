@@ -1,4 +1,3 @@
-
 CHARTS:
 * Calculate width of screen and pass to JSNetworkGraph so that the network renders in the middle of the screen
 * Move data displays from index.tsx into respective files
@@ -12,7 +11,7 @@ TO DOCUMENT:
 * svgs github logo sourced from https://svgporn.com/
 
 MAY TAKE SOME TIME:
-* Add request response caching to quickly responde to recently run requests
+* Add request response caching to quickly responde to recently run requests - this might have to be done in the api
 * Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
 * Add tests!!
 * Clicking on data display title takes you to full page view in new tab

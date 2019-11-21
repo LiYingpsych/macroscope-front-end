@@ -8,7 +8,7 @@ export default function(props) {
         <Graph
             id={id}
             data={data}
-             config={config}
+            config={config}
             //  onClickGraph={onClickGraph}
             //  onClickNode={onClickNode}
             //  onDoubleClickNode={onDoubleClickNode}
