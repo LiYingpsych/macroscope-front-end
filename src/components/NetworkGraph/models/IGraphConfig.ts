@@ -1,4 +1,5 @@
 import ID3Config from "./ID3Config";
+import INodeConfig from "./INodeConfig";
 
 // Config documentation - https://goodguydaniel.com/react-d3-graph/docs/index.html
 // TODO: in this interface all options are optional but that should not be the case
@@ -21,4 +22,5 @@ export default interface IGraphConfig {
 
     width?: number;
     d3?: ID3Config;
+    node?: INodeConfig;
 }

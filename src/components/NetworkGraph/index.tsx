@@ -1,8 +1,10 @@
 import React, { useRef, useState } from "react";
 import JSNetworkGraph from "./JSNetworkGraph";
-import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
+import { Theme, makeStyles, createStyles, useTheme } from "@material-ui/core/styles";
 import assignDefaultValuesToObject from "../../utils/assignDefaultValuesToObject";
 import IGraphConfig from "./models/IGraphConfig";
+import INetworkGraphNode from "./models/INetworkGraphNode";
+import INetworkGraphLink from "./models/INetworkGraphLink";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -22,22 +24,13 @@ interface IProps<T> {
 
 export interface IGraphData<T> {
     nodes: INetworkGraphNode<T>[];
-    links: INetworkGraphLinks<T>[];
-}
-
-interface INetworkGraphNode<T> {
-    id: T;
-    size?: number;
-}
-
-interface INetworkGraphLinks<T> {
-    source: T;
-    target: T;
+    links: INetworkGraphLink<T>[];
 }
 
 export default function NetworkGraph<T>(props: IProps<T>) {
     const { id, data, config = {} } = props;
     const classes = useStyles();
+    const theme = useTheme();
 
     const rootElement = useRef(null);
 
@@ -50,8 +43,8 @@ export default function NetworkGraph<T>(props: IProps<T>) {
         focusZoom: 1,
         focusAnimationDuration: 0.75,
         height: 400,
-        nodeHighlightBehavior: false,
-        linkHighlightBehavior: false,
+        nodeHighlightBehavior: true,
+        linkHighlightBehavior: true,
         highlightDegree: 1,
         highlightOpacity: 1,
         maxZoom: 2,
@@ -60,7 +53,31 @@ export default function NetworkGraph<T>(props: IProps<T>) {
         staticGraph: false,
         staticGraphWithDragAndDrop: false,
         d3: {
-            gravity: -200
+            alphaTarget: 0.05,
+            gravity: -200,
+            linkLength: 100
+            // linkStrength: 1 // for some reason this breaks the graph when uncommented
+        },
+        node: {
+            color: theme.palette.secondary.light,
+            fontColor: theme.palette.text.primary,
+            fontSize: +theme.typography.body1.fontSize,
+            fontWeight: "normal",
+            highlightColor: theme.palette.secondary.main,
+            highlightFontSize: +theme.typography.body1.fontSize,
+            highlightFontWeight: "bold", // nodeHighlightBehavior and linkHighlightBehavior must be true for this to work
+            highlightStrokeColor: "SAME",
+            highlightStrokeWidth: 100,
+            labelProperty: "id",
+            mouseCursor: "default",
+            opacity: 1,
+            renderLabel: true,
+            size: 200,
+            strokeColor: "none",
+            strokeWidth: 1.5,
+            svg: "",
+            symbolType: "circle",
+            viewGenerator: null
         }
     };
 
