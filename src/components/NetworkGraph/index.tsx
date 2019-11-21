@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import JSNetworkGraph from "./JSNetworkGraph";
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 import assignDefaultValuesToObject from "../../utils/assignDefaultValuesToObject";
+import IGraphConfig from "./models/IGraphConfig";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -17,14 +18,6 @@ interface IProps<T> {
     id: string;
     data: IGraphData<T>;
     config?: IGraphConfig;
-}
-
-interface IGraphConfig {
-    automaticRearrangeAfterDropNode?: boolean;
-    collapsible?: boolean;
-    directed?: boolean;
-    height?: number;
-    width?: number;
 }
 
 export interface IGraphData<T> {
@@ -48,13 +41,27 @@ export default function NetworkGraph<T>(props: IProps<T>) {
 
     const rootElement = useRef(null);
 
-    const [width, setWidth] = useState<number | undefined>(undefined);
+    const [width, setWidth] = useState<number>(0);
 
     const defaultConfig: IGraphConfig = {
         automaticRearrangeAfterDropNode: false,
         collapsible: false,
         directed: false,
-        height: 400
+        focusZoom: 1,
+        focusAnimationDuration: 0.75,
+        height: 400,
+        nodeHighlightBehavior: false,
+        linkHighlightBehavior: false,
+        highlightDegree: 1,
+        highlightOpacity: 1,
+        maxZoom: 2,
+        minZoom: 0.5,
+        panAndZoom: false,
+        staticGraph: false,
+        staticGraphWithDragAndDrop: false,
+        d3: {
+            gravity: -200
+        }
     };
 
     React.useEffect(() => {
@@ -70,13 +77,11 @@ export default function NetworkGraph<T>(props: IProps<T>) {
 
     return (
         <div className={classes.root} ref={rootElement}>
-            {typeof width === "undefined" ? null : (
-                <JSNetworkGraph
-                    id={id}
-                    data={data}
-                    config={assignDefaultValuesToObject(defaultConfig, { ...config, width: width })}
-                />
-            )}
+            <JSNetworkGraph
+                id={id}
+                data={data}
+                config={assignDefaultValuesToObject(defaultConfig, { ...config, width: width })}
+            />
         </div>
     );
 }

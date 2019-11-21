@@ -1,7 +1,7 @@
 import React from "react";
 import { Graph } from "react-d3-graph";
 
-export default function(props) {
+export default function JSNetworkGraph(props) {
     const { id, data, config } = props;
 
     return (
