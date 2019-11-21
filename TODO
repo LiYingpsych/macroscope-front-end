@@ -1,49 +1,41 @@
-* make make single preserve typing if possible
 
-* Quick consecutive searches (ie one search followed by a second search before the first has finished) - second search doesn't show that it is loading and then results suddenly show
-
-* On settings change update data displays, this should only have to load the data displays that have changed as the search term itself hasnt been changed.
-Make sure fast consecutive requests load the most up to date settings 
-
-* Add request response caching to quickly responde to recently run requests
-
-* Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
-
-* Add tests!!
-
-TO DOCUMENT
-* .env file (REACT_APP_BASE_API_URL=https://api.macroscope.tech REACT_APP_API_KEY=cNiI3wAUwlKX/tFJedwEWmIAk1RBT5y3IujdgUNq4rM= REACT_APP_NODE_ENV=production)
-* svgs sourced from https://svgporn.com/
-
-CHARTS
+CHARTS:
 * Calculate width of screen and pass to JSNetworkGraph so that the network renders in the middle of the screen
 * Move data displays from index.tsx into respective files
 * Add labels to axis
-* Add tooltips
+* Add tooltips and information on highlight
 * Add all matches to frequency chart
 * Context change "hello" isnt working
 
-NICE TO HAVE
-* Search bar word autocomplete
-* Make setting bar collapsable - make width adjustable?
-* Create .d.ts files for api request parameter and response interfaces? 
-* Add /cooccurrence data display and settings
-* Document .env
-* Add https://github.com/bvaughn/react-virtualized to tables?
-* Monetise with client side crypto mining (which is easily turned of or adjusted) and donations
-* Create svg macroscope logo
-* clicking on data display title takes you to full page view in new tab
-* proper error catching when wordanalysis query string is faulty
+TO DOCUMENT:
+* .env file (REACT_APP_BASE_API_URL=https://api.macroscope.tech REACT_APP_API_KEY=cNiI3wAUwlKX/tFJedwEWmIAk1RBT5y3IujdgUNq4rM= REACT_APP_NODE_ENV=production)
+* svgs github logo sourced from https://svgporn.com/
 
-SETTINGS
+MAY TAKE SOME TIME:
+* Add request response caching to quickly responde to recently run requests
+* Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
+* Add tests!!
+* Clicking on data display title takes you to full page view in new tab
+* Proper error catching when wordanalysis query string is faulty
+
+SETTINGS:
 * Settings with start and end year should be a range input slider
 * Frequency should have options for --match-full-word --match-start --match-middle --match-end cli flags and display lines for each with differnet colours and a key
 * Semantic drift should have options for --start-year --end-year --number-of-years-in-interval --number-of-closest-words
 
+NICE TO HAVE:
+* Search bar word autocomplete
+* Make setting bar collapsable - make width adjustable?
+* Create .d.ts files for api request parameter and response interfaces? 
+* Add /cooccurrence data display and settings
+* Add https://github.com/bvaughn/react-virtualized to tables?
+* Monetise with client side crypto mining (which is easily turned of or adjusted) and donations
+* Create svg macroscope logo
+
 TO ASK:
 * What should "score" be called in synonym table?
 
-#Jack
+FEEDBACK:
 * setting -> search features
 
 INFO:
