@@ -1,4 +1,6 @@
-export default function makeSingle(generator: (...args: any[]) => Generator<any, any, unknown>) {
+export default function makeSingle<S, T>(
+    generator: (params: S) => Generator<Promise<T>, any, unknown>
+) {
     /* 
         Allows for promises to be called multiple times and will return the value of only the most recent
         Example:
@@ -18,10 +20,10 @@ export default function makeSingle(generator: (...args: any[]) => Generator<any,
     */
 
     let globalNonce;
-    return async function(...args: any[]) {
+    return async function(params: S) {
         const localNonce = (globalNonce = {});
 
-        const iter = generator(...args);
+        const iter = generator(params);
         let resumeValue;
         for (;;) {
             const n = iter.next(resumeValue);

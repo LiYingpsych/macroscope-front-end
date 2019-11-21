@@ -65,8 +65,7 @@ export interface IDataDisplayContainerProps<S, T> {
     isDisplayed: boolean;
     title: string;
     params: S;
-    // fetchDataFunction: (params: S) => Promise<T>; // TODO: make makeSingle preserve typing information
-    fetchDataFunction: (...args: any[]) => any;
+    fetchDataFunction: (params: S) => Promise<T | undefined>;
     render: (data: T) => ReactNode;
 }
 
