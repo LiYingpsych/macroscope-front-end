@@ -7,15 +7,7 @@ import DataDisplayContainer, { IDataDisplayContainerProps } from "./DataDisplayC
 import IClosestRequestParameters from "../../../services/backendApi/models/requestParameters/IClosestRequestParameters";
 import { mapSynonymListEnumToRequestParamEnum } from "../../../services/backendApi/models/requestParameters/enums/ClosestSearchMethodRequestParameter";
 import IClosestData from "../../../models/IClosestData";
-import {
-    fetchSynonymListData,
-    fetchSynonymNetworkData,
-    fetchContextNetworkData,
-    fetchSemanticDriftData,
-    fetchContextChangeData,
-    fetchSentimentData,
-    fetchFrequencyData
-} from "./dataFetchers";
+import singleDataFetchers from "./singleDataFetchers";
 import ISynonymNetworkData from "../../../models/ISynonymNetworkData";
 import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
 import IContextNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/IContextNetworkRequestParameters";
@@ -59,7 +51,7 @@ export default function DataDisplays(props: IProps) {
                 searchSettings.synonymListSettingsPanel.settings.method
             )
         },
-        fetchDataFunction: fetchSynonymListData,
+        fetchDataFunction: singleDataFetchers.fetchSynonymListData,
         render: (data: IClosestData) => (
             <SynonymTable settings={searchSettings.synonymListSettingsPanel.settings} data={data} />
         )
@@ -79,7 +71,7 @@ export default function DataDisplays(props: IProps) {
             similarityThreshold:
                 searchSettings.synonymNetworkSettingsPanel.settings.similarityThreshold
         },
-        fetchDataFunction: fetchSynonymNetworkData,
+        fetchDataFunction: singleDataFetchers.fetchSynonymNetworkData,
         render: (data: ISynonymNetworkData) => <SynonymNetworkGraph data={data} />
     };
 
@@ -104,7 +96,7 @@ export default function DataDisplays(props: IProps) {
                 searchSettings.contextNetworkSettingsPanel.settings.method
             )
         },
-        fetchDataFunction: fetchContextNetworkData,
+        fetchDataFunction: singleDataFetchers.fetchContextNetworkData,
         render: (data: IContextNetworkData) => <ContextNetworkGraph data={data} />
     };
 
@@ -121,7 +113,7 @@ export default function DataDisplays(props: IProps) {
             numberOfYearsInInterval: 5,
             numberOfClosestWords: 10
         },
-        fetchDataFunction: fetchSemanticDriftData,
+        fetchDataFunction: singleDataFetchers.fetchSemanticDriftData,
         render: (data: ISemanticDriftData) => <SemanticDriftChart data={data} />
     };
 
@@ -138,7 +130,7 @@ export default function DataDisplays(props: IProps) {
             numberOfContextWords:
                 searchSettings.contextChangeSettingsPanel.settings.numberOfContextWords
         },
-        fetchDataFunction: fetchContextChangeData,
+        fetchDataFunction: singleDataFetchers.fetchContextChangeData,
         render: (data: IContextChangeData) => <ContextChangeChart data={data} />
     };
 
@@ -154,7 +146,7 @@ export default function DataDisplays(props: IProps) {
                 searchSettings.sentimentSettingsPanel.settings.type
             )
         },
-        fetchDataFunction: fetchSentimentData,
+        fetchDataFunction: singleDataFetchers.fetchSentimentData,
         render: (data: ISentimentData) => <SentimentChart data={data} />
     };
 
@@ -172,7 +164,7 @@ export default function DataDisplays(props: IProps) {
             matchMiddle: false,
             matchStart: false
         },
-        fetchDataFunction: fetchFrequencyData,
+        fetchDataFunction: singleDataFetchers.fetchFrequencyData,
         render: (data: IFrequencyData) => <FrequencyChart data={data} />
     };
 

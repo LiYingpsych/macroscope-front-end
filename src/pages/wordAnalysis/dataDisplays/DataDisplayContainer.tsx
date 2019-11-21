@@ -65,7 +65,8 @@ export interface IDataDisplayContainerProps<S, T> {
     isDisplayed: boolean;
     title: string;
     params: S;
-    fetchDataFunction: (params: S) => Promise<T>;
+    // fetchDataFunction: (params: S) => Promise<T>; // TODO: make makeSingle preserve typing information
+    fetchDataFunction: (...args: any[]) => any;
     render: (data: T) => ReactNode;
 }
 
@@ -93,12 +94,14 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
             try {
                 const response = await fetchDataFunction(params);
 
-                setData(response);
-                setRequestErrorMsg("");
+                if (typeof response !== "undefined") {
+                    setIsLoading(false);
+                    setData(response);
+                    setRequestErrorMsg("");
+                }
             } catch (error) {
                 const errorMsg = error.response.data;
                 setRequestErrorMsg(errorMsg);
-            } finally {
                 setIsLoading(false);
             }
         }

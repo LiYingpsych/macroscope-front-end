@@ -1,3 +1,5 @@
+* make make single preserve typing if possible
+
 * Quick consecutive searches (ie one search followed by a second search before the first has finished) - second search doesn't show that it is loading and then results suddenly show
 
 * On settings change update data displays, this should only have to load the data displays that have changed as the search term itself hasnt been changed.
