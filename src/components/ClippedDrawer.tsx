@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import { createStyles, Theme, useTheme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import { useTheme } from "@material-ui/core/styles";
 import { footerHeight } from "../globals";
 
 type anchorTye = "left" | "right";
