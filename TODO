@@ -37,5 +37,22 @@ TO ASK:
 FEEDBACK:
 * setting -> search features
 
+THOMAS COMMENTS
+1.  Place "Frequency" and "Sentiment" settings at the top by default.
+    Default them to enabled.
+
+2.  Set "automaticRearrangeAfterDropNode: true" for network graphs. 
+    For some reason, this option doesn't work when "nodeHighlightBehavior: true" - submit this as an issue to "react-d3-graph", or see if this is expected behaviour
+
+3.  This item in the email needs discussion with Thomas.
+
+3.b Add setting input tooltips - or explain each input in the manual
+
+5.  Can we get more year axis ticks on sentiment and frequency.  Perhaps at 25 year intervals.
+
+6.  "Sentiment" setting should consist of 3 switches (Valence, Arousal, Concreteness), each of which display a different coloured line on the graph.
+    What does Thomas mean by "Technically they aren’t all sentiment, which is something we needed to change from before".
+    If they aren't related to sentiment then they shouldn't be under that setting
+
 INFO:
 51.89.148.58:88 - old front end. Love, test
