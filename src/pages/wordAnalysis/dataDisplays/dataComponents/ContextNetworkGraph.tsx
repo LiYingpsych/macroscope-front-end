@@ -27,11 +27,5 @@ export default function ContextNetworkGraph(props: IProps) {
         })
     };
 
-    return (
-        <NetworkGraph
-            id="Context-network-graph"
-            data={networkGraphData}
-            config={{ automaticRearrangeAfterDropNode: true }}
-        />
-    );
+    return <NetworkGraph id="Context-network-graph" data={networkGraphData} />;
 }

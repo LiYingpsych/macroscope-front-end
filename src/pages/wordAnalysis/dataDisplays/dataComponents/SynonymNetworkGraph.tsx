@@ -26,11 +26,5 @@ export default function SynonymNetworkGraph(props: IProps) {
         })
     };
 
-    return (
-        <NetworkGraph
-            id="Synonym-network-graph"
-            data={networkGraphData}
-            config={{ automaticRearrangeAfterDropNode: true }}
-        />
-    );
+    return <NetworkGraph id="Synonym-network-graph" data={networkGraphData} />;
 }
