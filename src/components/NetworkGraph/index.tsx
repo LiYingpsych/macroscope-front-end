@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import JSNetworkGraph from "./JSNetworkGraph";
 import { Theme, makeStyles, createStyles, useTheme } from "@material-ui/core/styles";
 import assignDefaultValuesToObject from "../../utils/assignDefaultValuesToObject";
-import IGraphConfig from "./models/IGraphConfig";
 import INetworkGraphNode from "./models/INetworkGraphNode";
 import INetworkGraphLink from "./models/INetworkGraphLink";
+import IGraphConfig from "./models/configs/IGraphConfig";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -19,11 +19,11 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IProps<T> {
     id: string;
     data: IGraphData<T>;
-    config?: IGraphConfig;
+    config?: IGraphConfig<T>;
 }
 
 export interface IGraphData<T> {
-    nodes: INetworkGraphNode<T>[];
+    nodes: INetworkGraphNode[];
     links: INetworkGraphLink<T>[];
 }
 
@@ -36,7 +36,7 @@ export default function NetworkGraph<T>(props: IProps<T>) {
 
     const [width, setWidth] = useState<number>(0);
 
-    const defaultConfig: IGraphConfig = {
+    const defaultConfig: IGraphConfig<T> = {
         automaticRearrangeAfterDropNode: false,
         collapsible: false,
         directed: false,
@@ -49,9 +49,9 @@ export default function NetworkGraph<T>(props: IProps<T>) {
         highlightOpacity: 1,
         maxZoom: 2,
         minZoom: 0.5,
-        panAndZoom: false,
-        staticGraph: false,
-        staticGraphWithDragAndDrop: false,
+        panAndZoom: true,
+        staticGraph: false, // not working when true
+        staticGraphWithDragAndDrop: false, // not working true
         d3: {
             alphaTarget: 0.05,
             gravity: -200,
@@ -61,15 +61,15 @@ export default function NetworkGraph<T>(props: IProps<T>) {
         node: {
             color: theme.palette.secondary.light,
             fontColor: theme.palette.text.primary,
-            fontSize: +theme.typography.body1.fontSize,
+            fontSize: theme.typography.fontSize,
             fontWeight: "normal",
             highlightColor: theme.palette.secondary.main,
-            highlightFontSize: +theme.typography.body1.fontSize,
+            highlightFontSize: theme.typography.fontSize,
             highlightFontWeight: "bold", // nodeHighlightBehavior and linkHighlightBehavior must be true for this to work
             highlightStrokeColor: "SAME",
             highlightStrokeWidth: 100,
             labelProperty: "id",
-            mouseCursor: "default",
+            mouseCursor: "pointer",
             opacity: 1,
             renderLabel: true,
             size: 200,
@@ -78,6 +78,22 @@ export default function NetworkGraph<T>(props: IProps<T>) {
             svg: "",
             symbolType: "circle",
             viewGenerator: null
+        },
+        link: {
+            color: theme.palette.grey[400],
+            fontColor: theme.palette.text.primary,
+            fontSize: theme.typography.fontSize,
+            fontWeight: "normal",
+            highlightColor: theme.palette.secondary.main,
+            highlightFontSize: theme.typography.fontSize,
+            highlightFontWeight: "bold", // nodeHighlightBehavior and linkHighlightBehavior must be true for this to work
+            labelProperty: "id",
+            mouseCursor: "default",
+            opacity: 1,
+            renderLabel: false,
+            semanticStrokeWidth: false,
+            strokeWidth: 1.5,
+            type: "STRAIGHT"
         }
     };
 
