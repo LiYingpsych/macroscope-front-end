@@ -225,7 +225,7 @@ export default function SearchSettings(props: IProps) {
             </SwitchExpansionPanel>
 
             <SwitchExpansionPanel
-                label="Frequeny"
+                label="Frequency"
                 isOpenDefault={defaultSettings.frequencySettingsPanel.isOpen}
                 onChange={(isOpen: boolean) => {
                     onChange({
