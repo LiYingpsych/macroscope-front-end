@@ -6,6 +6,9 @@ CHARTS:
 * Add all matches to frequency chart
 * Context change "hello" isnt working
 
+ISSUES
+* Changing setting and then pressing back button should revert to previous setting. Instead something funky happens and nothing changes
+
 TO DOCUMENT:
 * .env file (REACT_APP_BASE_API_URL=https://api.macroscope.tech REACT_APP_API_KEY=cNiI3wAUwlKX/tFJedwEWmIAk1RBT5y3IujdgUNq4rM= REACT_APP_NODE_ENV=production)
 * svgs github logo sourced from https://svgporn.com/
@@ -30,6 +33,7 @@ NICE TO HAVE:
 * Add https://github.com/bvaughn/react-virtualized to tables?
 * Monetise with client side crypto mining (which is easily turned of or adjusted) and donations
 * Create svg macroscope logo
+* Data display order should be dependent on settings order
 
 TO ASK:
 * What should "score" be called in synonym table?
@@ -38,9 +42,6 @@ FEEDBACK:
 * setting -> search features
 
 THOMAS COMMENTS
-1.  Place "Frequency" and "Sentiment" settings at the top by default.
-    Default them to enabled.
-
 2.  Set "automaticRearrangeAfterDropNode: true" for network graphs. 
     For some reason, this option doesn't work when "nodeHighlightBehavior: true" - submit this as an issue to "react-d3-graph", or see if this is expected behaviour
 
@@ -53,6 +54,12 @@ THOMAS COMMENTS
 6.  "Sentiment" setting should consist of 3 switches (Valence, Arousal, Concreteness), each of which display a different coloured line on the graph.
     What does Thomas mean by "Technically they aren’t all sentiment, which is something we needed to change from before".
     If they aren't related to sentiment then they shouldn't be under that setting
+
+Done
+1.  Place "Frequency" and "Sentiment" settings at the top by default.
+    Default them to enabled.
+
+4. Frequency typo
 
 INFO:
 51.89.148.58:88 - old front end. Love, test

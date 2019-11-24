@@ -69,8 +69,18 @@ const useStyles = makeStyles((theme: Theme) => {
 
 const defaultSearchTerm: string = "";
 const defaultSettings: ISearchSettings = {
-    synonymListSettingsPanel: {
+    sentimentSettingsPanel: {
         isOpen: true,
+        settings: {
+            type: SentimentType.VALENCE
+        }
+    },
+    frequencySettingsPanel: {
+        isOpen: true,
+        settings: {}
+    },
+    synonymListSettingsPanel: {
+        isOpen: false,
         settings: {
             year: closestMaxYear,
             numberOfSynonyms: 5,
@@ -109,16 +119,6 @@ const defaultSettings: ISearchSettings = {
             endYear: contextChangeMaxYear,
             numberOfContextWords: 20
         }
-    },
-    sentimentSettingsPanel: {
-        isOpen: false,
-        settings: {
-            type: SentimentType.VALENCE
-        }
-    },
-    frequencySettingsPanel: {
-        isOpen: false,
-        settings: {}
     }
 };
 

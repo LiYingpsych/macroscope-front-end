@@ -47,6 +47,53 @@ export default function SearchSettings(props: IProps) {
     return (
         <div className={classes.root}>
             <SwitchExpansionPanel
+                label="Sentiment"
+                isOpenDefault={defaultSettings.sentimentSettingsPanel.isOpen}
+                onChange={(isOpen: boolean) => {
+                    onChange({
+                        ...defaultSettings,
+                        sentimentSettingsPanel: {
+                            ...defaultSettings.sentimentSettingsPanel,
+                            isOpen: isOpen
+                        }
+                    });
+                }}
+                error={sentimentError}
+            >
+                <SentimentSettings
+                    defaultSettings={defaultSettings.sentimentSettingsPanel.settings}
+                    onInvalidSettings={() => {
+                        setSentimentError(true);
+                    }}
+                    onChange={(settings: ISentimentSettings) => {
+                        setSentimentError(false);
+
+                        onChange({
+                            ...defaultSettings,
+                            sentimentSettingsPanel: {
+                                ...defaultSettings.sentimentSettingsPanel,
+                                settings: settings
+                            }
+                        });
+                    }}
+                />
+            </SwitchExpansionPanel>
+
+            <SwitchExpansionPanel
+                label="Frequency"
+                isOpenDefault={defaultSettings.frequencySettingsPanel.isOpen}
+                onChange={(isOpen: boolean) => {
+                    onChange({
+                        ...defaultSettings,
+                        frequencySettingsPanel: {
+                            ...defaultSettings.frequencySettingsPanel,
+                            isOpen: isOpen
+                        }
+                    });
+                }}
+            ></SwitchExpansionPanel>
+
+            <SwitchExpansionPanel
                 label="Synonym list"
                 isOpenDefault={defaultSettings.synonymListSettingsPanel.isOpen}
                 onChange={(isOpen: boolean) => {
@@ -190,53 +237,6 @@ export default function SearchSettings(props: IProps) {
                     }}
                 />
             </SwitchExpansionPanel>
-
-            <SwitchExpansionPanel
-                label="Sentiment"
-                isOpenDefault={defaultSettings.sentimentSettingsPanel.isOpen}
-                onChange={(isOpen: boolean) => {
-                    onChange({
-                        ...defaultSettings,
-                        sentimentSettingsPanel: {
-                            ...defaultSettings.sentimentSettingsPanel,
-                            isOpen: isOpen
-                        }
-                    });
-                }}
-                error={sentimentError}
-            >
-                <SentimentSettings
-                    defaultSettings={defaultSettings.sentimentSettingsPanel.settings}
-                    onInvalidSettings={() => {
-                        setSentimentError(true);
-                    }}
-                    onChange={(settings: ISentimentSettings) => {
-                        setSentimentError(false);
-
-                        onChange({
-                            ...defaultSettings,
-                            sentimentSettingsPanel: {
-                                ...defaultSettings.sentimentSettingsPanel,
-                                settings: settings
-                            }
-                        });
-                    }}
-                />
-            </SwitchExpansionPanel>
-
-            <SwitchExpansionPanel
-                label="Frequency"
-                isOpenDefault={defaultSettings.frequencySettingsPanel.isOpen}
-                onChange={(isOpen: boolean) => {
-                    onChange({
-                        ...defaultSettings,
-                        frequencySettingsPanel: {
-                            ...defaultSettings.frequencySettingsPanel,
-                            isOpen: isOpen
-                        }
-                    });
-                }}
-            ></SwitchExpansionPanel>
 
             {/* TODO: Turn validation error message into toast popup thing? */}
             <ValidationErrorMessage
