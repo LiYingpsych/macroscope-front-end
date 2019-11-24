@@ -45,6 +45,8 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
         onValidationError = () => {}
     } = props;
 
+    const labelAsId = label.replace(" ", "-");
+
     const [errorHelperText, setErrorHelperText] = useState("");
 
     const clearError = () => {
@@ -101,16 +103,19 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
                 labelWidth={_labelWidth}
                 inputProps={{
                     name: label,
-                    id: `${label}-select`
+                    id: `${labelAsId}-select`
                 }}
             >
                 {options.map((option: ISelectionOption<T>) => {
                     return native ? (
-                        <option value={option.value} key={`${label}-menu-item-${option.value}`}>
+                        <option value={option.value} key={`${labelAsId}-menu-item-${option.value}`}>
                             {option.label}
                         </option>
                     ) : (
-                        <MenuItem value={option.value} key={`${label}-menu-item-${option.value}`}>
+                        <MenuItem
+                            value={option.value}
+                            key={`${labelAsId}-menu-item-${option.value}`}
+                        >
                             {option.label}
                         </MenuItem>
                     );
@@ -127,7 +132,7 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
                     className={classes.formControl}
                     error={errorHelperText !== ""}
                 >
-                    <InputLabel ref={inputLabel} htmlFor={`${label}-select`}>
+                    <InputLabel ref={inputLabel} htmlFor={`${labelAsId}-select`}>
                         {label}
                     </InputLabel>
                     {selectComponent(false)}
@@ -141,7 +146,7 @@ export default function SelectionInput<T extends OptionValue>(props: IProps<T>) 
                     className={classes.formControl}
                     error={errorHelperText !== ""}
                 >
-                    <InputLabel ref={nativeInputLabel} htmlFor={`native-${label}-select`}>
+                    <InputLabel ref={nativeInputLabel} htmlFor={`native-${labelAsId}-select`}>
                         {label}
                     </InputLabel>
                     {selectComponent(true)}
