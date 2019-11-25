@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { VictoryChart } from "victory";
+import { VictoryChart, VictoryChartProps } from "victory";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import victoryThemes from "../../themes/victoryThemes";
 
@@ -16,16 +16,19 @@ const useStyles = makeStyles(() =>
     })
 );
 
-interface IProps {
+interface IProps extends VictoryChartProps {
     children?: ReactNode;
-    horizontal?: boolean;
-    height?: number;
-    width?: number;
 }
 
 export default function ChartWrapper(props: IProps) {
     const classes = useStyles();
-    const { horizontal = false, height = 500, width = 809, children = <div></div> } = props;
+    const {
+        horizontal = false,
+        height = 500,
+        width = 809,
+        children = <div></div>,
+        ...rest
+    } = props;
 
     return (
         <div className={classes.root}>
@@ -34,6 +37,7 @@ export default function ChartWrapper(props: IProps) {
                 width={width}
                 theme={victoryThemes.defaultTheme}
                 horizontal={horizontal}
+                {...rest}
             >
                 {children}
             </VictoryChart>

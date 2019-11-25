@@ -1,4 +1,4 @@
 export default interface ICoord {
-    x: number;
+    x: number | Date;
     y: number;
 }
