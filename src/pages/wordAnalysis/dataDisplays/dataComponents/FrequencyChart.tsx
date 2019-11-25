@@ -13,8 +13,8 @@ export default function FrequencyChart(props: IProps) {
         <LineChart
             type="dateTime"
             lines={[
-                { coords: data.frequencyCoords.matchEnd },
                 { coords: data.frequencyCoords.matchFullWord },
+                { coords: data.frequencyCoords.matchEnd },
                 { coords: data.frequencyCoords.matchMiddle },
                 { coords: data.frequencyCoords.matchStart }
             ]}

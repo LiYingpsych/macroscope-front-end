@@ -9,6 +9,7 @@ import {
     VictoryAxisProps
 } from "victory";
 import ICartesianCoordinate from "./models/ICartesianCoordinate";
+import { chartColours } from "../../themes/colours";
 
 interface ILine<S, T> {
     coords: ICartesianCoordinate<S, T>[];
@@ -42,9 +43,13 @@ export default function LineChart<S, T>(props: IProps<S, T>) {
         setZoomDomain(domain);
     };
 
-    const LinesComponent = lines.map((line, i) => {
-        return <VictoryLine data={line.coords} key={i} />;
-    });
+    const LinesComponent = lines.map((line, i) => (
+        <VictoryLine
+            style={{ data: { stroke: chartColours[i % chartColours.length].main } }}
+            data={line.coords}
+            key={i}
+        />
+    ));
 
     return (
         <>
