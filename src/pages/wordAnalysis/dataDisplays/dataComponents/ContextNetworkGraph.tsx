@@ -1,6 +1,6 @@
 import React from "react";
 
-import NetworkGraph, { IGraphData } from "../../../../components/NetworkGraph";
+import NetworkGraph, { IGraphData } from "../../../../components/networkGraph";
 import IContextNetworkData, {
     IContextNetworkNode,
     IContextNetworkEdge
