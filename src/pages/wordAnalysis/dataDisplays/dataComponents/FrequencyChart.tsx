@@ -1,5 +1,5 @@
 import React from "react";
-import ChartWrapper from "./victoryCharts/ChartWrapper";
+import ChartWrapper from "../../../../components/victoryCharts/ChartWrapper";
 import { VictoryLine, VictoryAxis } from "victory";
 import IFrequencyData from "../../../../models/IFrequencyData";
 

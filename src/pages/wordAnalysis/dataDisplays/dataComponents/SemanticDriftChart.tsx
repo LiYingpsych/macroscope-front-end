@@ -1,7 +1,7 @@
 import React from "react";
 import { VictoryScatter } from "victory";
 import ISemanticDriftData from "../../../../models/ISemanticDriftData";
-import ChartWrapper from "./victoryCharts/ChartWrapper";
+import ChartWrapper from "../../../../components/victoryCharts/ChartWrapper";
 
 interface IProps {
     data: ISemanticDriftData;

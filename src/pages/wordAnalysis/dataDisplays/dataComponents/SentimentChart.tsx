@@ -1,6 +1,6 @@
 import React from "react";
 import ISentimentData from "../../../../models/ISentimentData";
-import ChartWrapper from "./victoryCharts/ChartWrapper";
+import ChartWrapper from "../../../../components/victoryCharts/ChartWrapper";
 import { VictoryLine, VictoryAxis } from "victory";
 
 interface IProps {

@@ -1,7 +1,7 @@
 import React from "react";
 import { VictoryBar, VictoryAxis } from "victory";
 import IContextChangeData, { IContextChangeWord } from "../../../../models/IContextChangeData";
-import ChartWrapper from "./victoryCharts/ChartWrapper";
+import ChartWrapper from "../../../../components/victoryCharts/ChartWrapper";
 
 interface IProps {
     data: IContextChangeData;
