@@ -3,22 +3,38 @@ import ChartWrapper from "./ChartWrapper";
 import {
     VictoryAxis,
     VictoryLine,
-    VictoryBrushContainer,
     DomainPropType,
-    VictoryZoomContainer
+    VictoryZoomContainer,
+    VictoryBrushContainer,
+    VictoryAxisProps
 } from "victory";
-import ICoord from "../../models/ICoord";
+import ICartesianCoordinate from "./models/ICartesianCoordinate";
 
-interface ILine {
-    coords: ICoord[];
+interface ILine<S, T> {
+    coords: ICartesianCoordinate<S, T>[];
 }
 
-interface IProps {
-    lines: ILine[];
+type lineChartType = "dateTime" | "default";
+
+interface IProps<S, T> {
+    lines: ILine<S, T>[];
+    type?: lineChartType;
+    dependentAxisProps?: VictoryAxisProps;
+    independentAxisProps?: VictoryAxisProps;
 }
 
-export default function LineChart(props: IProps) {
-    const { lines } = props;
+export default function LineChart<S, T>(props: IProps<S, T>) {
+    const {
+        lines,
+        type = "default",
+        dependentAxisProps,
+        independentAxisProps = { tickFormat: undefined }
+    } = props;
+
+    const independentAxisTickFormat =
+        type === "dateTime"
+            ? (x: any) => new Date(x, 0).getFullYear()
+            : independentAxisProps.tickFormat;
 
     const [zoomDomain, setZoomDomain] = useState<DomainPropType>();
 
@@ -26,8 +42,8 @@ export default function LineChart(props: IProps) {
         setZoomDomain(domain);
     };
 
-    const LinesComponent = lines.map(line => {
-        return <VictoryLine data={line.coords} />;
+    const LinesComponent = lines.map((line, i) => {
+        return <VictoryLine data={line.coords} key={i} />;
     });
 
     return (
@@ -41,15 +57,14 @@ export default function LineChart(props: IProps) {
                     />
                 }
             >
-                <VictoryAxis dependentAxis />
-                <VictoryAxis tickFormat={t => `${t}`} />
+                <VictoryAxis dependentAxis {...dependentAxisProps} />
+                <VictoryAxis {...independentAxisProps} tickFormat={independentAxisTickFormat} />
 
                 {LinesComponent}
             </ChartWrapper>
             <ChartWrapper
                 padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
                 height={100}
-                scale={{ x: "time" }}
                 containerComponent={
                     <VictoryBrushContainer
                         brushDimension="x"
@@ -58,7 +73,7 @@ export default function LineChart(props: IProps) {
                     />
                 }
             >
-                <VictoryAxis tickFormat={x => new Date(x).getFullYear()} />
+                <VictoryAxis tickFormat={independentAxisTickFormat} />
                 {LinesComponent}
             </ChartWrapper>
         </>
@@ -76,7 +91,7 @@ export default function LineChart(props: IProps) {
 //   />
 //   <VictoryScatter
 //     symbol="star"
-//     size={8}
+//     size={8}npm start
 //     style={{ data: { fill: "red" }}}
 //     data={[{ x: 5, y: 5 }]}
 //   />

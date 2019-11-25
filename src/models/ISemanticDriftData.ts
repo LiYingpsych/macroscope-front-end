@@ -1,5 +1,5 @@
 import IWord from "./IWord";
-import ICoord from "./ICoord";
+import ICartesianCoordinate from "../components/victoryCharts/models/ICartesianCoordinate";
 
 export default interface ISemanticDriftData {
     readonly primaryWord: IWord;
@@ -13,10 +13,10 @@ interface ISemanticDrift {
 
 interface IYearPoint {
     readonly year: number;
-    readonly coord: ICoord;
+    readonly coord: ICartesianCoordinate<number, number>;
 }
 
 interface IContextWordPoint {
     readonly word: IWord;
-    readonly coord: ICoord;
+    readonly coord: ICartesianCoordinate<number, number>;
 }

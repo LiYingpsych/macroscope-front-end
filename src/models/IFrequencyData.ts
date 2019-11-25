@@ -1,5 +1,5 @@
 import IWord from "./IWord";
-import ICoord from "./ICoord";
+import ICartesianCoordinate from "../components/victoryCharts/models/ICartesianCoordinate";
 
 export default interface IFrequencyData {
     readonly primaryWord: IWord;
@@ -7,8 +7,8 @@ export default interface IFrequencyData {
 }
 
 interface IFrequencyCoords {
-    readonly matchFullWord: ICoord[];
-    readonly matchStart: ICoord[];
-    readonly matchMiddle: ICoord[];
-    readonly matchEnd: ICoord[];
+    readonly matchFullWord: ICartesianCoordinate<number, number>[];
+    readonly matchStart: ICartesianCoordinate<number, number>[];
+    readonly matchMiddle: ICartesianCoordinate<number, number>[];
+    readonly matchEnd: ICartesianCoordinate<number, number>[];
 }
