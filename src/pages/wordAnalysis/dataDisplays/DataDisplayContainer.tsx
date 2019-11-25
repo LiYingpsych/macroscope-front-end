@@ -99,6 +99,8 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
                     setRequestErrorMsg("");
                 }
             } catch (error) {
+                if (typeof error.response === "undefined") throw error;
+
                 const errorMsg = error.response.data;
                 setRequestErrorMsg(errorMsg);
                 setIsLoading(false);
