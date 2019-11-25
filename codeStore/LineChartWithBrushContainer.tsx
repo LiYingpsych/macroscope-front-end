@@ -20,63 +20,7 @@ interface IProps {
 export default function LineChart(props: IProps) {
     const { lines } = props;
 
-    // https://stackoverflow.com/questions/8864430/compare-javascript-array-of-objects-to-get-min-max
-    // TODO: Extract the following getMinMax functions into coord class? It should at least be extracted
-    const getMinXValue = (coords: ICoord[]) => {
-        return coords.reduce(function(prev, curr) {
-            return prev.x < curr.x ? prev : curr;
-        });
-    };
-
-    const getMaxXValue = (coords: ICoord[]) => {
-        return coords.reduce(function(prev, curr) {
-            return prev.x > curr.x ? prev : curr;
-        });
-    };
-
-    const getMinXValueInAllLines = (lines: ILine[]) => {
-        let min = getMinXValue(lines[0].coords).x;
-
-        for (let index = 1; index < lines.length; index++) {
-            const line = lines[index];
-
-            const minX = getMinXValue(line.coords).x;
-
-            if (minX < min) min = minX;
-        }
-
-        return min;
-    };
-
-    const getMaxXValueInAllLines = (lines: ILine[]) => {
-        let max = getMaxXValue(lines[0].coords).x;
-
-        for (let index = 1; index < lines.length; index++) {
-            const line = lines[index];
-
-            const maxX = getMaxXValue(line.coords).x;
-
-            if (maxX > max) max = maxX;
-        }
-
-        return max;
-    };
-
-    const getDomain = (lines: ILine[]): DomainPropType => {
-        let linesToParse = [];
-
-        for (let index = 0; index < lines.length; index++) {
-            const line = lines[index];
-
-            if (line.coords.length !== 0) linesToParse.push(line);
-        }
-
-        return {
-            x: [getMinXValueInAllLines(linesToParse), getMaxXValueInAllLines(linesToParse)]
-        } as DomainPropType;
-    };
-
-    const [zoomDomain, setZoomDomain] = useState<DomainPropType>(getDomain(lines));
+    const [zoomDomain, setZoomDomain] = useState<DomainPropType>();
 
     const handleZoom = (domain: DomainPropType) => {
         setZoomDomain(domain);
