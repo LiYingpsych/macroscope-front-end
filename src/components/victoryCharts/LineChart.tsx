@@ -4,8 +4,6 @@ import {
     VictoryAxis,
     VictoryLine,
     DomainPropType,
-    VictoryZoomContainer,
-    VictoryBrushContainer,
     VictoryAxisProps,
     VictoryLabel,
     VictoryScatter,
@@ -17,6 +15,7 @@ import { chartColours } from "../../themes/colours";
 import Lines from "./Lines";
 import ICartesianCoordinate, { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
 import { useTheme } from "@material-ui/core/styles";
+import useZoomable from "./hooks/useZoomable";
 
 type lineChartType = "zoomable" | "default";
 type dependentAxisType = "dateTime" | "default";
@@ -40,6 +39,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
     const theme = useTheme();
 
     const padding = { left: 60, top: 50, right: 10, bottom: 60 };
+
     const independentAxisTickFormat =
         dependentAxisType === "dateTime"
             ? (x: any) => new Date(x, 0).getFullYear()
@@ -83,18 +83,11 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         };
     };
 
-    const [zoomDomain, setZoomDomain] = useState<DomainPropType>();
-    const handleZoom = (domain: DomainPropType) => {
-        setZoomDomain(domain);
-    };
+    const { zoomableContainerComponent, ZoomableBrush } = useZoomable();
 
     const containerComponent =
         type === "zoomable" ? (
-            <VictoryZoomContainer
-                zoomDimension="x"
-                zoomDomain={zoomDomain}
-                onZoomDomainChange={handleZoom}
-            />
+            zoomableContainerComponent
         ) : (
             <VictoryCursorContainer
                 onCursorChange={handleCursorChange}
@@ -171,20 +164,11 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                     : null}
             </ChartWrapper>
             {type === "zoomable" ? (
-                <ChartWrapper
+                <ZoomableBrush
                     padding={{ top: 0, left: padding.left, right: padding.right, bottom: 30 }}
-                    height={100}
-                    containerComponent={
-                        <VictoryBrushContainer
-                            brushDimension="x"
-                            brushDomain={zoomDomain}
-                            onBrushDomainChange={handleZoom}
-                        />
-                    }
                 >
-                    <VictoryAxis tickFormat={(t: any) => ""} />
                     {LinesComponent}
-                </ChartWrapper>
+                </ZoomableBrush>
             ) : null}
         </>
     );
