@@ -61,7 +61,7 @@ export default function useLineChartCursorIndicator<S extends xCoordType, T exte
                 <VictoryLine
                     domain={getDomain()}
                     style={{
-                        data: { stroke: theme.palette.grey[600], strokeWidth: 1 },
+                        data: { stroke: theme.palette.grey[300], strokeWidth: 1 },
                         labels: {
                             fill: theme.palette.secondary.main,
                             fontWeight: theme.typography.fontWeightBold,
