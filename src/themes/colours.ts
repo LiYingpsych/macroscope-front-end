@@ -24,21 +24,29 @@ type IShadeNumber = "50" | "100" | "200" | "300" | "400" | "500" | "600" | "700"
 interface IOptions {
     main?: IShadeNumber;
     hover?: IShadeNumber;
+    intersectionDot?: IShadeNumber;
 }
 
 interface IChartColour {
     main: string;
     hover: string;
+    intersectionDot: string;
 }
 
 function convertToChartColour(colour: Color, options?: IOptions) {
     const defaultMainShade = "700";
-    const defaultHoverShade = "900";
+    const defaultHoverShade = "500";
+    const defaultIntersectionDotShade = "900";
 
     const parsedOptions: IOptions =
         typeof options === "undefined"
-            ? { main: defaultMainShade, hover: defaultHoverShade }
+            ? {
+                  main: defaultMainShade,
+                  hover: defaultHoverShade,
+                  intersectionDot: defaultIntersectionDotShade
+              }
             : options;
+
     return {
         main:
             colour[
@@ -47,12 +55,18 @@ function convertToChartColour(colour: Color, options?: IOptions) {
         hover:
             colour[
                 typeof parsedOptions.hover === "undefined" ? defaultHoverShade : parsedOptions.hover
+            ],
+        intersectionDot:
+            colour[
+                typeof parsedOptions.intersectionDot === "undefined"
+                    ? defaultIntersectionDotShade
+                    : parsedOptions.intersectionDot
             ]
     };
 }
 
 export const chartColours: IChartColour[] = [
-    convertToChartColour(blueGrey, { main: "800", hover: "500" }),
+    convertToChartColour(blueGrey, { main: "800" }),
     convertToChartColour(deepOrange),
     convertToChartColour(amber),
     convertToChartColour(cyan),
