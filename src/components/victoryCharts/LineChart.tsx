@@ -16,6 +16,7 @@ import {
 import { chartColours } from "../../themes/colours";
 import Lines from "./Lines";
 import ICartesianCoordinate, { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
+import { useTheme } from "@material-ui/core/styles";
 
 type lineChartType = "dateTime" | "default";
 
@@ -33,6 +34,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         dependentAxisProps,
         independentAxisProps = { tickFormat: undefined }
     } = props;
+    const theme = useTheme();
 
     const padding = { left: 60, top: 50, right: 10, bottom: 60 };
     const independentAxisTickFormat =
@@ -129,8 +131,8 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                     <VictoryLine
                         domain={getDomain()}
                         style={{
-                            data: { stroke: "red", strokeWidth: 1 },
-                            labels: { fill: "red", fontSize: 20 }
+                            data: { stroke: theme.palette.grey[500], strokeWidth: 1 }
+                            // labels: { fill: "red", fontSize: 20 }
                         }}
                         x={() => cursorClosestXCoordinate as number}
                         // --- For some reason removing the following lines result in a bug ---
@@ -140,13 +142,19 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                     />
                 )}
                 {typeof cursorClosestXCoordinate === "undefined" ||
-                cursorClosestXCoordinate === null ? null : (
-                    <VictoryScatter
-                        size={3}
-                        style={{ data: { fill: "red" } }}
-                        data={intersectionCoords}
-                    />
-                )}
+                cursorClosestXCoordinate === null ||
+                typeof intersectionCoords === "undefined"
+                    ? null
+                    : intersectionCoords.map((coord, i) => {
+                          return (
+                              <VictoryScatter
+                                  key={i}
+                                  size={4}
+                                  style={{ data: { fill: chartColours[i].main } }}
+                                  data={[coord]}
+                              />
+                          );
+                      })}
             </ChartWrapper>
             {/* <ChartWrapper
                 padding={{ top: 0, left: padding.left, right: padding.right, bottom: 30 }}
