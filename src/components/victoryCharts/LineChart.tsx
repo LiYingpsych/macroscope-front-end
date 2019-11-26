@@ -1,21 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import ChartWrapper, { ILegendDataProp } from "./ChartWrapper";
-import {
-    VictoryAxis,
-    VictoryLine,
-    DomainPropType,
-    VictoryAxisProps,
-    VictoryLabel,
-    VictoryScatter,
-    VictoryCursorContainer,
-    CursorData,
-    VictoryCursorContainerProps
-} from "victory";
+import { VictoryAxis, VictoryLine, VictoryAxisProps, VictoryLabel } from "victory";
 import { chartColours } from "../../themes/colours";
 import Lines from "./Lines";
-import ICartesianCoordinate, { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
-import { useTheme } from "@material-ui/core/styles";
+import { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
+
 import useZoomable from "./hooks/useZoomable";
+import useLineChartCursorIndicator from "./hooks/useLineChartCursorIndicator";
 
 type lineChartType = "zoomable" | "default";
 type dependentAxisType = "dateTime" | "default";
@@ -36,7 +27,6 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         dependentAxisProps,
         independentAxisProps = { tickFormat: undefined }
     } = props;
-    const theme = useTheme();
 
     const padding = { left: 60, top: 50, right: 10, bottom: 60 };
 
@@ -58,96 +48,28 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         );
     });
 
-    const [cursorClosestXCoordinate, setCursorClosestXCoordinate] = useState<S | null>();
-    const [intersectionCoords, setIntersectionCoords] = useState<ICartesianCoordinate<S, T>[]>();
-
-    // TODO: submit issue - value returned depends on cursorDimension value when it should still return a CursorData prop
-    const handleCursorChange = (value: CursorData, props: VictoryCursorContainerProps) => {
-        if (typeof value === "undefined" || value === null) setCursorClosestXCoordinate(null);
-        else {
-            const _closestX = lines.getClosestXCoordinate(value.x as S);
-            setCursorClosestXCoordinate(_closestX);
-            updateIntersectionCoordinates(_closestX);
-        }
-    };
-
-    const updateIntersectionCoordinates = (x: S) => {
-        const _intersectionCoords = lines.getYIntersectionCoordinates(x);
-        setIntersectionCoords(_intersectionCoords);
-    };
-
-    const getDomain = (): DomainPropType => {
-        return {
-            x: [lines.domain.xMin as number, lines.domain.xMax as number],
-            y: [lines.domain.yMin as number, lines.domain.yMax as number]
-        };
-    };
-
     const { zoomableContainerComponent, zoomableBrushComponent } = useZoomable({
         padding: { top: 0, left: padding.left, right: padding.right, bottom: 30 },
         children: LinesComponent
     });
 
-    const containerComponent =
-        type === "zoomable" ? (
-            zoomableContainerComponent
-        ) : (
-            <VictoryCursorContainer
-                onCursorChange={handleCursorChange}
-                cursorComponent={<div style={{ display: "none" }}></div>}
-            />
-        );
-
-    const defaultChartCursorLine =
-        typeof cursorClosestXCoordinate === "undefined" ||
-        cursorClosestXCoordinate === null ? null : (
-            <VictoryLine
-                domain={getDomain()}
-                style={{
-                    data: { stroke: theme.palette.grey[600], strokeWidth: 1 },
-                    labels: {
-                        fill: theme.palette.secondary.main,
-                        fontWeight: theme.typography.fontWeightBold,
-                        fontSize: theme.typography.fontSize
-                    }
-                }}
-                x={() => cursorClosestXCoordinate as number}
-                // --- For some reason removing the following lines result in a bug ---
-                labels={[cursorClosestXCoordinate.toString()]}
-                labelComponent={<VictoryLabel renderInPortal dy={16} />}
-                // --- ----
-            />
-        );
-    const defaultChartCursorIntersectionPoints =
-        typeof cursorClosestXCoordinate === "undefined" ||
-        cursorClosestXCoordinate === null ||
-        typeof intersectionCoords === "undefined"
-            ? null
-            : intersectionCoords.map((coord, i) => {
-                  return (
-                      <VictoryScatter
-                          key={i}
-                          size={4}
-                          style={{ data: { fill: chartColours[i].intersectionDot } }}
-                          data={[coord]}
-                      />
-                  );
-              });
+    const {
+        lineChartCursorIndicatorContainerComponent,
+        lineChartCursorIndicatorLine,
+        lineChartCursorIndicatorIntersectionPoints,
+        lineChartCursorIndicatorYValueDisplay
+    } = useLineChartCursorIndicator({ lines });
 
     return (
         <>
-            {typeof intersectionCoords === "undefined"
-                ? null
-                : intersectionCoords.map((coord, i) => {
-                      return (
-                          <div key={i} style={{ color: chartColours[i].main }}>
-                              {coord.x}, {coord.y}
-                          </div>
-                      );
-                  })}
+            {type === "default" ? lineChartCursorIndicatorYValueDisplay : null}
             <ChartWrapper
                 padding={padding}
-                containerComponent={containerComponent}
+                containerComponent={
+                    type === "zoomable"
+                        ? zoomableContainerComponent
+                        : lineChartCursorIndicatorContainerComponent
+                }
                 legendData={legendData}
             >
                 <VictoryAxis
@@ -163,7 +85,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
 
                 {LinesComponent}
                 {type === "default"
-                    ? [defaultChartCursorLine, defaultChartCursorIntersectionPoints]
+                    ? [lineChartCursorIndicatorLine, lineChartCursorIndicatorIntersectionPoints]
                     : null}
             </ChartWrapper>
             {type === "zoomable" ? zoomableBrushComponent : null}
