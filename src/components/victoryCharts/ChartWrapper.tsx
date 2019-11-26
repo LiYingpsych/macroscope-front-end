@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { VictoryChart, VictoryChartProps, VictoryLegend } from "victory";
+import { VictoryChart, VictoryChartProps, VictoryLegend, BlockProps } from "victory";
 import { createStyles, useTheme, makeStyles } from "@material-ui/core/styles";
 import victoryThemes from "../../themes/victoryThemes";
 
@@ -27,6 +27,7 @@ export interface ILegendDataProp {
 interface IProps extends VictoryChartProps {
     children?: ReactNode;
     legendData?: ILegendDataProp[];
+    padding?: BlockProps;
 }
 
 export default function ChartWrapper(props: IProps) {
@@ -36,6 +37,7 @@ export default function ChartWrapper(props: IProps) {
     const {
         children = <div></div>,
         legendData = [],
+        padding = { left: 50, top: 50, right: 10, bottom: 50 },
         horizontal = false,
         height = 500,
         width = 809,
@@ -44,7 +46,12 @@ export default function ChartWrapper(props: IProps) {
 
     const Legend =
         legendData.length > 1 ? (
-            <VictoryLegend x={40} orientation="horizontal" itemsPerRow={5} data={legendData} />
+            <VictoryLegend
+                x={padding.left}
+                orientation="horizontal"
+                itemsPerRow={5}
+                data={legendData}
+            />
         ) : null;
 
     return (
@@ -54,6 +61,7 @@ export default function ChartWrapper(props: IProps) {
                 width={width}
                 theme={victoryThemes.defaultTheme(muiTheme)}
                 horizontal={horizontal}
+                padding={padding}
                 {...rest}
             >
                 {Legend}
