@@ -108,7 +108,8 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
 
                 {LinesComponent}
 
-                {cursorClosestXCoordinate === null ? null : (
+                {typeof cursorClosestXCoordinate === "undefined" ||
+                cursorClosestXCoordinate === null ? null : (
                     <VictoryLine
                         domain={getDomain()}
                         style={{
