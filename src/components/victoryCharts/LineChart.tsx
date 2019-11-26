@@ -13,24 +13,20 @@ import {
     CursorData,
     VictoryCursorContainerProps
 } from "victory";
-import ICartesianCoordinate from "./models/ICartesianCoordinate";
 import { chartColours } from "../../themes/colours";
-
-interface ILine<S, T> {
-    coords: ICartesianCoordinate<S, T>[];
-    legendLabel: string;
-}
+import Lines from "./Lines";
+import { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
 
 type lineChartType = "dateTime" | "default";
 
-interface IProps<S, T> {
-    lines: ILine<S, T>[];
+interface IProps<S extends xCoordType, T extends yCoordType> {
+    lines: Lines<S, T>;
     type?: lineChartType;
     dependentAxisProps?: VictoryAxisProps;
     independentAxisProps?: VictoryAxisProps;
 }
 
-export default function LineChart<S, T>(props: IProps<S, T>) {
+export default function LineChart<S extends xCoordType, T extends yCoordType>(props: IProps<S, T>) {
     const {
         lines,
         type = "default",
@@ -46,7 +42,7 @@ export default function LineChart<S, T>(props: IProps<S, T>) {
 
     let legendData: ILegendDataProp[] = [];
 
-    const LinesComponent = lines.map((line, i) => {
+    const LinesComponent = lines.items.map((line, i) => {
         const strokeColour = chartColours[i % chartColours.length].main;
 
         if (line.coords.length > 0)
@@ -57,21 +53,18 @@ export default function LineChart<S, T>(props: IProps<S, T>) {
         );
     });
 
-    // type cursorDimensionType = "x" | "y" | undefined;
-    // const cursorDimension: cursorDimensionType = "x";
     const [cursorCoordinate, setCursorCoordinate] = useState<CursorData>();
 
     // TODO: submit issue - value returned depends on cursorDimension value when it should still return a CursorData prop
     const handleCursorChange = (value: CursorData, props: VictoryCursorContainerProps) => {
-        console.log(value);
         setCursorCoordinate(value);
-        // if (typeof cursorDimension === "undefined") setCursorCoordinate({ x: value.x, y: value.y });
-        // else if (cursorDimension === "x")
-        //     //@ts-ignore
-        //     setCursorCoordinate({ x: value, y: undefined });
-        // else if (cursorDimension === "y")
-        //     //@ts-ignore
-        //     setCursorCoordinate({ x: undefined, y: value });
+    };
+
+    const getDomain = (): DomainPropType => {
+        return {
+            x: [lines.domain.xMin as number, lines.domain.xMax as number],
+            y: [lines.domain.yMin as number, lines.domain.yMax as number]
+        };
     };
 
     // const [zoomDomain, setZoomDomain] = useState<DomainPropType>();
@@ -91,8 +84,7 @@ export default function LineChart<S, T>(props: IProps<S, T>) {
                 // }
                 containerComponent={
                     <VictoryCursorContainer
-                        // cursorDimension={cursorDimension}
-                        cursorLabel={data => {
+                        cursorLabel={_ => {
                             return typeof cursorCoordinate !== "undefined"
                                 ? `${cursorCoordinate.x}, ${cursorCoordinate.y}`
                                 : "";
@@ -117,15 +109,18 @@ export default function LineChart<S, T>(props: IProps<S, T>) {
                 {LinesComponent}
 
                 {/* X coordinate line of mouseover */}
-                {/* <VictoryLine
-                    style={{
-                        data: { stroke: "red", strokeWidth: 2 },
-                        labels: { fill: "red", fontSize: 20 }
-                    }}
-                    labels={["Important"]}
-                    labelComponent={<VictoryLabel angle={-90} y={100} />}
-                    x={() => 2000}
-                /> */}
+                {typeof cursorCoordinate === "undefined" || cursorCoordinate === null ? null : (
+                    <VictoryLine
+                        domain={getDomain()}
+                        style={{
+                            data: { stroke: "red", strokeWidth: 1 },
+                            labels: { fill: "red", fontSize: 20 }
+                        }}
+                        labels={["Important"]}
+                        labelComponent={<VictoryLabel angle={-90} y={cursorCoordinate.y} />}
+                        x={() => cursorCoordinate.x}
+                    />
+                )}
                 {/* Intersection point */}
                 {/* <VictoryScatter
                     symbol="star"

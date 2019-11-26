@@ -3,6 +3,7 @@ CHARTS:
 * Add tooltips and information on highlight
 * Add all matches to frequency chart
 * Context change "hello" isnt working
+* Add y axis zoom domain?
 
 CHART LABELS:
 * Frequency independent axis label unit?

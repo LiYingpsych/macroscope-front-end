@@ -8,7 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
-import { contains } from "../../../utils/arrayContains";
+import { contains } from "../../../utils/arrayUtils";
 import IRadioButton, { RadioButtonValue } from "./IRadioButton";
 
 function getDefaultOption(options: IRadioButton[], type?: RadioButtonValue): IRadioButton {
