@@ -15,7 +15,7 @@ import {
 } from "victory";
 import { chartColours } from "../../themes/colours";
 import Lines from "./Lines";
-import { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
+import ICartesianCoordinate, { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
 
 type lineChartType = "dateTime" | "default";
 
@@ -53,11 +53,16 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         );
     });
 
-    const [cursorCoordinate, setCursorCoordinate] = useState<CursorData>();
+    const [cursorClosestXCoordinate, setCursorClosestXCoordinate] = useState<S | null>(null);
 
     // TODO: submit issue - value returned depends on cursorDimension value when it should still return a CursorData prop
     const handleCursorChange = (value: CursorData, props: VictoryCursorContainerProps) => {
-        setCursorCoordinate(value);
+        if (typeof value === "undefined" || value === null) setCursorClosestXCoordinate(null);
+        else setCursorClosestXCoordinate(lines.getClosestXCoordinate(value.x as S));
+    };
+
+    const getIntersectionCoordinates = (): ICartesianCoordinate<S, T>[] => {
+        return lines.getYIntersectionCoordinates(cursorClosestXCoordinate);
     };
 
     const getDomain = (): DomainPropType => {
@@ -84,11 +89,6 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                 // }
                 containerComponent={
                     <VictoryCursorContainer
-                        cursorLabel={_ => {
-                            return typeof cursorCoordinate !== "undefined"
-                                ? `${cursorCoordinate.x}, ${cursorCoordinate.y}`
-                                : "";
-                        }}
                         onCursorChange={handleCursorChange}
                         cursorComponent={<div style={{ display: "none" }}></div>}
                     />
@@ -108,26 +108,24 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
 
                 {LinesComponent}
 
-                {/* X coordinate line of mouseover */}
-                {typeof cursorCoordinate === "undefined" || cursorCoordinate === null ? null : (
+                {cursorClosestXCoordinate === null ? null : (
                     <VictoryLine
                         domain={getDomain()}
                         style={{
                             data: { stroke: "red", strokeWidth: 1 },
                             labels: { fill: "red", fontSize: 20 }
                         }}
-                        labels={["Important"]}
-                        labelComponent={<VictoryLabel angle={-90} y={cursorCoordinate.y} />}
-                        x={() => cursorCoordinate.x}
+                        x={() => cursorClosestXCoordinate as number}
                     />
                 )}
-                {/* Intersection point */}
-                {/* <VictoryScatter
-                    symbol="star"
-                    size={8}
-                    style={{ data: { fill: "red" } }}
-                    data={[{ x: 2000, y: 6 }]}
-                /> */}
+                {typeof cursorClosestXCoordinate === "undefined" ||
+                cursorClosestXCoordinate === null ? null : (
+                    <VictoryScatter
+                        size={3}
+                        style={{ data: { fill: "red" } }}
+                        data={getIntersectionCoordinates()}
+                    />
+                )}
             </ChartWrapper>
             {/* <ChartWrapper
                 padding={{ top: 0, left: padding.left, right: padding.right, bottom: 30 }}
