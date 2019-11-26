@@ -53,16 +53,22 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         );
     });
 
-    const [cursorClosestXCoordinate, setCursorClosestXCoordinate] = useState<S | null>(null);
+    const [cursorClosestXCoordinate, setCursorClosestXCoordinate] = useState<S | null>();
+    const [intersectionCoords, setIntersectionCoords] = useState<ICartesianCoordinate<S, T>[]>();
 
     // TODO: submit issue - value returned depends on cursorDimension value when it should still return a CursorData prop
     const handleCursorChange = (value: CursorData, props: VictoryCursorContainerProps) => {
         if (typeof value === "undefined" || value === null) setCursorClosestXCoordinate(null);
-        else setCursorClosestXCoordinate(lines.getClosestXCoordinate(value.x as S));
+        else {
+            const _closestX = lines.getClosestXCoordinate(value.x as S);
+            setCursorClosestXCoordinate(_closestX);
+            updateIntersectionCoordinates(_closestX);
+        }
     };
 
-    const getIntersectionCoordinates = (): ICartesianCoordinate<S, T>[] => {
-        return lines.getYIntersectionCoordinates(cursorClosestXCoordinate);
+    const updateIntersectionCoordinates = (x: S) => {
+        const _intersectionCoords = lines.getYIntersectionCoordinates(x);
+        setIntersectionCoords(_intersectionCoords);
     };
 
     const getDomain = (): DomainPropType => {
@@ -76,8 +82,18 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
     // const handleZoom = (domain: DomainPropType) => {
     //     setZoomDomain(domain);
     // };
+
     return (
         <>
+            {typeof intersectionCoords === "undefined"
+                ? null
+                : intersectionCoords.map((coord, i) => {
+                      return (
+                          <div key={i} style={{ color: chartColours[i].main }}>
+                              {coord.x}, {coord.y}
+                          </div>
+                      );
+                  })}
             <ChartWrapper
                 padding={padding}
                 // containerComponent={
@@ -116,9 +132,11 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                             data: { stroke: "red", strokeWidth: 1 },
                             labels: { fill: "red", fontSize: 20 }
                         }}
-                        labels={["Important"]}
-                        labelComponent={<VictoryLabel angle={-90} y={lines.domain.yMax} />}
                         x={() => cursorClosestXCoordinate as number}
+                        // --- For some reason removing the following lines result in a bug ---
+                        labels={["Placeholderlabel"]}
+                        labelComponent={<VictoryLabel />}
+                        // --- ----
                     />
                 )}
                 {typeof cursorClosestXCoordinate === "undefined" ||
@@ -126,7 +144,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                     <VictoryScatter
                         size={3}
                         style={{ data: { fill: "red" } }}
-                        data={getIntersectionCoordinates()}
+                        data={intersectionCoords}
                     />
                 )}
             </ChartWrapper>
@@ -148,19 +166,3 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         </>
     );
 }
-
-//     <VictoryLine
-//     style={{
-//       data: { stroke: "red", strokeWidth: 2 },
-//       labels: { angle: -90, fill: "red", fontSize: 20 }
-//     }}
-//     labels={["Important"]}
-//     labelComponent={<VictoryLabel y={100}/>}
-//     x={() => 5}
-//   />
-//   <VictoryScatter
-//     symbol="star"
-//     size={8}npm start
-//     style={{ data: { fill: "red" }}}
-//     data={[{ x: 5, y: 5 }]}
-//   />
