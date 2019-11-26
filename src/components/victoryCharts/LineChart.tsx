@@ -141,7 +141,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                         x={() => cursorClosestXCoordinate as number}
                         // --- For some reason removing the following lines result in a bug ---
                         labels={[cursorClosestXCoordinate.toString()]}
-                        labelComponent={<VictoryLabel renderInPortal />}
+                        labelComponent={<VictoryLabel renderInPortal dy={16} />}
                         // --- ----
                     />
                 )}

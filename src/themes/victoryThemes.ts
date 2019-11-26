@@ -20,7 +20,7 @@ const defaultTheme = (muiTheme: Theme): VictoryThemeDefinition => {
     const letterSpacing = "normal";
 
     // Layout
-    const padding = 8;
+    const padding = 12;
     const baseProps: ThemeBaseProps = {
         width: 350,
         height: 350,
