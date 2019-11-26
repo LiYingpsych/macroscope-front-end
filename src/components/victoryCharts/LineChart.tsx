@@ -131,12 +131,17 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                     <VictoryLine
                         domain={getDomain()}
                         style={{
-                            data: { stroke: theme.palette.grey[600], strokeWidth: 1 }
+                            data: { stroke: theme.palette.grey[600], strokeWidth: 1 },
+                            labels: {
+                                fill: theme.palette.secondary.main,
+                                fontWeight: theme.typography.fontWeightBold,
+                                fontSize: theme.typography.fontSize
+                            }
                         }}
                         x={() => cursorClosestXCoordinate as number}
                         // --- For some reason removing the following lines result in a bug ---
                         labels={[cursorClosestXCoordinate.toString()]}
-                        labelComponent={<VictoryLabel />}
+                        labelComponent={<VictoryLabel renderInPortal />}
                         // --- ----
                     />
                 )}
