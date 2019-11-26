@@ -116,6 +116,8 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                             data: { stroke: "red", strokeWidth: 1 },
                             labels: { fill: "red", fontSize: 20 }
                         }}
+                        labels={["Important"]}
+                        labelComponent={<VictoryLabel angle={-90} y={lines.domain.yMax} />}
                         x={() => cursorClosestXCoordinate as number}
                     />
                 )}
