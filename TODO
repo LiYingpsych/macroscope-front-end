@@ -4,6 +4,9 @@ CHARTS:
 * Add all matches to frequency chart
 * Context change "hello" isnt working
 
+CHART LABELS:
+* Frequency independent axis label unit?
+
 TO DOCUMENT:
 * .env file (REACT_APP_BASE_API_URL=https://api.macroscope.tech REACT_APP_API_KEY=cNiI3wAUwlKX/tFJedwEWmIAk1RBT5y3IujdgUNq4rM= REACT_APP_NODE_ENV=production)
 * svgs github logo sourced from https://svgporn.com/

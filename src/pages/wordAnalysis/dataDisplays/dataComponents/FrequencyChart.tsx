@@ -18,7 +18,8 @@ export default function FrequencyChart(props: IProps) {
                 { coords: data.frequencyCoords.matchMiddle },
                 { coords: data.frequencyCoords.matchStart }
             ]}
-            dependentAxisProps={{ tickFormat: t => t.toExponential() }}
+            dependentAxisProps={{ tickFormat: t => t.toExponential(), label: "Frequency" }}
+            independentAxisProps={{ label: "Year" }}
         />
     );
 }

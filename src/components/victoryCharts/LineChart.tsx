@@ -6,7 +6,8 @@ import {
     DomainPropType,
     VictoryZoomContainer,
     VictoryBrushContainer,
-    VictoryAxisProps
+    VictoryAxisProps,
+    VictoryLabel
 } from "victory";
 import ICartesianCoordinate from "./models/ICartesianCoordinate";
 import { chartColours } from "../../themes/colours";
@@ -62,8 +63,18 @@ export default function LineChart<S, T>(props: IProps<S, T>) {
                     />
                 }
             >
-                <VictoryAxis dependentAxis {...dependentAxisProps} />
-                <VictoryAxis {...independentAxisProps} tickFormat={independentAxisTickFormat} />
+                <VictoryAxis
+                    dependentAxis
+                    axisLabelComponent={<VictoryLabel dy={-29} />}
+                    label="dependentAxis"
+                    {...dependentAxisProps}
+                />
+                <VictoryAxis
+                    tickFormat={independentAxisTickFormat}
+                    axisLabelComponent={<VictoryLabel dy={25} />}
+                    label="independentAxis"
+                    {...independentAxisProps}
+                />
 
                 {LinesComponent}
             </ChartWrapper>

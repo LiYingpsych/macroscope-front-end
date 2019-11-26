@@ -9,5 +9,12 @@ interface IProps {
 export default function SentimentChart(props: IProps) {
     const { data } = props;
 
-    return <LineChart type="dateTime" lines={[{ coords: data.sentimentCoords }]} />;
+    return (
+        <LineChart
+            type="dateTime"
+            lines={[{ coords: data.sentimentCoords }]}
+            dependentAxisProps={{ label: "Frequency" }}
+            independentAxisProps={{ label: "Year" }}
+        />
+    );
 }
