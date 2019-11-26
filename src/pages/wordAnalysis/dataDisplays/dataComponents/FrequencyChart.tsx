@@ -13,10 +13,10 @@ export default function FrequencyChart(props: IProps) {
         <LineChart
             type="dateTime"
             lines={[
-                { coords: data.frequencyCoords.matchFullWord },
-                { coords: data.frequencyCoords.matchEnd },
-                { coords: data.frequencyCoords.matchMiddle },
-                { coords: data.frequencyCoords.matchStart }
+                { coords: data.frequencyCoords.matchFullWord, legendLabel: "matchFullWord" },
+                { coords: data.frequencyCoords.matchEnd, legendLabel: "matchEnd" },
+                { coords: data.frequencyCoords.matchMiddle, legendLabel: "matchMiddle" },
+                { coords: data.frequencyCoords.matchStart, legendLabel: "matchStart" }
             ]}
             dependentAxisProps={{ tickFormat: t => t.toExponential(), label: "Frequency" }}
             independentAxisProps={{ label: "Year" }}

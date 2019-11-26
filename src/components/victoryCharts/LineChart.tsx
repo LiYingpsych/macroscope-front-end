@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ChartWrapper from "./ChartWrapper";
+import ChartWrapper, { ILegendDataProp } from "./ChartWrapper";
 import {
     VictoryAxis,
     VictoryLine,
@@ -14,6 +14,7 @@ import { chartColours } from "../../themes/colours";
 
 interface ILine<S, T> {
     coords: ICartesianCoordinate<S, T>[];
+    legendLabel: string;
 }
 
 type lineChartType = "dateTime" | "default";
@@ -44,13 +45,18 @@ export default function LineChart<S, T>(props: IProps<S, T>) {
         setZoomDomain(domain);
     };
 
-    const LinesComponent = lines.map((line, i) => (
-        <VictoryLine
-            style={{ data: { stroke: chartColours[i % chartColours.length].main } }}
-            data={line.coords}
-            key={i}
-        />
-    ));
+    let legendData: ILegendDataProp[] = [];
+
+    const LinesComponent = lines.map((line, i) => {
+        const strokeColour = chartColours[i % chartColours.length].main;
+
+        if (line.coords.length > 0)
+            legendData.push({ name: line.legendLabel, symbol: { fill: strokeColour } });
+
+        return (
+            <VictoryLine style={{ data: { stroke: strokeColour } }} data={line.coords} key={i} />
+        );
+    });
 
     return (
         <>
@@ -62,17 +68,16 @@ export default function LineChart<S, T>(props: IProps<S, T>) {
                         onZoomDomainChange={handleZoom}
                     />
                 }
+                legendData={legendData}
             >
                 <VictoryAxis
                     dependentAxis
                     axisLabelComponent={<VictoryLabel dy={-29} />}
-                    label="dependentAxis"
                     {...dependentAxisProps}
                 />
                 <VictoryAxis
                     tickFormat={independentAxisTickFormat}
                     axisLabelComponent={<VictoryLabel dy={25} />}
-                    label="independentAxis"
                     {...independentAxisProps}
                 />
 
@@ -111,16 +116,3 @@ export default function LineChart<S, T>(props: IProps<S, T>) {
 //     style={{ data: { fill: "red" }}}
 //     data={[{ x: 5, y: 5 }]}
 //   />
-
-// <VictoryLegend x={125} y={50}
-// title="Legend"
-// centerTitle
-// orientation="horizontal"
-// gutter={20}
-// style={{ border: { stroke: "black" }, title: {fontSize: 20 } }}
-// data={[
-// { name: "One", symbol: { fill: "tomato", type: "star" } },
-// { name: "Two", symbol: { fill: "orange" } },
-// { name: "Three", symbol: { fill: "gold" } }
-// ]}
-// />
