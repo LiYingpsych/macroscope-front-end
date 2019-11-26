@@ -18,9 +18,17 @@ export default class Lines<S extends xCoordType, T extends yCoordType> {
     private _domain: IDomain<S, T>;
 
     constructor(lines: ILine<S, T>[]) {
-        if (lines.length === 0) throw new Error("lines array must contain at least on item");
+        let _lines: ILine<S, T>[] = [];
 
-        this._lines = lines;
+        lines.forEach(line => {
+            if (line.coords.length === 0) return;
+
+            _lines.push(line);
+        });
+
+        if (_lines.length === 0) throw new Error("lines array must contain at least on item");
+
+        this._lines = _lines;
         this._domain = this.getDomain(lines);
     }
 
