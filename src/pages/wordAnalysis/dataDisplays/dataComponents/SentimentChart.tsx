@@ -12,7 +12,7 @@ export default function SentimentChart(props: IProps) {
 
     return (
         <LineChart
-            type="dateTime"
+            dependentAxisType="dateTime"
             lines={new Lines([{ coords: data.sentimentCoords, legendLabel: "Sentiment" }])}
             dependentAxisProps={{ label: "Frequency" }}
             independentAxisProps={{ label: "Year" }}

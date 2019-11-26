@@ -12,7 +12,7 @@ export default function FrequencyChart(props: IProps) {
 
     return (
         <LineChart
-            type="dateTime"
+            dependentAxisType="dateTime"
             lines={
                 new Lines([
                     { coords: data.frequencyCoords.matchFullWord, legendLabel: "matchFullWord" },

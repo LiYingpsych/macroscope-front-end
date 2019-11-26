@@ -18,11 +18,13 @@ import Lines from "./Lines";
 import ICartesianCoordinate, { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
 import { useTheme } from "@material-ui/core/styles";
 
-type lineChartType = "dateTime" | "default";
+type lineChartType = "zoomable" | "default";
+type dependentAxisType = "dateTime" | "default";
 
 interface IProps<S extends xCoordType, T extends yCoordType> {
     lines: Lines<S, T>;
     type?: lineChartType;
+    dependentAxisType?: dependentAxisType;
     dependentAxisProps?: VictoryAxisProps;
     independentAxisProps?: VictoryAxisProps;
 }
@@ -31,6 +33,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
     const {
         lines,
         type = "default",
+        dependentAxisType = "default",
         dependentAxisProps,
         independentAxisProps = { tickFormat: undefined }
     } = props;
@@ -38,7 +41,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
 
     const padding = { left: 60, top: 50, right: 10, bottom: 60 };
     const independentAxisTickFormat =
-        type === "dateTime"
+        dependentAxisType === "dateTime"
             ? (x: any) => new Date(x, 0).getFullYear()
             : independentAxisProps.tickFormat;
 
@@ -80,10 +83,60 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         };
     };
 
-    // const [zoomDomain, setZoomDomain] = useState<DomainPropType>();
-    // const handleZoom = (domain: DomainPropType) => {
-    //     setZoomDomain(domain);
-    // };
+    const [zoomDomain, setZoomDomain] = useState<DomainPropType>();
+    const handleZoom = (domain: DomainPropType) => {
+        setZoomDomain(domain);
+    };
+
+    const containerComponent =
+        type === "zoomable" ? (
+            <VictoryZoomContainer
+                zoomDimension="x"
+                zoomDomain={zoomDomain}
+                onZoomDomainChange={handleZoom}
+            />
+        ) : (
+            <VictoryCursorContainer
+                onCursorChange={handleCursorChange}
+                cursorComponent={<div style={{ display: "none" }}></div>}
+            />
+        );
+
+    const defaultChartCursorLine =
+        typeof cursorClosestXCoordinate === "undefined" ||
+        cursorClosestXCoordinate === null ? null : (
+            <VictoryLine
+                domain={getDomain()}
+                style={{
+                    data: { stroke: theme.palette.grey[600], strokeWidth: 1 },
+                    labels: {
+                        fill: theme.palette.secondary.main,
+                        fontWeight: theme.typography.fontWeightBold,
+                        fontSize: theme.typography.fontSize
+                    }
+                }}
+                x={() => cursorClosestXCoordinate as number}
+                // --- For some reason removing the following lines result in a bug ---
+                labels={[cursorClosestXCoordinate.toString()]}
+                labelComponent={<VictoryLabel renderInPortal dy={16} />}
+                // --- ----
+            />
+        );
+    const defaultChartCursorIntersectionPoints =
+        typeof cursorClosestXCoordinate === "undefined" ||
+        cursorClosestXCoordinate === null ||
+        typeof intersectionCoords === "undefined"
+            ? null
+            : intersectionCoords.map((coord, i) => {
+                  return (
+                      <VictoryScatter
+                          key={i}
+                          size={4}
+                          style={{ data: { fill: chartColours[i].intersectionDot } }}
+                          data={[coord]}
+                      />
+                  );
+              });
 
     return (
         <>
@@ -98,19 +151,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                   })}
             <ChartWrapper
                 padding={padding}
-                // containerComponent={
-                //     <VictoryZoomContainer
-                //         zoomDimension="x"
-                //         zoomDomain={zoomDomain}
-                //         onZoomDomainChange={handleZoom}
-                //     />
-                // }
-                containerComponent={
-                    <VictoryCursorContainer
-                        onCursorChange={handleCursorChange}
-                        cursorComponent={<div style={{ display: "none" }}></div>}
-                    />
-                }
+                containerComponent={containerComponent}
                 legendData={legendData}
             >
                 <VictoryAxis
@@ -125,56 +166,26 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                 />
 
                 {LinesComponent}
-
-                {typeof cursorClosestXCoordinate === "undefined" ||
-                cursorClosestXCoordinate === null ? null : (
-                    <VictoryLine
-                        domain={getDomain()}
-                        style={{
-                            data: { stroke: theme.palette.grey[600], strokeWidth: 1 },
-                            labels: {
-                                fill: theme.palette.secondary.main,
-                                fontWeight: theme.typography.fontWeightBold,
-                                fontSize: theme.typography.fontSize
-                            }
-                        }}
-                        x={() => cursorClosestXCoordinate as number}
-                        // --- For some reason removing the following lines result in a bug ---
-                        labels={[cursorClosestXCoordinate.toString()]}
-                        labelComponent={<VictoryLabel renderInPortal dy={16} />}
-                        // --- ----
-                    />
-                )}
-                {typeof cursorClosestXCoordinate === "undefined" ||
-                cursorClosestXCoordinate === null ||
-                typeof intersectionCoords === "undefined"
-                    ? null
-                    : intersectionCoords.map((coord, i) => {
-                          return (
-                              <VictoryScatter
-                                  key={i}
-                                  size={4}
-                                  style={{ data: { fill: chartColours[i].intersectionDot } }}
-                                  data={[coord]}
-                              />
-                          );
-                      })}
+                {type === "default"
+                    ? [defaultChartCursorLine, defaultChartCursorIntersectionPoints]
+                    : null}
             </ChartWrapper>
-            {/* <ChartWrapper
-                padding={{ top: 0, left: padding.left, right: padding.right, bottom: 30 }}
-                height={100}
-                width={width}
-                containerComponent={
-                    <VictoryBrushContainer
-                        brushDimension="x"
-                        brushDomain={zoomDomain}
-                        onBrushDomainChange={handleZoom}
-                    />
-                }
-            >
-                <VictoryAxis tickFormat={(t: any) => ""} />
-                {LinesComponent}
-            </ChartWrapper> */}
+            {type === "zoomable" ? (
+                <ChartWrapper
+                    padding={{ top: 0, left: padding.left, right: padding.right, bottom: 30 }}
+                    height={100}
+                    containerComponent={
+                        <VictoryBrushContainer
+                            brushDimension="x"
+                            brushDomain={zoomDomain}
+                            onBrushDomainChange={handleZoom}
+                        />
+                    }
+                >
+                    <VictoryAxis tickFormat={(t: any) => ""} />
+                    {LinesComponent}
+                </ChartWrapper>
+            ) : null}
         </>
     );
 }
