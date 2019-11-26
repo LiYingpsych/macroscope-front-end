@@ -8,7 +8,13 @@ import {
 } from "victory";
 import ChartWrapper from "../ChartWrapper";
 
-export default function useZoomable() {
+interface IUseZoomableOptions {
+    children?: ReactNode;
+    padding?: BlockProps;
+    height?: number;
+}
+
+export default function useZoomable(brushProps: IUseZoomableOptions) {
     const [zoomDomain, setZoomDomain] = useState<DomainPropType>();
     const handleZoom = (domain: DomainPropType) => {
         setZoomDomain(domain);
@@ -22,21 +28,20 @@ export default function useZoomable() {
                 onZoomDomainChange={handleZoom}
             />
         ),
-        ZoomableBrush: CustomBrush(zoomDomain, handleZoom)
+        zoomableBrushComponent: (
+            <CustomBrush zoomDomain={zoomDomain} handleZoom={handleZoom} {...brushProps} />
+        )
     };
 }
 
-interface IProps {
-    children?: ReactNode;
-    padding?: BlockProps;
-    height?: number;
+interface IProps extends IUseZoomableOptions {
+    handleZoom: (domain: DomainPropType) => void;
+    zoomDomain: DomainPropType | undefined;
 }
 
-const CustomBrush = (
-    zoomDomain: DomainPropType | undefined,
-    handleZoom: (domain: DomainPropType) => void
-) => (props: IProps) => {
-    const { children, padding, height = 100 } = props;
+function CustomBrush(props: IProps) {
+    const { handleZoom, zoomDomain, children, padding, height = 100 } = props;
+
     return (
         <ChartWrapper
             padding={padding}
@@ -53,4 +58,4 @@ const CustomBrush = (
             {children}
         </ChartWrapper>
     );
-};
+}

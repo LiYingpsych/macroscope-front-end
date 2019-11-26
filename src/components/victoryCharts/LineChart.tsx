@@ -83,7 +83,10 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         };
     };
 
-    const { zoomableContainerComponent, ZoomableBrush } = useZoomable();
+    const { zoomableContainerComponent, zoomableBrushComponent } = useZoomable({
+        padding: { top: 0, left: padding.left, right: padding.right, bottom: 30 },
+        children: LinesComponent
+    });
 
     const containerComponent =
         type === "zoomable" ? (
@@ -163,13 +166,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                     ? [defaultChartCursorLine, defaultChartCursorIntersectionPoints]
                     : null}
             </ChartWrapper>
-            {type === "zoomable" ? (
-                <ZoomableBrush
-                    padding={{ top: 0, left: padding.left, right: padding.right, bottom: 30 }}
-                >
-                    {LinesComponent}
-                </ZoomableBrush>
-            ) : null}
+            {type === "zoomable" ? zoomableBrushComponent : null}
         </>
     );
 }
