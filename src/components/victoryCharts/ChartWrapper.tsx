@@ -37,7 +37,7 @@ export default function ChartWrapper(props: IProps) {
     const {
         children = <div></div>,
         legendData = [],
-        padding = { left: 50, top: 50, right: 10, bottom: 50 },
+        padding = { left: 50, top: 50, right: 10, bottom: 100 },
         horizontal = false,
         height = 500,
         width = 809,
@@ -48,6 +48,7 @@ export default function ChartWrapper(props: IProps) {
         legendData.length > 1 ? (
             <VictoryLegend
                 x={padding.left}
+                y={height - 30}
                 orientation="horizontal"
                 itemsPerRow={5}
                 data={legendData}
@@ -64,8 +65,8 @@ export default function ChartWrapper(props: IProps) {
                 padding={padding}
                 {...rest}
             >
-                {Legend}
                 {children}
+                {Legend}
             </VictoryChart>
         </div>
     );

@@ -28,7 +28,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         independentAxisProps = { tickFormat: undefined }
     } = props;
 
-    const padding = { left: 60, top: 50, right: 10, bottom: 60 };
+    const padding = { left: 60, top: 50, right: 10, bottom: 100 };
 
     const independentAxisTickFormat =
         dependentAxisType === "dateTime"
