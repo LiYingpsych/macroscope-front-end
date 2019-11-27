@@ -34,10 +34,12 @@ export default function ChartWrapper(props: IProps) {
     const classes = useStyles();
     const muiTheme = useTheme();
 
+    const defaultPaddingObject = { left: 50, top: 50, right: 10, bottom: 60 };
+
     const {
         children = <div></div>,
         legendData = [],
-        padding = { left: 50, top: 50, right: 10, bottom: 100 },
+        padding = defaultPaddingObject,
         horizontal = false,
         height = 500,
         width = 809,
@@ -55,6 +57,20 @@ export default function ChartWrapper(props: IProps) {
             />
         ) : null;
 
+    const calculateAdjustedPadding = (): BlockProps => {
+        const legendPadding = legendData.length > 1 ? 30 : 0;
+        return {
+            left: typeof padding.left === "undefined" ? defaultPaddingObject.left : padding.left,
+            top: typeof padding.top === "undefined" ? defaultPaddingObject.top : padding.top,
+            right:
+                typeof padding.right === "undefined" ? defaultPaddingObject.right : padding.right,
+            bottom:
+                typeof padding.bottom === "undefined"
+                    ? defaultPaddingObject.bottom + legendPadding
+                    : padding.bottom + legendPadding
+        };
+    };
+
     return (
         <div className={classes.root}>
             <VictoryChart
@@ -62,7 +78,7 @@ export default function ChartWrapper(props: IProps) {
                 width={width}
                 theme={victoryThemes.defaultTheme(muiTheme)}
                 horizontal={horizontal}
-                padding={padding}
+                padding={calculateAdjustedPadding()}
                 {...rest}
             >
                 {children}

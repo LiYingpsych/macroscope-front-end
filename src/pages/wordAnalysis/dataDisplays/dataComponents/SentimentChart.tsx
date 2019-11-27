@@ -1,7 +1,7 @@
 import React from "react";
 import ISentimentData from "../../../../models/ISentimentData";
-import LineChart from "../../../../components/victoryCharts/LineChart";
 import Lines from "../../../../components/victoryCharts/Lines";
+import LineChartSelectionWrapper from "../../../../components/victoryCharts/LineChartSelectionWrapper";
 
 interface IProps {
     data: ISentimentData;
@@ -11,7 +11,7 @@ export default function SentimentChart(props: IProps) {
     const { data } = props;
 
     return (
-        <LineChart
+        <LineChartSelectionWrapper
             dependentAxisType="dateTime"
             lines={new Lines([{ coords: data.sentimentCoords, legendLabel: "Sentiment" }])}
             dependentAxisProps={{ label: "Frequency" }}

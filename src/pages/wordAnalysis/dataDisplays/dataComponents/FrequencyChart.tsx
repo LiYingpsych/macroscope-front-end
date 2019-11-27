@@ -1,7 +1,7 @@
 import React from "react";
 import IFrequencyData from "../../../../models/IFrequencyData";
-import LineChart from "../../../../components/victoryCharts/LineChart";
 import Lines from "../../../../components/victoryCharts/Lines";
+import LineChartSelectionWrapper from "../../../../components/victoryCharts/LineChartSelectionWrapper";
 
 interface IProps {
     data: IFrequencyData;
@@ -11,7 +11,7 @@ export default function FrequencyChart(props: IProps) {
     const { data } = props;
 
     return (
-        <LineChart
+        <LineChartSelectionWrapper
             dependentAxisType="dateTime"
             lines={
                 new Lines([

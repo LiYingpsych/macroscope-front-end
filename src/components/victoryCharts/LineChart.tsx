@@ -35,7 +35,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
 
     const theme = useTheme();
 
-    const padding = { left: 60, top: 10, right: 10, bottom: 100 };
+    const padding = { left: 60, top: 20, right: 10, bottom: 60 };
 
     const independentAxisTickFormat =
         dependentAxisType === "dateTime"
@@ -43,7 +43,6 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
             : independentAxisProps.tickFormat;
 
     let legendData: ILegendDataProp[] = [];
-
     const LinesComponent = lines.items.map((line, i) => {
         const strokeColour = chartColours[i % chartColours.length].main;
 
@@ -56,7 +55,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
     });
 
     const { zoomableContainerComponent, zoomableBrushComponent } = useZoomable({
-        padding: { top: 0, left: padding.left, right: padding.right, bottom: 30 },
+        padding: { top: 0, left: padding.left, right: padding.right, bottom: 0 },
         children: LinesComponent
     });
 
@@ -100,8 +99,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
                     style={{
                         display: "flex",
                         justifyContent: "end",
-                        flex: "1 0 auto",
-                        padding: theme.spacing(1)
+                        padding: `0px ${theme.spacing(1)}px`
                     }}
                 >
                     {lineChartCursorIndicatorYValueDisplay}
