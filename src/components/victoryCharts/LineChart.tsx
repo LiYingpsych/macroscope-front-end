@@ -62,7 +62,6 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
 
     return (
         <>
-            {type === "default" ? lineChartCursorIndicatorYValueDisplay : null}
             <ChartWrapper
                 padding={padding}
                 containerComponent={
@@ -84,11 +83,16 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
                 />
 
                 {LinesComponent}
-                {type === "default"
-                    ? [lineChartCursorIndicatorLine, lineChartCursorIndicatorIntersectionPoints]
-                    : null}
+
+                {type === "default" ? lineChartCursorIndicatorLine : null}
+                {type === "default" ? lineChartCursorIndicatorIntersectionPoints : null}
             </ChartWrapper>
             {type === "zoomable" ? zoomableBrushComponent : null}
+            {type === "default" ? (
+                <div style={{ padding: "8px 30px", display: "flex", justifyContent: "end" }}>
+                    {lineChartCursorIndicatorYValueDisplay}
+                </div>
+            ) : null}
         </>
     );
 }

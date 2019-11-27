@@ -12,15 +12,17 @@ import ICartesianCoordinate, { xCoordType, yCoordType } from "../models/ICartesi
 import Lines from "../Lines";
 import { useTheme } from "@material-ui/core/styles";
 import { chartColours } from "../../../themes/colours";
+import { Typography } from "@material-ui/core";
 
 interface IOptions<S extends xCoordType, T extends yCoordType> {
     lines: Lines<S, T>;
+    independentAxisName?: string;
 }
 
 export default function useLineChartCursorIndicator<S extends xCoordType, T extends yCoordType>(
     options: IOptions<S, T>
 ) {
-    const { lines } = options;
+    const { lines, independentAxisName = "Y axis" } = options;
     const theme = useTheme();
 
     const [cursorClosestXCoordinate, setCursorClosestXCoordinate] = useState<S | null>();
@@ -91,14 +93,59 @@ export default function useLineChartCursorIndicator<S extends xCoordType, T exte
                       );
                   }),
         lineChartCursorIndicatorYValueDisplay:
-            typeof intersectionCoords === "undefined"
-                ? undefined
-                : intersectionCoords.map((coord, i) => {
-                      return (
-                          <div key={i} style={{ color: chartColours[i].main }}>
-                              {coord.x}, {coord.y}
-                          </div>
-                      );
-                  })
+            typeof intersectionCoords === "undefined" ? (
+                undefined
+            ) : (
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                    <Typography variant="h6" align="right">
+                        {independentAxisName} {intersectionCoords.length > 1 ? "values" : "value"}
+                    </Typography>
+                    <OrderedYValues order="desc" coords={intersectionCoords} />
+                </div>
+            )
     };
+}
+
+type orderType = "asc" | "desc";
+
+interface IProps<S extends xCoordType, T extends yCoordType> {
+    coords: ICartesianCoordinate<S, T>[];
+    order?: orderType;
+}
+
+interface ICoordWithColour<S extends xCoordType, T extends yCoordType> {
+    coord: ICartesianCoordinate<S, T>;
+    colour: string;
+}
+
+function OrderedYValues<S extends xCoordType, T extends yCoordType>(props: IProps<S, T>) {
+    const { coords, order = "asc" } = props;
+
+    const coordsWithColour: ICoordWithColour<S, T>[] = coords.map((coord, i) => {
+        return {
+            coord: coord,
+            colour: chartColours[i].main
+        };
+    });
+
+    const sorted = coordsWithColour.sort((a, b) =>
+        order === "asc" ? a.coord.y - b.coord.y : b.coord.y - a.coord.y
+    );
+
+    return (
+        <>
+            {sorted.map((item, i) => {
+                return (
+                    <Typography
+                        variant="body1"
+                        align="right"
+                        key={i}
+                        style={{ color: item.colour }}
+                    >
+                        {item.coord.y}
+                    </Typography>
+                );
+            })}
+        </>
+    );
 }
