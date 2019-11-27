@@ -24,7 +24,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         lines,
         type = "default",
         dependentAxisType = "default",
-        dependentAxisProps,
+        dependentAxisProps = {},
         independentAxisProps = { tickFormat: undefined }
     } = props;
 
@@ -58,7 +58,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         lineChartCursorIndicatorLine,
         lineChartCursorIndicatorIntersectionPoints,
         lineChartCursorIndicatorYValueDisplay
-    } = useLineChartCursorIndicator({ lines });
+    } = useLineChartCursorIndicator({ lines, dependentAxisName: dependentAxisProps.label });
 
     return (
         <>

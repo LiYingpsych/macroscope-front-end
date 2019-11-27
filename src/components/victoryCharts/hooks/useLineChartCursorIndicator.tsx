@@ -16,13 +16,13 @@ import { Typography } from "@material-ui/core";
 
 interface IOptions<S extends xCoordType, T extends yCoordType> {
     lines: Lines<S, T>;
-    independentAxisName?: string;
+    dependentAxisName?: string;
 }
 
 export default function useLineChartCursorIndicator<S extends xCoordType, T extends yCoordType>(
     options: IOptions<S, T>
 ) {
-    const { lines, independentAxisName = "Y axis" } = options;
+    const { lines, dependentAxisName = "Y axis" } = options;
     const theme = useTheme();
 
     const [cursorClosestXCoordinate, setCursorClosestXCoordinate] = useState<S | null>();
@@ -98,7 +98,7 @@ export default function useLineChartCursorIndicator<S extends xCoordType, T exte
             ) : (
                 <div style={{ display: "flex", flexDirection: "column" }}>
                     <Typography variant="h6" align="right">
-                        {independentAxisName} {intersectionCoords.length > 1 ? "values" : "value"}
+                        {dependentAxisName} {intersectionCoords.length > 1 ? "values" : "value"}
                     </Typography>
                     <OrderedYValues order="desc" coords={intersectionCoords} />
                 </div>
