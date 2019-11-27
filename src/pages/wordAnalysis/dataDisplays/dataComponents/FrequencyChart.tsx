@@ -23,6 +23,7 @@ export default function FrequencyChart(props: IProps) {
             }
             dependentAxisProps={{ tickFormat: t => t.toExponential(), label: "Frequency" }}
             independentAxisProps={{ label: "Year" }}
+            showVariantSelectionComponent
         />
     );
 }

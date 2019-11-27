@@ -16,6 +16,7 @@ export default function SentimentChart(props: IProps) {
             lines={new Lines([{ coords: data.sentimentCoords, legendLabel: "Sentiment" }])}
             dependentAxisProps={{ label: "Frequency" }}
             independentAxisProps={{ label: "Year" }}
+            showVariantSelectionComponent
         />
     );
 }

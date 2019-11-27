@@ -59,7 +59,8 @@ const useStyles = makeStyles((theme: Theme) => {
             zIndex: theme.zIndex.drawer - 1,
             opacity: 0.7,
             backgroundImage: `linear-gradient(${theme.palette.grey[100]}, ${theme.palette.grey[100]}, transparent)`,
-            width: floatingBarWidth
+            width: floatingBarWidth,
+            pointerEvents: "none"
         },
         searchBar: {
             flex: "1 0 auto"

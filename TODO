@@ -1,4 +1,5 @@
 CHARTS:
+* Add colour to context network nodes
 * Add labels to axis
 * Add tooltips and information on highlight
 * Add all matches to frequency chart
