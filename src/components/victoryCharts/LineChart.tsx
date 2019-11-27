@@ -1,40 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
+import { useTheme } from "@material-ui/core/styles";
+
 import ChartWrapper, { ILegendDataProp } from "./ChartWrapper";
 import { VictoryAxis, VictoryLine, VictoryAxisProps, VictoryLabel } from "victory";
 import { chartColours } from "../../themes/colours";
+
 import Lines from "./Lines";
 import { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
 
 import useZoomable from "./hooks/useZoomable";
 import useLineChartCursorIndicator from "./hooks/useLineChartCursorIndicator";
-import SelectionInput, { ISelectionOption } from "../inputs/SelectionInput";
-import { useTheme } from "@material-ui/core/styles";
 
-type lineChartVariant = "zoomable" | "default";
+export type lineChartVariant = "zoomable" | "default";
 type dependentAxisType = "dateTime" | "default";
 
-interface IProps<S extends xCoordType, T extends yCoordType> {
+export interface ILineChartProps<S extends xCoordType, T extends yCoordType> {
     lines: Lines<S, T>;
     dependentAxisType?: dependentAxisType;
     dependentAxisProps?: VictoryAxisProps;
     independentAxisProps?: VictoryAxisProps;
     variant?: lineChartVariant;
-    showVariantSelectionComponent?: boolean;
 }
 
-export default function LineChart<S extends xCoordType, T extends yCoordType>(props: IProps<S, T>) {
+export default function LineChart<S extends xCoordType, T extends yCoordType>(
+    props: ILineChartProps<S, T>
+) {
     const {
         lines,
         variant = "default",
         dependentAxisType = "default",
         dependentAxisProps = {},
-        independentAxisProps = { tickFormat: undefined },
-        showVariantSelectionComponent = false
+        independentAxisProps = { tickFormat: undefined }
     } = props;
 
     const theme = useTheme();
 
-    const padding = { left: 60, top: 0, right: 10, bottom: 100 };
+    const padding = { left: 60, top: 10, right: 10, bottom: 100 };
 
     const independentAxisTickFormat =
         dependentAxisType === "dateTime"
@@ -66,60 +67,12 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
         lineChartCursorIndicatorYValueDisplay
     } = useLineChartCursorIndicator({ lines, dependentAxisName: dependentAxisProps.label });
 
-    const [chartVariant, setChartVariant] = useState(variant);
-    const variantSelectionOptions: ISelectionOption<lineChartVariant>[] = [
-        { value: "default", label: "default" },
-        { value: "zoomable", label: "zoomable" }
-    ];
-
-    let defaultVariantOption = variantSelectionOptions[0];
-    for (let index = 0; index < variantSelectionOptions.length; index++) {
-        const option = variantSelectionOptions[index];
-
-        if (option.value !== variant) continue;
-
-        defaultVariantOption = option;
-    }
-
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-                <div
-                    style={{
-                        flex: "1 0 auto",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        maxWidth: 809
-                    }}
-                >
-                    {showVariantSelectionComponent ? (
-                        <div style={{ display: "flex", justifyContent: "end" }}>
-                            <SelectionInput<lineChartVariant>
-                                label="chart variant"
-                                options={variantSelectionOptions}
-                                onChange={(value: lineChartVariant) => setChartVariant(value)}
-                                defaultOption={defaultVariantOption}
-                            />
-                        </div>
-                    ) : null}
-                    {chartVariant === "default" ? (
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "end",
-                                flex: "1 0 auto",
-                                padding: theme.spacing(1)
-                            }}
-                        >
-                            {lineChartCursorIndicatorYValueDisplay}
-                        </div>
-                    ) : null}
-                </div>
-            </div>
             <ChartWrapper
                 padding={padding}
                 containerComponent={
-                    chartVariant === "zoomable"
+                    variant === "zoomable"
                         ? zoomableContainerComponent
                         : lineChartCursorIndicatorContainerComponent
                 }
@@ -138,10 +91,22 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(pr
 
                 {LinesComponent}
 
-                {chartVariant === "default" ? lineChartCursorIndicatorLine : null}
-                {chartVariant === "default" ? lineChartCursorIndicatorIntersectionPoints : null}
+                {variant === "default" ? lineChartCursorIndicatorLine : null}
+                {variant === "default" ? lineChartCursorIndicatorIntersectionPoints : null}
             </ChartWrapper>
-            {chartVariant === "zoomable" ? zoomableBrushComponent : null}
+            {variant === "zoomable" ? zoomableBrushComponent : null}
+            {variant === "default" ? (
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "end",
+                        flex: "1 0 auto",
+                        padding: theme.spacing(1)
+                    }}
+                >
+                    {lineChartCursorIndicatorYValueDisplay}
+                </div>
+            ) : null}
         </>
     );
 }
