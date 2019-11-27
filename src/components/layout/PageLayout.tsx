@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import classnames from "classnames";
 
@@ -21,6 +21,8 @@ import StickyFooter from "./StickyFooter";
 import Footer from "../Footer";
 import Grid from "@material-ui/core/Grid";
 import MacroscopeLogo from "../images/MacroscopeLogo";
+import ITabItem from "../tabs/ITabItem";
+import TabPanel from "../tabs/TabPanel";
 
 const drawerWidth = 240;
 
@@ -83,15 +85,13 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export interface ITabItem {
+export interface IPageLayoutTabItem extends ITabItem {
     route: string;
-    label: string;
-    content: any;
 }
 
 interface IProps {
-    deafultTab: ITabItem;
-    tabItems: ITabItem[];
+    deafultTab: IPageLayoutTabItem;
+    tabItems: IPageLayoutTabItem[];
     title?: string;
 }
 
@@ -117,7 +117,7 @@ export default function PageLayout(props: IProps) {
 
     const [currentTabIndex, setCurrentTabIndex] = useState(getInitialTab());
 
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setCurrentTabIndex(newValue);
     };
 
@@ -135,7 +135,7 @@ export default function PageLayout(props: IProps) {
                 className={isHorizantal ? classes.fullHeight : ""}
                 centered
                 value={currentTabIndex}
-                onChange={handleChange}
+                onChange={handleTabChange}
                 classes={{ flexContainer: isHorizantal ? classes.fullHeight : "" }}
                 orientation={orientation}
             >
@@ -240,16 +240,4 @@ export default function PageLayout(props: IProps) {
             />
         </div>
     );
-}
-
-interface ITabPanelProps {
-    currentTabIndex: number;
-    tabPanelIndex: number;
-    children?: ReactNode;
-}
-
-function TabPanel(props: ITabPanelProps) {
-    const { currentTabIndex, tabPanelIndex, children } = props;
-
-    return <div hidden={currentTabIndex !== tabPanelIndex}>{children}</div>;
 }
