@@ -14,7 +14,7 @@ export default function SentimentChart(props: IProps) {
         <LineChartSelectionWrapper
             dependentAxisType="dateTime"
             lines={new Lines([{ coords: data.sentimentCoords, legendLabel: "Sentiment" }])}
-            dependentAxisProps={{ label: "Frequency" }}
+            dependentAxisProps={{ label: "Sentiment" }}
             independentAxisProps={{ label: "Year" }}
         />
     );
