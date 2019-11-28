@@ -146,9 +146,9 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
                     {!isError && !isLoading && typeof data !== "undefined" ? (
                         <Grid container direction="column">
                             <Grid
-                                item
                                 // safari bug fix - TODO: link to relative github issue
-                                style={{ flex: "1" }}
+                                className="safari-height-bug-fix"
+                                item
                             >
                                 {render(data)}
                             </Grid>
