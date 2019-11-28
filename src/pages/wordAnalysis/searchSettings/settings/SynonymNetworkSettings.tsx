@@ -52,7 +52,7 @@ export default function SynonymNetworkSettings(props: IProps) {
                         }}
                     />
                     <NumberSelectionInput
-                        label="Simalarity threshold"
+                        label="Similarity  threshold"
                         numbers={similarityThreshold}
                         defaultNumber={defaultSettings.similarityThreshold}
                         onValidationError={onInvalidSettings}
