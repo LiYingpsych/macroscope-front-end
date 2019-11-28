@@ -145,12 +145,13 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
                 <>
                     {!isError && !isLoading && typeof data !== "undefined" ? (
                         <Grid container direction="column">
-                            <Grid
-                                // safari bug fix - TODO: link to relative github issue
-                                className="safari-height-bug-fix"
-                                item
-                            >
-                                {render(data)}
+                            <Grid container item>
+                                <div
+                                    // safari bug fix - TODO: link to relative github issue
+                                    className="safari-height-bug-fix"
+                                >
+                                    {render(data)}
+                                </div>
                             </Grid>
                             <Grid container item justify="flex-end">
                                 <Grid item className={classes.exportButtonContainer}>
