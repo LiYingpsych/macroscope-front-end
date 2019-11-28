@@ -13,7 +13,8 @@ import {
     contextChangeMaxYear,
     alphabet,
     wordAnalysisDrawerWidth,
-    pageContentPadding
+    pageContentPadding,
+    transparentColour
 } from "../../globals";
 
 import SentimentType from "./models/enums/SentimentType";
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) => {
             height: "inherit",
             zIndex: theme.zIndex.drawer - 1,
             opacity: 0.7,
-            backgroundImage: `linear-gradient(${theme.palette.grey[100]}, ${theme.palette.grey[100]}, transparent)`,
+            backgroundImage: `linear-gradient(${theme.palette.grey[100]}, ${theme.palette.grey[100]}, ${transparentColour})`,
             width: floatingBarWidth,
             pointerEvents: "none"
         },

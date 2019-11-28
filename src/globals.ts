@@ -23,3 +23,5 @@ export const pageContentPadding = 3;
 export const footerHeight = 40;
 
 export const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+export const transparentColour = "#ffffff00";

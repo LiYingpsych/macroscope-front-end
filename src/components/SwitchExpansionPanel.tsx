@@ -7,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import Collapse from "@material-ui/core/Collapse";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import classnames from "classnames";
+import { transparentColour } from "../globals";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: "flex",
             flexDirection: "column",
             flexWrap: "wrap",
-            border: "1px solid transparent"
+            border: `1px solid ${transparentColour}`
         },
         list: {
             width: "100%",
