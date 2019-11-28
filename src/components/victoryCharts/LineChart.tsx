@@ -98,7 +98,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
                 <div
                     style={{
                         display: "flex",
-                        justifyContent: "end",
+                        justifyContent: "flex-end",
                         padding: `0px ${theme.spacing(1)}px`
                     }}
                 >
