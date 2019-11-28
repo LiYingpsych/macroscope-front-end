@@ -9,3 +9,8 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+/* Fix for following issue - https://github.com/StraightOuttaCrompton/macroscope-front-end/issues/6 */
+.safari-height-bug-fix {
+    flex: 1;
+}

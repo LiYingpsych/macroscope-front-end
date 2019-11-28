@@ -147,7 +147,7 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
                         <Grid container direction="column">
                             <Grid container item>
                                 <div
-                                    // safari bug fix - TODO: link to relative github issue
+                                    // Fix for following issue - https://github.com/StraightOuttaCrompton/macroscope-front-end/issues/6
                                     className="safari-height-bug-fix"
                                 >
                                     {render(data)}
