@@ -15,6 +15,9 @@ THOMAS MEETING
 
 MAC PROBLEMS
 * Zoom in settings dissapear (safari?)
+* force adding of webkit css prefix - might solve wierd chart overlap issues
+css prefixes are generated client side based on feature detection - https://github.com/mui-org/material-ui/issues/9293
+* Increase max width of data display container
 
 CHART LABELS:
 * Frequency independent axis label unit?
