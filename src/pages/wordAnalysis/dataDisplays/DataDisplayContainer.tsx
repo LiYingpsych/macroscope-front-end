@@ -145,7 +145,13 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
                 <>
                     {!isError && !isLoading && typeof data !== "undefined" ? (
                         <Grid container direction="column">
-                            <Grid item>{render(data)}</Grid>
+                            <Grid
+                                item
+                                // safari bug fix - TODO: link to relative github issue
+                                style={{ flex: "1" }}
+                            >
+                                {render(data)}
+                            </Grid>
                             <Grid container item justify="flex-end">
                                 <Grid item className={classes.exportButtonContainer}>
                                     <JsonDownloadLink json={data} fileName={downloadFileName}>
