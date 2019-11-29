@@ -65,7 +65,7 @@ function convertToChartColour(colour: Color, options?: IOptions) {
     };
 }
 
-export const chartColours: IChartColour[] = [
+const chartColours: IChartColour[] = [
     convertToChartColour(blueGrey, { main: "800" }),
     convertToChartColour(deepOrange),
     convertToChartColour(amber),
@@ -86,3 +86,5 @@ export const chartColours: IChartColour[] = [
     convertToChartColour(brown),
     convertToChartColour(grey)
 ];
+
+export default chartColours;

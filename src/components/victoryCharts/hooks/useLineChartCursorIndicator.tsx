@@ -11,7 +11,7 @@ import {
 import ICartesianCoordinate, { xCoordType, yCoordType } from "../models/ICartesianCoordinate";
 import Lines from "../Lines";
 import { useTheme } from "@material-ui/core/styles";
-import { chartColours } from "../../../themes/colours";
+import chartColours from "../../../themes/colours/chartColours";
 import { Typography } from "@material-ui/core";
 
 interface IOptions<S extends xCoordType, T extends yCoordType> {

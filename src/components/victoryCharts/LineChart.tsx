@@ -3,7 +3,7 @@ import { useTheme } from "@material-ui/core/styles";
 
 import ChartWrapper, { ILegendDataProp } from "./ChartWrapper";
 import { VictoryAxis, VictoryLine, VictoryAxisProps, VictoryLabel } from "victory";
-import { chartColours } from "../../themes/colours";
+import chartColours from "../../themes/colours/chartColours";
 
 import Lines from "./Lines";
 import { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
