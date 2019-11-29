@@ -7,37 +7,18 @@ CHARTS:
 * Add y axis zoom domain?
 
 THOMAS MEETING
-* Make Front-end open source
 * Add to and bottom padding to line charts. Smallest value point is always on the x axis even if it isn't 0. Point should only be on x axis if it is 0.
-* Make number inputs as number sliders.
-* Drop support for safari - detect safari browser and display message that we do not support safari browser and that there may be bugs. Add to manual page.
-* Make manual an md file in github that can be displayed in browser material unit
+* Increase max width of data display container
 
 MAC PROBLEMS
 * Zoom in settings dissapear (safari?)
-* force adding of webkit css prefix - might solve wierd chart overlap issues
-css prefixes are generated client side based on feature detection - https://github.com/mui-org/material-ui/issues/9293
-* Increase max width of data display container
 * Possible mac problem - load synonym network, change similarity threshold setting, network rearranges then network request fullfils.
-
-CHART LABELS:
-* Frequency independent axis label unit?
-
-TO DOCUMENT:
-* .env file (REACT_APP_BASE_API_URL=https://api.macroscope.tech REACT_APP_API_KEY=cNiI3wAUwlKX/tFJedwEWmIAk1RBT5y3IujdgUNq4rM= REACT_APP_NODE_ENV=production)
-* svgs github logo sourced from https://svgporn.com/
 
 MAY TAKE SOME TIME:
 * Add request response caching to quickly responde to recently run requests - this might have to be done in the api
 * Fix settings performance - each change to settings does a complete rerender of all expansion panels which requires alot. Possible solution is to move settings into each data display expansion panel.
 * Add tests!!
-* Clicking on data display title takes you to full page view in new tab
 * Proper error catching when wordanalysis query string is faulty
-
-SETTINGS:
-* Settings with start and end year should be a range input slider
-* Frequency should have options for --match-full-word --match-start --match-middle --match-end cli flags and display lines for each with differnet colours and a key
-* Semantic drift should have options for --start-year --end-year --number-of-years-in-interval --number-of-closest-words
 
 NICE TO HAVE:
 * Search bar word autocomplete
@@ -48,9 +29,6 @@ NICE TO HAVE:
 * Monetise with client side crypto mining (which is easily turned of or adjusted) and donations
 * Create svg macroscope logo
 * Data display order should be dependent on settings order
-
-TO ASK:
-* What should "score" be called in synonym table?
 
 INFO:
 51.89.148.58:88 - old front end. Love, test
