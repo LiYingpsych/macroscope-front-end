@@ -2,6 +2,7 @@ import React from "react";
 import { VictoryScatter } from "victory";
 import ISemanticDriftData from "../../../../models/ISemanticDriftData";
 import ChartWrapper from "../../../../components/victoryCharts/ChartWrapper";
+import { useTheme } from "@material-ui/core/styles";
 
 interface IProps {
     data: ISemanticDriftData;
@@ -10,16 +11,18 @@ interface IProps {
 export default function SemanticDriftChart(props: IProps) {
     const { data } = props;
 
-    const yearPointColour = "#f28b27";
-    const contextWordPointColour = "#a6c9e1";
+    const theme = useTheme();
 
-    const primaryWordValue = data.primaryWord.value;
+    const yearPointColour = theme.palette.secondary.light;
+    const contextWordPointColour = theme.palette.primary.light;
+
+    const primaryWord = data.primaryWord;
 
     const yearPoints = data.semanticDrift.yearPoints.map(point => {
         return {
             x: point.coord.x,
             y: point.coord.y,
-            label: `${primaryWordValue} (${point.year})`,
+            label: `${primaryWord.value} (${point.year})`,
             fill: yearPointColour
         };
     });
