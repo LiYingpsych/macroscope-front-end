@@ -18,55 +18,44 @@ import brown from "@material-ui/core/colors/brown";
 import grey from "@material-ui/core/colors/grey";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 import { Color } from "@material-ui/core";
+import IColour, { IColourOptions } from "./IColour";
+import convertToColour from "./convertToColour";
 
-type IShadeNumber = "50" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900";
-
-interface IOptions {
-    main?: IShadeNumber;
-    hover?: IShadeNumber;
-    intersectionDot?: IShadeNumber;
+interface IOptions extends IColourOptions {
+    intersectionDotShade?: keyof Color;
 }
 
-interface IChartColour {
-    main: string;
-    hover: string;
+interface IChartColour extends IColour {
     intersectionDot: string;
 }
 
-function convertToChartColour(colour: Color, options?: IOptions) {
-    const defaultMainShade = "700";
-    const defaultHoverShade = "500";
-    const defaultIntersectionDotShade = "900";
+function convertToChartColour(colour: Color, options?: IOptions): IChartColour {
+    const defaultMainShade = 700;
+    const defaultHoverShade = 500;
+    const defaultIntersectionDotShade = 900;
 
     const parsedOptions: IOptions =
         typeof options === "undefined"
             ? {
-                  main: defaultMainShade,
-                  hover: defaultHoverShade,
-                  intersectionDot: defaultIntersectionDotShade
+                  mainShade: defaultMainShade,
+                  hoverShade: defaultHoverShade,
+                  intersectionDotShade: defaultIntersectionDotShade
               }
             : options;
 
+    const intersectionDotShade =
+        typeof parsedOptions.intersectionDotShade === "undefined"
+            ? defaultIntersectionDotShade
+            : parsedOptions.intersectionDotShade;
+
     return {
-        main:
-            colour[
-                typeof parsedOptions.main === "undefined" ? defaultMainShade : parsedOptions.main
-            ],
-        hover:
-            colour[
-                typeof parsedOptions.hover === "undefined" ? defaultHoverShade : parsedOptions.hover
-            ],
-        intersectionDot:
-            colour[
-                typeof parsedOptions.intersectionDot === "undefined"
-                    ? defaultIntersectionDotShade
-                    : parsedOptions.intersectionDot
-            ]
+        ...convertToColour(colour, parsedOptions),
+        intersectionDot: colour[intersectionDotShade]
     };
 }
 
 const chartColours: IChartColour[] = [
-    convertToChartColour(blueGrey, { main: "800" }),
+    convertToChartColour(blueGrey, { mainShade: 800 }),
     convertToChartColour(deepOrange),
     convertToChartColour(amber),
     convertToChartColour(cyan),
