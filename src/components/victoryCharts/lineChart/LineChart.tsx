@@ -1,14 +1,14 @@
 import React from "react";
 import { useTheme } from "@material-ui/core/styles";
 
-import ChartWrapper, { ILegendDataProp } from "./ChartWrapper";
+import ChartWrapper, { ILegendDataProp } from "../ChartWrapper";
 import { VictoryAxis, VictoryLine, VictoryAxisProps, VictoryLabel } from "victory";
-import chartColours from "../../themes/colours/chartColours";
+import chartColours from "../../../themes/colours/chartColours";
 
 import Lines from "./Lines";
-import { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
+import { yCoordType, xCoordType } from "../models/ICartesianCoordinate";
 
-import useZoomable from "./hooks/useZoomable";
+import useZoomable from "../commonHooks/useZoomable";
 import useLineChartCursorIndicator from "./hooks/useLineChartCursorIndicator";
 
 export type lineChartVariant = "zoomable" | "default";

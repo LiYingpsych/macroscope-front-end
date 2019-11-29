@@ -1,5 +1,5 @@
-import ICartesianCoordinate, { xCoordType, yCoordType } from "./models/ICartesianCoordinate";
-import { getMinValue, getMaxValue } from "../../utils/arrayUtils";
+import ICartesianCoordinate, { xCoordType, yCoordType } from "../models/ICartesianCoordinate";
+import { getMinValue, getMaxValue } from "../../../utils/arrayUtils";
 
 export interface ILine<S extends xCoordType, T extends yCoordType> {
     coords: ICartesianCoordinate<S, T>[];

@@ -1,11 +1,11 @@
 import React from "react";
-import OmitType from "../../utils/OmitType";
+import OmitType from "../../../utils/OmitType";
 
 import LineChart, { ILineChartProps, lineChartVariant } from "./LineChart";
-import { yCoordType, xCoordType } from "./models/ICartesianCoordinate";
+import { yCoordType, xCoordType } from "../models/ICartesianCoordinate";
 
-import useTabs from "../tabs/useTabs";
-import ITabItem from "../tabs/ITabItem";
+import useTabs from "../../tabs/useTabs";
+import ITabItem from "../../tabs/ITabItem";
 
 interface ILineChartSelectionTabItem extends ITabItem {
     id: lineChartVariant;

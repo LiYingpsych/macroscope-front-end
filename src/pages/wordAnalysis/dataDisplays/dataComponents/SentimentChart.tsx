@@ -1,7 +1,7 @@
 import React from "react";
 import ISentimentData from "../../../../models/ISentimentData";
-import Lines from "../../../../components/victoryCharts/Lines";
-import LineChartSelectionWrapper from "../../../../components/victoryCharts/LineChartSelectionWrapper";
+import Lines from "../../../../components/victoryCharts/lineChart/Lines";
+import LineChartSelectionWrapper from "../../../../components/victoryCharts/lineChart/LineChartSelectionWrapper";
 
 interface IProps {
     data: ISentimentData;
