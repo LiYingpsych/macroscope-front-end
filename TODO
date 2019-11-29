@@ -18,6 +18,7 @@ MAC PROBLEMS
 * force adding of webkit css prefix - might solve wierd chart overlap issues
 css prefixes are generated client side based on feature detection - https://github.com/mui-org/material-ui/issues/9293
 * Increase max width of data display container
+* Possible mac problem - load synonym network, change similarity threshold setting, network rearranges then network request fullfils.
 
 CHART LABELS:
 * Frequency independent axis label unit?
