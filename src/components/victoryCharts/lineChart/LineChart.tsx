@@ -2,7 +2,14 @@ import React from "react";
 import { useTheme } from "@material-ui/core/styles";
 
 import ChartWrapper, { ILegendDataProp } from "../ChartWrapper";
-import { VictoryAxis, VictoryLine, VictoryAxisProps, VictoryLabel } from "victory";
+import {
+    VictoryAxis,
+    VictoryLine,
+    VictoryAxisProps,
+    VictoryLabel,
+    VictoryZoomContainer,
+    VictoryCursorContainer
+} from "victory";
 import chartColours from "../../../themes/colours/chartColours";
 
 import Lines from "./Lines";
@@ -54,7 +61,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
         );
     });
 
-    const { zoomableContainerComponent, zoomableBrushComponent } = useZoomable({
+    const { zoomableBrushComponent, zoomDomain, handleZoom } = useZoomable({
         dimension: "x",
         brushOptions: {
             padding: { top: 0, left: padding.left, right: padding.right, bottom: 0 },
@@ -63,7 +70,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
     });
 
     const {
-        lineChartCursorIndicatorContainerComponent,
+        handleCursorChange,
         lineChartCursorIndicatorLine,
         lineChartCursorIndicatorIntersectionPoints,
         lineChartCursorIndicatorYValueDisplay
@@ -74,9 +81,18 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
             <ChartWrapper
                 padding={padding}
                 containerComponent={
-                    variant === "zoomable"
-                        ? zoomableContainerComponent
-                        : lineChartCursorIndicatorContainerComponent
+                    variant === "zoomable" ? (
+                        <VictoryZoomContainer
+                            zoomDimension="x"
+                            zoomDomain={zoomDomain}
+                            onZoomDomainChange={handleZoom}
+                        />
+                    ) : (
+                        <VictoryCursorContainer
+                            onCursorChange={handleCursorChange}
+                            cursorComponent={<div style={{ display: "none" }}></div>}
+                        />
+                    )
                 }
                 legendData={legendData}
             >

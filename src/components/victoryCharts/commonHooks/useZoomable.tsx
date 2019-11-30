@@ -32,6 +32,8 @@ export default function useZoomable(options: IOptions) {
     };
 
     return {
+        zoomDomain: zoomDomain,
+        handleZoom: handleZoom,
         zoomableContainerComponent: (
             <VictoryZoomContainer
                 zoomDimension={dimension}

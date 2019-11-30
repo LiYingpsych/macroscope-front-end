@@ -51,6 +51,7 @@ export default function useLineChartCursorIndicator<S extends xCoordType, T exte
     };
 
     return {
+        handleCursorChange: handleCursorChange,
         lineChartCursorIndicatorContainerComponent: (
             <VictoryCursorContainer
                 onCursorChange={handleCursorChange}
