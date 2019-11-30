@@ -8,13 +8,24 @@ import {
 } from "victory";
 import ChartWrapper from "../ChartWrapper";
 
-interface IOptions {
+interface IContainerOptions {}
+
+interface IBrushOptions {
     children?: ReactNode;
     padding?: BlockProps;
     height?: number;
 }
 
+type DimensionType = "x" | "y" | undefined;
+
+interface IOptions {
+    containerOptions?: IContainerOptions;
+    brushOptions?: IBrushOptions;
+    dimension?: DimensionType;
+}
+
 export default function useZoomable(options: IOptions) {
+    const { containerOptions, brushOptions, dimension } = options;
     const [zoomDomain, setZoomDomain] = useState<DomainPropType>();
     const handleZoom = (domain: DomainPropType) => {
         setZoomDomain(domain);
@@ -23,36 +34,46 @@ export default function useZoomable(options: IOptions) {
     return {
         zoomableContainerComponent: (
             <VictoryZoomContainer
-                zoomDimension="x"
+                zoomDimension={dimension}
                 zoomDomain={zoomDomain}
                 onZoomDomainChange={handleZoom}
+                {...containerOptions}
             />
         ),
         zoomableBrushComponent: (
-            <CustomBrush zoomDomain={zoomDomain} handleZoom={handleZoom} {...options} />
+            <CustomBrush
+                zoomDomain={zoomDomain}
+                handleZoom={handleZoom}
+                dimension={dimension}
+                {...brushOptions}
+            />
         )
     };
 }
 
-interface IProps extends IOptions {
+interface IProps extends IBrushOptions {
     handleZoom: (domain: DomainPropType) => void;
     zoomDomain: DomainPropType | undefined;
+    dimension?: DimensionType;
 }
 
 function CustomBrush(props: IProps) {
-    const { handleZoom, zoomDomain, children, padding, height = 100 } = props;
+    const { handleZoom, zoomDomain, dimension, children, height, ...rest } = props;
+
+    let _height = height;
+    if (typeof height === "undefined" && dimension === "x") _height = 100;
 
     return (
         <ChartWrapper
-            padding={padding}
-            height={height}
+            height={_height}
             containerComponent={
                 <VictoryBrushContainer
-                    brushDimension="x"
+                    brushDimension={dimension}
                     brushDomain={zoomDomain}
                     onBrushDomainChange={handleZoom}
                 />
             }
+            {...rest}
         >
             <VictoryAxis tickFormat={(t: any) => ""} />
             {children}

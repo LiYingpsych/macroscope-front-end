@@ -1,8 +1,7 @@
 import React from "react";
-import { VictoryScatter } from "victory";
-import ISemanticDriftData from "../../../../models/ISemanticDriftData";
-import ChartWrapper from "../../../../components/victoryCharts/ChartWrapper";
 import { useTheme } from "@material-ui/core/styles";
+import ISemanticDriftData from "../../../../models/ISemanticDriftData";
+import ScatterChart from "../../../../components/victoryCharts/scatterChart/ScatterChart";
 
 interface IProps {
     data: ISemanticDriftData;
@@ -36,17 +35,5 @@ export default function SemanticDriftChart(props: IProps) {
         };
     });
 
-    return (
-        <ChartWrapper>
-            <VictoryScatter
-                size={7}
-                data={[...yearPoints, ...contextWordPoints]}
-                style={{
-                    data: {
-                        fill: ({ datum }) => datum.fill
-                    }
-                }}
-            />
-        </ChartWrapper>
-    );
+    return <ScatterChart data={[...yearPoints, ...contextWordPoints]} />;
 }
