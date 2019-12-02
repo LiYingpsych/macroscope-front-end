@@ -26,22 +26,24 @@ export default function useLineChartCursorIndicator<S extends xCoordType, T exte
     const theme = useTheme();
 
     const [cursorClosestXCoordinate, setCursorClosestXCoordinate] = useState<S | null>();
-    const [intersectionCoords, setIntersectionCoords] = useState<ICartesianCoordinate<S, T>[]>();
+    // const [intersectionCoords, setIntersectionCoords] = useState<ICartesianCoordinate<S, T>[]>();
 
     // TODO: submit issue - value returned depends on cursorDimension value when it should still return a CursorData prop
     const handleCursorChange = (value: CursorData, props: VictoryCursorContainerProps) => {
+        console.log("value");
+        console.log(value);
         if (typeof value === "undefined" || value === null) setCursorClosestXCoordinate(null);
-        else {
-            const _closestX = lines.getClosestXCoordinate(value.x as S);
-            setCursorClosestXCoordinate(_closestX);
-            updateIntersectionCoordinates(_closestX);
-        }
+        // else {
+        // const _closestX = lines.getClosestXCoordinate(value.x as S);
+        // setCursorClosestXCoordinate(_closestX);
+        //     // updateIntersectionCoordinates(_closestX);
+        // }
     };
 
-    const updateIntersectionCoordinates = (x: S) => {
-        const _intersectionCoords = lines.getYIntersectionCoordinates(x);
-        setIntersectionCoords(_intersectionCoords);
-    };
+    // const updateIntersectionCoordinates = (x: S) => {
+    //     const _intersectionCoords = lines.getYIntersectionCoordinates(x);
+    //     setIntersectionCoords(_intersectionCoords);
+    // };
 
     const getDomain = (): DomainPropType => {
         return {
@@ -77,33 +79,33 @@ export default function useLineChartCursorIndicator<S extends xCoordType, T exte
                     labelComponent={<VictoryLabel renderInPortal dy={16} />}
                     // --- ----
                 />
-            ),
-        lineChartCursorIndicatorIntersectionPoints:
-            typeof cursorClosestXCoordinate === "undefined" ||
-            cursorClosestXCoordinate === null ||
-            typeof intersectionCoords === "undefined"
-                ? null
-                : intersectionCoords.map((coord, i) => {
-                      return (
-                          <VictoryScatter
-                              key={i}
-                              size={4}
-                              style={{ data: { fill: chartColours[i].intersectionDot } }}
-                              data={[coord]}
-                          />
-                      );
-                  }),
-        lineChartCursorIndicatorYValueDisplay:
-            typeof intersectionCoords === "undefined" ? (
-                undefined
-            ) : (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                    <Typography variant="h6" align="right">
-                        {dependentAxisName} {intersectionCoords.length > 1 ? "values" : "value"}
-                    </Typography>
-                    <OrderedYValues order="desc" coords={intersectionCoords} />
-                </div>
             )
+        // lineChartCursorIndicatorIntersectionPoints:
+        //     typeof cursorClosestXCoordinate === "undefined" ||
+        //     cursorClosestXCoordinate === null ||
+        //     typeof intersectionCoords === "undefined"
+        //         ? null
+        //         : intersectionCoords.map((coord, i) => {
+        //               return (
+        //                   <VictoryScatter
+        //                       key={i}
+        //                       size={4}
+        //                       style={{ data: { fill: chartColours[i].intersectionDot } }}
+        //                       data={[coord]}
+        //                   />
+        //               );
+        //           }),
+        // lineChartCursorIndicatorYValueDisplay:
+        //     typeof intersectionCoords === "undefined" ? (
+        //         undefined
+        //     ) : (
+        //         <div style={{ display: "flex", flexDirection: "column" }}>
+        //             <Typography variant="h6" align="right">
+        //                 {dependentAxisName} {intersectionCoords.length > 1 ? "values" : "value"}
+        //             </Typography>
+        //             <OrderedYValues order="desc" coords={intersectionCoords} />
+        //         </div>
+        //     )
     };
 }
 

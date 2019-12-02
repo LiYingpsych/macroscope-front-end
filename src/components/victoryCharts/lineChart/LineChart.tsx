@@ -8,7 +8,10 @@ import {
     VictoryAxisProps,
     VictoryLabel,
     VictoryZoomContainer,
-    VictoryCursorContainer
+    VictoryCursorContainer,
+    createContainer,
+    VictoryZoomContainerProps,
+    VictoryCursorContainerProps
 } from "victory";
 import chartColours from "../../../themes/colours/chartColours";
 
@@ -40,7 +43,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
         independentAxisProps = { tickFormat: undefined }
     } = props;
 
-    const theme = useTheme();
+    // const theme = useTheme();
 
     const padding = { left: 60, top: 20, right: 10, bottom: 60 };
 
@@ -49,12 +52,12 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
             ? (x: any) => new Date(x, 0).getFullYear()
             : independentAxisProps.tickFormat;
 
-    let legendData: ILegendDataProp[] = [];
+    // let legendData: ILegendDataProp[] = [];
     const LinesComponent = lines.items.map((line, i) => {
         const strokeColour = chartColours[i % chartColours.length].main;
 
-        if (line.coords.length > 0)
-            legendData.push({ name: line.legendLabel, symbol: { fill: strokeColour } });
+        // if (line.coords.length > 0)
+        //     legendData.push({ name: line.legendLabel, symbol: { fill: strokeColour } });
 
         return (
             <VictoryLine style={{ data: { stroke: strokeColour } }} data={line.coords} key={i} />
@@ -70,31 +73,45 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
     });
 
     const {
-        handleCursorChange,
-        lineChartCursorIndicatorLine,
-        lineChartCursorIndicatorIntersectionPoints,
-        lineChartCursorIndicatorYValueDisplay
+        handleCursorChange
+        // lineChartCursorIndicatorLine,
+        // lineChartCursorIndicatorIntersectionPoints,
+        // lineChartCursorIndicatorYValueDisplay
     } = useLineChartCursorIndicator({ lines, dependentAxisName: dependentAxisProps.label });
+
+    const VictoryZoomCursorChangeContainer = createContainer<
+        VictoryZoomContainerProps,
+        VictoryCursorContainerProps
+    >("zoom", "cursor");
 
     return (
         <>
             <ChartWrapper
                 padding={padding}
                 containerComponent={
-                    variant === "zoomable" ? (
-                        <VictoryZoomContainer
-                            zoomDimension="x"
-                            zoomDomain={zoomDomain}
-                            onZoomDomainChange={handleZoom}
-                        />
-                    ) : (
-                        <VictoryCursorContainer
-                            onCursorChange={handleCursorChange}
-                            cursorComponent={<div style={{ display: "none" }}></div>}
-                        />
-                    )
+                    <VictoryZoomCursorChangeContainer
+                        zoomDimension="x"
+                        zoomDomain={zoomDomain}
+                        onZoomDomainChange={handleZoom}
+                        onCursorChange={handleCursorChange}
+                        // cursorComponent={<div style={{ display: "none" }}></div>}
+                    />
                 }
-                legendData={legendData}
+                // containerComponent={
+                //     variant === "zoomable" ? (
+                //         <VictoryZoomContainer
+                //             zoomDimension="x"
+                //             zoomDomain={zoomDomain}
+                //             onZoomDomainChange={handleZoom}
+                //         />
+                //     ) : (
+                //         <VictoryCursorContainer
+                //             onCursorChange={handleCursorChange}
+                //             cursorComponent={<div style={{ display: "none" }}></div>}
+                //         />
+                //     )
+                // }
+                // legendData={legendData}
             >
                 <VictoryAxis
                     dependentAxis
@@ -108,22 +125,19 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
                 />
 
                 {LinesComponent}
-
-                {variant === "default" ? lineChartCursorIndicatorLine : null}
-                {variant === "default" ? lineChartCursorIndicatorIntersectionPoints : null}
+                {/* {lineChartCursorIndicatorLine}
+                {lineChartCursorIndicatorIntersectionPoints} */}
             </ChartWrapper>
-            {variant === "zoomable" ? zoomableBrushComponent : null}
-            {variant === "default" ? (
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        padding: `0px ${theme.spacing(1)}px`
-                    }}
-                >
-                    {lineChartCursorIndicatorYValueDisplay}
-                </div>
-            ) : null}
+            {zoomableBrushComponent}
+            {/* <div
+                style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    padding: `0px ${theme.spacing(1)}px`
+                }}
+            >
+                {lineChartCursorIndicatorYValueDisplay}
+            </div> */}
         </>
     );
 }
