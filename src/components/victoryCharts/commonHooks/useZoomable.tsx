@@ -24,7 +24,7 @@ interface IOptions {
     dimension?: DimensionType;
 }
 
-export default function useZoomable(options: IOptions) {
+export default function useZoomable(options: IOptions = {}) {
     const { containerOptions, brushOptions, dimension } = options;
     const [zoomDomain, setZoomDomain] = useState<DomainPropType>();
     const handleZoom = (domain: DomainPropType) => {
