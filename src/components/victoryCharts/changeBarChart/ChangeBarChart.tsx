@@ -48,14 +48,14 @@ export default function ChangeBarChart(props: IProps) {
     );
 }
 
-interface IBarProps {
+interface IChangeBarProps {
     id: string;
     data: IChangeBarData[];
     type: "positive" | "negative";
     barWidth: number;
 }
 
-function ChangeBar(props: IBarProps) {
+function ChangeBar(props: IChangeBarProps) {
     const { id, data, type, barWidth } = props;
 
     const theme = useTheme();
