@@ -11,13 +11,30 @@ interface IChangeBarData {
 interface IProps {
     increasingData: IChangeBarData[];
     decreasingData: IChangeBarData[];
+    barWidth?: number;
+    spacing?: number;
 }
 
 export default function ChangeBarChart(props: IProps) {
-    const { increasingData, decreasingData } = props;
+    const { increasingData, decreasingData, barWidth = 25, spacing = 10 } = props;
+
+    // TODO: Should only count bars with unique labels
+    const totalNumberOfBars = increasingData.length + decreasingData.length;
+
+    const padding = 10;
+    const topBottomPadding = barWidth / 2 + padding;
 
     return (
-        <ChartWrapper horizontal>
+        <ChartWrapper
+            horizontal
+            height={totalNumberOfBars * (barWidth + spacing)}
+            padding={{
+                left: padding,
+                right: padding,
+                top: topBottomPadding,
+                bottom: topBottomPadding
+            }}
+        >
             <VictoryAxis
                 dependentAxis
                 style={{
@@ -25,8 +42,8 @@ export default function ChangeBarChart(props: IProps) {
                     tickLabels: { stroke: "none", fill: "transparent" }
                 }}
             />
-            {ChangeBar({ data: decreasingData, type: "negative" })}
-            {ChangeBar({ data: increasingData, type: "positive" })}
+            {ChangeBar({ barWidth, data: decreasingData, type: "negative" })}
+            {ChangeBar({ barWidth, data: increasingData, type: "positive" })}
         </ChartWrapper>
     );
 }
@@ -34,10 +51,11 @@ export default function ChangeBarChart(props: IProps) {
 interface IBarProps {
     data: IChangeBarData[];
     type: "positive" | "negative";
+    barWidth: number;
 }
 
 function ChangeBar(props: IBarProps) {
-    const { data, type = "" } = props;
+    const { data, type, barWidth } = props;
 
     const theme = useTheme();
 
@@ -69,6 +87,7 @@ function ChangeBar(props: IBarProps) {
             orientation={orientation}
         />,
         <VictoryBar
+            barWidth={barWidth}
             key="bar"
             data={parsedData}
             style={{
