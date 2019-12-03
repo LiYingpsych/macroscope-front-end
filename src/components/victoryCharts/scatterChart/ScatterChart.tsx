@@ -22,6 +22,7 @@ interface IProps extends VictoryScatterProps {
 }
 
 type VictoryScatterEventTarget = "data" | "labels" | "parent";
+type EventFunctionReturyType<T> = EventCallbackInterface<T, StringOrNumberOrCallback>;
 
 export default function ScatterChart(props: IProps) {
     const { data, size = 7, ...rest } = props;
@@ -30,21 +31,21 @@ export default function ScatterChart(props: IProps) {
 
     const padding = { left: 0, top: 0, right: 0, bottom: 0 };
 
-    const highlightLabel = (): EventCallbackInterface<"labels", StringOrNumberOrCallback> => {
+    const highlightLabel = (): EventFunctionReturyType<"labels"> => {
         return {
             target: "labels",
             mutation: (props: any) => {
                 return {
                     style: Object.assign({}, props.style, {
                         fontWeight: "bold",
-                        backgroundColor: "red"
+                        opacity: 1
                     })
                 };
             }
         };
     };
 
-    const highlightDataPoint = (): EventCallbackInterface<"data", StringOrNumberOrCallback> => {
+    const highlightDataPoint = (): EventFunctionReturyType<"data"> => {
         return {
             target: "data",
             mutation: (props: any) => {
@@ -69,9 +70,7 @@ export default function ScatterChart(props: IProps) {
     };
 
     const Content = (
-        //@ts-ignore
         <VictoryScatter
-            // domainPadding={20}
             data={data}
             style={{
                 data: {
@@ -80,6 +79,9 @@ export default function ScatterChart(props: IProps) {
                         typeof datum.fill === "undefined"
                             ? theme.palette.secondary.light
                             : datum.fill
+                },
+                labels: {
+                    opacity: 0.8
                 }
             }}
             size={size}
