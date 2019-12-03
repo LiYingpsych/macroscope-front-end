@@ -1,6 +1,7 @@
 import React from "react";
 import ChartWrapper from "../ChartWrapper";
 import { VictoryAxis, VictoryBar } from "victory";
+import { useTheme } from "@material-ui/core/styles";
 
 interface IChangeBarData {
     label: string;
@@ -14,9 +15,10 @@ interface IProps {
 
 export default function ChangeBarChart(props: IProps) {
     const { increasingData, decreasingData } = props;
+    const theme = useTheme();
 
-    const positiveColour = "#4681b4";
-    const negativeColour = "#ef1501";
+    const positiveColour = theme.palette.primary.light;
+    const negativeColour = theme.palette.secondary.light;
 
     return (
         <ChartWrapper horizontal>
