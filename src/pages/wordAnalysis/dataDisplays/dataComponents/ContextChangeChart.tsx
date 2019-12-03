@@ -17,12 +17,17 @@ export default function ContextChangeChart(props: IProps) {
         contextChangeWords: IContextChangeWord[],
         absolute: boolean = false
     ) => {
-        const normConst = Math.max(...contextChangeWords.map(word => Math.abs(word.dif)));
+        const normConst = Math.max(
+            ...contextChangeWords.map(contextPoint => Math.abs(contextPoint.dif))
+        );
 
         return contextChangeWords.map(contextPoint => {
             return {
                 x: contextPoint.word.value,
-                y: (absolute ? Math.abs(contextPoint.dif) : contextPoint.dif) / normConst
+                y:
+                    normConst === 0
+                        ? 0
+                        : (absolute ? Math.abs(contextPoint.dif) : contextPoint.dif) / normConst
             };
         });
     };
