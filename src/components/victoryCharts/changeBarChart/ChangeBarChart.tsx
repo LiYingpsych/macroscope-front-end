@@ -63,8 +63,6 @@ function ChangeBar(props: IBarProps) {
     const colour =
         type === "positive" ? theme.palette.primary.light : theme.palette.secondary.light;
 
-    const tickValues = data.map(d => d.label);
-
     const maxLength = Math.max(...data.map(d => Math.abs(d.length)));
 
     const parsedData = data.map(d => {
@@ -79,8 +77,6 @@ function ChangeBar(props: IBarProps) {
 
     return [
         <VictoryAxis
-            key="axis"
-            tickValues={tickValues}
             style={{
                 axis: { stroke: "none" }
             }}
