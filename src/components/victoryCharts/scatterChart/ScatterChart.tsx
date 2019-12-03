@@ -105,16 +105,14 @@ export default function ScatterChart(props: IProps) {
     const { zoomableContainerComponent } = useZoomable();
 
     return (
-        <>
-            <ChartWrapper
-                domainPadding={50}
-                padding={padding}
-                containerComponent={zoomableContainerComponent}
-            >
-                {Content}
-                <VictoryAxis tickFormat={(t: any) => ""} />
-                <VictoryAxis dependentAxis tickFormat={(t: any) => ""} />
-            </ChartWrapper>
-        </>
+        <ChartWrapper
+            domainPadding={50}
+            padding={padding}
+            containerComponent={zoomableContainerComponent}
+        >
+            {Content}
+            <VictoryAxis tickFormat={(t: any) => ""} />
+            <VictoryAxis dependentAxis tickFormat={(t: any) => ""} />
+        </ChartWrapper>
     );
 }
