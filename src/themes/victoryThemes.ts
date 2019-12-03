@@ -224,7 +224,9 @@ const defaultTheme = (muiTheme: Theme): VictoryThemeDefinition => {
                         stroke: "transparent",
                         strokeWidth: 0
                     },
-                    labels: centeredLabelStyles
+                    labels: assign({}, centeredLabelStyles, {
+                        pointerEvents: "none"
+                    })
                 }
             },
             baseProps
