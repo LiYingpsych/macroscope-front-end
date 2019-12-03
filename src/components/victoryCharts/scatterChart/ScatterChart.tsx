@@ -36,7 +36,6 @@ export default function ScatterChart(props: IProps) {
             mutation: (props: any) => {
                 return {
                     style: Object.assign({}, props.style, {
-                        // fill: "tomato",
                         fontWeight: "bold",
                         backgroundColor: "red"
                     })
@@ -58,13 +57,15 @@ export default function ScatterChart(props: IProps) {
         };
     };
 
-    const resetTarget = (target: VictoryScatterEventTarget) => {
-        return {
-            target: target,
-            mutation: () => {
-                return null;
-            }
-        };
+    const resetTargets = (...targets: VictoryScatterEventTarget[]) => {
+        return targets.map(target => {
+            return {
+                target: target,
+                mutation: () => {
+                    return null;
+                }
+            };
+        });
     };
 
     const Content = (
@@ -88,7 +89,7 @@ export default function ScatterChart(props: IProps) {
                             return [highlightLabel(), highlightDataPoint()];
                         },
                         onMouseLeave: () => {
-                            return [resetTarget("labels"), resetTarget("data")];
+                            return [...resetTargets("labels", "data")];
                         }
                     }
                 }
