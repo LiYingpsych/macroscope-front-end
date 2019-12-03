@@ -69,7 +69,9 @@ export default function ScatterChart(props: IProps) {
     };
 
     const Content = (
+        //@ts-ignore
         <VictoryScatter
+            // domainPadding={20}
             data={data}
             style={{
                 data: {
@@ -102,7 +104,11 @@ export default function ScatterChart(props: IProps) {
 
     return (
         <>
-            <ChartWrapper padding={padding} containerComponent={zoomableContainerComponent}>
+            <ChartWrapper
+                domainPadding={50}
+                padding={padding}
+                containerComponent={zoomableContainerComponent}
+            >
                 {Content}
                 <VictoryAxis tickFormat={(t: any) => ""} />
                 <VictoryAxis dependentAxis tickFormat={(t: any) => ""} />
