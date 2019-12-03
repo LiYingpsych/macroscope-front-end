@@ -42,20 +42,21 @@ export default function ChangeBarChart(props: IProps) {
                     tickLabels: { stroke: "none", fill: "transparent" }
                 }}
             />
-            {ChangeBar({ barWidth, data: decreasingData, type: "negative" })}
-            {ChangeBar({ barWidth, data: increasingData, type: "positive" })}
+            {ChangeBar({ id: "decreasingData", barWidth, data: decreasingData, type: "negative" })}
+            {ChangeBar({ id: "increasingData", barWidth, data: increasingData, type: "positive" })}
         </ChartWrapper>
     );
 }
 
 interface IBarProps {
+    id: string;
     data: IChangeBarData[];
     type: "positive" | "negative";
     barWidth: number;
 }
 
 function ChangeBar(props: IBarProps) {
-    const { data, type, barWidth } = props;
+    const { id, data, type, barWidth } = props;
 
     const theme = useTheme();
 
@@ -77,14 +78,15 @@ function ChangeBar(props: IBarProps) {
 
     return [
         <VictoryAxis
+            key={`${id}-axis`}
             style={{
                 axis: { stroke: "none" }
             }}
             orientation={orientation}
         />,
         <VictoryBar
+            key={`${id}-bar`}
             barWidth={barWidth}
-            key="bar"
             data={parsedData}
             style={{
                 data: {
