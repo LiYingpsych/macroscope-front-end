@@ -18,10 +18,6 @@ export default function ChangeBarChart(props: IProps) {
     const positiveColour = "#4681b4";
     const negativeColour = "#ef1501";
 
-    const axisStyles = {
-        axis: { stroke: "none" }
-    };
-
     return (
         <ChartWrapper horizontal>
             <VictoryAxis
@@ -31,33 +27,38 @@ export default function ChangeBarChart(props: IProps) {
                     tickLabels: { stroke: "none", fill: "transparent" }
                 }}
             />
-            <VictoryAxis
-                orientation="right"
-                tickValues={decreasingData.map(d => d.label)}
-                style={axisStyles}
-            />
-
-            <VictoryBar
-                data={decreasingData}
-                x="label"
-                y="length"
-                style={{
-                    data: {
-                        fill: negativeColour
-                    }
-                }}
-            />
-            <VictoryAxis tickValues={increasingData.map(d => d.label)} style={axisStyles} />
-            <VictoryBar
-                data={increasingData}
-                x="label"
-                y="length"
-                style={{
-                    data: {
-                        fill: positiveColour
-                    }
-                }}
-            />
+            {ChangeBar({ colour: negativeColour, data: decreasingData, orientation: "right" })}
+            {ChangeBar({ colour: positiveColour, data: increasingData })}
         </ChartWrapper>
     );
+}
+
+interface IBarProps {
+    colour: string;
+    data: IChangeBarData[];
+    orientation?: "top" | "bottom" | "left" | "right";
+}
+
+function ChangeBar(props: IBarProps) {
+    const { colour, data, orientation = "left" } = props;
+
+    return [
+        <VictoryAxis
+            tickValues={data.map(d => d.label)}
+            style={{
+                axis: { stroke: "none" }
+            }}
+            orientation={orientation}
+        />,
+        <VictoryBar
+            data={data}
+            x="label"
+            y="length"
+            style={{
+                data: {
+                    fill: colour
+                }
+            }}
+        />
+    ];
 }
