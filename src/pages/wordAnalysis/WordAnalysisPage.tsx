@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 import DataDisplays from "./dataDisplays";
 
 import {
@@ -36,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) => {
     )}px)`;
 
     return createStyles({
-        results: {},
         floatingBarContainer: {
             flex: "1 0 auto",
             maxWidth: 1200,
@@ -169,34 +167,27 @@ export default function WordAnalysisPage() {
             }
         >
             <PageContent paddingTop={0}>
-                <Grid item container direction="column" spacing={2}>
-                    <Grid item xs={12} className={classes.floatingBarContainer}>
-                        <div className={classes.blurField}></div>
-                        <div className={classes.floatingBar}>
-                            <SearchBar
-                                className={classes.searchBar}
-                                autoFocus={true}
-                                defaultSearchTerm={searchTerm}
-                                placeholder="Search word..."
-                                allowedCharacters={`${alphabet.toLowerCase()}`}
-                                onSearch={(updatedSearchTerm: string) => {
-                                    setSearchTerm(updatedSearchTerm);
-                                    pushToHistory({
-                                        settings: settings,
-                                        searchTerm: updatedSearchTerm
-                                    });
-                                }}
-                                caseSensitive
-                            />
-                        </div>
-                    </Grid>
-                    <Grid item xs={12} className={classes.results}>
-                        <DataDisplays
-                            searchTerm={searchTerm}
-                            searchSettings={settings}
-                        ></DataDisplays>
-                    </Grid>
-                </Grid>
+                <div className={classes.floatingBarContainer}>
+                    <div className={classes.blurField}></div>
+                    <div className={classes.floatingBar}>
+                        <SearchBar
+                            className={classes.searchBar}
+                            autoFocus={true}
+                            defaultSearchTerm={searchTerm}
+                            placeholder="Search word..."
+                            allowedCharacters={`${alphabet.toLowerCase()}`}
+                            onSearch={(updatedSearchTerm: string) => {
+                                setSearchTerm(updatedSearchTerm);
+                                pushToHistory({
+                                    settings: settings,
+                                    searchTerm: updatedSearchTerm
+                                });
+                            }}
+                            caseSensitive
+                        />
+                    </div>
+                </div>
+                <DataDisplays searchTerm={searchTerm} searchSettings={settings} />
             </PageContent>
         </ClippedDrawer>
     );

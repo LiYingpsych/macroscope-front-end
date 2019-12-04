@@ -34,8 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
             fontSize: theme.typography.pxToRem(15),
             fontWeight: theme.typography.fontWeightRegular
         },
+        panelDetailsContainer: {
+            padding: 0,
+            display: "flex"
+        },
         panelDetails: {
-            padding: 0
+            flex: 1
         },
         linearLoader: {
             position: "absolute",
@@ -141,8 +145,8 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
                     <LinearProgress className={classes.linearLoader} color="secondary" />
                 ) : null}
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.panelDetails}>
-                <>
+            <ExpansionPanelDetails className={classes.panelDetailsContainer}>
+                <div className={classes.panelDetails}>
                     {!isError && !isLoading && typeof data !== "undefined" ? (
                         <Grid container direction="column">
                             <Grid container item>
@@ -177,7 +181,7 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
                             </Grid>
                         </Grid>
                     ) : null}
-                </>
+                </div>
             </ExpansionPanelDetails>
         </ExpansionPanel>
     );
