@@ -1,74 +1,27 @@
 import React from "react";
-import { VictoryBar, VictoryAxis } from "victory";
 import IContextChangeData, { IContextChangeWord } from "../../../../models/IContextChangeData";
-import ChartWrapper from "../../../../components/victoryCharts/ChartWrapper";
+import ChangeBarChart, {
+    IChangeBarData
+} from "../../../../components/victoryCharts/changeBarChart/ChangeBarChart";
 
 interface IProps {
     data: IContextChangeData;
 }
 
+function mapWordsToData(contextChangeWords: IContextChangeWord[]): IChangeBarData[] {
+    return contextChangeWords.map(contextPoint => {
+        return {
+            label: contextPoint.word.value,
+            length: Math.abs(contextPoint.dif)
+        };
+    });
+}
+
 export default function ContextChangeChart(props: IProps) {
     const { data } = props;
 
-    const positiveColour = "#4681b4";
-    const negativeColour = "#ef1501";
-
-    const mapWordsToData = (
-        contextChangeWords: IContextChangeWord[],
-        absolute: boolean = false
-    ) => {
-        const normConst = Math.max(
-            ...contextChangeWords.map(contextPoint => Math.abs(contextPoint.dif))
-        );
-
-        return contextChangeWords.map(contextPoint => {
-            return {
-                x: contextPoint.word.value,
-                y:
-                    normConst === 0
-                        ? 0
-                        : (absolute ? Math.abs(contextPoint.dif) : contextPoint.dif) / normConst
-            };
-        });
-    };
-    const increasingData = mapWordsToData(data.increasingWords, true).reverse();
+    const increasingData = mapWordsToData(data.increasingWords);
     const decreasingData = mapWordsToData(data.decreasingWords);
 
-    const axisStyles = {
-        axis: { stroke: "none" }
-    };
-    return (
-        <ChartWrapper horizontal>
-            <VictoryAxis
-                dependentAxis
-                style={{
-                    axis: { stroke: "none" },
-                    tickLabels: { stroke: "none", fill: "transparent" }
-                }}
-            />
-            <VictoryAxis
-                orientation="right"
-                tickValues={decreasingData.map(d => d.x)}
-                style={axisStyles}
-            />
-
-            <VictoryBar
-                data={decreasingData}
-                style={{
-                    data: {
-                        fill: negativeColour
-                    }
-                }}
-            />
-            <VictoryAxis tickValues={increasingData.map(d => d.x)} style={axisStyles} />
-            <VictoryBar
-                data={increasingData}
-                style={{
-                    data: {
-                        fill: positiveColour
-                    }
-                }}
-            />
-        </ChartWrapper>
-    );
+    return <ChangeBarChart increasingData={increasingData} decreasingData={decreasingData} />;
 }

@@ -5,7 +5,7 @@ import { useTheme } from "@material-ui/core/styles";
 import { SortingOrder, stableSort, getSortingCompareFunction } from "../../../utils/sorting";
 import numberOfUniqueItemsByProperty from "../../../utils/numberOfUniqueItemsByProperty";
 
-interface IChangeBarData {
+export interface IChangeBarData {
     label: string;
     length: number;
 }
