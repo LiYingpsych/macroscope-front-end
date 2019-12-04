@@ -3,6 +3,7 @@ import ChartWrapper from "../ChartWrapper";
 import { VictoryAxis, VictoryBar } from "victory";
 import { useTheme } from "@material-ui/core/styles";
 import { SortingOrder, stableSort, getSortingCompareFunction } from "../../../utils/sorting";
+import numberOfUniqueItemsByProperty from "../../../utils/numberOfUniqueItemsByProperty";
 
 interface IChangeBarData {
     label: string;
@@ -28,8 +29,9 @@ export default function ChangeBarChart(props: IProps) {
         decreasingOrder = "asc"
     } = props;
 
-    // TODO: Should only count bars with unique labels
-    const totalNumberOfBars = increasingData.length + decreasingData.length;
+    const totalNumberOfBars =
+        numberOfUniqueItemsByProperty(increasingData, "label") +
+        numberOfUniqueItemsByProperty(decreasingData, "label");
 
     const padding = 10;
     const topBottomPadding = barWidth / 2 + padding;
