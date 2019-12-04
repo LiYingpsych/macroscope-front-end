@@ -2,6 +2,7 @@ import React from "react";
 import ChartWrapper from "../ChartWrapper";
 import { VictoryAxis, VictoryBar } from "victory";
 import { useTheme } from "@material-ui/core/styles";
+import { SortingOrder, stableSort, getSortingCompareFunction } from "../../../utils/sorting";
 
 interface IChangeBarData {
     label: string;
@@ -11,12 +12,21 @@ interface IChangeBarData {
 interface IProps {
     increasingData: IChangeBarData[];
     decreasingData: IChangeBarData[];
+    increasingOrder?: SortingOrder;
+    decreasingOrder?: SortingOrder;
     barWidth?: number;
     spacing?: number;
 }
 
 export default function ChangeBarChart(props: IProps) {
-    const { increasingData, decreasingData, barWidth = 25, spacing = 10 } = props;
+    const {
+        increasingData,
+        decreasingData,
+        barWidth = 25,
+        spacing = 10,
+        increasingOrder = "asc",
+        decreasingOrder = "asc"
+    } = props;
 
     // TODO: Should only count bars with unique labels
     const totalNumberOfBars = increasingData.length + decreasingData.length;
@@ -42,8 +52,20 @@ export default function ChangeBarChart(props: IProps) {
                     tickLabels: { stroke: "none", fill: "transparent" }
                 }}
             />
-            {ChangeBar({ id: "decreasingData", barWidth, data: decreasingData, type: "negative" })}
-            {ChangeBar({ id: "increasingData", barWidth, data: increasingData, type: "positive" })}
+            {ChangeBar({
+                id: "decreasingData",
+                barWidth,
+                data: decreasingData,
+                type: "negative",
+                order: decreasingOrder
+            })}
+            {ChangeBar({
+                id: "increasingData",
+                barWidth,
+                data: increasingData,
+                type: "positive",
+                order: increasingOrder
+            })}
         </ChartWrapper>
     );
 }
@@ -53,10 +75,11 @@ interface IChangeBarProps {
     data: IChangeBarData[];
     type: "positive" | "negative";
     barWidth: number;
+    order: SortingOrder;
 }
 
 function ChangeBar(props: IChangeBarProps) {
-    const { id, data, type, barWidth } = props;
+    const { id, data, type, barWidth, order } = props;
 
     const theme = useTheme();
 
@@ -76,6 +99,8 @@ function ChangeBar(props: IChangeBarProps) {
         };
     });
 
+    const sortedData = stableSort(parsedData, getSortingCompareFunction(order, "y"));
+
     return [
         <VictoryAxis
             key={`${id}-axis`}
@@ -87,7 +112,7 @@ function ChangeBar(props: IChangeBarProps) {
         <VictoryBar
             key={`${id}-bar`}
             barWidth={barWidth}
-            data={parsedData}
+            data={sortedData}
             style={{
                 data: {
                     fill: colour
