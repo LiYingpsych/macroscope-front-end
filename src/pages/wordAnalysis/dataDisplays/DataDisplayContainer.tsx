@@ -61,6 +61,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         exportButton: {
             margin: theme.spacing(0.25)
+        },
+        noMarginTop: {
+            marginTop: "0px !important "
         }
     })
 );
@@ -71,12 +74,13 @@ export interface IDataDisplayContainerProps<S, T> {
     params: S;
     fetchDataFunction: (params: S) => Promise<T | undefined>;
     render: (data: T) => ReactNode;
+    firstItem?: boolean;
 }
 
 export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerProps<S, T>) {
     const classes = useStyles();
 
-    const { isDisplayed, title, fetchDataFunction, params, render } = props;
+    const { isDisplayed, title, fetchDataFunction, params, render, firstItem = false } = props;
 
     const downloadFileName = `${title.toLowerCase().replace(" ", "-")}_${Object.values(params).join(
         "-"
@@ -125,7 +129,8 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
             className={classnames(
                 classes.root,
                 isError && !isLoading ? classes.errorBorder : "",
-                isDisplayed ? "" : classes.hide
+                isDisplayed ? "" : classes.hide,
+                firstItem ? classes.noMarginTop : ""
             )}
             defaultExpanded={defaultIsExpanded}
             onChange={onChange}
