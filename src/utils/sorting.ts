@@ -1,4 +1,4 @@
-import SortingOrder from "./models/SortingOrder";
+export type SortingOrder = "asc" | "desc";
 
 function desc<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -27,6 +27,9 @@ export function stableSort<T>(array: T[], compareFunction: (a: T, b: T) => numbe
     return stabilizedThis.map(el => el.element);
 }
 
-export function getSorting<T>(order: SortingOrder, orderBy: keyof T): (a: T, b: T) => number {
+export function getSortingCompareFunction<T>(
+    order: SortingOrder,
+    orderBy: keyof T
+): (a: T, b: T) => number {
     return order === "desc" ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
 }

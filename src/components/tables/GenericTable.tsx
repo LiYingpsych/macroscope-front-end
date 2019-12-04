@@ -10,8 +10,7 @@ import Row from "./Row";
 import GenericTableHeader from "./GenericTableHeader";
 
 import IColumn from "./models/IColumn";
-import SortingOrder from "./models/SortingOrder";
-import { stableSort, getSorting } from "./sortingUtils";
+import { SortingOrder, stableSort, getSortingCompareFunction } from "../../utils/sorting";
 
 interface ISortingProperties<P> {
     order: SortingOrder;
@@ -97,7 +96,10 @@ export default function GenericTable<T>(props: IProps<T>) {
                         ) : (
                             stableSort(
                                 data,
-                                getSorting(sortingProperties.order, sortingProperties.orderBy)
+                                getSortingCompareFunction(
+                                    sortingProperties.order,
+                                    sortingProperties.orderBy
+                                )
                             ).map((rowItemData, i) => {
                                 return (
                                     <Row
