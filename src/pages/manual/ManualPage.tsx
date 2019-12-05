@@ -1,40 +1,14 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import GetApp from "@material-ui/icons/GetApp";
+import IconButton from "@material-ui/core/IconButton";
 
 import PageContent from "../../components/layout/PageContent";
 import MacroscopeLogo from "../../components/images/MacroscopeLogo";
 import List from "./components/List";
-import GetApp from "@material-ui/icons/GetApp";
-import IconButton from "@material-ui/core/IconButton";
-import { useTheme } from "@material-ui/core";
-
-interface ISectionProps {
-    title?: string;
-    children?: ReactNode;
-}
-
-function Section(props: ISectionProps) {
-    const { title, children } = props;
-    const theme = useTheme();
-    return (
-        <Grid
-            container
-            item
-            direction="column"
-            spacing={2}
-            style={{ marginBottom: theme.spacing(4) }}
-        >
-            {typeof title === "undefined" ? null : <Typography variant="h4">{title}</Typography>}
-            {React.Children.map(children, child => (
-                <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0 }}>
-                    {child}
-                </Grid>
-            ))}
-        </Grid>
-    );
-}
+import Section from "./components/Section";
 
 export default function ManualPage() {
     return (
