@@ -40,6 +40,23 @@ export default function DataDisplays(props: IProps) {
         return true;
     };
 
+    let displayComponents = [];
+    let notFirstItem = false;
+    for (let i = 0; i < dataDisplays.length; i++) {
+        const display = dataDisplays[i];
+
+        const component = (
+            <DataDisplayContainer
+                key={i}
+                firstItem={display.isDisplayed && !notFirstItem}
+                {...display}
+            />
+        );
+        displayComponents.push(component);
+
+        if (display.isDisplayed) notFirstItem = true;
+    }
+
     return searchTerm.trim() === "" ? null : (
         <>
             {displayError() ? (
@@ -49,9 +66,7 @@ export default function DataDisplays(props: IProps) {
                 />
             ) : null}
 
-            {dataDisplays.map((display, i) => {
-                return <DataDisplayContainer key={i} firstItem={i === 0} {...display} />;
-            })}
+            {displayComponents}
         </>
     );
 }
