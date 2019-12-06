@@ -24,9 +24,16 @@ export default function ManualPage() {
                 <QuickStartGuide />
                 <ConceptualFramework />
 
-                {/* <Sentiment />
+                {/* Methodology */}
+                {/* Describe an outline of the source of the data, how it's been processed and how the results are calcuated */}
+
+                {/* Analyses tools */}
+                <Sentiment />
                 <Frequency />
-                <SynonymList /> */}
+
+                {/* 
+                <SynonymList /> 
+                */}
 
                 <SynonymNetwork />
                 <ContextNetwork />
@@ -142,6 +149,24 @@ function ConceptualFramework() {
     );
 }
 
+function Sentiment() {
+    return (
+        <Section title="Sentiment">
+            <Typography>This section needs review.</Typography>
+        </Section>
+    );
+}
+
+function Frequency() {
+    return (
+        <Section title="Frequency">
+            <Typography>
+                The frequency chart shows the frequency in which the target word was used in a given
+                year.
+            </Typography>
+        </Section>
+    );
+}
 function SynonymNetwork() {
     return (
         <Section title="Synonym Network">
