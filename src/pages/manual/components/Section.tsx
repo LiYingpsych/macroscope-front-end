@@ -23,11 +23,13 @@ export default function Section(props: IProps) {
 
     return (
         <Grid container item direction="column" spacing={2} className={classes.root}>
-            {typeof title === "undefined" ? null : <Typography variant="h4">{title}</Typography>}
-            {React.Children.map(children, child => (
-                <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0 }}>
-                    {child}
+            {typeof title === "undefined" ? null : (
+                <Grid item>
+                    <Typography variant="h4">{title}</Typography>
                 </Grid>
+            )}
+            {React.Children.map(children, child => (
+                <Grid item>{child}</Grid>
             ))}
         </Grid>
     );
