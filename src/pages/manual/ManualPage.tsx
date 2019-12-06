@@ -9,7 +9,6 @@ import PageContent from "../../components/layout/PageContent";
 import MacroscopeLogo from "../../components/images/MacroscopeLogo";
 import List from "./components/List";
 import Section from "./components/Section";
-import Note from "./components/Note";
 
 export default function ManualPage() {
     return (
@@ -28,17 +27,17 @@ export default function ManualPage() {
                 {/* Describe an outline of the source of the data, how it's been processed and how the results are calcuated */}
 
                 {/* Analyses tools */}
-                <Sentiment />
-                <Frequency />
+                {/* <Sentiment />
+                <Frequency /> */}
 
                 {/* 
                 <SynonymList /> 
                 */}
 
-                <SynonymNetwork />
+                {/* <SynonymNetwork />
                 <ContextNetwork />
                 <SemanticDrift />
-                <ContextChange />
+                <ContextChange /> */}
             </Grid>
         </PageContent>
     );
@@ -149,125 +148,123 @@ function ConceptualFramework() {
     );
 }
 
-function Sentiment() {
-    return (
-        <Section title="Sentiment">
-            <Typography>This section needs review.</Typography>
-        </Section>
-    );
-}
+// function Sentiment() {
+//     return (
+//         <Section title="Sentiment">
+//             <Typography>This section needs review.</Typography>
+//         </Section>
+//     );
+// }
 
-function Frequency() {
-    return (
-        <Section title="Frequency">
-            <Typography>
-                The frequency chart shows the frequency in which the target word was used in a given
-                year.
-            </Typography>
-        </Section>
-    );
-}
-function SynonymNetwork() {
-    return (
-        <Section title="Synonym Network">
-            <Typography>
-                The synonym network enables the study of semantically similar words.
-            </Typography>
-            {/* <Typography>
-                This analysis helps you to understand to what extent two words are semantically
-                similar to each other. 
-                
-                
-                Figure on the left (a) shows semantic structure of happy and
-                sad. Each nodes represents happy and sad and their top-4 synonyms. Link suggests
-                similarity between two words exceed certain threshold (default value is set equal to
-                0.6). Despite being antonyms, happy and sad are conceptually associated and
-                therefore often appears in similar context. Therefore, the semantic similarity
-                inferred from contextual structure would suggest they are semantically similar. But,
-                as network suggests, their synonyms are not linked with each other and therefore
-                happy and sad are strongly associated but not semantically similar. 
-                
-                
-                One example of
-                two words that are truly semantically similar to each other is gay and lesbian, also
-                show in the figure on the left (b).
-            </Typography> */}
-        </Section>
-    );
-}
+// function Frequency() {
+//     return (
+//         <Section title="Frequency">
+//             <Typography>
+//                 The frequency chart shows the frequency in which the target word was used in a given
+//                 year.
+//             </Typography>
+//         </Section>
+//     );
+// }
+// function SynonymNetwork() {
+//     return (
+//         <Section title="Synonym Network">
+//             <Typography>
+//                 The synonym network enables the study of semantically similar words.
+//             </Typography>
+//             {/* <Typography>
+//                 This analysis helps you to understand to what extent two words are semantically
+//                 similar to each other.
 
-function ContextNetwork() {
-    return (
-        <Section title="Context Network">
-            <Typography>
-                The context network allows the visualisation of contextual structures of a word in a
-                given year.
-            </Typography>
-            {/* <Typography>
-                Contextual structure reveals both number of sense and contextual diversity. These two concepts
-                partially overlap but are not identical. For example, the network on the right shows
-                although the word gay was used in the sense of homosexuality consistently across
-                contexts in year 2000, it appeared in a number of distinctive contexts, including
-                homosexuality, political movement on gender equality, association with HIV, and
-                academic interests in gender study. Set the year to 1850 to see how contextual
-                structure of gay changes dramatically.
-            </Typography>
-            <Typography>
-                Edges (links): A link between two nodes suggests the pointwise mutual information
-                (PMI) value between the two words is greater than the selected threshold (the
-                default value is 3).
-            </Typography>
-            <Typography>
-                Color: The colors represent the community structure of nodes in the network and each
-                community is represented with a different color. Communities are sub-groupings of
-                nodes that are more likely to be connected to each other than to other nodes within
-                the network.
-            </Typography>
-            <Typography>
-                Size: The size of nodes maps to the co-occurrence frequency between that word and the
-                target word (in this example, gay). The size of the target word is manually set to be
-                large enough to be visible.
-            </Typography>
-            <Typography>
-                Note: Community structures of the network are detected using an algorithm introduced
-                by Blondel et al (2008) based on modularity optimization that uses an iterative
-                process which defines each node as a community at the first step and merges them
-                until modularity (a measure of the strength of the communities) is optimized.
-            </Typography> */}
-        </Section>
-    );
-}
+//                 Figure on the left (a) shows semantic structure of happy and
+//                 sad. Each nodes represents happy and sad and their top-4 synonyms. Link suggests
+//                 similarity between two words exceed certain threshold (default value is set equal to
+//                 0.6). Despite being antonyms, happy and sad are conceptually associated and
+//                 therefore often appears in similar context. Therefore, the semantic similarity
+//                 inferred from contextual structure would suggest they are semantically similar. But,
+//                 as network suggests, their synonyms are not linked with each other and therefore
+//                 happy and sad are strongly associated but not semantically similar.
 
-function SemanticDrift() {
-    return (
-        <Section title="Semantic Drift">
-            <Typography>This chart shows the drift of a word in semantic space.</Typography>
+//                 One example of
+//                 two words that are truly semantically similar to each other is gay and lesbian, also
+//                 show in the figure on the left (b).
+//             </Typography> */}
+//         </Section>
+//     );
+// }
 
-            {/* <Typography>
-                You can visualize semantic drift of a word over a specified historical period. The
-                example on the left shows how the word gay changed its meaning from 1850 to 2000.
-                The semantic space of gay is defined by its top-k (k=15 by default) synonyms in 1850
-                and 2000. The longer the path indicates greater semantic change.
-            </Typography>
-            <Typography>
-                Tip: In case the annotations overlap with one and another, you can drag to separate
-                them.
-            </Typography> */}
-        </Section>
-    );
-}
+// function ContextNetwork() {
+//     return (
+//         <Section title="Context Network">
+//             <Typography>
+//                 The context network allows the visualisation of contextual structures of a word in a
+//                 given year.
+//             </Typography>
+//             {/* <Typography>
+//                 Contextual structure reveals both number of sense and contextual diversity. These two concepts
+//                 partially overlap but are not identical. For example, the network on the right shows
+//                 although the word gay was used in the sense of homosexuality consistently across
+//                 contexts in year 2000, it appeared in a number of distinctive contexts, including
+//                 homosexuality, political movement on gender equality, association with HIV, and
+//                 academic interests in gender study. Set the year to 1850 to see how contextual
+//                 structure of gay changes dramatically.
+//             </Typography>
+//             <Typography>
+//                 Edges (links): A link between two nodes suggests the pointwise mutual information
+//                 (PMI) value between the two words is greater than the selected threshold (the
+//                 default value is 3).
+//             </Typography>
+//             <Typography>
+//                 Color: The colors represent the community structure of nodes in the network and each
+//                 community is represented with a different color. Communities are sub-groupings of
+//                 nodes that are more likely to be connected to each other than to other nodes within
+//                 the network.
+//             </Typography>
+//             <Typography>
+//                 Size: The size of nodes maps to the co-occurrence frequency between that word and the
+//                 target word (in this example, gay). The size of the target word is manually set to be
+//                 large enough to be visible.
+//             </Typography>
+//             <Typography>
+//                 Note: Community structures of the network are detected using an algorithm introduced
+//                 by Blondel et al (2008) based on modularity optimization that uses an iterative
+//                 process which defines each node as a community at the first step and merges them
+//                 until modularity (a measure of the strength of the communities) is optimized.
+//             </Typography> */}
+//         </Section>
+//     );
+// }
 
-function ContextChange() {
-    return (
-        <Section title="Context Change">
-            <Typography>
-                The context change chart displays the context words whose co-occurrence with the
-                target word increased and decreased the most over a given time frame.
-            </Typography>
-            <Note>
-                Please note that the axes on the increase domain and decrease domain are scaled
-                independently so that two domains occupy the same amount of space in canvas.
-            </Note>
-        </Section>
-    );
-}
+// function SemanticDrift() {
+//     return (
+//         <Section title="Semantic Drift">
+//             <Typography>This chart shows the drift of a word in semantic space.</Typography>
+
+//             {/* <Typography>
+//                 You can visualize semantic drift of a word over a specified historical period. The
+//                 example on the left shows how the word gay changed its meaning from 1850 to 2000.
+//                 The semantic space of gay is defined by its top-k (k=15 by default) synonyms in 1850
+//                 and 2000. The longer the path indicates greater semantic change.
+//             </Typography>
+//             <Typography>
+//                 Tip: In case the annotations overlap with one and another, you can drag to separate
+//                 them.
+//             </Typography> */}
+//         </Section>
+//     );
+// }
+
+// function ContextChange() {
+//     return (
+//         <Section title="Context Change">
+//             <Typography>
+//                 The context change chart displays the context words whose co-occurrence with the
+//                 target word increased and decreased the most over a given time frame.
+//             </Typography>
+//             <Note>
+//                 Please note that the axes on the increase domain and decrease domain are scaled
+//                 independently so that two domains occupy the same amount of space in canvas.
+//             </Note>
+//         </Section>
+//     );
+// }
