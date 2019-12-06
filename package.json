@@ -30,6 +30,7 @@
         "lodash.isequal": "^4.5.0",
         "query-string": "^6.8.3",
         "react": "^16.9.0",
+        "react-children-utilities": "^2.0.1",
         "react-d3-graph": "^2.3.0",
         "react-dom": "^16.9.0",
         "react-router-dom": "^5.0.1",
