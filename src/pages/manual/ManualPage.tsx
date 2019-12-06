@@ -6,9 +6,10 @@ import IconButton from "@material-ui/core/IconButton";
 
 import PageContent from "../../components/layout/PageContent";
 import MacroscopeLogo from "../../components/images/MacroscopeLogo";
-import List from "./components/List";
+
 import Section from "./components/Section";
 import Text from "./components/Text";
+import List from "./components/List";
 
 export default function ManualPage() {
     return (
@@ -80,21 +81,20 @@ function QuickStartGuide() {
                 <Text variant="subtitle2">
                     You can use the steps below to perform more detailed analyses.
                 </Text>
+
                 <List
                     items={[
-                        <Text>
+                        <>
                             Whilst on the "Word Analysis" page, enable the analyses you are
                             interested in by toggling the analyses switches in the settings bar on
                             the left.
-                        </Text>,
-                        <Text>
-                            Input a word into the search bar and press enter to trigger a search.
-                        </Text>,
-                        <Text>
+                        </>,
+                        <>Input a word into the search bar and press enter to trigger a search.</>,
+                        <>
                             Your request will be sent to our api, which will process the request and
                             return the result.
-                        </Text>,
-                        <Text>
+                        </>,
+                        <>
                             The result will be displayed in a meaningful way so that you can do your
                             analysis! You can export the results of any given analysis by clicking
                             the
@@ -102,7 +102,7 @@ function QuickStartGuide() {
                                 <GetApp />
                             </IconButton>
                             icon in the bottom right of the analysis result panel.
-                        </Text>
+                        </>
                     ]}
                     ordered
                 />
@@ -120,27 +120,29 @@ function QuickStartGuide() {
 function ConceptualFramework() {
     return (
         <Section title="Conceptual Framework">
-            <Text>
-                The Macroscope provides researchers with the ability to examine two distinct but
-                related aspects of linguistic change in individual words over historical time.
+            <>
+                <Text>
+                    The Macroscope provides researchers with the ability to examine two distinct but
+                    related aspects of linguistic change in individual words over historical time.
+                </Text>
                 <List
                     items={[
-                        <Text>
+                        <>
                             Diachronic word embeddings, computed from the co-occurrence matrix,
                             enables us to discover words that are semantically similar to a given
                             word for a given year (i.e. the semantic or synonym structure
                             surrounding a word). These semantically related words are referred to as
                             synonyms.
-                        </Text>,
-                        <Text>
+                        </>,
+                        <>
                             The co-occurrence matrix also provides information regarding the context
                             of a given word at a given year. Words that co-occur with the target
                             word are referred to as context words.
-                        </Text>
+                        </>
                     ]}
                     ordered
                 />
-            </Text>
+            </>
             <Text>
                 Hence, the Macroscope can be used to examine the semantic (synonym) and contextual
                 (co-occurrence) structure of individual words for a specific year and over
