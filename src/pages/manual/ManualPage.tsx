@@ -9,6 +9,7 @@ import PageContent from "../../components/layout/PageContent";
 import MacroscopeLogo from "../../components/images/MacroscopeLogo";
 import List from "./components/List";
 import Section from "./components/Section";
+import Note from "./components/Note";
 
 export default function ManualPage() {
     return (
@@ -22,6 +23,11 @@ export default function ManualPage() {
                 <Intro />
                 <QuickStartGuide />
                 <ConceptualFramework />
+
+                {/* <Sentiment />
+                <Frequency />
+                <SynonymList /> */}
+
                 <SynonymNetwork />
                 <ContextNetwork />
                 <SemanticDrift />
@@ -233,10 +239,10 @@ function ContextChange() {
                 The context change chart displays the context words whose co-occurrence with the
                 target word increased and decreased the most over a given time frame.
             </Typography>
-            <Typography>
+            <Note>
                 Please note that the axes on the increase domain and decrease domain are scaled
                 independently so that two domains occupy the same amount of space in canvas.
-            </Typography>
+            </Note>
         </Section>
     );
 }
