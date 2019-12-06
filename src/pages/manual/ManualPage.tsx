@@ -31,7 +31,7 @@ function Intro() {
     const numberOfPackages = 7;
 
     return (
-        <Section title="Intro">
+        <Section>
             <Typography>
                 The Macroscope is a powerful tool built to interpret historical structure of
                 language. It is designed to provide comprehensive analyses of historical meaning
