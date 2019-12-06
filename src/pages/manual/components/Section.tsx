@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import Text from "./Text";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -25,7 +25,7 @@ export default function Section(props: IProps) {
         <Grid container item direction="column" spacing={2} className={classes.root}>
             {typeof title === "undefined" ? null : (
                 <Grid item>
-                    <Typography variant="h4">{title}</Typography>
+                    <Text variant="h4">{title}</Text>
                 </Grid>
             )}
             {React.Children.map(children, child => (
