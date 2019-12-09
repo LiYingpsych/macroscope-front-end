@@ -96,7 +96,9 @@ function ChangeBar(props: IChangeBarProps) {
             x: d.label,
             y:
                 maxLength === 0
-                    ? 0
+                    ? type === "positive"
+                        ? 1
+                        : -1
                     : ((type === "positive" ? 1 : -1) * Math.abs(d.length)) / maxLength
         };
     });
