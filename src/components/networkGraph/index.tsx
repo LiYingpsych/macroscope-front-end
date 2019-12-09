@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import JSNetworkGraph from "./JSNetworkGraph";
 import { Theme, makeStyles, createStyles, useTheme } from "@material-ui/core/styles";
 import assignDefaultValuesToObject from "../../utils/assignDefaultValuesToObject";
@@ -129,7 +129,7 @@ export default function NetworkGraph<T>(props: IProps<T>) {
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         updateWidth();
     }, [rootElement]);
 
