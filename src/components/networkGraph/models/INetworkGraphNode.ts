@@ -1,4 +1,5 @@
-export default interface INetworkGraphNode {
+import INodeConfig from "./configs/INodeConfig";
+
+export default interface INetworkGraphNode extends INodeConfig {
     id: string;
-    size?: number;
 }

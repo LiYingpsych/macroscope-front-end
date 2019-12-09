@@ -37,7 +37,7 @@ function scaleSizes<T>(data: IGraphData<T>): IGraphData<T> {
     const maxNodeSize = Math.max(...sizes);
     const minNodeSize = Math.max(...sizes);
 
-    const nodeSizeMultiplier = 1000;
+    const nodeSizeMultiplier = 2000;
 
     return {
         ...data,
@@ -46,7 +46,7 @@ function scaleSizes<T>(data: IGraphData<T>): IGraphData<T> {
                 ...node,
                 size:
                     typeof node.size === "undefined"
-                        ? minNodeSize * nodeSizeMultiplier
+                        ? (minNodeSize / maxNodeSize) * nodeSizeMultiplier
                         : (node.size / maxNodeSize) * nodeSizeMultiplier
             };
         })
@@ -112,11 +112,11 @@ export default function NetworkGraph<T>(props: IProps<T>) {
             viewGenerator: null
         },
         link: {
-            color: theme.palette.grey[400],
+            color: theme.palette.grey[200],
             fontColor: theme.palette.text.primary,
             fontSize: theme.typography.fontSize,
             fontWeight: "normal",
-            highlightColor: theme.palette.secondary.main,
+            highlightColor: theme.palette.grey[400],
             highlightFontSize: theme.typography.fontSize,
             highlightFontWeight: "bold", // nodeHighlightBehavior and linkHighlightBehavior must be true for this to work
             labelProperty: "id",
