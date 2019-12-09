@@ -1,18 +1,6 @@
-CHARTS:
-* Add colour to context network nodes
-* Add labels to axis
-* Add tooltips and information on highlight
-* Add all matches to frequency chart
-* Context change "hello" isnt working
-* Add y axis zoom domain?
-
 THOMAS MEETING
 * Add to and bottom padding to line charts. Smallest value point is always on the x axis even if it isn't 0. Point should only be on x axis if it is 0.
 * Increase max width of data display container
-
-MAC PROBLEMS
-* Zoom in settings dissapear (safari?)
-* Possible mac problem - load synonym network, change similarity threshold setting, network rearranges then network request fullfils.
 
 MAY TAKE SOME TIME:
 * Add request response caching to quickly responde to recently run requests - this might have to be done in the api
