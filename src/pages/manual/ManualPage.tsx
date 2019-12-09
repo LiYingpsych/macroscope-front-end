@@ -29,18 +29,12 @@ export default function ManualPage() {
 
                 {/* Analyses tools */}
                 {/* <Sentiment />
-                <Frequency /> */}
-
-                {/* 
+                <Frequency />
                 <SynonymList /> 
-                */}
-
-                {/* 
                 <SynonymNetwork />
                 <ContextNetwork />
                 <SemanticDrift />
-                <ContextChange />
-                */}
+                <ContextChange /> */}
             </Grid>
         </PageContent>
     );
@@ -155,7 +149,7 @@ function ConceptualFramework() {
 // function Sentiment() {
 //     return (
 //         <Section title="Sentiment">
-//             <Typography>This section needs review.</Typography>
+//             <Text>This section needs review.</Text>
 //         </Section>
 //     );
 // }
@@ -163,19 +157,43 @@ function ConceptualFramework() {
 // function Frequency() {
 //     return (
 //         <Section title="Frequency">
-//             <Typography>
+//             <Text>
 //                 The frequency chart shows the frequency in which the target word was used in a given
 //                 year.
-//             </Typography>
+//             </Text>
 //         </Section>
 //     );
 // }
+
+// function SynonymList() {
+//     return (
+//         <Section title="Synonym list">
+//             <Text>
+//                 The synonym list displays words that are used in a similar context to the target
+//                 word. Synonyms are identified by finding out which word vectors are most similar to
+//                 the target word vector.
+//             </Text>
+//             {/* <Typography>
+//                 By computing cosine similarity between two word vectors (i.e. comparing contexts
+//                 of words) semantic similarity can be quantified from 0 (not similar at all) to 1
+//                 (identical).
+//             </Typography> */}
+//             {/* <Typography>
+//                 We constructed the Google Ngram Corpus into a large co-occurrence matrix - each
+//                 word is represented by a vector that contains the co-occurrence information with
+//                 all other words in the vocabulary of 50,000 words. By transforming count-based
+//                 co-occurrence to pointwise mutual information (PMI) and regularizing data using
+//                 singular value decomposition, we constructed diachronic word vectors across 200
+//                 years.
+//             </Typography> */}
+//         </Section>
+//     );
+// }
+
 // function SynonymNetwork() {
 //     return (
 //         <Section title="Synonym Network">
-//             <Typography>
-//                 The synonym network enables the study of semantically similar words.
-//             </Typography>
+//             <Text>The synonym network enables the study of semantically similar words.</Text>
 //             {/* <Typography>
 //                 This analysis helps you to understand to what extent two words are semantically
 //                 similar to each other.
@@ -200,10 +218,10 @@ function ConceptualFramework() {
 // function ContextNetwork() {
 //     return (
 //         <Section title="Context Network">
-//             <Typography>
+//             <Text>
 //                 The context network allows the visualisation of contextual structures of a word in a
 //                 given year.
-//             </Typography>
+//             </Text>
 //             {/* <Typography>
 //                 Contextual structure reveals both number of sense and contextual diversity. These two concepts
 //                 partially overlap but are not identical. For example, the network on the right shows
@@ -242,7 +260,7 @@ function ConceptualFramework() {
 // function SemanticDrift() {
 //     return (
 //         <Section title="Semantic Drift">
-//             <Typography>This chart shows the drift of a word in semantic space.</Typography>
+//             <Text>This chart shows the drift of a word in semantic space.</Text>
 
 //             {/* <Typography>
 //                 You can visualize semantic drift of a word over a specified historical period. The
@@ -261,10 +279,10 @@ function ConceptualFramework() {
 // function ContextChange() {
 //     return (
 //         <Section title="Context Change">
-//             <Typography>
+//             <Text>
 //                 The context change chart displays the context words whose co-occurrence with the
 //                 target word increased and decreased the most over a given time frame.
-//             </Typography>
+//             </Text>
 //             <Note>
 //                 Please note that the axes on the increase domain and decrease domain are scaled
 //                 independently so that two domains occupy the same amount of space in canvas.
