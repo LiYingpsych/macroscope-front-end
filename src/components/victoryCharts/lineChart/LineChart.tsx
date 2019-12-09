@@ -79,6 +79,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
                         : lineChartCursorIndicatorContainerComponent
                 }
                 legendData={legendData}
+                domainPadding={{ y: 15 }}
             >
                 <VictoryAxis
                     dependentAxis

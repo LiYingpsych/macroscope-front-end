@@ -1,5 +1,4 @@
 THOMAS MEETING
-* Add to and bottom padding to line charts. Smallest value point is always on the x axis even if it isn't 0. Point should only be on x axis if it is 0.
 * Increase max width of data display container
 
 MAY TAKE SOME TIME:
