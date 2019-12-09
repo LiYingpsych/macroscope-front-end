@@ -7,10 +7,11 @@ export default function splitNumberLine(lineLength: number, numberOfSections: nu
 
     const l = lineLength / numberOfSections;
 
-    let returnArr = [];
+    let pointsArray: number[] = [];
     for (let i = 1; i < numberOfSections; i++) {
-        returnArr.push(i * l);
+        const point = i * l;
+        pointsArray.push(point);
     }
 
-    return returnArr;
+    return pointsArray;
 }
