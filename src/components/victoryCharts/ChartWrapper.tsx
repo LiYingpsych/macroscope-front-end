@@ -24,13 +24,13 @@ export interface ILegendDataProp {
     };
 }
 
-interface IProps extends VictoryChartProps {
+export interface IChartWrapperProps extends VictoryChartProps {
     children?: ReactNode;
     legendData?: ILegendDataProp[];
     padding?: BlockProps;
 }
 
-export default function ChartWrapper(props: IProps) {
+export default function ChartWrapper(props: IChartWrapperProps) {
     const classes = useStyles();
     const muiTheme = useTheme();
 
