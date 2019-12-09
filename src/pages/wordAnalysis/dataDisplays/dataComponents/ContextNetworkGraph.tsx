@@ -16,7 +16,7 @@ export default function ContextNetworkGraph(props: IProps) {
         nodes: data.contextNetwork.nodes.map((node: IContextNetworkNode) => {
             return {
                 id: node.word.value,
-                size: node.size * 100
+                size: node.size
             };
         }),
         links: data.contextNetwork.edges.map((edge: IContextNetworkEdge) => {

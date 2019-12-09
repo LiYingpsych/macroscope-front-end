@@ -27,6 +27,38 @@ export interface IGraphData<T> {
     links: INetworkGraphLink<T>[];
 }
 
+function scaleSizes<T>(data: IGraphData<T>): IGraphData<T> {
+    let sizes: number[] = [];
+
+    data.nodes.forEach(node => {
+        if (typeof node.size !== "undefined") sizes.push(node.size);
+    });
+
+    const maxNodeSize = Math.max(...sizes);
+    const minNodeSize = Math.max(...sizes);
+
+    const nodeSizeMultiplier = 1000;
+
+    return {
+        ...data,
+        nodes: data.nodes.map(node => {
+            return {
+                ...node,
+                size:
+                    typeof node.size === "undefined"
+                        ? minNodeSize * nodeSizeMultiplier
+                        : (node.size / maxNodeSize) * nodeSizeMultiplier
+            };
+        })
+    };
+}
+
+function parseData<T>(data: IGraphData<T>): IGraphData<T> {
+    const scaledSizesData = scaleSizes(data);
+
+    return scaledSizesData;
+}
+
 export default function NetworkGraph<T>(props: IProps<T>) {
     const { id, data, config = {} } = props;
     const classes = useStyles();
@@ -112,7 +144,7 @@ export default function NetworkGraph<T>(props: IProps<T>) {
         <div className={classes.root} ref={rootElement}>
             <JSNetworkGraph
                 id={id}
-                data={data}
+                data={parseData(data)}
                 config={assignDefaultValuesToObject(defaultConfig, { ...config, width: width })}
             />
         </div>
