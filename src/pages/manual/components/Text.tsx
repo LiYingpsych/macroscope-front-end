@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { onlyText } from "react-children-utilities";
 import Typography, { TypographyProps } from "@material-ui/core/Typography";
 
 interface IProps extends TypographyProps {
@@ -9,8 +8,13 @@ interface IProps extends TypographyProps {
 export default function Text(props: IProps) {
     const { children, ...rest } = props;
 
-    // TODO: add spell check here. Rename component to SpellCheckedText
-    console.log(onlyText(children));
+    /* 
+    TODO: add spell check here. Rename component to SpellCheckedText
+    
+    import { onlyText } from "react-children-utilities";
+    const text = onlyText(children)
+    console.log(text);
+    */
 
     return <Typography {...rest}>{children}</Typography>;
 }
