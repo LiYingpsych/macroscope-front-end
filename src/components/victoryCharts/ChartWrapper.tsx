@@ -8,10 +8,7 @@ const useStyles = makeStyles(() =>
         root: {
             width: "100%",
             display: "flex",
-            justifyContent: "center",
-            "& .VictoryContainer": {
-                maxWidth: "809px"
-            }
+            justifyContent: "center"
         }
     })
 );
