@@ -37,16 +37,17 @@ const useStyles = makeStyles((theme: Theme) => {
     return createStyles({
         floatingBarContainer: {
             flex: "1 0 auto",
-            maxWidth: 1200,
+            display: "flex",
+            justifyContent: "center",
             width: "100%",
             height: theme.spacing(4) + 56,
             paddingBottom: `${theme.spacing(3)} !important`
         },
         floatingBar: {
+            maxWidth: 800,
             display: "flex",
             alignItems: "center",
             position: "fixed",
-            maxWidth: "inherit",
             zIndex: theme.zIndex.drawer,
             marginTop: theme.spacing(1),
             width: floatingBarWidth
@@ -166,7 +167,7 @@ export default function WordAnalysisPage() {
                 />
             }
         >
-            <PageContent paddingTop={0}>
+            <PageContent paddingTop={0} maxWidth="none">
                 <div className={classes.floatingBarContainer}>
                     <div className={classes.blurField}></div>
                     <div className={classes.floatingBar}>

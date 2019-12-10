@@ -1,16 +1,22 @@
 import React, { ReactNode } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { pageContentPadding } from "../../globals";
+import { MaxWidthProperty } from "csstype";
 
-const useStyles = (paddingTop: number) =>
+interface IStyleOptions {
+    paddingTop: number;
+    maxWidth?: MaxWidthProperty<string | number>;
+}
+
+const useStyles = (options: IStyleOptions) =>
     makeStyles((theme: Theme) =>
         createStyles({
             toolbar: theme.mixins.toolbar,
             content: {
-                maxWidth: "1200px",
+                maxWidth: options.maxWidth,
                 flexGrow: 1,
                 padding: theme.spacing(pageContentPadding),
-                paddingTop: theme.spacing(paddingTop)
+                paddingTop: theme.spacing(options.paddingTop)
             },
             contentWrapper: {
                 flex: 1,
@@ -23,11 +29,12 @@ const useStyles = (paddingTop: number) =>
 interface IProps {
     children?: ReactNode;
     paddingTop?: number;
+    maxWidth?: MaxWidthProperty<string | number>;
 }
 
 export default function PageContent(props: IProps) {
-    const { children, paddingTop = 3 } = props;
-    const classes = useStyles(paddingTop)();
+    const { children, paddingTop = 3, maxWidth = 1200 } = props;
+    const classes = useStyles({ paddingTop, maxWidth })();
 
     return (
         <div className={classes.contentWrapper}>
