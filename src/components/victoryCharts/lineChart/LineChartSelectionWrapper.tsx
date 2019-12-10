@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import OmitType from "../../../utils/OmitType";
 
 import LineChart, { ILineChartProps, lineChartVariant } from "./LineChart";
@@ -6,6 +6,7 @@ import { yCoordType, xCoordType } from "../models/ICartesianCoordinate";
 
 import useTabs from "../../tabs/useTabs";
 import ITabItem from "../../tabs/ITabItem";
+import useResponsiveChart from "../commonHooks/useResponsiveChart";
 
 interface ILineChartSelectionTabItem extends ITabItem {
     id: lineChartVariant;
@@ -19,11 +20,24 @@ interface IProps<S extends xCoordType, T extends yCoordType>
 export default function LineChartSelectionWrapper<S extends xCoordType, T extends yCoordType>(
     props: IProps<S, T>
 ) {
+    const rootElement = useRef(null);
+    const { responsiveWidth } = useResponsiveChart({
+        rootElement
+    });
+
     const { defaultVariant = "default", ...rest } = props;
 
     const tabs: ILineChartSelectionTabItem[] = [
-        { id: "default", label: "default", content: <LineChart variant={"default"} {...rest} /> },
-        { id: "zoomable", label: "zoomable", content: <LineChart variant={"zoomable"} {...rest} /> }
+        {
+            id: "default",
+            label: "default",
+            content: <LineChart width={responsiveWidth} variant={"default"} {...rest} />
+        },
+        {
+            id: "zoomable",
+            label: "zoomable",
+            content: <LineChart width={responsiveWidth} variant={"zoomable"} {...rest} />
+        }
     ];
 
     const getInitialTab = () => {
@@ -42,9 +56,9 @@ export default function LineChartSelectionWrapper<S extends xCoordType, T extend
     });
 
     return (
-        <>
+        <div ref={rootElement}>
             {tabsComponent}
             {tabPanelsComponent}
-        </>
+        </div>
     );
 }

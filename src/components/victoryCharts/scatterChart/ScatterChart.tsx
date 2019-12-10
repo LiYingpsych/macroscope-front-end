@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import ChartWrapper from "../ChartWrapper";
 import {
     VictoryScatter,
@@ -9,6 +9,7 @@ import {
 } from "victory";
 import { useTheme } from "@material-ui/core/styles";
 import useZoomable from "../commonHooks/useZoomable";
+import useResponsiveChart from "../commonHooks/useResponsiveChart";
 
 interface IScatterDataPoint {
     x: number;
@@ -104,15 +105,23 @@ export default function ScatterChart(props: IProps) {
 
     const { zoomableContainerComponent } = useZoomable();
 
+    const rootElement = useRef(null);
+    const { responsiveWidth } = useResponsiveChart({
+        rootElement
+    });
+
     return (
-        <ChartWrapper
-            domainPadding={50}
-            padding={padding}
-            containerComponent={zoomableContainerComponent}
-        >
-            {Content}
-            <VictoryAxis tickFormat={(t: any) => ""} />
-            <VictoryAxis dependentAxis tickFormat={(t: any) => ""} />
-        </ChartWrapper>
+        <div ref={rootElement}>
+            <ChartWrapper
+                domainPadding={50}
+                padding={padding}
+                containerComponent={zoomableContainerComponent}
+                width={responsiveWidth}
+            >
+                {Content}
+                <VictoryAxis tickFormat={(t: any) => ""} />
+                <VictoryAxis dependentAxis tickFormat={(t: any) => ""} />
+            </ChartWrapper>
+        </div>
     );
 }

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import ChartWrapper from "../ChartWrapper";
 import { VictoryAxis, VictoryBar } from "victory";
 import { useTheme } from "@material-ui/core/styles";
 import { SortingOrder, stableSort, getSortingCompareFunction } from "../../../utils/sorting";
 import numberOfUniqueItemsByProperty from "../../../utils/numberOfUniqueItemsByProperty";
+import useResponsiveChart from "../commonHooks/useResponsiveChart";
 
 export interface IChangeBarData {
     label: string;
@@ -36,39 +37,47 @@ export default function ChangeBarChart(props: IProps) {
     const padding = 10;
     const topBottomPadding = barWidth / 2 + padding;
 
+    const rootElement = useRef(null);
+    const { responsiveWidth } = useResponsiveChart({
+        rootElement
+    });
+
     return (
-        <ChartWrapper
-            horizontal
-            height={totalNumberOfBars * (barWidth + spacing)}
-            padding={{
-                left: padding,
-                right: padding,
-                top: topBottomPadding,
-                bottom: topBottomPadding
-            }}
-        >
-            <VictoryAxis
-                dependentAxis
-                style={{
-                    axis: { stroke: "none" },
-                    tickLabels: { stroke: "none", fill: "transparent" }
+        <div ref={rootElement}>
+            <ChartWrapper
+                horizontal
+                width={responsiveWidth}
+                height={totalNumberOfBars * (barWidth + spacing)}
+                padding={{
+                    left: padding,
+                    right: padding,
+                    top: topBottomPadding,
+                    bottom: topBottomPadding
                 }}
-            />
-            {ChangeBar({
-                id: "decreasingData",
-                barWidth,
-                data: decreasingData,
-                type: "negative",
-                order: decreasingOrder
-            })}
-            {ChangeBar({
-                id: "increasingData",
-                barWidth,
-                data: increasingData,
-                type: "positive",
-                order: increasingOrder
-            })}
-        </ChartWrapper>
+            >
+                <VictoryAxis
+                    dependentAxis
+                    style={{
+                        axis: { stroke: "none" },
+                        tickLabels: { stroke: "none", fill: "transparent" }
+                    }}
+                />
+                {ChangeBar({
+                    id: "decreasingData",
+                    barWidth,
+                    data: decreasingData,
+                    type: "negative",
+                    order: decreasingOrder
+                })}
+                {ChangeBar({
+                    id: "increasingData",
+                    barWidth,
+                    data: increasingData,
+                    type: "positive",
+                    order: increasingOrder
+                })}
+            </ChartWrapper>
+        </div>
     );
 }
 

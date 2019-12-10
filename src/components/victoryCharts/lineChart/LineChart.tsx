@@ -20,6 +20,7 @@ export interface ILineChartProps<S extends xCoordType, T extends yCoordType> {
     dependentAxisProps?: VictoryAxisProps;
     independentAxisProps?: VictoryAxisProps;
     variant?: lineChartVariant;
+    width?: number;
 }
 
 export default function LineChart<S extends xCoordType, T extends yCoordType>(
@@ -30,7 +31,8 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
         variant = "default",
         dependentAxisType = "default",
         dependentAxisProps = {},
-        independentAxisProps = { tickFormat: undefined }
+        independentAxisProps = { tickFormat: undefined },
+        width
     } = props;
 
     const theme = useTheme();
@@ -58,7 +60,8 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
         dimension: "x",
         brushOptions: {
             padding: { top: 0, left: padding.left, right: padding.right, bottom: 0 },
-            children: LinesComponent
+            children: LinesComponent,
+            width: width
         }
     });
 
@@ -80,6 +83,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
                 }
                 legendData={legendData}
                 domainPadding={{ y: 15 }}
+                width={width}
             >
                 <VictoryAxis
                     dependentAxis
