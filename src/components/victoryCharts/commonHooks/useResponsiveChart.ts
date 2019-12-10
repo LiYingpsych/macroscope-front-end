@@ -1,24 +1,26 @@
-import { useEffect, useState, useCallback, ReactElement, MutableRefObject } from "react";
+import { useEffect, useState, useCallback, MutableRefObject } from "react";
 
 interface IOptions {
     rootElement: MutableRefObject<null>;
-    minWidth: number;
-    containerComponent?: ReactElement;
+    minWidth?: number;
 }
 
 export default function useResponsiveChart(options: IOptions) {
-    const { minWidth, rootElement, containerComponent } = options;
+    const { minWidth = 809, rootElement } = options;
 
     const [width, setWidth] = useState<number>(minWidth);
 
-    const updateWidth = useCallback(() => {
+    const calculateWidth = useCallback(() => {
         //@ts-ignore
         const currentWidth = rootElement.current.offsetWidth;
+        const calculatedWidth = currentWidth < minWidth ? minWidth : currentWidth;
 
-        const newWidth = currentWidth < minWidth ? minWidth : currentWidth;
-
-        setWidth(newWidth);
+        return calculatedWidth;
     }, [rootElement, minWidth]);
+
+    const updateWidth = useCallback(() => {
+        setWidth(calculateWidth());
+    }, [calculateWidth]);
 
     useEffect(() => {
         window.addEventListener("resize", updateWidth);
@@ -30,7 +32,7 @@ export default function useResponsiveChart(options: IOptions) {
 
     useEffect(() => {
         updateWidth();
-    }, [updateWidth, containerComponent]);
+    }, [updateWidth]);
 
     return { responsiveWidth: width };
 }
