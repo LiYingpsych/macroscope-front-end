@@ -14,6 +14,7 @@ interface IBrushOptions {
     children?: ReactNode;
     padding?: BlockProps;
     height?: number;
+    width?: number;
 }
 
 type DimensionType = "x" | "y" | undefined;
