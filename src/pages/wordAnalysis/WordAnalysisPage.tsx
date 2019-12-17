@@ -4,17 +4,7 @@ import { useLocation } from "react-router-dom";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import DataDisplays from "./dataDisplays";
 
-import {
-    closestMaxYear,
-    synonymNetworkMaxYear,
-    contextNetworkMaxYear,
-    contextChangeMinYear,
-    contextChangeMaxYear,
-    alphabet,
-    wordAnalysisDrawerWidth,
-    pageContentPadding,
-    transparentColour
-} from "../../globals";
+import { settingsRanges, alphabet, layout, transparentColour } from "../../globals";
 
 import SentimentType from "./models/enums/SentimentType";
 import SynonymListMethod from "./models/enums/SynonymListMethod";
@@ -30,6 +20,7 @@ import PageContent from "../../components/layout/PageContent";
 import SearchSettings from "./searchSettings/SearchSettings";
 
 const useStyles = makeStyles((theme: Theme) => {
+    const { wordAnalysisDrawerWidth, pageContentPadding } = layout;
     const floatingBarWidth = `calc(100% - ${wordAnalysisDrawerWidth}px - ${theme.spacing(
         pageContentPadding * 2
     )}px)`;
@@ -83,7 +74,7 @@ const defaultSettings: ISearchSettings = {
     synonymListSettingsPanel: {
         isOpen: false,
         settings: {
-            year: closestMaxYear,
+            year: settingsRanges.closest.years.max,
             numberOfSynonyms: 5,
             method: SynonymListMethod.SGNS
         }
@@ -91,7 +82,7 @@ const defaultSettings: ISearchSettings = {
     synonymNetworkSettingsPanel: {
         isOpen: false,
         settings: {
-            year: synonymNetworkMaxYear,
+            year: settingsRanges.synonymNetwork.years.max,
             synonymsPerTarget: 5,
             similarityThreshold: 0.7
         }
@@ -99,7 +90,7 @@ const defaultSettings: ISearchSettings = {
     contextNetworkSettingsPanel: {
         isOpen: false,
         settings: {
-            year: contextNetworkMaxYear,
+            year: settingsRanges.contextNetwork.years.max,
             maximumNodes: 50,
             contextRelevance: 0.55,
             contextCohesiveness: 0.55,
@@ -116,8 +107,8 @@ const defaultSettings: ISearchSettings = {
     contextChangeSettingsPanel: {
         isOpen: false,
         settings: {
-            startYear: contextChangeMinYear,
-            endYear: contextChangeMaxYear,
+            startYear: settingsRanges.contextChange.years.min,
+            endYear: settingsRanges.contextChange.years.max,
             numberOfContextWords: 20
         }
     }
@@ -153,7 +144,7 @@ export default function WordAnalysisPage() {
     return (
         <ClippedDrawer
             anchor="left"
-            width={wordAnalysisDrawerWidth}
+            width={layout.wordAnalysisDrawerWidth}
             drawerContent={
                 <SearchSettings
                     defaultSettings={settings}

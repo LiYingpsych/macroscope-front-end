@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import NumberSelectionInput from "../../../../components/inputs/NumberSelectionInput";
 
 import range from "../../../../utils/range";
-import { closestMaxYear, closestMinYear } from "../../../../globals";
+import { settingsRanges } from "../../../../globals";
 
 import ISettingsProps from "./ISettingsProps";
 import ISynonymListSettings from "../../models/ISynonymListSettings";
@@ -19,7 +19,8 @@ interface IProps extends ISettingsProps<ISynonymListSettings> {}
 export default function SynonymListSettings(props: IProps) {
     const { onChange, defaultSettings, onInvalidSettings } = props;
 
-    const years: number[] = range(closestMinYear, closestMaxYear, 10);
+    const { min, max } = settingsRanges.closest.years;
+    const years: number[] = range(min, max, 10);
     const numberOfSynonyms: number[] = range(1, 100);
 
     const methodOptions: IRadioButton[] = [

@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import NumberSelectionInput from "../../../../components/inputs/NumberSelectionInput";
 
 import range from "../../../../utils/range";
-import { synonymNetworkMinYear, synonymNetworkMaxYear } from "../../../../globals";
+import { settingsRanges } from "../../../../globals";
 
 import ISettingsProps from "./ISettingsProps";
 import ISynonymNetworkSettings from "../../models/ISynonymNetworkSettings";
@@ -15,7 +15,11 @@ export default function SynonymNetworkSettings(props: IProps) {
     // TODO: add additional target words
     const { onChange, defaultSettings, onInvalidSettings } = props;
 
-    const years: number[] = range(synonymNetworkMinYear, synonymNetworkMaxYear, 10);
+    const years: number[] = range(
+        settingsRanges.synonymNetwork.years.min,
+        settingsRanges.synonymNetwork.years.max,
+        10
+    );
     const synonymsPerTarget: number[] = range(3, 10);
     const similarityThreshold: number[] = range(50, 100).map((value: number) => {
         return value / 100;

@@ -1,26 +1,45 @@
-export const closestMinYear = 1800;
-export const closestMaxYear = 1990;
+export const settingsRanges = {
+    closest: {
+        years: {
+            min: 1800,
+            max: 1990
+        }
+    },
+    synonymNetwork: {
+        years: {
+            min: 1800,
+            max: 1990
+        }
+    },
+    contextNetwork: {
+        years: {
+            min: 1800,
+            max: 2000
+        }
+    },
+    semanticDrift: {
+        years: {
+            min: 1800,
+            max: 2000
+        }
+    },
+    contextChange: {
+        years: {
+            min: 1800,
+            max: 2000
+        },
+        numberOfContextWords: {
+            min: 0,
+            max: 20
+        }
+    }
+};
 
-export const synonymNetworkMinYear = 1800;
-export const synonymNetworkMaxYear = 1990;
-
-export const contextNetworkMinYear = 1800;
-export const contextNetworkMaxYear = 2000;
-
-export const semanticDriftMinYear = 1800;
-export const semanticDriftMaxYear = 2000;
-
-export const contextChangeMinYear = 1800;
-export const contextChangeMaxYear = 2000;
-
-export const contextNumberOfContextWordsMin = 0;
-export const contextNumberOfContextWordsMax = 20;
-
-export const wordAnalysisDrawerWidth = 360;
-
-export const pageContentPadding = 3;
-
-export const footerHeight = 40;
+export const layout = {
+    wordAnalysisDrawerWidth: 360,
+    pageContentPadding: 3,
+    footerHeight: 40
+};
 
 export const alphabet = "abcdefghijklmnopqrstuvwxyz";
 

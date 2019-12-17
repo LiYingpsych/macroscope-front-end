@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { createStyles, Theme, useTheme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import { footerHeight } from "../globals";
+import { layout } from "../globals";
 
 type anchorTye = "left" | "right";
 
@@ -82,7 +82,7 @@ export default function ClippedDrawer(props: IProps) {
                 anchor={anchor}
             >
                 {typeof drawerContent === "undefined" ? null : drawerContent}
-                <div style={{ flex: `1 0 ${footerHeight}px` }}></div>
+                <div style={{ flex: `1 0 ${layout.footerHeight}px` }}></div>
             </Drawer>
             {children}
         </div>

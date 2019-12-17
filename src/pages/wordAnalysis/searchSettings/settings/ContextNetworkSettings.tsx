@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import NumberSelectionInput from "../../../../components/inputs/NumberSelectionInput";
 
 import range from "../../../../utils/range";
-import { contextNetworkMinYear, contextNetworkMaxYear } from "../../../../globals";
+import { settingsRanges } from "../../../../globals";
 
 import ISettingsProps from "./ISettingsProps";
 import IContextNetworkSettings from "../../models/IContextNetworkSettings";
@@ -19,7 +19,11 @@ interface IProps extends ISettingsProps<IContextNetworkSettings> {}
 export default function ContextNetworkSettings(props: IProps) {
     const { onChange, defaultSettings, onInvalidSettings } = props;
 
-    const years: number[] = range(contextNetworkMinYear, contextNetworkMaxYear, 10);
+    const years: number[] = range(
+        settingsRanges.contextNetwork.years.min,
+        settingsRanges.contextNetwork.years.max,
+        10
+    );
     const maximumNodes: number[] = range(10, 400, 10);
     const contextRelevance: number[] = range(10, 100, 5).map((value: number) => {
         return value / 100;

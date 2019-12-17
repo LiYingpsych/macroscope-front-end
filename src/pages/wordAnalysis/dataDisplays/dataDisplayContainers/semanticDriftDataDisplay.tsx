@@ -5,7 +5,7 @@ import singleDataFetchers from "../singleDataFetchers";
 import ISemanticDriftSettings from "../../models/ISemanticDriftSettings";
 import ISemanticDriftRequestParameters from "../../../../services/backendApi/models/requestParameters/ISemanticDriftRequestParameters";
 import ISemanticDriftData from "../../../../models/ISemanticDriftData";
-import { semanticDriftMinYear, semanticDriftMaxYear } from "../../../../globals";
+import { settingsRanges } from "../../../../globals";
 import SemanticDriftChart from "../dataComponents/SemanticDriftChart";
 
 export default function semanticDriftDataDisplay(
@@ -19,8 +19,8 @@ export default function semanticDriftDataDisplay(
         title: `Semantic drift`,
         params: {
             searchTerm: searchTerm,
-            startYear: semanticDriftMinYear,
-            endYear: semanticDriftMaxYear,
+            startYear: settingsRanges.semanticDrift.years.min,
+            endYear: settingsRanges.semanticDrift.years.max,
             numberOfYearsInInterval: 5,
             numberOfClosestWords: 10
         },

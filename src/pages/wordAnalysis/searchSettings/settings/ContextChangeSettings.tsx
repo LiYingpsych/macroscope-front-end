@@ -4,12 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import NumberSelectionInput from "../../../../components/inputs/NumberSelectionInput";
 
 import range from "../../../../utils/range";
-import {
-    contextChangeMinYear,
-    contextChangeMaxYear,
-    contextNumberOfContextWordsMin,
-    contextNumberOfContextWordsMax
-} from "../../../../globals";
+import { settingsRanges } from "../../../../globals";
 
 import ISettingsProps from "./ISettingsProps";
 import IContextChangeSettings from "../../models/IContextChangeSettings";
@@ -20,10 +15,14 @@ export default function ContextChangeSettings(props: IProps) {
     // TODO: make this seletion a slider
     const { onChange, defaultSettings, onInvalidSettings } = props;
 
-    const years: number[] = range(contextChangeMinYear, contextChangeMaxYear, 10);
+    const years: number[] = range(
+        settingsRanges.contextChange.years.min,
+        settingsRanges.contextChange.years.max,
+        10
+    );
     const numberOfContextWordsRange: number[] = range(
-        contextNumberOfContextWordsMin,
-        contextNumberOfContextWordsMax,
+        settingsRanges.contextChange.numberOfContextWords.min,
+        settingsRanges.contextChange.numberOfContextWords.max,
         1
     );
 

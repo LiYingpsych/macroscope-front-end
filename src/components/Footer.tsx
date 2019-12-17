@@ -4,12 +4,12 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import GithubLogoSvg from "./images/GithubLogoSvg";
 import NewTabLink from "./links/NewTabLink";
-import { footerHeight } from "../globals";
+import { layout } from "../globals";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            height: footerHeight,
+            height: layout.footerHeight,
             display: "flex",
             paddingRight: theme.spacing(4),
             backgroundColor: theme.palette.background.paper,

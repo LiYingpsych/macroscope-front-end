@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { pageContentPadding } from "../../globals";
+import { layout } from "../../globals";
 import { MaxWidthProperty } from "csstype";
 
 interface IStyleOptions {
@@ -15,7 +15,7 @@ const useStyles = (options: IStyleOptions) =>
             content: {
                 maxWidth: options.maxWidth,
                 flexGrow: 1,
-                padding: theme.spacing(pageContentPadding),
+                padding: theme.spacing(layout.pageContentPadding),
                 paddingTop: theme.spacing(options.paddingTop)
             },
             contentWrapper: {
