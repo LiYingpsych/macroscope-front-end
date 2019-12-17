@@ -11,6 +11,7 @@ import muiThemes from "./themes/muiThemes";
 import WordAnalysisPage from "./pages/wordAnalysis/WordAnalysisPage";
 import ManualPage from "./pages/manual/ManualPage";
 import ContactUsPage from "./pages/contactUs/ContactUsPage";
+import SafariSupportSnackBar from "./components/snackBars/SafariSupportSnackBar";
 
 const App: React.FC = () => {
     const mainNavTabs: IPageLayoutTabItem[] = [
@@ -31,6 +32,7 @@ const App: React.FC = () => {
                     />
                 </Switch>
             </BrowserRouter>
+            <SafariSupportSnackBar />
         </MuiThemeProvider>
     );
 };
