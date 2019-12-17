@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import Link from "@material-ui/core/Link";
+import Link, { LinkBaseProps } from "@material-ui/core/Link";
 
-interface IProps {
+interface IProps extends LinkBaseProps {
     email: string;
     children?: ReactNode;
 }
