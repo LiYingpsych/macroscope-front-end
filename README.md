@@ -1,5 +1,11 @@
 # Macroscope front end
 
+## Browser support 
+
+Recent versions of Chrome and Firefox will actively be supported.
+
+If you experience an issue, please make sure you are using one of the supported browsers. If you still experience an issue in a supported browser then please feel free to submit an issue.
+
 ## Available Scripts
 
 In the project directory, you can run:
