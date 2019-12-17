@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent, ReactNode } from "react";
 import Snackbar, { SnackbarProps } from "@material-ui/core/Snackbar";
 import SnackbarContentWrapper, { SnackBarVariant } from "./SnackbarContentWrapper";
 import OmitType from "../../utils/OmitType";
@@ -6,7 +6,7 @@ import OmitType from "../../utils/OmitType";
 interface IProps extends OmitType<SnackbarProps, "open"> {
     variant?: SnackBarVariant;
     defaultIsOpen?: boolean;
-    message?: string;
+    message?: ReactNode;
 }
 
 export default function GenericSnackBar(props: IProps) {
