@@ -37,7 +37,7 @@ export default function LineChart<S extends xCoordType, T extends yCoordType>(
 
     const theme = useTheme();
 
-    const padding = { left: 60, top: 20, right: 10, bottom: 60 };
+    const padding = { left: 70, top: 20, right: 10, bottom: 60 };
 
     const independentAxisTickFormat =
         dependentAxisType === "dateTime"
