@@ -94,7 +94,7 @@ function ChangeBar(props: IChangeBarProps) {
 
     const theme = useTheme();
 
-    const orientation = type === "positive" ? "right" : "left";
+    const orientation = type === "positive" ? "left" : "right";
     const colour =
         type === "positive" ? theme.palette.primary.light : theme.palette.secondary.light;
 
@@ -121,6 +121,11 @@ function ChangeBar(props: IChangeBarProps) {
                 axis: { stroke: "none" }
             }}
             orientation={orientation}
+            tickFormat={(t: string) => {
+                const labelInDataSet = parsedData.map(datum => datum.x).includes(t);
+
+                return labelInDataSet ? t : "";
+            }}
         />,
         <VictoryBar
             key={`${id}-bar`}
