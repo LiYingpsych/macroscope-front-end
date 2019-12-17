@@ -1,6 +1,6 @@
 # Macroscope front end
 
-## Browser support 
+## Browser Support 
 
 Recent versions of Chrome and Firefox will actively be supported.
 
