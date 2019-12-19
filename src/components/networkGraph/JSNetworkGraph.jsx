@@ -4,9 +4,8 @@ import { Graph } from "react-d3-graph";
 export default function JSNetworkGraph(props) {
     const { id, data, config } = props;
 
-    // TODO: create issue: https://github.com/danielcaldas/react-d3-graph/issues
-    // When d3 is commented out of config, the graph does not render correctly for me
-    if (typeof config.d3 === "undefined") config.d3 = {};
+    // TODO: https://github.com/danielcaldas/react-d3-graph/issues/281
+    // if (typeof config.d3 === "undefined") config.d3 = {};
 
     return (
         <Graph

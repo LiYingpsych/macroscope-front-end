@@ -1,13 +1,13 @@
-import React, { useRef } from "react";
+import React from "react";
 import JSNetworkGraph from "./JSNetworkGraph";
-import { Theme, makeStyles, createStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, createStyles, useTheme } from "@material-ui/core/styles";
 import assignDefaultValuesToObject from "../../utils/assignDefaultValuesToObject";
 import INetworkGraphNode from "./models/INetworkGraphNode";
 import INetworkGraphLink from "./models/INetworkGraphLink";
 import IGraphConfig from "./models/configs/IGraphConfig";
 import { SizeMe } from "react-sizeme";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         root: {
             "& svg": {
@@ -65,8 +65,6 @@ export default function NetworkGraph<T>(props: IProps<T>) {
     const classes = useStyles();
     const theme = useTheme();
 
-    const rootElement = useRef(null);
-
     const defaultConfig: IGraphConfig<T> = {
         automaticRearrangeAfterDropNode: false,
         collapsible: false,
@@ -83,12 +81,12 @@ export default function NetworkGraph<T>(props: IProps<T>) {
         panAndZoom: true,
         staticGraph: false, // not working when true
         staticGraphWithDragAndDrop: false, // not working true
-        d3: {
-            alphaTarget: 0.05,
-            gravity: -200,
-            linkLength: 100
-            // linkStrength: 1 // for some reason this breaks the graph when uncommented
-        },
+        // d3: {
+        //     alphaTarget: 0.05,
+        //     gravity: -200,
+        //     linkLength: 100
+        //     // linkStrength: 1 // for some reason this breaks the graph when uncommented
+        // },
         node: {
             color: theme.palette.secondary.light,
             fontColor: theme.palette.text.primary,
@@ -128,19 +126,20 @@ export default function NetworkGraph<T>(props: IProps<T>) {
         }
     };
 
+    const parsedData = parseData(data);
+
+    // TODO: removing classes.root causes an issue when zooming the browser in and out
     return (
-        <div className={classes.root} ref={rootElement}>
+        <div className={classes.root}>
             <SizeMe>
                 {({ size }) => {
                     const { width } = size;
                     const _width = width === null ? undefined : width;
 
-                    return typeof _width === "undefined" ? (
-                        <div></div>
-                    ) : (
+                    return (
                         <JSNetworkGraph
                             id={id}
-                            data={parseData(data)}
+                            data={parsedData}
                             config={assignDefaultValuesToObject(defaultConfig, {
                                 ...config,
                                 width: _width
