@@ -18,12 +18,12 @@ export default function getDefaultConfig<T>(theme: Theme): IGraphConfig<T> {
         panAndZoom: true,
         staticGraph: false, // not working when true
         staticGraphWithDragAndDrop: false, // not working true
-        // d3: {
-        //     alphaTarget: 0.05,
-        //     gravity: -200,
-        //     linkLength: 100
-        //     // linkStrength: 1 // for some reason this breaks the graph when uncommented
-        // },
+        d3: {
+            alphaTarget: 0.05,
+            gravity: -200,
+            linkLength: 100
+            // linkStrength: 1 // for some reason this breaks the graph when uncommented
+        },
         node: {
             color: theme.palette.secondary.light,
             fontColor: theme.palette.text.primary,
