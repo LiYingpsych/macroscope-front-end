@@ -3,14 +3,14 @@ import { Theme } from "@material-ui/core/styles";
 
 export default function getDefaultConfig<T>(theme: Theme): IGraphConfig<T> {
     return {
-        automaticRearrangeAfterDropNode: false,
+        automaticRearrangeAfterDropNode: true,
         collapsible: false,
         directed: false,
         focusZoom: 1,
         focusAnimationDuration: 0.75,
         height: 400,
-        nodeHighlightBehavior: true,
-        linkHighlightBehavior: true,
+        nodeHighlightBehavior: false,
+        linkHighlightBehavior: false,
         highlightDegree: 1,
         highlightOpacity: 1,
         maxZoom: 2,
