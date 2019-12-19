@@ -4,7 +4,8 @@ import ISynonymNetworkData, {
     ISynonymNetworkNode,
     ISynonymNetworkEdge
 } from "../../../../models/ISynonymNetworkData";
-import NetworkGraph, { IGraphData } from "../../../../components/networkGraph";
+import NetworkGraph from "../../../../components/networkGraph";
+import IGraphData from "../../../../components/networkGraph/models/IGraphData";
 
 interface IProps {
     data: ISynonymNetworkData;
