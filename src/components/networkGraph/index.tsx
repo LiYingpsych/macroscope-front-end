@@ -1,10 +1,11 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import JSNetworkGraph from "./JSNetworkGraph";
 import { Theme, makeStyles, createStyles, useTheme } from "@material-ui/core/styles";
 import assignDefaultValuesToObject from "../../utils/assignDefaultValuesToObject";
 import INetworkGraphNode from "./models/INetworkGraphNode";
 import INetworkGraphLink from "./models/INetworkGraphLink";
 import IGraphConfig from "./models/configs/IGraphConfig";
+import { SizeMe } from "react-sizeme";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -65,8 +66,6 @@ export default function NetworkGraph<T>(props: IProps<T>) {
     const theme = useTheme();
 
     const rootElement = useRef(null);
-
-    const [width, setWidth] = useState<number>(0);
 
     const defaultConfig: IGraphConfig<T> = {
         automaticRearrangeAfterDropNode: false,
@@ -129,24 +128,27 @@ export default function NetworkGraph<T>(props: IProps<T>) {
         }
     };
 
-    useEffect(() => {
-        updateWidth();
-    }, [rootElement]);
-
-    const updateWidth = () => {
-        //@ts-ignore
-        const currentWidth = rootElement.current.offsetWidth;
-
-        setWidth(currentWidth);
-    };
-
     return (
         <div className={classes.root} ref={rootElement}>
-            <JSNetworkGraph
-                id={id}
-                data={parseData(data)}
-                config={assignDefaultValuesToObject(defaultConfig, { ...config, width: width })}
-            />
+            <SizeMe>
+                {({ size }) => {
+                    const { width } = size;
+                    const _width = width === null ? undefined : width;
+
+                    return typeof _width === "undefined" ? (
+                        <div></div>
+                    ) : (
+                        <JSNetworkGraph
+                            id={id}
+                            data={parseData(data)}
+                            config={assignDefaultValuesToObject(defaultConfig, {
+                                ...config,
+                                width: _width
+                            })}
+                        />
+                    );
+                }}
+            </SizeMe>
         </div>
     );
 }
