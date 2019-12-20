@@ -27,14 +27,14 @@ To contribute to the repository follow these steps:
 
 Install [NodeJS](https://nodejs.org/en/) - we recommend just installing [nvm](https://github.com/nvm-sh/nvm) which manages node versions.
 
-Configure the app using the [.env](#.env) file.
+Configure the app using the [.env](#environment-configuration) file.
 
 Then open the ```macroscope-front-end``` directory in a terminal and run
 ```
 npm install && npm start
 ```
 
-## .env
+## Environment Configuration
 
 The project uses a [.env](https://github.com/motdotla/dotenv) file for configuration. 
 
