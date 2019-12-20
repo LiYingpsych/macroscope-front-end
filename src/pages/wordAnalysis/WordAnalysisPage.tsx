@@ -20,7 +20,8 @@ import PageContent from "../../components/layout/PageContent";
 import SearchSettings from "./searchSettings/SearchSettings";
 
 const useStyles = makeStyles((theme: Theme) => {
-    const { wordAnalysisDrawerWidth, pageContentPadding } = layout;
+    const { wordAnalysisDrawerWidth, pageContentPadding, searchBarMaxWidth } = layout;
+
     const floatingBarWidth = `calc(100% - ${wordAnalysisDrawerWidth}px - ${theme.spacing(
         pageContentPadding * 2
     )}px)`;
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) => {
             paddingBottom: `${theme.spacing(3)} !important`
         },
         floatingBar: {
-            maxWidth: 800,
+            maxWidth: searchBarMaxWidth,
             display: "flex",
             alignItems: "center",
             position: "fixed",

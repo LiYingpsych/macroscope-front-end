@@ -37,6 +37,7 @@ export const settingsRanges = {
 
 export const layout = {
     wordAnalysisDrawerWidth: 360,
+    searchBarMaxWidth: 800,
     pageContentPadding: 3,
     footerHeight: 40
 };

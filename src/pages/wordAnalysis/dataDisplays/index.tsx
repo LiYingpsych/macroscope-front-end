@@ -9,6 +9,8 @@ import semanticDriftDataDisplay from "./dataDisplayContainers/semanticDriftDataD
 import contextChangeDataDisplay from "./dataDisplayContainers/contextChangeDataDisplay";
 import sentimentDataDisplay from "./dataDisplayContainers/sentimentDataDisplay";
 import frequencyDataDisplay from "./dataDisplayContainers/frequencyDataDisplay";
+import Grid from "@material-ui/core/Grid";
+import { layout } from "../../../globals";
 
 interface IProps {
     searchTerm: string;
@@ -60,10 +62,11 @@ export default function DataDisplays(props: IProps) {
     return searchTerm.trim() === "" ? null : (
         <>
             {displayError() ? (
-                <ErrorMessage
-                    message="There is no data to display. Please change the settings to include at least one
-                setting."
-                />
+                <Grid container justify="center">
+                    <Grid item style={{ width: "100%", maxWidth: layout.searchBarMaxWidth }}>
+                        <ErrorMessage message="There is no data to display. Please change the settings to include at least one setting." />
+                    </Grid>
+                </Grid>
             ) : null}
 
             {displayComponents}
