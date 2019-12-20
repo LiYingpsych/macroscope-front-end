@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import Text from "./Text";
 import { useTheme } from "@material-ui/core";
+import Text from "./Text";
 
 interface IProps {
     items: ReactNode[];

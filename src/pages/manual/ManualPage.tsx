@@ -8,8 +8,8 @@ import PageContent from "../../components/layout/PageContent";
 import MacroscopeLogo from "../../components/images/MacroscopeLogo";
 
 import Section from "./components/Section";
-import Text from "./components/Text";
-import List from "./components/List";
+import Text from "../../components/typography/Text";
+import List from "../../components/typography/List";
 
 export default function ManualPage() {
     return (
