@@ -2,6 +2,8 @@
 
 Analysis of langauge made simple.
 
+![Logo](./public/logo192.png)
+
 ## Bugs and Enhancement Requests
 
 We welcome contributions and feedback on our site! Please file a request in our issue tracker and we'll take a look. Or you can can contact us by [email](mailto:macroscope-project@protonmail.com).
