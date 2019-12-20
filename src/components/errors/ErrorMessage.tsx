@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Snackbar } from "@material-ui/core";
+import Snackbar from "@material-ui/core/Snackbar";
 import SnackBarContentWrapper from "../SnackBarContentWrapper";
 
 const useStyles = makeStyles((theme: Theme) =>

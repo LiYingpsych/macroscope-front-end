@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { useTheme } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 import Text from "./Text";
 
 interface IProps {
