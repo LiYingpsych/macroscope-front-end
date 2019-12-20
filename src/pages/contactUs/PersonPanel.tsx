@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export interface IPerson {
     avatarImgSource: string;
     name: string;
-    description: string;
+    description: ReactNode;
     email: string;
     websiteUrl?: string;
 }
