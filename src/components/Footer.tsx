@@ -2,7 +2,7 @@ import React from "react";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import GithubLogoSvg from "./images/GithubLogoSvg";
+import GitLogoSvg from "./images/GitLogoSvg";
 import NewTabLink from "./links/NewTabLink";
 import { layout } from "../globals";
 
@@ -28,13 +28,13 @@ export default function Footer() {
         <div className={classes.root}>
             <Grid container justify="flex-end" alignItems="center">
                 <Grid item>
-                    <NewTabLink href="https://github.com/StraightOuttaCrompton/">
+                    <NewTabLink href="https://github.com/StraightOuttaCrompton/macroscope-front-end">
                         <Grid container alignItems="center">
                             <Grid item className={classes.logo}>
-                                <GithubLogoSvg />
+                                <GitLogoSvg />
                             </Grid>
                             <Grid item className={classes.githubText}>
-                                StraightOuttaCrompton
+                                Source Code
                             </Grid>
                         </Grid>
                     </NewTabLink>
