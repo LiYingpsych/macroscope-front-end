@@ -64,7 +64,7 @@ export default function DataDisplays(props: IProps) {
             {displayError() ? (
                 <Grid container justify="center">
                     <Grid item style={{ width: "100%", maxWidth: layout.searchBarMaxWidth }}>
-                        <ErrorMessage message="There is no data to display. Please change the settings to include at least one setting." />
+                        <ErrorMessage message="No analyses have been selected. Please change the settings to include at least one analysis type." />
                     </Grid>
                 </Grid>
             ) : null}
