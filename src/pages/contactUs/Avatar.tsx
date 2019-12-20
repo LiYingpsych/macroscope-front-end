@@ -48,13 +48,13 @@ export default function Avatar(props: IAvatarProps) {
                     )}
                 </Grid>
                 <Grid item>
-                    {typeof email === "undefined" ? null : (
-                        <EmailLink email={email}>Email</EmailLink>
+                    {typeof websiteUrl === "undefined" ? null : (
+                        <NewTabLink href={websiteUrl}>Website</NewTabLink>
                     )}
                 </Grid>
                 <Grid item>
-                    {typeof websiteUrl === "undefined" ? null : (
-                        <NewTabLink href={websiteUrl}>Website</NewTabLink>
+                    {typeof email === "undefined" ? null : (
+                        <EmailLink email={email}>{email}</EmailLink>
                     )}
                 </Grid>
             </Grid>
