@@ -1,9 +1,14 @@
 import React from "react";
-import PersonPanel, { IPerson } from "./PersonPanel";
 import Grid from "@material-ui/core/Grid";
+import { useTheme } from "@material-ui/core/styles";
+
+import PersonPanel, { IPerson } from "./PersonPanel";
 import PageContent from "../../components/layout/PageContent";
+import FeedbackPanel from "./FeedbackPanel";
 
 export default function ContactUsPage() {
+    const theme = useTheme();
+
     const profileImageFolderLocation = `${process.env.PUBLIC_URL}/profileImages`;
     const peopleData: IPerson[] = [
         {
@@ -41,6 +46,7 @@ export default function ContactUsPage() {
 
     return (
         <PageContent>
+            <FeedbackPanel style={{ marginBottom: theme.spacing(2) }} />
             <Grid container justify="center" spacing={2}>
                 {peopleData.map((person, i) => (
                     <Grid item key={i}>

@@ -6,7 +6,7 @@ Analysis of langauge made simple.
 
 ## Bugs and Enhancement Requests
 
-We welcome contributions and feedback on our site! Please file a request in our issue tracker and we'll take a look. Or you can can contact us by [email](mailto:macroscope-project@protonmail.com).
+We welcome contributions and feedback on the site! Please create a [new issue](https://github.com/StraightOuttaCrompton/macroscope-front-end/issues/new) in our [issue tracker](https://github.com/StraightOuttaCrompton/macroscope-front-end/issues) and we'll take a look. Or you can can contact us by [email](mailto:macroscope-project@protonmail.com).
 
 ## Browser Support 
 
