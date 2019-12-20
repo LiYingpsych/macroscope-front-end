@@ -15,12 +15,12 @@ Recent versions of Chrome and Firefox will be actively supported.
 ## Contributing
 
 To contribute to the repository follow these steps:
-1. Fork the repository
-2. Clone the forked repository to your local environment
-3. [Build](#building) the project locally
-4. Make your changes to the code
-5. Commit your changes and push them to the forked repository
-6. You can then make a pull request which we will then review
+1. [Fork](https://guides.github.com/activities/forking/#fork) the repository.
+2. [Clone](https://guides.github.com/activities/forking/#clone) your fork to your local environment.
+3. [Build](#building) the project locally.
+4. Make your changes to the code.
+5. Commit your changes and push them to the forked repository.
+6. You can then make a [pull request](https://guides.github.com/activities/forking/#making-a-pull-request) which we will then review.
 
 
 ## Building
