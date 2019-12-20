@@ -33,7 +33,9 @@ export default function Avatar(props: IAvatarProps) {
     return (
         <Grid container spacing={2}>
             <Grid item>
-                <img src={imgSource} alt={imgSource} className={classes.avatarImage} />
+                <NewTabLink href={websiteUrl}>
+                    <img src={imgSource} alt={imgSource} className={classes.avatarImage} />
+                </NewTabLink>
             </Grid>
             <Grid
                 item
