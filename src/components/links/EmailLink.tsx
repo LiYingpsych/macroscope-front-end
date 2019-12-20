@@ -1,16 +1,15 @@
-import React, { ReactNode } from "react";
-import Link, { LinkBaseProps } from "@material-ui/core/Link";
+import React from "react";
+import LinkWrapper, { ILinkWrapperProps } from "./LinkWrapper";
 
-interface IProps extends LinkBaseProps {
+interface IProps extends ILinkWrapperProps {
     email: string;
-    children?: ReactNode;
 }
 
 export default function EmailLink(props: IProps) {
     const { email, children, ...rest } = props;
     return (
-        <Link target="_top" href={`mailto:${email}`} {...rest}>
+        <LinkWrapper target="_top" href={`mailto:${email}`} {...rest}>
             {children}
-        </Link>
+        </LinkWrapper>
     );
 }

@@ -167,7 +167,7 @@ export default function DataDisplayContainer<S, T>(props: IDataDisplayContainerP
                                     <JsonDownloadLink json={data} fileName={downloadFileName}>
                                         <Tooltip title="Export results" placement="left">
                                             <IconButton
-                                                color="primary"
+                                                color="secondary"
                                                 className={classes.exportButton}
                                                 component="span"
                                             >

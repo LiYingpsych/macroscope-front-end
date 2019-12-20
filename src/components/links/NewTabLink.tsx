@@ -1,16 +1,13 @@
-import React, { ReactNode } from "react";
-import Link, { LinkBaseProps } from "@material-ui/core/Link";
+import React from "react";
+import LinkWrapper, { ILinkWrapperProps } from "./LinkWrapper";
 
-interface IProps extends LinkBaseProps {
-    href: string;
-    children?: ReactNode;
-}
+interface IProps extends ILinkWrapperProps {}
 
 export default function NewTabLink(props: IProps) {
     const { children, href, ...rest } = props;
     return (
-        <Link target="_blank" rel="noreferrer" href={href} {...rest}>
+        <LinkWrapper target="_blank" rel="noreferrer" href={href} {...rest}>
             {children}
-        </Link>
+        </LinkWrapper>
     );
 }

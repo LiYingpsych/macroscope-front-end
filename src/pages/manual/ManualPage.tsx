@@ -92,7 +92,7 @@ function QuickStartGuide() {
                             The result will be displayed in a meaningful way so that you can do your
                             analysis! You can export the results of any given analysis by clicking
                             the
-                            <IconButton size="small" color="primary" component="span">
+                            <IconButton size="small" color="secondary" component="span">
                                 <GetApp />
                             </IconButton>
                             icon in the bottom right of the analysis result panel.
