@@ -1,17 +1,5 @@
 import React from "react";
-
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-
-const useStyles = (size: number) =>
-    makeStyles(() =>
-        createStyles({
-            img: {
-                width: size,
-                maxHeight: "100%",
-                maxWidth: "100%"
-            }
-        })
-    );
+import Image from "./Image";
 
 interface IProps {
     size?: number;
@@ -20,9 +8,5 @@ interface IProps {
 export default function MacroscopeLogo(props: IProps) {
     const { size = 512 } = props;
 
-    const classes = useStyles(size)();
-
-    return (
-        <img src={process.env.PUBLIC_URL + "/logo512.png"} alt="logo512" className={classes.img} />
-    );
+    return <Image src="/logo512.png" alt="logo512" size={size} />;
 }
