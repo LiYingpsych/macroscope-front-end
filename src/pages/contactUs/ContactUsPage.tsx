@@ -10,7 +10,7 @@ import NewTabLink from "../../components/links/NewTabLink";
 export default function ContactUsPage() {
     const theme = useTheme();
 
-    const profileImageFolderLocation = `${process.env.PUBLIC_URL}/profileImages`;
+    const profileImageFolderLocation = `${process.env.PUBLIC_URL}/images/profile`;
     const peopleData: IPerson[] = [
         {
             avatarImgSource: `${profileImageFolderLocation}/li.png`,
