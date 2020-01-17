@@ -2,8 +2,14 @@
     "name": "macroscope-front-end",
     "version": "0.1.0",
     "description": "The macroscope front end",
+    "homepage": "https://github.com/StraightOuttaCrompton/macroscope-front-end",
+    "bugs": "https://github.com/StraightOuttaCrompton/macroscope-front-end/issues",
+    "license": "GPL-3.0",
     "author": "StraightOuttaCrompton",
-    "license": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/StraightOuttaCrompton/macroscope-front-end.git"
+    },
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
