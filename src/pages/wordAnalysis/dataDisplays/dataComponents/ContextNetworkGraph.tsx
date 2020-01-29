@@ -1,13 +1,13 @@
 import React from "react";
 
-import NetworkGraph from "../../../../components/networkGraph";
+import NetworkGraph from "components/networkGraph";
 import IContextNetworkData, {
     IContextNetworkNode,
     IContextNetworkEdge
-} from "../../../../models/IContextNetworkData";
-import { getGroupColours } from "../../../../themes/colours/networkGraphColours";
-import numberOfUniqueItemsByProperty from "../../../../utils/numberOfUniqueItemsByProperty";
-import IGraphData from "../../../../components/networkGraph/models/IGraphData";
+} from "models/IContextNetworkData";
+import { getGroupColours } from "themes/colours/networkGraphColours";
+import numberOfUniqueItemsByProperty from "utils/numberOfUniqueItemsByProperty";
+import IGraphData from "components/networkGraph/models/IGraphData";
 
 interface IProps {
     data: IContextNetworkData;

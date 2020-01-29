@@ -3,9 +3,9 @@ import ISettingPanel from "../../models/ISettingPanel";
 import { IDataDisplayContainerProps } from "../DataDisplayContainer";
 import singleDataFetchers from "../singleDataFetchers";
 import ISentimentSettings from "../../models/ISentimentSettings";
-import ISentimentRequestParameters from "../../../../services/backendApi/models/requestParameters/ISentimentRequestParameters";
-import ISentimentData from "../../../../models/ISentimentData";
-import { mapSentimentTypeEnumToRequestParamEnum } from "../../../../services/backendApi/models/requestParameters/enums/SentimentPlotTypeRequestParameter";
+import ISentimentRequestParameters from "services/backendApi/models/requestParameters/ISentimentRequestParameters";
+import ISentimentData from "models/ISentimentData";
+import { mapSentimentTypeEnumToRequestParamEnum } from "services/backendApi/models/requestParameters/enums/SentimentPlotTypeRequestParameter";
 import SentimentChart from "../dataComponents/SentimentChart";
 
 export default function sentimentDataDisplay(

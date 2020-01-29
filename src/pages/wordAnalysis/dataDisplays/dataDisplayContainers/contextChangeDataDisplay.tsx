@@ -2,8 +2,8 @@ import React from "react";
 import ISettingPanel from "../../models/ISettingPanel";
 import IContextChangeSettings from "../../models/IContextChangeSettings";
 import { IDataDisplayContainerProps } from "../DataDisplayContainer";
-import IContextChangeRequestParameters from "../../../../services/backendApi/models/requestParameters/IContextChangeRequestParameters";
-import IContextChangeData from "../../../../models/IContextChangeData";
+import IContextChangeRequestParameters from "services/backendApi/models/requestParameters/IContextChangeRequestParameters";
+import IContextChangeData from "models/IContextChangeData";
 import singleDataFetchers from "../singleDataFetchers";
 import ContextChangeChart from "../dataComponents/ContextChangeChart";
 

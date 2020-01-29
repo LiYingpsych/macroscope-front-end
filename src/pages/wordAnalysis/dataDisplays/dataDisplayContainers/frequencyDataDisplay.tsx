@@ -1,10 +1,10 @@
 import React from "react";
 import ISettingPanel from "../../models/ISettingPanel";
+import IFrequencySettings from "../../models/IFrequencySettings";
 import { IDataDisplayContainerProps } from "../DataDisplayContainer";
 import singleDataFetchers from "../singleDataFetchers";
-import IFrequencySettings from "../../models/IFrequencySettings";
-import IFrequencyRequestParameters from "../../../../services/backendApi/models/requestParameters/IFrequencyRequestParameters";
-import IFrequencyData from "../../../../models/IFrequencyData";
+import IFrequencyRequestParameters from "services/backendApi/models/requestParameters/IFrequencyRequestParameters";
+import IFrequencyData from "models/IFrequencyData";
 import FrequencyChart from "../dataComponents/FrequencyChart";
 
 export default function frequencyDataDisplay(

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { VictoryChart, VictoryChartProps, VictoryLegend, BlockProps } from "victory";
 import { createStyles, useTheme, makeStyles } from "@material-ui/core/styles";
-import victoryThemes from "../../themes/victoryThemes";
+import victoryThemes from "themes/victoryThemes";
 
 const useStyles = makeStyles(() =>
     createStyles({

@@ -2,8 +2,8 @@ import React from "react";
 import ISynonymNetworkSettings from "../../models/ISynonymNetworkSettings";
 import ISettingPanel from "../../models/ISettingPanel";
 import { IDataDisplayContainerProps } from "../DataDisplayContainer";
-import ISynonymNetworkRequestParameters from "../../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
-import ISynonymNetworkData from "../../../../models/ISynonymNetworkData";
+import ISynonymNetworkRequestParameters from "services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
+import ISynonymNetworkData from "models/ISynonymNetworkData";
 import singleDataFetchers from "../singleDataFetchers";
 import SynonymNetworkGraph from "../dataComponents/SynonymNetworkGraph";
 

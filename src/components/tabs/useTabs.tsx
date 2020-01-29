@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import ITabItem from "./ITabItem";
 import Tabs, { TabsTypeMap } from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import OmitType from "../../utils/OmitType";
+import OmitType from "utils/OmitType";
 import TabPanel from "./TabPanel";
 
 const useStyles = makeStyles((theme: Theme) =>

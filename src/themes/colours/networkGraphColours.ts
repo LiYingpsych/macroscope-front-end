@@ -1,6 +1,6 @@
 import IColour from "./IColour";
 import rainbowColours from "./rainbowColours";
-import splitNumberLine from "../../utils/splitNumberLine";
+import splitNumberLine from "utils/splitNumberLine";
 
 interface INetworkGraphColour extends IColour {}
 

@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import DataDisplays from "./dataDisplays";
 
-import { settingsRanges, alphabet, layout, transparentColour } from "../../globals";
+import { settingsRanges, alphabet, layout, transparentColour } from "globals";
 
 import SentimentType from "./models/enums/SentimentType";
 import SynonymListMethod from "./models/enums/SynonymListMethod";
@@ -12,11 +12,11 @@ import ContextNetworkMethod from "./models/enums/ContextNetworkMethod";
 
 import ISearchSettings from "./models/ISearchSettings";
 import { getObjectFromQueryString } from "./getObjectFromQueryString";
-import { encodeQueryStringObject } from "../../utils/queryStringUtils";
+import { encodeQueryStringObject } from "utils/queryStringUtils";
 
-import SearchBar from "../../components/SearchBar";
-import ClippedDrawer from "../../components/ClippedDrawer";
-import PageContent from "../../components/layout/PageContent";
+import SearchBar from "components/SearchBar";
+import ClippedDrawer from "components/ClippedDrawer";
+import PageContent from "components/layout/PageContent";
 import SearchSettings from "./searchSettings/SearchSettings";
 
 const useStyles = makeStyles((theme: Theme) => {

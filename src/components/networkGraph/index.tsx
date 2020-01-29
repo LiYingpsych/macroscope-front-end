@@ -4,7 +4,7 @@ import JSNetworkGraph from "./JSNetworkGraph";
 import { makeStyles, createStyles, useTheme } from "@material-ui/core/styles";
 import { SizeMe } from "react-sizeme";
 
-import assignDefaultValuesToObject from "../../utils/assignDefaultValuesToObject";
+import assignDefaultValuesToObject from "utils/assignDefaultValuesToObject";
 import getDefaultConfig from "./getDefaultConfig";
 
 import IGraphConfig from "./models/configs/IGraphConfig";

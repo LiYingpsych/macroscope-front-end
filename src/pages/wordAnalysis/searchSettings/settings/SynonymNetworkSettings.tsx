@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
-import NumberSelectionInput from "../../../../components/inputs/NumberSelectionInput";
+import NumberSelectionInput from "components/inputs/NumberSelectionInput";
 
-import range from "../../../../utils/range";
-import { settingsRanges } from "../../../../globals";
+import range from "utils/range";
+import { settingsRanges } from "globals";
 
 import ISettingsProps from "./ISettingsProps";
 import ISynonymNetworkSettings from "../../models/ISynonymNetworkSettings";

@@ -5,10 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import ISettingsProps from "./ISettingsProps";
 import ISentimentSettings from "../../models/ISentimentSettings";
 import SentimentType from "../../models/enums/SentimentType";
-import IRadioButton, {
-    RadioButtonValue
-} from "../../../../components/inputs/radioButton/IRadioButton";
-import RadioButtonsGroup from "../../../../components/inputs/radioButton/RadioButtonsGroup";
+import IRadioButton, { RadioButtonValue } from "components/inputs/radioButton/IRadioButton";
+import RadioButtonsGroup from "components/inputs/radioButton/RadioButtonsGroup";
 
 interface IProps extends ISettingsProps<ISentimentSettings> {}
 

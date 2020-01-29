@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
-import PageContent from "../components/layout/PageContent";
+import PageContent from "components/layout/PageContent";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 

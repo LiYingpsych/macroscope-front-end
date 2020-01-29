@@ -1,12 +1,12 @@
-import BackendApi from "../../../services/backendApi/BackendApi";
-import IClosestRequestParameters from "../../../services/backendApi/models/requestParameters/IClosestRequestParameters";
-import ISynonymNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
-import IContextNetworkRequestParameters from "../../../services/backendApi/models/requestParameters/IContextNetworkRequestParameters";
-import ISemanticDriftRequestParameters from "../../../services/backendApi/models/requestParameters/ISemanticDriftRequestParameters";
-import IContextChangeRequestParameters from "../../../services/backendApi/models/requestParameters/IContextChangeRequestParameters";
-import ISentimentRequestParameters from "../../../services/backendApi/models/requestParameters/ISentimentRequestParameters";
-import IFrequencyRequestParameters from "../../../services/backendApi/models/requestParameters/IFrequencyRequestParameters";
-import makeSingle from "../../../utils/makeSingle";
+import BackendApi from "services/backendApi/BackendApi";
+import IClosestRequestParameters from "services/backendApi/models/requestParameters/IClosestRequestParameters";
+import ISynonymNetworkRequestParameters from "services/backendApi/models/requestParameters/ISynonymNetworkRequestParameters";
+import IContextNetworkRequestParameters from "services/backendApi/models/requestParameters/IContextNetworkRequestParameters";
+import ISemanticDriftRequestParameters from "services/backendApi/models/requestParameters/ISemanticDriftRequestParameters";
+import IContextChangeRequestParameters from "services/backendApi/models/requestParameters/IContextChangeRequestParameters";
+import ISentimentRequestParameters from "services/backendApi/models/requestParameters/ISentimentRequestParameters";
+import IFrequencyRequestParameters from "services/backendApi/models/requestParameters/IFrequencyRequestParameters";
+import makeSingle from "utils/makeSingle";
 
 const backendApi = new BackendApi();
 

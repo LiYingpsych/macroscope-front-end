@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles";
 
-import SwitchExpansionPanel from "../../../components/SwitchExpansionPanel";
-import ValidationErrorMessage from "../../../components/errors/ValidationErrorMessage";
+import SwitchExpansionPanel from "components/SwitchExpansionPanel";
+import ValidationErrorMessage from "components/errors/ValidationErrorMessage";
 
 import SynonymListSettings from "./settings/SynonymListSettings";
 import SynonymNetworkSettings from "./settings/SynonymNetworkSettings";

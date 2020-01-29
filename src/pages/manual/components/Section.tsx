@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Text from "../../../components/typography/Text";
+import Text from "components/typography/Text";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

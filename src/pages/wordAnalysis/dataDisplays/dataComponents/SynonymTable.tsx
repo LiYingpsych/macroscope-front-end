@@ -1,10 +1,10 @@
 import React from "react";
 
 import ISynonymListSettings from "../../models/ISynonymListSettings";
-import IClosestData from "../../../../models/IClosestData";
+import IClosestData from "models/IClosestData";
 
-import GenericTable from "../../../../components/tables/GenericTable";
-import IColumn from "../../../../components/tables/models/IColumn";
+import GenericTable from "components/tables/GenericTable";
+import IColumn from "components/tables/models/IColumn";
 
 interface IProps {
     settings: ISynonymListSettings;

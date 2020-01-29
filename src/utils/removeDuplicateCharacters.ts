@@ -1,4 +1,4 @@
-export function removeDuplicateCharacters(str: string) {
+export default function removeDuplicateCharacters(str: string) {
     return str
         .split("")
         .filter(function(item, pos, self) {

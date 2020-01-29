@@ -10,7 +10,7 @@ import Row from "./Row";
 import GenericTableHeader from "./GenericTableHeader";
 
 import IColumn from "./models/IColumn";
-import { SortingOrder, stableSort, getSortingCompareFunction } from "../../utils/sorting";
+import { SortingOrder, stableSort, getSortingCompareFunction } from "utils/sorting";
 
 interface ISortingProperties<P> {
     order: SortingOrder;

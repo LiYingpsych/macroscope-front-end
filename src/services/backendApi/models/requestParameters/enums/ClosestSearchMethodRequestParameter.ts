@@ -1,4 +1,4 @@
-import SynonymListMethod from "../../../../../pages/wordAnalysis/models/enums/SynonymListMethod";
+import SynonymListMethod from "pages/wordAnalysis/models/enums/SynonymListMethod";
 
 enum ClosestSearchMethodRequestParameter {
     SVD = "SVD",

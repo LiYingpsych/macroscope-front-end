@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { layout } from "../../globals";
+import { layout } from "globals";
 import { MaxWidthProperty } from "csstype";
 
 interface IStyleOptions {
