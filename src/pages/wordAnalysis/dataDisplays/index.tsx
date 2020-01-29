@@ -10,7 +10,7 @@ import contextChangeDataDisplay from "./dataDisplayContainers/contextChangeDataD
 import sentimentDataDisplay from "./dataDisplayContainers/sentimentDataDisplay";
 import frequencyDataDisplay from "./dataDisplayContainers/frequencyDataDisplay";
 import Grid from "@material-ui/core/Grid";
-import { layout } from "globals";
+import { layout } from "globalConsts";
 
 interface IProps {
     searchTerm: string;

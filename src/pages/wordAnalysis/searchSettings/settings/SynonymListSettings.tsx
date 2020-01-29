@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import NumberSelectionInput from "components/inputs/NumberSelectionInput";
 
 import range from "utils/range";
-import { settingsRanges } from "globals";
+import { settingsRanges } from "globalConsts";
 
 import ISettingsProps from "./ISettingsProps";
 import ISynonymListSettings from "../../models/ISynonymListSettings";

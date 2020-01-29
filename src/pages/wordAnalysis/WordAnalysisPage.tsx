@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import DataDisplays from "./dataDisplays";
 
-import { settingsRanges, alphabet, layout, transparentColour } from "globals";
+import { settingsRanges, alphabet, layout, transparentColour } from "globalConsts";
 
 import SentimentType from "./models/enums/SentimentType";
 import SynonymListMethod from "./models/enums/SynonymListMethod";

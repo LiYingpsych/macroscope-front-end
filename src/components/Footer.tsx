@@ -4,7 +4,7 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import GitLogoSvg from "components/images/GitLogoSvg";
 import NewTabLink from "components/links/NewTabLink";
-import { layout } from "globals";
+import { layout } from "globalConsts";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

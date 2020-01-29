@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { createStyles, Theme, useTheme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import { layout } from "globals";
+import { layout } from "globalConsts";
 
 type anchorTye = "left" | "right";
 

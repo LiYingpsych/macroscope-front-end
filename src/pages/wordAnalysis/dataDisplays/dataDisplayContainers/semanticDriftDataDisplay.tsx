@@ -5,7 +5,7 @@ import singleDataFetchers from "../singleDataFetchers";
 import ISemanticDriftSettings from "../../models/ISemanticDriftSettings";
 import ISemanticDriftRequestParameters from "services/backendApi/models/requestParameters/ISemanticDriftRequestParameters";
 import ISemanticDriftData from "models/ISemanticDriftData";
-import { settingsRanges } from "globals";
+import { settingsRanges } from "globalConsts";
 import SemanticDriftChart from "../dataComponents/SemanticDriftChart";
 
 export default function semanticDriftDataDisplay(

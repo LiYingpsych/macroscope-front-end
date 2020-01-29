@@ -7,7 +7,7 @@ import Container from "@material-ui/core/Container";
 import Collapse from "@material-ui/core/Collapse";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import classnames from "classnames";
-import { transparentColour } from "globals";
+import { transparentColour } from "globalConsts";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
