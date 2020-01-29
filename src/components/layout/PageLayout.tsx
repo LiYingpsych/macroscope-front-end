@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import classnames from "classnames";
 
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
@@ -173,7 +172,7 @@ export default function PageLayout(props: IProps) {
                         <MenuIcon />
                     </IconButton>
 
-                    <div className={classnames(classes.appBarContents)}>
+                    <div className={classes.appBarContents}>
                         <Link href={deafultTab.route} color="inherit" underline="none">
                             <Grid container>
                                 <Grid item className={classes.logo}>
