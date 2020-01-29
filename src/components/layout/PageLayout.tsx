@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import classnames from "classnames";
 
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
@@ -16,13 +15,13 @@ import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
-import NotFoundPage from "../../pages/NotFoundPage";
+import NotFoundPage from "pages/NotFoundPage";
 import StickyFooter from "./StickyFooter";
-import Footer from "../Footer";
+import Footer from "components/Footer";
 import Grid from "@material-ui/core/Grid";
-import MacroscopeLogo from "../images/MacroscopeLogo";
-import ITabItem from "../tabs/ITabItem";
-import TabPanel from "../tabs/TabPanel";
+import MacroscopeLogo from "components/images/MacroscopeLogo";
+import ITabItem from "components/tabs/ITabItem";
+import TabPanel from "components/tabs/TabPanel";
 
 const drawerWidth = 240;
 
@@ -173,7 +172,7 @@ export default function PageLayout(props: IProps) {
                         <MenuIcon />
                     </IconButton>
 
-                    <div className={classnames(classes.appBarContents)}>
+                    <div className={classes.appBarContents}>
                         <Link href={deafultTab.route} color="inherit" underline="none">
                             <Grid container>
                                 <Grid item className={classes.logo}>

@@ -3,9 +3,9 @@ import Grid from "@material-ui/core/Grid";
 import { useTheme } from "@material-ui/core/styles";
 
 import PersonPanel, { IPerson } from "./PersonPanel";
-import PageContent from "../../components/layout/PageContent";
 import FeedbackPanel from "./FeedbackPanel";
-import NewTabLink from "../../components/links/NewTabLink";
+import PageContent from "components/layout/PageContent";
+import NewTabLink from "components/links/NewTabLink";
 
 export default function ContactUsPage() {
     const theme = useTheme();

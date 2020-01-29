@@ -1,6 +1,6 @@
 import React from "react";
 import GenericSnackBar from "./GenericSnackBar";
-import NewTabLink from "../links/NewTabLink";
+import NewTabLink from "components/links/NewTabLink";
 
 export default function BrowserSupportSnackBar() {
     const isSafari = navigator.vendor === "Apple Computer, Inc.";

@@ -8,10 +8,10 @@ import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
-import UpdatableTimeout from "../utils/UpdatableTimeout";
-import constructProhibitedCharacterErrorMsg from "../utils/constructProhibitedCharacterErrorMsg";
-import { removeDuplicateCharacters } from "../utils/removeDuplicateCharacters";
-import { onEnter } from "../utils/onEnter";
+import UpdatableTimeout from "utils/UpdatableTimeout";
+import constructProhibitedCharacterErrorMsg from "utils/constructProhibitedCharacterErrorMsg";
+import removeDuplicateCharacters from "utils/removeDuplicateCharacters";
+import onEnter from "utils/onEnter";
 
 const clearErrorMessageTimeout = new UpdatableTimeout();
 

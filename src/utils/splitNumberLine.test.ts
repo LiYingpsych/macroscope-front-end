@@ -1,5 +1,5 @@
 import splitNumberLine from "./splitNumberLine";
-import NonPositiveNumberError from "../errors/NonPositiveNumberError";
+import NonPositiveNumberError from "errors/NonPositiveNumberError";
 
 describe("splitNumberLine", () => {
     describe("when lineLength is not positive", () => {

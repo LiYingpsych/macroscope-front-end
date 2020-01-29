@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Text from "../../components/typography/Text";
-import NewTabLink from "../../components/links/NewTabLink";
+import Text from "components/typography/Text";
+import NewTabLink from "components/links/NewTabLink";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

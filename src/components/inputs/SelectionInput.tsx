@@ -8,7 +8,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Hidden from "@material-ui/core/Hidden";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import { contains } from "../../utils/arrayUtils";
+import { contains } from "utils/arrayUtils";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

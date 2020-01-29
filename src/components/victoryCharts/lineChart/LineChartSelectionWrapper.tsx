@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
-import OmitType from "../../../utils/OmitType";
+import OmitType from "utils/OmitType";
 
 import LineChart, { ILineChartProps, lineChartVariant } from "./LineChart";
-import { yCoordType, xCoordType } from "../models/ICartesianCoordinate";
+import { yCoordType, xCoordType } from "models/ICartesianCoordinate";
 
-import useTabs from "../../tabs/useTabs";
-import ITabItem from "../../tabs/ITabItem";
+import useTabs from "components/tabs/useTabs";
+import ITabItem from "components/tabs/ITabItem";
 import useResponsiveChart from "../commonHooks/useResponsiveChart";
 
 interface ILineChartSelectionTabItem extends ITabItem {

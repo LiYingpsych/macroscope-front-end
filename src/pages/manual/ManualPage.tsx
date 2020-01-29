@@ -4,14 +4,14 @@ import Grid from "@material-ui/core/Grid";
 import GetApp from "@material-ui/icons/GetApp";
 import IconButton from "@material-ui/core/IconButton";
 
-import PageContent from "../../components/layout/PageContent";
-import MacroscopeLogo from "../../components/images/MacroscopeLogo";
+import PageContent from "components/layout/PageContent";
+import MacroscopeLogo from "components/images/MacroscopeLogo";
 
 import Section from "./components/Section";
-import Text from "../../components/typography/Text";
-import List from "../../components/typography/List";
-import Image from "../../components/images/Image";
-import Note from "../../components/typography/Note";
+import Text from "components/typography/Text";
+import List from "components/typography/List";
+import Image from "components/images/Image";
+import Note from "components/typography/Note";
 
 const manualImageDirectory = "/images/manual";
 

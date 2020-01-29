@@ -2,9 +2,9 @@ import React from "react";
 import ISettingPanel from "../../models/ISettingPanel";
 import ISynonymListSettings from "../../models/ISynonymListSettings";
 import { IDataDisplayContainerProps } from "../DataDisplayContainer";
-import IClosestRequestParameters from "../../../../services/backendApi/models/requestParameters/IClosestRequestParameters";
-import IClosestData from "../../../../models/IClosestData";
-import { mapSynonymListEnumToRequestParamEnum } from "../../../../services/backendApi/models/requestParameters/enums/ClosestSearchMethodRequestParameter";
+import IClosestRequestParameters from "services/backendApi/models/requestParameters/IClosestRequestParameters";
+import IClosestData from "models/IClosestData";
+import { mapSynonymListEnumToRequestParamEnum } from "services/backendApi/models/requestParameters/enums/ClosestSearchMethodRequestParameter";
 import singleDataFetchers from "../singleDataFetchers";
 import SynonymTable from "../dataComponents/SynonymTable";
 

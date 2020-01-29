@@ -1,6 +1,6 @@
 import React from "react";
 import ISearchSettings from "../models/ISearchSettings";
-import ErrorMessage from "../../../components/errors/ErrorMessage";
+import ErrorMessage from "components/errors/ErrorMessage";
 import DataDisplayContainer, { IDataDisplayContainerProps } from "./DataDisplayContainer";
 import synonymTableDataDisplay from "./dataDisplayContainers/synonymTableDataDisplay";
 import synonymNetworkDataDisplay from "./dataDisplayContainers/synonymNetworkDataDisplay";
@@ -10,7 +10,7 @@ import contextChangeDataDisplay from "./dataDisplayContainers/contextChangeDataD
 import sentimentDataDisplay from "./dataDisplayContainers/sentimentDataDisplay";
 import frequencyDataDisplay from "./dataDisplayContainers/frequencyDataDisplay";
 import Grid from "@material-ui/core/Grid";
-import { layout } from "../../../globals";
+import { layout } from "globalConsts";
 
 interface IProps {
     searchTerm: string;

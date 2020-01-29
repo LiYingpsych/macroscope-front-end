@@ -1,5 +1,5 @@
 import IWord from "./IWord";
-import ICartesianCoordinate from "../components/victoryCharts/models/ICartesianCoordinate";
+import ICartesianCoordinate from "./ICartesianCoordinate";
 
 export default interface IFrequencyData {
     readonly primaryWord: IWord;

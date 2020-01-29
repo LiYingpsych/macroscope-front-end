@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import ChartWrapper from "../ChartWrapper";
 import { VictoryAxis, VictoryBar } from "victory";
 import { useTheme } from "@material-ui/core/styles";
-import { SortingOrder, stableSort, getSortingCompareFunction } from "../../../utils/sorting";
-import numberOfUniqueItemsByProperty from "../../../utils/numberOfUniqueItemsByProperty";
+import { SortingOrder, stableSort, getSortingCompareFunction } from "utils/sorting";
+import numberOfUniqueItemsByProperty from "utils/numberOfUniqueItemsByProperty";
 import useResponsiveChart from "../commonHooks/useResponsiveChart";
 
 export interface IChangeBarData {

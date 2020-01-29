@@ -1,7 +1,7 @@
 import React from "react";
-import IFrequencyData from "../../../../models/IFrequencyData";
-import Lines from "../../../../components/victoryCharts/lineChart/Lines";
-import LineChartSelectionWrapper from "../../../../components/victoryCharts/lineChart/LineChartSelectionWrapper";
+import IFrequencyData from "models/IFrequencyData";
+import Lines from "components/victoryCharts/lineChart/Lines";
+import LineChartSelectionWrapper from "components/victoryCharts/lineChart/LineChartSelectionWrapper";
 
 interface IProps {
     data: IFrequencyData;

@@ -7,10 +7,10 @@ import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 
-import Title from "../Title";
+import Title from "components/Title";
 
 import IColumn from "./models/IColumn";
-import { SortingOrder } from "../../utils/sorting";
+import { SortingOrder } from "utils/sorting";
 
 interface IHeaderSortingProperties<P> {
     onRequestSort: (event: React.MouseEvent<unknown>, property: P) => void;

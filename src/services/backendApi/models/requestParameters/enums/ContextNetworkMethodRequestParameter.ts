@@ -1,4 +1,4 @@
-import ContextNetworkMethod from "../../../../../pages/wordAnalysis/models/enums/ContextNetworkMethod";
+import ContextNetworkMethod from "pages/wordAnalysis/models/enums/ContextNetworkMethod";
 
 enum ContextNetworkMethodRequestParameter {
     PMI = "PMI",

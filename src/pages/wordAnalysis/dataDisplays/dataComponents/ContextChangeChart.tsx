@@ -1,8 +1,8 @@
 import React from "react";
-import IContextChangeData, { IContextChangeWord } from "../../../../models/IContextChangeData";
+import IContextChangeData, { IContextChangeWord } from "models/IContextChangeData";
 import ChangeBarChart, {
     IChangeBarData
-} from "../../../../components/victoryCharts/changeBarChart/ChangeBarChart";
+} from "components/victoryCharts/changeBarChart/ChangeBarChart";
 
 interface IProps {
     data: IContextChangeData;

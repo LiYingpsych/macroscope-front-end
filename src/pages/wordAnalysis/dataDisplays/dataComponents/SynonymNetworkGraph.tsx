@@ -3,9 +3,9 @@ import React from "react";
 import ISynonymNetworkData, {
     ISynonymNetworkNode,
     ISynonymNetworkEdge
-} from "../../../../models/ISynonymNetworkData";
-import NetworkGraph from "../../../../components/networkGraph";
-import IGraphData from "../../../../components/networkGraph/models/IGraphData";
+} from "models/ISynonymNetworkData";
+import NetworkGraph from "components/networkGraph";
+import IGraphData from "components/networkGraph/models/IGraphData";
 
 interface IProps {
     data: ISynonymNetworkData;

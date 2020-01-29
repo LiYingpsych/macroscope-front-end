@@ -13,9 +13,9 @@ import GetApp from "@material-ui/icons/GetApp";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ErrorMessage from "../../../components/errors/ErrorMessage";
-import useDeepCompareEffect from "../../../customHooks/useDeepCompareEffect";
-import JsonDownloadLink from "../../../components/links/JsonDownloadLink";
+import ErrorMessage from "components/errors/ErrorMessage";
+import useDeepCompareEffect from "customHooks/useDeepCompareEffect";
+import JsonDownloadLink from "components/links/JsonDownloadLink";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

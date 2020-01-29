@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "@material-ui/core/styles";
-import ISemanticDriftData from "../../../../models/ISemanticDriftData";
-import ScatterChart from "../../../../components/victoryCharts/scatterChart/ScatterChart";
+import ISemanticDriftData from "models/ISemanticDriftData";
+import ScatterChart from "components/victoryCharts/scatterChart/ScatterChart";
 
 interface IProps {
     data: ISemanticDriftData;

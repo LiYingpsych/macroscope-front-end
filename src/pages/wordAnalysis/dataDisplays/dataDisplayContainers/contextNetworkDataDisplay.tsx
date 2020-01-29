@@ -2,9 +2,9 @@ import React from "react";
 import IContextNetworkSettings from "../../models/IContextNetworkSettings";
 import ISettingPanel from "../../models/ISettingPanel";
 import { IDataDisplayContainerProps } from "../DataDisplayContainer";
-import IContextNetworkRequestParameters from "../../../../services/backendApi/models/requestParameters/IContextNetworkRequestParameters";
-import IContextNetworkData from "../../../../models/IContextNetworkData";
-import { mapContextNetworkEnumToRequestParamEnum } from "../../../../services/backendApi/models/requestParameters/enums/ContextNetworkMethodRequestParameter";
+import IContextNetworkRequestParameters from "services/backendApi/models/requestParameters/IContextNetworkRequestParameters";
+import IContextNetworkData from "models/IContextNetworkData";
+import { mapContextNetworkEnumToRequestParamEnum } from "services/backendApi/models/requestParameters/enums/ContextNetworkMethodRequestParameter";
 import singleDataFetchers from "../singleDataFetchers";
 import ContextNetworkGraph from "../dataComponents/ContextNetworkGraph";
 

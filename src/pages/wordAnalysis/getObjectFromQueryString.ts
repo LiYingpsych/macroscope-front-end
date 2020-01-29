@@ -1,4 +1,4 @@
-import { decodeQueryString } from "../../utils/queryStringUtils";
+import { decodeQueryString } from "utils/queryStringUtils";
 
 export const getObjectFromQueryString = <T>(searchString: string, defaultObject: T): T => {
     if (searchString[0] === "?") {

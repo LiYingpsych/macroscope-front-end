@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
-import NumberSelectionInput from "../../../../components/inputs/NumberSelectionInput";
+import NumberSelectionInput from "components/inputs/NumberSelectionInput";
 
-import range from "../../../../utils/range";
-import { settingsRanges } from "../../../../globals";
+import range from "utils/range";
+import { settingsRanges } from "globalConsts";
 
 import ISettingsProps from "./ISettingsProps";
 import ISynonymListSettings from "../../models/ISynonymListSettings";
-import RadioButtonsGroup from "../../../../components/inputs/radioButton/RadioButtonsGroup";
 import SynonymListMethod from "../../models/enums/SynonymListMethod";
-import IRadioButton, {
-    RadioButtonValue
-} from "../../../../components/inputs/radioButton/IRadioButton";
+import RadioButtonsGroup from "components/inputs/radioButton/RadioButtonsGroup";
+import IRadioButton, { RadioButtonValue } from "components/inputs/radioButton/IRadioButton";
 
 interface IProps extends ISettingsProps<ISynonymListSettings> {}
 

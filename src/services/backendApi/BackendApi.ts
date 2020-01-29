@@ -1,21 +1,25 @@
 import Endpoints from "./Endpoints";
 
 import IClosestRequestParameters from "./models/requestParameters/IClosestRequestParameters";
-import IClosestData from "../../models/IClosestData";
+import IClosestData from "models/IClosestData";
 
 import ISynonymNetworkRequestParameters from "./models/requestParameters/ISynonymNetworkRequestParameters";
-import ISynonymNetworkData from "../../models/ISynonymNetworkData";
+import ISynonymNetworkData from "models/ISynonymNetworkData";
 
 import IContextNetworkRequestParameters from "./models/requestParameters/IContextNetworkRequestParameters";
-import IContextNetworkData from "../../models/IContextNetworkData";
+import IContextNetworkData from "models/IContextNetworkData";
+
 import ISemanticDriftRequestParameters from "./models/requestParameters/ISemanticDriftRequestParameters";
-import ISemanticDriftData from "../../models/ISemanticDriftData";
+import ISemanticDriftData from "models/ISemanticDriftData";
+
 import IContextChangeRequestParameters from "./models/requestParameters/IContextChangeRequestParameters";
-import IContextChangeData from "../../models/IContextChangeData";
+import IContextChangeData from "models/IContextChangeData";
+
 import ISentimentRequestParameters from "./models/requestParameters/ISentimentRequestParameters";
-import ISentimentData from "../../models/ISentimentData";
+import ISentimentData from "models/ISentimentData";
+
 import IFrequencyRequestParameters from "./models/requestParameters/IFrequencyRequestParameters";
-import IFrequencyData from "../../models/IFrequencyData";
+import IFrequencyData from "models/IFrequencyData";
 
 export default class BackendApi {
     private endpoints: Endpoints;
