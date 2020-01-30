@@ -2,7 +2,7 @@ import React from "react";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import GitLogoSvg from "components/images/GitLogoSvg";
+import GitLogoSvg from "images/GitLogoSvg";
 import NewTabLink from "components/links/NewTabLink";
 import { layout } from "globalConsts";
 

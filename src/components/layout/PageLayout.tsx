@@ -19,7 +19,7 @@ import NotFoundPage from "pages/NotFoundPage";
 import StickyFooter from "./StickyFooter";
 import Footer from "components/Footer";
 import Grid from "@material-ui/core/Grid";
-import MacroscopeLogo from "components/images/MacroscopeLogo";
+import MacroscopeLogo from "images/MacroscopeLogo";
 import ITabItem from "components/tabs/ITabItem";
 import TabPanel from "components/tabs/TabPanel";
 
